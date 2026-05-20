@@ -26,7 +26,8 @@ flowchart LR
 
     style Same fill:#d4edda,stroke:#28a745
     style Cross fill:#f8d7da,stroke:#dc3545
-``` It prevents a script from one origin from reading data returned by another origin.
+``` 
+It prevents a script from one origin from reading data returned by another origin.
 
 **An origin is:** `scheme + host + port`
 

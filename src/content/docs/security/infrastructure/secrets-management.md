@@ -47,7 +47,8 @@ flowchart TD
     style Note1 fill:#f8d7da,stroke:#dc3545
     style VS fill:#fff3cd,stroke:#856404
     style MEM fill:#d4edda,stroke:#28a745
-``` The application never stores secrets durably — only the secrets manager does.
+``` 
+The application never stores secrets durably — only the secrets manager does.
 
 ```
 Build time:    App code + config (no secrets)
