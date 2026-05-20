@@ -1,0 +1,183 @@
+---
+title: "Security Frameworks & Standards"
+description: "Overview of major security frameworks — SOC 2, ISO 27001, NIST, CIS Controls — and how they apply to software teams."
+---
+
+Security frameworks provide structured, repeatable approaches to managing security risk. Understanding them helps you align engineering work with compliance requirements and communicate security posture to customers.
+
+## Why Frameworks Matter
+
+- **Customer trust:** Enterprise buyers require SOC 2 or ISO 27001 reports
+- **Regulatory compliance:** Some industries (healthcare, finance, government) mandate specific frameworks
+- **Structured risk management:** Frameworks prevent gaps that pure intuition misses
+- **Insurance:** Cyber insurance premiums depend on demonstrated security controls
+
+---
+
+## SOC 2
+
+**What it is:** A US auditing standard developed by the AICPA. It measures a service organization's controls against five Trust Service Criteria (TSC).
+
+**Who needs it:** SaaS companies that handle customer data, especially those selling to US enterprise buyers.
+
+**Trust Service Criteria:**
+
+| Criteria | What it covers |
+|---|---|
+| **Security** (required) | System protection from unauthorized access |
+| Availability | System availability per commitments |
+| Processing Integrity | System processes data correctly and completely |
+| Confidentiality | Information designated confidential is protected |
+| Privacy | Personal information collected/used per commitments |
+
+**Type I vs Type II:**
+- **Type I:** Point-in-time assessment — are controls designed correctly?
+- **Type II:** Period-of-time assessment (minimum 6 months) — are controls operating effectively? More valuable to customers.
+
+**Common engineering controls for SOC 2 Security:**
+
+| Control area | Examples |
+|---|---|
+| Access management | MFA for all systems, quarterly access reviews, offboarding procedures |
+| Change management | Code review, CI/CD gates, deployment approvals |
+| Risk management | Annual risk assessment, vulnerability scanning, penetration testing |
+| Incident response | Written IR plan, incident logging, post-mortems |
+| Vendor management | Third-party security reviews for subprocessors |
+| Monitoring | Log retention, alerting on security events, SIEM |
+| Encryption | Encryption at rest and in transit for customer data |
+
+**Audit timeline:** Typically 6–12 months to prepare + 6-month observation period for Type II.
+
+---
+
+## ISO 27001
+
+**What it is:** An international standard for Information Security Management Systems (ISMS). Recognized globally; required for many government and EU enterprise contracts.
+
+**Structure:**
+- The standard itself defines requirements for an ISMS
+- ISO 27002 provides guidance on 93 controls organized into 4 themes
+- Organizations get certified by an accredited certification body
+
+**The four ISMS themes (ISO 27002:2022):**
+
+| Theme | Controls count | Example areas |
+|---|---|---|
+| Organizational | 37 | Policies, roles, supply chain security, threat intelligence |
+| People | 8 | Screening, security awareness training, disciplinary process |
+| Physical | 14 | Physical access controls, clear desk/screen policy |
+| Technological | 34 | Access control, cryptography, logging, vulnerability management |
+
+**Key difference from SOC 2:** ISO 27001 certifies the management system itself (processes, governance), not just technical controls. It requires documented policies, risk treatment plans, and management commitment.
+
+---
+
+## NIST Cybersecurity Framework (CSF)
+
+**What it is:** A voluntary US framework by the National Institute of Standards and Technology. Widely used as a baseline for risk management even outside regulated industries.
+
+**CSF 2.0 Functions:**
+
+```
+GOVERN → IDENTIFY → PROTECT → DETECT → RESPOND → RECOVER
+```
+
+| Function | Purpose |
+|---|---|
+| **Govern** (new in 2.0) | Establish cybersecurity strategy, policy, roles |
+| **Identify** | Understand assets, risks, and supply chain |
+| **Protect** | Implement safeguards (access control, training, data security) |
+| **Detect** | Identify cybersecurity events (anomalies, monitoring) |
+| **Respond** | Act on detected incidents (response planning, communications) |
+| **Recover** | Restore capabilities (recovery planning, improvements) |
+
+**Common usage:** Map existing controls to NIST CSF to find gaps. Used for board-level reporting — C-suite understands "we're strong in Protect but need investment in Detect."
+
+---
+
+## CIS Controls
+
+**What it is:** 18 prioritized security controls from the Center for Internet Security. More prescriptive than NIST CSF — tells you *what to do*, not just how to think about it.
+
+**Implementation Groups:**
+
+| IG | Org size | Control count |
+|---|---|---|
+| IG1 (Basic) | Small, limited resources | 56 safeguards |
+| IG2 (Foundational) | Medium | +74 additional |
+| IG3 (Organizational) | Large, high risk | +23 additional |
+
+**Top controls for software teams (IG1):**
+
+| # | Control | Key safeguards |
+|---|---|---|
+| 1 | Inventory & Control of Enterprise Assets | Know what systems you run |
+| 2 | Inventory of Software Assets | Know what software is deployed |
+| 3 | Data Protection | Encrypt sensitive data; classify data |
+| 4 | Secure Configuration | Harden default configurations |
+| 5 | Account Management | MFA; remove inactive accounts |
+| 6 | Access Control Management | Least privilege; review access |
+| 7 | Continuous Vulnerability Management | Scan and patch regularly |
+| 12 | Network Infrastructure Management | Firewall rules; segment networks |
+| 16 | Application Software Security | Secure coding; SAST/DAST |
+| 17 | Incident Response Management | Written and tested IR plan |
+
+---
+
+## GDPR (General Data Protection Regulation)
+
+**What it is:** EU law governing the processing of personal data of EU residents. Applies globally if you process EU resident data.
+
+**Key obligations for engineering teams:**
+
+| Requirement | Engineering implication |
+|---|---|
+| **Lawful basis for processing** | Only collect data you have legal reason to process |
+| **Data minimization** | Collect only what is necessary; delete when no longer needed |
+| **Accuracy** | Provide mechanisms to correct inaccurate data |
+| **Storage limitation** | Define and enforce retention periods; automate deletion |
+| **Right to erasure** | Implement user data deletion that propagates to backups/sub-processors |
+| **Right to portability** | Export user data in machine-readable format |
+| **Privacy by design** | Security and privacy built into systems, not bolted on |
+| **Breach notification** | Report to supervisory authority within 72 hours; affected users without undue delay |
+| **Data Processing Agreements** | Written agreements with all sub-processors (vendors who touch user data) |
+
+**Penalties:** Up to €20M or 4% of global annual revenue, whichever is higher.
+
+---
+
+## PCI DSS
+
+**What it is:** Payment Card Industry Data Security Standard. Required for any organization that stores, processes, or transmits payment card data.
+
+**12 requirements (v4.0 structure):**
+
+| Domain | Requirements |
+|---|---|
+| Network security | Firewalls, secure configs |
+| Account data | Protect stored card data, encrypted transmission |
+| Vulnerability management | Maintain secure systems, anti-malware |
+| Access control | Need-to-know access, unique IDs, physical access |
+| Monitoring | Log and monitor all access |
+| Testing | Vulnerability scans, penetration testing |
+
+**Levels:** Based on transaction volume. Level 1 (>6M transactions/year) requires an on-site assessment by a Qualified Security Assessor (QSA). Levels 2-4 allow self-assessment questionnaires (SAQ).
+
+**Practical advice:** Reduce your PCI scope by tokenizing card data — use a PCI-compliant payment processor (Stripe, Adyen) that handles the raw card data. Your application only ever sees a token. This dramatically reduces compliance burden.
+
+---
+
+## Choosing a Framework
+
+| Situation | Start with |
+|---|---|
+| Selling to US enterprise | SOC 2 Type II |
+| Selling to EU enterprise or government | ISO 27001 |
+| Healthcare (US) | HIPAA |
+| Finance (US) | SOC 2 + relevant FFIEC guidance |
+| Government (US) | FedRAMP (cloud) / NIST SP 800-53 |
+| Building a security baseline | CIS Controls IG1 |
+| Handling EU personal data | GDPR (required regardless of other frameworks) |
+| Taking payments | PCI DSS |
+
+**Multiple frameworks:** SOC 2 and ISO 27001 share significant overlap. Getting both is common — unified control mapping prevents duplicating work. Tools like Vanta, Drata, and Secureframe automate evidence collection across multiple frameworks.

@@ -1,0 +1,32 @@
+---
+title: "Protocol Reference"
+description: "Quick-reference table of all major auth protocols and their standard endpoints."
+---
+
+## Protocol Comparison
+
+| Protocol | Layer | Purpose | Best For |
+|---|---|---|---|
+| **OAuth 2.0** | Authorization | Delegated resource access | API access, third-party integrations |
+| **OIDC** | Authentication + Authorization | Identity + token | "Sign in with" flows, modern SSO |
+| **SAML 2.0** | Authentication + Authorization | Enterprise federation | Corporate SSO, B2B integrations |
+| **LDAP** | Directory | User directory lookup | On-premises enterprise, AD integration |
+| **Kerberos** | Authentication | Ticket-based mutual auth | Windows domains, internal enterprise |
+| **FIDO2 / WebAuthn** | Authentication | Passwordless public-key | Consumer passkeys, phishing resistance |
+| **SCIM** | Provisioning | User/group synchronization | Auto-provisioning between IdP and SP |
+| **JWT (RFC 7519)** | Token format | Claims bearer | Token encoding for all of the above |
+| **JWK / JWKS** | Key material | Public key distribution | Key rotation, OIDC/OAuth key endpoints |
+| **mTLS** | Transport | Mutual certificate auth | Zero trust, service mesh, B2B APIs |
+
+## Standard Endpoints
+
+```
+OIDC discovery:      /.well-known/openid-configuration
+OAuth token:         /oauth/token  or  /token
+OAuth authorize:     /oauth/authorize  or  /authorize
+OAuth revoke:        /oauth/revoke
+JWKS:                /.well-known/jwks.json
+Userinfo:            /userinfo
+SAML SSO:            /sso/saml  (varies by IdP)
+SAML ACS:            /auth/saml/callback  (your app)
+```
