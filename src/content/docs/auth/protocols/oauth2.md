@@ -5,6 +5,14 @@ description: "OAuth 2.0 grant types, PKCE flow, scopes, and client credentials f
 
 OAuth 2.0 (RFC 6749) is a **delegated authorization** framework. It lets a user grant a third-party app limited access to their resources without sharing their password.
 
+```mermaid
+flowchart LR
+    RO["Resource Owner\n(User)"] -->|"Grants consent"| AS["Authorization Server\n(Google, GitHub, Okta)"]
+    AS -->|"Issues token"| CL["Client\n(Your App)"]
+    CL -->|"Accesses with token"| RS["Resource Server\n(API / protected data)"]
+    RO -.->|"Owns"| RS
+```
+
 ## Core Roles
 
 | Role | Description | Example |
@@ -20,39 +28,24 @@ OAuth 2.0 (RFC 6749) is a **delegated authorization** framework. It lets a user 
 
 The most secure flow. Used for web apps, SPAs, and mobile apps. PKCE (Proof Key for Code Exchange) prevents authorization code interception attacks.
 
-```
-Flow:
-1. App generates: code_verifier (random), code_challenge = SHA256(code_verifier)
-2. App → Auth Server: GET /authorize?response_type=code
-                      &client_id=...
-                      &redirect_uri=https://app.com/callback
-                      &scope=openid+email+read:calendar
-                      &state=random_csrf_token
-                      &code_challenge=BASE64URL(SHA256(verifier))
-                      &code_challenge_method=S256
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant App
+    participant AS as Auth Server
+    participant API as Resource API
 
-3. User logs in and consents at auth server
-4. Auth Server → App: redirect to https://app.com/callback?code=AUTH_CODE&state=...
-
-5. App verifies state matches → CSRF protection
-6. App backend → Auth Server: POST /token
-   Body: grant_type=authorization_code
-         &code=AUTH_CODE
-         &redirect_uri=https://app.com/callback
-         &client_id=...
-         &client_secret=...  (if confidential client)
-         &code_verifier=...  (PKCE)
-
-7. Auth Server → App: {
-     "access_token": "eyJ...",
-     "refresh_token": "rt_...",
-     "id_token": "eyJ...",
-     "expires_in": 3600,
-     "token_type": "Bearer"
-   }
-
-8. App → Resource API: GET /calendar/events
-   Authorization: Bearer eyJ...
+    App->>App: Generate code_verifier (random)\ncode_challenge = SHA256(verifier)
+    App->>AS: GET /authorize?response_type=code\n&code_challenge=...&state=csrf_token
+    AS-->>U: Login + consent page
+    U->>AS: Enters credentials, approves scopes
+    AS-->>App: Redirect → /callback?code=AUTH_CODE&state=csrf_token
+    App->>App: Verify state matches (CSRF check)
+    App->>AS: POST /token { code, code_verifier, client_id }
+    AS->>AS: Verify SHA256(code_verifier) == code_challenge
+    AS-->>App: { access_token, refresh_token, id_token }
+    App->>API: GET /calendar/events\nAuthorization: Bearer access_token
+    API-->>App: 200 { events }
 ```
 
 ### 2. Client Credentials (M2M)

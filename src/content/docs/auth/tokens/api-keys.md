@@ -5,6 +5,22 @@ description: "API key design, generation, storage, and management best practices
 
 API keys are long-lived static credentials used primarily for machine-to-machine (M2M) authentication. They identify and authenticate a client application.
 
+```mermaid
+flowchart LR
+    subgraph Creation
+        GEN["Generate\ncrypto.randomBytes(32)"] --> RAW["sk_live_4xK9m..."]
+        RAW -->|SHA-256| HASH["Store hash in DB"]
+        RAW -->|First 12 chars| PREFIX["Store prefix\nfor display"]
+        RAW -->|Show ONCE| USER["Return to user\nnever stored in plain"]
+    end
+
+    subgraph Each Request
+        REQ["Incoming request\nX-API-Key: sk_live_4xK9m..."] -->|SHA-256| LH["Lookup hash in DB"]
+        LH -->|Found| AUTH["✅ Authenticated\nCheck scopes"]
+        LH -->|Not found| DENY["❌ 401 Unauthorized"]
+    end
+```
+
 ## Key Anatomy
 
 Good API keys have a recognizable structure:

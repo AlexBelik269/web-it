@@ -25,13 +25,22 @@ description: "TOTP vs HOTP, FIDO U2F vs FIDO2, push authentication, and why SMS 
 
 ## Push Authentication (Duo, Okta Verify)
 
-```
-1. User enters username + password on app
-2. App → Auth server: validate credentials
-3. Auth server → User's phone: send push notification
-4. User → Phone: tap Approve (with optional biometric)
-5. Phone → Auth server: approval signal (signed)
-6. Auth server → App: access granted
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant App
+    participant AS as Auth Server
+    participant Ph as User's Phone
+
+    U->>App: Enter username + password
+    App->>AS: Validate credentials
+    AS-->>App: Credentials valid
+    AS->>Ph: Push notification\n"Approve login? [7]"
+    Note over U,Ph: Number matching shown on\nboth login screen and push
+    Ph->>U: Show notification with number
+    U->>Ph: Verify number matches → tap Approve
+    Ph->>AS: Signed approval
+    AS-->>App: Access granted ✓
 ```
 
 **Weakness:** Push fatigue attacks — attacker repeatedly sends push notifications hoping user accidentally taps Approve. Mitigated by number matching (show a number on login screen that user must match in push).

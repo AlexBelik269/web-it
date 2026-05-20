@@ -5,6 +5,32 @@ description: "The five factor categories and how to combine them for strong mult
 
 Authentication factors are categories of evidence used to prove identity.
 
+```mermaid
+mindmap
+  root((Auth Factors))
+    Knowledge
+      Password
+      PIN
+      Security question
+    Possession
+      TOTP app
+      Yubikey / FIDO2 key
+      Smart card
+      Phone SMS
+    Inherence
+      Fingerprint
+      Face ID
+      Iris scan
+      Voice print
+    Location
+      IP geolocation
+      Office network
+      GPS
+    Time
+      Business hours
+      TOTP 30s window
+```
+
 ## The Five Factor Categories
 
 | Factor | Also Called | What It Is | Examples |
@@ -32,21 +58,23 @@ MFA requires two or more factors from *different categories*. Using two password
 
 ## How TOTP Works (RFC 6238)
 
-```
-Shared Secret (Base32)
-        +
-Current Unix Timestamp ÷ 30   (30-second window)
-        ↓
-   HMAC-SHA1(secret, time_counter)
-        ↓
-   Truncate to 6 digits
-        ↓
-   "482 917"  ← valid for ~30 seconds
+```mermaid
+flowchart TD
+    S["Shared Secret\n(Base32, set during setup)"]
+    T["Current Unix Time\n÷ 30 = time counter"]
+    S --> H["HMAC-SHA1\n(secret, time_counter)"]
+    T --> H
+    H --> TR["Truncate → 6 digits"]
+    TR --> OTP["482 917\nValid for ~30 seconds"]
+
+    subgraph Both sides compute independently
+        H
+    end
 ```
 
 Both the authenticator app and the server perform the same calculation independently. They match → authentication succeeds. No code is ever transmitted over the network during login — only the result.
 
-**Clock skew tolerance:** Servers typically accept codes from the current window ±1 (i.e. the last 30 seconds and the next 30 seconds) to handle slight clock drift.
+**Clock skew tolerance:** Servers typically accept codes from the current window ±1 (the last 30 seconds and the next 30 seconds) to handle slight clock drift.
 
 ## Common MFA Combinations
 

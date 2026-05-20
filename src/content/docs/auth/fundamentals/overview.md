@@ -5,8 +5,14 @@ description: "The foundational concepts behind authentication and authorization 
 
 Authentication and authorization are the twin pillars of application security. They are distinct but work together to protect resources.
 
-```
-User → [Credentials] → AUTHENTICATION → [Identity] → AUTHORIZATION → [Token/Policy] → ACCESS CONTROL → Resource
+```mermaid
+flowchart LR
+    U([User]) -->|Credentials| AN["Authentication\nVerify identity"]
+    AN -->|"Established identity\n(e.g. user_id: 123)"| AZ["Authorization\nCheck permissions"]
+    AZ -->|"Token / Policy"| AC["Access Control\nAllow or Deny"]
+    AC --> R[Resource]
+    AN -.->|"Issues"| T["Token / Session"]
+    T -.->|"Carries identity on\nsubsequent requests"| AZ
 ```
 
 | Concept | Description |
@@ -25,9 +31,14 @@ User → [Credentials] → AUTHENTICATION → [Identity] → AUTHORIZATION → [
 
 Every authenticated request passes through this sequence:
 
-1. **Identity claim** — user presents credentials or a token
-2. **Authentication** — credentials verified, identity established
-3. **Token issuance** — access token + optional refresh token issued
-4. **Authorization** — token's claims checked against permission policies
-5. **Access decision** — allow or deny the specific operation
-6. **Audit** — event logged with outcome, identity, resource, timestamp
+```mermaid
+flowchart TD
+    P1["1. Identity Claim\nUser presents credentials or token"]
+    P2["2. Authentication\nCredentials verified, identity established"]
+    P3["3. Token Issuance\nAccess token + optional refresh token"]
+    P4["4. Authorization\nToken claims checked against policies"]
+    P5["5. Access Decision\nAllow or Deny the operation"]
+    P6["6. Audit\nEvent logged: outcome, identity, resource, timestamp"]
+
+    P1 --> P2 --> P3 --> P4 --> P5 --> P6
+```

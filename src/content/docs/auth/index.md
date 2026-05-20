@@ -1,14 +1,122 @@
 ---
 title: "Authentication & Authorization"
-description: "Overview of modern authentication systems"
+description: "A complete reference for modern auth systems — identity verification, token management, protocols, and access control."
 ---
 
-### Authentication & Authorization
+This section covers everything needed to build secure authentication and authorization into applications — from foundational concepts to production-ready patterns.
 
-Modern systems use multiple layers of identity verification and access control.
+## What's Covered
 
----
+| Section | Topics |
+|---|---|
+| [Core Concepts](/auth/fundamentals/overview) | AuthN vs AuthZ, the auth pipeline, terminology |
+| [Credentials](/auth/credentials/mfa-factors) | MFA, password hashing, passkeys, biometrics |
+| [Tokens](/auth/tokens/jwt) | JWT, bearer tokens, API keys, token storage |
+| [Protocols](/auth/protocols/oauth2) | OAuth 2.0, OIDC, SAML, certificates |
+| [Authorization](/auth/authorization/rbac-abac) | RBAC, ABAC, Zero Trust, scopes |
+| [Implementation](/auth/implementation/auth-in-code) | Code examples, sessions, cookies, security headers |
+| [Security](/auth/security/threats-attacks) | Threat catalog, best practices, pre-launch checklist |
 
-![Alt text](https://raw.githubusercontent.com/Codecademy/docs/main/media/codey.jpg)
+## How Authentication Works
 
-Testssss
+Every authenticated request passes through four phases:
+
+```mermaid
+flowchart LR
+    A([User / Service]) -->|"Credentials\nor Token"| B["Identity Verification\n(AuthN)"]
+    B -->|Established Identity| C["Access Policy Check\n(AuthZ)"]
+    C -->|Allow / Deny| D[Resource]
+    B -.->|Issues| E["Token\n(JWT / Session ID)"]
+    E -.->|On next request| C
+```
+
+## Choosing the Right Approach
+
+```mermaid
+flowchart TD
+    Q1{"Who is\nauthenticating?"}
+    Q1 -->|Human user| Q2{"Web, SPA,\nor Mobile?"}
+    Q1 -->|Machine / service| M["Client Credentials\nor mTLS"]
+    Q2 -->|Web / SPA / Mobile| Q3{"Third-party\nidentity?"}
+    Q2 -->|CLI / IoT / TV| D["Device Code Flow"]
+    Q3 -->|"Yes — Google,\nGitHub, Okta, etc."| O["OAuth 2.0 + OIDC\nAuth Code + PKCE"]
+    Q3 -->|No — own database| S["Username + Password\n+ MFA + Session / JWT"]
+    Q1 -->|Enterprise SSO| SAML["SAML 2.0"]
+```
+
+## The Auth Ecosystem
+
+```mermaid
+graph LR
+    subgraph Credentials
+        PW["Password + Hash"]
+        MFA["TOTP / FIDO2"]
+        BIO["Passkey / Biometric"]
+    end
+
+    subgraph Protocols
+        OA["OAuth 2.0"]
+        OI["OIDC"]
+        SM["SAML 2.0"]
+    end
+
+    subgraph Tokens
+        JWT["JWT"]
+        SID["Session ID"]
+        AK["API Key"]
+    end
+
+    subgraph Authorization
+        RBAC["RBAC"]
+        ABAC["ABAC"]
+        ZT["Zero Trust"]
+    end
+
+    Credentials --> Protocols
+    Protocols --> Tokens
+    Tokens --> Authorization
+```
+
+## Quick Navigation
+
+**Starting from zero?**  
+→ [Core Concepts](/auth/fundamentals/overview) then [AuthN vs AuthZ](/auth/fundamentals/authn-vs-authz)
+
+**Implementing login for a web or mobile app?**  
+→ [OAuth 2.0 + PKCE](/auth/protocols/oauth2) → [OIDC](/auth/protocols/oidc) → [Sessions & Cookies](/auth/implementation/sessions-cookies)
+
+**Working with JWTs?**  
+→ [JWT Reference](/auth/tokens/jwt) — structure, signing algorithms, full validation checklist
+
+**Adding MFA?**  
+→ [MFA Factors](/auth/credentials/mfa-factors) → [MFA Protocols Deep Dive](/auth/credentials/mfa-protocols)
+
+**Designing roles and permissions?**  
+→ [RBAC & ABAC](/auth/authorization/rbac-abac) → [Permissions & Scopes](/auth/authorization/permissions-scopes)
+
+**Connecting to enterprise identity (Active Directory, Okta)?**  
+→ [SAML 2.0 & Enterprise SSO](/auth/protocols/saml-sso) → [OIDC](/auth/protocols/oidc)
+
+**Service-to-service / API auth?**  
+→ [API Keys](/auth/tokens/api-keys) → [Client Credentials (OAuth)](/auth/protocols/oauth2) → [Certificates & mTLS](/auth/protocols/certificates-pki)
+
+**Hardening an existing system?**  
+→ [Threats & Attacks](/auth/security/threats-attacks) → [Best Practices](/auth/security/best-practices) → [Security Checklist](/auth/security/security-checklist)
+
+## Learning Path
+
+| Level | Recommended Order |
+|---|---|
+| **Foundations** | [Core Concepts](/auth/fundamentals/overview) → [AuthN vs AuthZ](/auth/fundamentals/authn-vs-authz) → [JWT](/auth/tokens/jwt) → [Bearer Tokens](/auth/tokens/bearer-tokens) |
+| **Intermediate** | [OAuth 2.0](/auth/protocols/oauth2) → [OIDC](/auth/protocols/oidc) → [RBAC & ABAC](/auth/authorization/rbac-abac) → [Sessions & Cookies](/auth/implementation/sessions-cookies) |
+| **Advanced** | [SAML SSO](/auth/protocols/saml-sso) → [Zero Trust](/auth/authorization/zero-trust) → [Certificates & PKI](/auth/protocols/certificates-pki) → [HTTP Security Headers](/auth/implementation/http-security-headers) |
+| **Pre-launch** | [Threats & Attacks](/auth/security/threats-attacks) → [Best Practices](/auth/security/best-practices) → [Security Checklist](/auth/security/security-checklist) |
+
+## Auth vs Security
+
+This section focuses on identity and access. For complementary topics see the [Security](/security) section:
+
+- **Encryption and key management** → [Cryptography](/security/cryptography/fundamentals)
+- **Input validation and injection** → [OWASP Top 10](/security/web/owasp-top-10) / [SQL Injection](/security/web/sql-injection)
+- **XSS and CSRF** → [Web App Security](/security/web/xss)
+- **Logging auth events** → [Logging & Monitoring](/security/incident-response/logging-monitoring)

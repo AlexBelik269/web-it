@@ -5,6 +5,20 @@ description: "Secure password storage, hashing algorithms, salting, and policy b
 
 Passwords must be stored as one-way hashes — never in plaintext, never with reversible encryption.
 
+```mermaid
+flowchart LR
+    PW["User Password"] --> H["Hash Function\n(Argon2id / bcrypt)"]
+    H --> DB[("Database\nStores hash only")]
+
+    PW2["Login Attempt"] --> H2["Same Hash Function\n(same salt)"]
+    DB --> CMP{"Compare\nhashes"}
+    H2 --> CMP
+    CMP -->|Match| OK["✅ Authenticated"]
+    CMP -->|No match| FAIL["❌ Rejected"]
+
+    note["Original password\nnever stored or\nrecoverable"]
+```
+
 ## Why You Can't Use General-Purpose Hash Functions
 
 MD5, SHA-1, SHA-256, and SHA-512 are designed to be **fast**. A modern GPU can compute billions of SHA-256 hashes per second, making brute-force and rainbow table attacks trivial. Password hashing algorithms are intentionally slow and memory-hard.
@@ -91,9 +105,19 @@ if err == nil { /* authenticated */ }
 
 A salt is a random value added to the password before hashing. It ensures two users with the same password have different hashes, and prevents precomputed rainbow table attacks.
 
-```
-hash("password123")          → always "abc123..." (attackable)
-hash("password123" + salt)   → unique per user    (safe)
+```mermaid
+flowchart TD
+    subgraph "Without salt (vulnerable)"
+        A1["alice: password123"] --> HA["hash → abc123..."]
+        B1["bob:   password123"] --> HB["hash → abc123..."]
+        note1["Same hash → one crack\nreveals both passwords"]
+    end
+
+    subgraph "With salt (secure)"
+        A2["alice: password123\n+ salt: 8f3a9c..."] --> HA2["hash → x7k2m9..."]
+        B2["bob:   password123\n+ salt: 2d1e7b..."] --> HB2["hash → p4q8r1..."]
+        note2["Different hashes even for\nidentical passwords"]
+    end
 ```
 
-bcrypt, Argon2, and scrypt all handle salting automatically and include the salt in the output string.
+bcrypt, Argon2, and scrypt all handle salting automatically and store the salt inside the output string.

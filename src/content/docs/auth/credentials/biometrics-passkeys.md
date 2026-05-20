@@ -29,37 +29,53 @@ Passkeys are the modern replacement for passwords. They use public-key cryptogra
 
 ## WebAuthn Registration Flow
 
-```
-1. App → Server:  "Start registration for user alice"
-2. Server → App:  challenge (random nonce), relying party ID (your domain)
-3. App → Device:  Request credential creation
-4. Device:        Biometric/PIN check → generates public/private key pair
-5. Device → App:  publicKey + attestation (signed by device)
-6. App → Server:  publicKey + attestation
-7. Server:        Verify attestation → store publicKey for user
+```mermaid
+sequenceDiagram
+    participant B as Browser / App
+    participant D as Device\n(Secure Enclave)
+    participant S as Server
+
+    B->>S: Start registration (username)
+    S-->>B: challenge (nonce) + rpID (your domain)
+    B->>D: navigator.credentials.create()
+    D->>D: Biometric / PIN verification
+    D->>D: Generate public/private key pair\n(private key never leaves device)
+    D-->>B: publicKey + attestation
+    B->>S: Send publicKey + attestation
+    S->>S: Verify attestation signature
+    S->>S: Store publicKey for user
+    S-->>B: Registration complete ✓
 ```
 
 ## WebAuthn Authentication Flow
 
-```
-1. App → Server:  "Start authentication for alice"
-2. Server → App:  challenge (random nonce) + allowedCredentials
-3. App → Device:  Request assertion
-4. Device:        Biometric/PIN unlocks private key → signs challenge
-5. Device → App:  assertion (signature + authenticatorData)
-6. App → Server:  assertion
-7. Server:        Verify signature with stored publicKey → authenticated ✓
+```mermaid
+sequenceDiagram
+    participant B as Browser / App
+    participant D as Device\n(Secure Enclave)
+    participant S as Server
+
+    B->>S: Start authentication (username)
+    S-->>B: challenge (nonce) + allowedCredentials
+    B->>D: navigator.credentials.get()
+    D->>D: Biometric / PIN unlocks private key
+    D->>D: Sign challenge with private key
+    D-->>B: assertion (signature + authenticatorData)
+    B->>S: Send assertion
+    S->>S: Verify signature with stored publicKey
+    S-->>B: Authenticated ✓
 ```
 
 ## Why Passkeys Are Phishing-Resistant
 
-```
-Attacker sets up:  https://g00gle.com  (fake Google)
-User visits:       https://g00gle.com
-Browser checks:   "Do I have a passkey for g00gle.com?"  → NO
-Browser refuses:  Will not use the google.com passkey on a different origin
+```mermaid
+flowchart TD
+    A["Attacker creates fake site\nhttps://g00gle.com"] --> V["Victim visits fake site"]
+    V --> BR["Browser checks:\nDo I have a passkey for g00gle.com?"]
+    BR -->|No passkey for this origin| REF["❌ Browser refuses\nWill not use google.com\npasskey on different origin"]
+    BR -->|Real site google.com| OK["✅ Passkey found\nSigns challenge"]
 
-Even if the user is fooled, the browser is not.
+    note["Even if the user is fooled,\nthe browser is not.\nOrigin binding is enforced\ncryptographically."]
 ```
 
 ## WebAuthn Code (Server-side, Node.js)

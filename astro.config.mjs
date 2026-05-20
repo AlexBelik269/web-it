@@ -3,13 +3,13 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
 
-// https://astro.build/config
 export default defineConfig({
+	base: '/it',
 	integrations: [
 		mermaid({ theme: 'neutral', autoTheme: true }),
 		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			title: 'IT Knowledge Base',
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/AlexBelik269/web-it' }],
 			sidebar: [
 				{
 					label: 'Security',

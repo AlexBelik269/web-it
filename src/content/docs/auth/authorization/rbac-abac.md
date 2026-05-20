@@ -7,10 +7,33 @@ description: "Role-Based and Attribute-Based Access Control — models, code exa
 
 Users are assigned roles; roles have permissions. Simple, auditable, widely understood.
 
-```
-alice  →  role: admin    →  permissions: [read, write, delete, manage_users]
-bob    →  role: editor   →  permissions: [read, write]
-carol  →  role: viewer   →  permissions: [read]
+```mermaid
+flowchart LR
+    subgraph Users
+        A["alice"]
+        B["bob"]
+        C["carol"]
+    end
+
+    subgraph Roles
+        ADM["admin"]
+        ED["editor"]
+        VW["viewer"]
+    end
+
+    subgraph Permissions
+        R["read"]
+        W["write"]
+        D["delete"]
+        M["manage_users"]
+    end
+
+    A --> ADM
+    B --> ED
+    C --> VW
+    ADM --> R & W & D & M
+    ED --> R & W
+    VW --> R
 ```
 
 **RBAC in Node.js/Express:**

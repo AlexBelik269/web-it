@@ -5,6 +5,20 @@ description: "JWT structure, signing algorithms, validation checklist, and code 
 
 JWTs are compact, URL-safe tokens that carry **claims** (statements about an entity). They are self-contained: the server can verify them without a database lookup by checking the cryptographic signature.
 
+```mermaid
+flowchart LR
+    subgraph JWT Token
+        H["Header\nBase64url encoded\n{ alg, typ, kid }"]
+        DOT1["."]
+        P["Payload\nBase64url encoded\n{ sub, role, exp, iss, aud }"]
+        DOT2["."]
+        S["Signature\nHMAC or RSA/ECDSA\nof header.payload"]
+    end
+    H --- DOT1 --- P --- DOT2 --- S
+
+    S -->|Verified with| K["Public Key\n(RS256 / ES256)\nor shared secret\n(HS256)"]
+```
+
 ## JWT Structure
 
 A JWT has three base64url-encoded parts separated by dots:

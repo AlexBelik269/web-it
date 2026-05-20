@@ -3,6 +3,33 @@ title: "Threats & Attacks"
 description: "Common auth attack vectors — credential attacks, token exploits, session hijacking, and infrastructure threats."
 ---
 
+```mermaid
+mindmap
+  root((Auth Threats))
+    Credential Attacks
+      Phishing
+      Credential Stuffing
+      Brute Force
+      Password Spraying
+      SIM Swap
+    Token Attacks
+      JWT alg:none
+      Algorithm Confusion
+      Token Leakage
+      Replay Attack
+    Session Attacks
+      Session Hijacking
+      Session Fixation
+      CSRF
+    Application Attacks
+      IDOR
+      Privilege Escalation
+      Open Redirect OAuth
+    Infrastructure
+      Supply Chain
+      Secrets in Git
+```
+
 ## Credential-Based Attacks
 
 ### Phishing
@@ -55,6 +82,21 @@ After:  {"alg":"none"}.<modified_payload>.  ← empty signature accepted
 
 ### CSRF (Cross-Site Request Forgery)
 **What:** A malicious website causes the victim's browser to make authenticated requests to your app by exploiting automatic cookie sending.
+
+```mermaid
+sequenceDiagram
+    participant V as Victim
+    participant E as evil.com
+    participant A as myapp.com
+
+    V->>A: Login → session cookie set
+    V->>E: Visit attacker's page
+    E-->>V: HTML with hidden form / img tag
+    Note over V: Browser auto-submits with myapp.com cookie
+    V->>A: POST /transfer?to=attacker&amount=1000\nCookie: session=valid_session
+    A->>A: ❌ No CSRF check — transfer executes
+```
+
 ```html
 <!-- Victim visits evil.com; this triggers a state change on your app -->
 <img src="https://myapp.com/transfer?to=attacker&amount=1000">

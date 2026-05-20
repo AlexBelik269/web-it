@@ -5,6 +5,15 @@ description: "Key differences between AuthN and AuthZ, and why confusing them ca
 
 These two concepts are frequently confused, with serious security consequences.
 
+```mermaid
+flowchart LR
+    U([User]) -->|"Credentials\n(password, token, cert)"| AN["Authentication\nWho are you?"]
+    AN -->|"❌ Unknown identity"| R401["401 Unauthorized\nMust authenticate"]
+    AN -->|"✅ Identity confirmed"| AZ["Authorization\nWhat can you do?"]
+    AZ -->|"❌ Not permitted"| R403["403 Forbidden\nIdentity known, access denied"]
+    AZ -->|"✅ Permitted"| RES["Resource\nGranted"]
+```
+
 ## Authentication (AuthN)
 
 - **Question:** "Who are you?"
@@ -25,15 +34,28 @@ These two concepts are frequently confused, with serious security consequences.
 
 ## Critical Distinction: HTTP Status Codes
 
-```
-401 Unauthorized  →  Not authenticated  (identity unknown)
-403 Forbidden     →  Not authorized     (identity known, but access denied)
+```mermaid
+flowchart LR
+    R["Request"] --> C{"Authenticated?"}
+    C -->|No| E1["401 Unauthorized\nIdentity unknown\nRe-authenticate"]
+    C -->|Yes| P{"Authorized?"}
+    P -->|No| E2["403 Forbidden\nIdentity known\nAccess denied"]
+    P -->|Yes| S["200 OK\nAccess granted"]
 ```
 
-Returning `401` when you mean `403` leaks that the resource exists. Many APIs return `404` for `403` on sensitive resources to avoid enumeration.
+> Many APIs return `404` instead of `403` on sensitive resources to avoid leaking that the resource exists.
 
 ## Common Mistake: OAuth 2.0 is NOT Authentication
 
 OAuth 2.0 grants a third-party app access to resources — it is an **authorization** framework. Using an OAuth access token to determine *who a user is* is incorrect and can be exploited.
 
 **OpenID Connect (OIDC)** is the correct solution — it adds an identity layer (ID token) on top of OAuth 2.0.
+
+```mermaid
+flowchart TD
+    OA["OAuth 2.0\n(Authorization)"] -->|"Adds identity layer"| OI["OpenID Connect\n(Authentication + Authorization)"]
+    OA -->|"Answers"| Q1["What can this app access?"]
+    OI -->|"Also answers"| Q2["Who is the user?"]
+    OI --> IT["ID Token (JWT)\ncontains: sub, email, name"]
+    OA --> AT["Access Token\ngrants API access"]
+```

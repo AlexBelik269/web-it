@@ -7,20 +7,25 @@ description: "Session-based authentication, cookie security attributes, and sess
 
 In session-based auth, user data lives on the server. The browser holds only a session ID (a random string) in a cookie.
 
-```
-Login:
-  1. User sends credentials
-  2. Server validates, creates session: sessions["sess_abc123"] = { userId: "123", role: "admin", createdAt: ... }
-  3. Server sets cookie: Set-Cookie: session=sess_abc123; HttpOnly; Secure; SameSite=Lax
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant S as Server
+    participant DB as Session Store<br/>Redis
 
-Subsequent requests:
-  1. Browser automatically sends: Cookie: session=sess_abc123
-  2. Server looks up sessions["sess_abc123"] → gets user data
-  3. Request proceeds as authenticated
+    B->>S: POST /login { email, password }
+    S->>S: Validate credentials
+    S->>DB: Store session: sess_abc123 → { userId, role }
+    S-->>B: Set-Cookie: session=sess_abc123, HttpOnly, Secure, SameSite=Lax
 
-Logout:
-  1. Server deletes session: delete sessions["sess_abc123"]
-  2. Server clears cookie: Set-Cookie: session=; Max-Age=0
+    B->>S: GET /dashboard<br/>Cookie: session=sess_abc123
+    S->>DB: Lookup sess_abc123
+    DB-->>S: { userId: "123", role: "admin" }
+    S-->>B: 200 Dashboard
+
+    B->>S: POST /logout
+    S->>DB: Delete sess_abc123
+    S-->>B: Set-Cookie: session=, Max-Age=0
 ```
 
 ## Cookie Security Attributes

@@ -7,13 +7,28 @@ Bearer tokens implement the principle: "whoever bears (holds) this token gets ac
 
 ## How Bearer Auth Works
 
-```
-Client → POST /auth/login → Auth Server
-                         ← { access_token, refresh_token, expires_in }
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant AS as Auth Server
+    participant API as Resource API
 
-Client → GET /api/users (Authorization: Bearer <token>) → Resource API
-                                                        ← 200 { data }
-                                                        ← 401 { expired }
+    C->>AS: POST /auth/login { email, password }
+    AS-->>C: { access_token, refresh_token, expires_in: 3600 }
+
+    C->>API: GET /api/users\nAuthorization: Bearer <access_token>
+    API-->>C: 200 { data }
+
+    Note over C,API: 1 hour later — token expires
+
+    C->>API: GET /api/users\nAuthorization: Bearer <expired_token>
+    API-->>C: 401 Unauthorized
+
+    C->>AS: POST /auth/refresh\nCookie: refresh_token=...
+    AS-->>C: { access_token: <new_token> }
+
+    C->>API: GET /api/users\nAuthorization: Bearer <new_token>
+    API-->>C: 200 { data }
 ```
 
 ## Request Format

@@ -7,6 +7,18 @@ description: "Public Key Infrastructure, X.509 certificates, mTLS, and SSH key a
 
 PKI is a framework of hardware, software, policies, and standards for managing digital certificates and public-key encryption.
 
+```mermaid
+flowchart TD
+    RCA["Root CA\n(self-signed, offline)"] -->|"Signs"| ICA["Intermediate CA\n(online, issues certs)"]
+    ICA -->|"Signs"| EC["End-Entity Certificate\nmyapp.com"]
+    EC -->|"Contains"| PK["Public Key"]
+    EC -->|"Verified by"| CHAIN["Certificate Chain\nBrowser walks up to trusted Root CA"]
+
+    subgraph "Trusted by default in browsers/OS"
+        RCA
+    end
+```
+
 **Key components:**
 
 | Component | Role |
@@ -42,14 +54,22 @@ Extensions:
 
 Standard TLS: only the server presents a certificate. Mutual TLS (mTLS): **both** client and server present certificates and verify each other.
 
-```
-Standard TLS:
-  Client → Server cert → Client verifies server identity → Encrypted channel
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
 
-Mutual TLS:
-  Client → Server cert → Client verifies server ✓
-  Server → Client cert → Server verifies client ✓
-  Both verified → Encrypted channel
+    Note over C,S: Standard TLS
+    S-->>C: Server certificate
+    C->>C: Verify server cert chain ✓
+    Note over C,S: Encrypted channel — server authenticated only
+
+    Note over C,S: Mutual TLS (mTLS)
+    S-->>C: Server certificate
+    C->>C: Verify server cert ✓
+    C-->>S: Client certificate
+    S->>S: Verify client cert ✓
+    Note over C,S: Both parties verified — encrypted channel
 ```
 
 **Use cases for mTLS:**

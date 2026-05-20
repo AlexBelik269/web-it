@@ -4,6 +4,19 @@ description: "OIDC identity layer on top of OAuth 2.0, ID token claims, discover
 ---
 
 OpenID Connect 1.0 (OIDC) is an identity layer on top of OAuth 2.0. It adds:
+
+```mermaid
+flowchart TB
+    subgraph OIDC
+        subgraph OAuth2 ["OAuth 2.0 (Authorization)"]
+            AT["Access Token\ngrants API access"]
+            RT["Refresh Token"]
+        end
+        IT["ID Token (JWT)\nWho is the user?\nsub, email, name, picture"]
+        UE["/userinfo endpoint\nfetch profile data"]
+        DD["Discovery document\n/.well-known/openid-configuration"]
+    end
+```
 - The **ID token** — a signed JWT proving who the user is
 - The `/userinfo` endpoint for fetching user profile data
 - Standard user claims (`sub`, `email`, `name`, `picture`)

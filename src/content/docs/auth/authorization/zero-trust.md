@@ -5,17 +5,29 @@ description: "Zero Trust principles, the shift from perimeter security, and serv
 
 ## Old Model vs Zero Trust
 
-**Old "castle and moat" model:**
+```mermaid
+flowchart LR
+    subgraph "Old Perimeter Model"
+        FW["Firewall"] -->|"Inside = Trusted"| INT["Internal Network\nAll resources accessible"]
+        EXT["External\n(Untrusted)"] -->|"Blocked"| FW
+        THREAT["Attacker breaches perimeter\n→ lateral movement to everything"] -.-> INT
+    end
 ```
-Outside network: UNTRUSTED (block everything)
-Inside network:  TRUSTED   (allow everything)
-```
-Problem: Once an attacker is inside (via phishing, VPN compromise, etc.), they can move laterally to any resource.
 
-**Zero Trust model:**
+```mermaid
+flowchart LR
+    subgraph "Zero Trust Model"
+        REQ["Any Request\n(inside or outside)"] --> V["Verify Identity\n+ Device Health\n+ Context"]
+        V -->|"Authorized"| RES["Specific Resource\n(least privilege)"]
+        V -->|"Not authorized"| DN["❌ Denied"]
+        THREAT2["Attacker breaches one service\n→ cannot reach others without re-verification"] -.-> V
+    end
 ```
-Never trust. Always verify. Regardless of network location.
-```
+
+**Old "castle and moat" model:**
+Once an attacker is inside the perimeter (via phishing, VPN compromise, etc.) they can move laterally to any resource.
+
+**Zero Trust model:**  Never trust. Always verify. Regardless of network location.
 
 ## Zero Trust Principles
 

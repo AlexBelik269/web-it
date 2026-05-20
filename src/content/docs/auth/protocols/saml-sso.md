@@ -19,19 +19,24 @@ SAML (Security Assertion Markup Language) 2.0 is an XML-based federation protoco
 
 ## SP-Initiated SSO Flow
 
-```
-1. User → SP: GET /dashboard (unauthenticated)
-2. SP:        Builds SAMLRequest (base64-encoded XML) + RelayState
-3. SP → User: 302 redirect to IdP/sso?SAMLRequest=...&RelayState=...
-4. User → IdP: GET /sso?SAMLRequest=...
-5. IdP → User: Login page (if not already authenticated via SSO cookie)
-6. User:       Enters credentials, MFA, etc.
-7. IdP → User: Auto-submitting HTML form POST to SP's ACS URL
-8. User's browser → SP ACS: POST SAMLResponse=<base64 signed XML>
-9. SP:        Validates XML signature with IdP's public cert
-              Extracts NameID + attributes
-              Creates session
-10. SP → User: 302 redirect to original resource
+```mermaid
+sequenceDiagram
+    participant U as User's Browser
+    participant SP as Service Provider\n(Your App)
+    participant IdP as Identity Provider\n(Okta / ADFS / Ping)
+
+    U->>SP: GET /dashboard (unauthenticated)
+    SP->>SP: Build SAMLRequest (base64 XML) + RelayState
+    SP-->>U: 302 → IdP/sso?SAMLRequest=...&RelayState=...
+    U->>IdP: GET /sso?SAMLRequest=...
+    IdP-->>U: Login page (if not already SSO-authenticated)
+    U->>IdP: Credentials + MFA
+    IdP->>IdP: Validate, build signed XML Assertion
+    IdP-->>U: Auto-submit HTML form → SP ACS URL
+    U->>SP: POST /saml/acs { SAMLResponse: <base64 signed XML> }
+    SP->>SP: Verify XML signature with IdP's public cert
+    SP->>SP: Extract NameID + attributes → create session
+    SP-->>U: 302 → original resource /dashboard
 ```
 
 ## SAML Assertion (simplified)
