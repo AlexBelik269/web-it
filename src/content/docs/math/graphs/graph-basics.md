@@ -1,0 +1,227 @@
+---
+title: "Graph Basics"
+description: "Graph theory fundamentals — vertices, edges, directed and undirected graphs, node properties, adjacency representations, and the Handshaking Lemma."
+---
+
+A graph is a mathematical structure for representing pairwise relationships. Social networks, road maps, the internet, dependency trees, and state machines are all graphs.
+
+---
+
+## What is a Graph?
+
+A **graph** G = (V, E) consists of:
+- **V** — a finite set of **vertices** (also called nodes)
+- **E** — a finite set of **edges** (connections between vertices)
+
+```
+V = {A, B, C, D}
+E = {{A,B}, {B,C}, {C,D}, {A,D}}
+```
+
+---
+
+## Types of Graphs
+
+### Undirected Graph
+
+Edges have no direction — the relationship is symmetric.
+
+```
+V = {1, 2, 3, 4}
+E = {{1,2}, {2,3}, {3,4}, {1,4}}
+
+Notation: e = {X, Y}  (unordered pair)
+
+  1 — 2
+  |   |
+  4 — 3
+```
+
+**Examples:** Friendship network (if A is friends with B, then B is friends with A), road network (two-way streets).
+
+### Directed Graph (Digraph)
+
+Edges have direction — the relationship is asymmetric.
+
+```
+V = {1, 2, 3}
+E = {[1,2], [2,3], [3,1]}
+
+Notation: e = [X, Y]  (ordered pair, X is the source, Y is the target)
+
+  1 → 2 → 3
+  ↑_________|
+```
+
+**Examples:** Web links (A links to B doesn't mean B links to A), social media following, dependency ordering.
+
+### Simple Graph
+
+A graph is **simple** if it has:
+- No **self-loops** (an edge from a vertex to itself)
+- No **parallel edges** (two edges between the same pair of vertices)
+
+Most theoretical results assume simple graphs unless stated otherwise.
+
+---
+
+## Vertex Properties
+
+### Undirected Graph
+
+| Property | Notation | Meaning |
+|---|---|---|
+| Neighborhood | N(X) | Set of all vertices adjacent to X |
+| Degree | g(X) = \|N(X)\| | Number of vertices adjacent to X |
+
+**Example:**
+```
+V = {A, B, C, D}
+E = {{A,B}, {A,C}, {B,D}}
+
+N(A) = {B, C}  → g(A) = 2
+N(B) = {A, D}  → g(B) = 2
+N(C) = {A}     → g(C) = 1
+N(D) = {B}     → g(D) = 1
+```
+
+### Directed Graph
+
+| Property | Notation | Meaning |
+|---|---|---|
+| Out-neighborhood | N⁺(X) | Set of successors (X → Y) |
+| In-neighborhood | N⁻(X) | Set of predecessors (Y → X) |
+| Out-degree | g⁺(X) = \|N⁺(X)\| | Number of outgoing edges |
+| In-degree | g⁻(X) = \|N⁻(X)\| | Number of incoming edges |
+
+**Example:**
+```
+E = {[A,B], [A,C], [B,A]}
+
+For A: N⁺(A) = {B, C}, N⁻(A) = {B}
+       g⁺(A) = 2, g⁻(A) = 1
+For B: N⁺(B) = {A}, N⁻(B) = {A}
+       g⁺(B) = 1, g⁻(B) = 1
+```
+
+---
+
+## Handshaking Lemma
+
+**The sum of all vertex degrees equals twice the number of edges:**
+
+**Σ g(v) = 2 × |E|**
+
+**Why:** Each edge connects exactly two vertices, contributing 1 to each of their degrees — so each edge contributes 2 to the total degree sum.
+
+**Example:**
+```
+4 vertices, 4 edges (a square):
+g(A) + g(B) + g(C) + g(D) = 2 + 2 + 2 + 2 = 8 = 2 × 4 ✓
+```
+
+**Corollary:** Every undirected graph has an **even number of vertices with odd degree**.
+
+**Proof:** The sum of all degrees is 2|E|, which is even. If there were an odd number of odd-degree vertices, their sum would be odd — contradiction.
+
+**Practical use:** If someone claims a graph has 5 vertices each of degree 3 (sum = 15 = odd), they are wrong.
+
+---
+
+## Paths and Connectivity
+
+A **path** from u to v is a sequence of vertices u = v₀, v₁, …, vₖ = v where each consecutive pair is connected by an edge.
+
+A **cycle** is a path that starts and ends at the same vertex.
+
+A graph is **connected** if there is a path between every pair of vertices.
+
+```
+Connected:        Disconnected:
+1 — 2 — 3         1 — 2   3 — 4
+    |
+    4
+```
+
+---
+
+## Storing Graphs
+
+There are three standard ways to store a graph in memory:
+
+### Adjacency List
+
+For each vertex, store its list of neighbors. Space: O(V + E).
+
+```
+V = {1, 2, 3, 4}
+E = {{1,2}, {1,3}, {2,4}}
+
+Adjacency list:
+1: [2, 3]
+2: [1, 4]
+3: [1]
+4: [2]
+```
+
+**Good for:** Sparse graphs (few edges), iterating over neighbors.
+
+### Adjacency Matrix
+
+An n × n matrix where entry [i][j] = 1 if there is an edge between i and j. Space: O(V²).
+
+```
+    1  2  3  4
+1 [ 0  1  1  0 ]
+2 [ 1  0  0  1 ]
+3 [ 1  0  0  0 ]
+4 [ 0  1  0  0 ]
+```
+
+For directed graphs, [i][j] = 1 means edge from i to j. The matrix may be asymmetric.
+
+**Good for:** Dense graphs, quickly checking if edge exists, matrix operations.
+
+### Incidence Matrix
+
+A |V| × |E| matrix where entry [v][e] = 1 if vertex v is an endpoint of edge e.
+
+```
+       e1  e2  e3
+  1  [  1   1   0 ]   e1={1,2}, e2={1,3}, e3={2,4}
+  2  [  1   0   1 ]
+  3  [  0   1   0 ]
+  4  [  0   0   1 ]
+```
+
+**Comparison:**
+
+| Representation | Space | Edge lookup | List neighbors | Add vertex |
+|---|---|---|---|---|
+| Adjacency list | O(V+E) | O(degree) | O(degree) | O(1) |
+| Adjacency matrix | O(V²) | O(1) | O(V) | O(V²) |
+
+---
+
+## Graph Isomorphism
+
+Two graphs are **isomorphic** if one can be redrawn to look exactly like the other — only the labels change, not the structure.
+
+Formally: graphs G₁=(V₁,E₁) and G₂=(V₂,E₂) are isomorphic if there exists a **bijection** f: V₁ → V₂ that preserves adjacency:
+
+{u,v} ∈ E₁ ↔ {f(u), f(v)} ∈ E₂
+
+**Quick necessary conditions for isomorphism:**
+- Same number of vertices
+- Same number of edges
+- Same degree sequence (sorted list of all degrees)
+
+**Example:**
+```
+Graph 1: vertices {A,B,C}, edges {{A,B},{B,C}}   degrees: A=1, B=2, C=1
+Graph 2: vertices {1,2,3}, edges {{1,2},{2,3}}   degrees: 1=1, 2=2, 3=1
+
+Bijection: A↔1, B↔2, C↔3 → structure preserved → isomorphic ✓
+```
+
+These conditions are necessary but not sufficient — verifying isomorphism in general is a hard problem.

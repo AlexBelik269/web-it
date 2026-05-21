@@ -1,0 +1,186 @@
+---
+title: "Mathematical Induction"
+description: "Mathematical induction — weak and strong induction for proving statements about all natural numbers, with worked examples."
+---
+
+Mathematical induction is a proof technique for showing that a statement holds for every natural number n ≥ n₀. It is the standard tool for proving correctness of loops, recursion, and formulas involving n.
+
+---
+
+## The Core Idea
+
+Imagine an infinite staircase. You want to prove you can reach every step.
+
+1. **Base case:** You can reach the first step (step n₀).
+2. **Inductive step:** If you can reach any step n, you can reach step n+1.
+
+Together these guarantee you can reach every step.
+
+---
+
+## Weak (Simple) Induction
+
+**Structure:**
+
+1. **Induction base (Induktionsverankerung):** Prove P(n₀) is true.
+2. **Inductive step (Induktionsschritt):** Assume P(n) is true (the **induction hypothesis**), then prove P(n+1) is true.
+
+**Conclusion:** P(n) holds for all n ≥ n₀.
+
+---
+
+## Example 1: Sum Formula
+
+**Claim:** For all n ≥ 1: 1 + 2 + 3 + … + n = n(n+1)/2
+
+**Base case (n = 1):**
+```
+Left side:  1
+Right side: 1×(1+1)/2 = 1×2/2 = 1
+
+1 = 1 ✓
+```
+
+**Inductive step:**
+
+*Assume* that for some n ≥ 1: 1 + 2 + … + n = n(n+1)/2  ← induction hypothesis
+
+*Prove* that: 1 + 2 + … + n + (n+1) = (n+1)(n+2)/2
+
+```
+Left side: (1 + 2 + … + n) + (n+1)
+         = n(n+1)/2 + (n+1)         ← apply induction hypothesis
+         = n(n+1)/2 + 2(n+1)/2      ← common denominator
+         = (n+1)(n + 2)/2           ← factor out (n+1)
+         = (n+1)(n+2)/2             ← this is the right side ✓
+```
+
+The claim holds for all n ≥ 1. □
+
+---
+
+## Example 2: Power of 2
+
+**Claim:** For all n ≥ 0: Σᵢ₌₀ⁿ 2ⁱ = 2ⁿ⁺¹ − 1
+
+(i.e. 1 + 2 + 4 + 8 + … + 2ⁿ = 2ⁿ⁺¹ − 1)
+
+**Base case (n = 0):**
+```
+Left side:  2⁰ = 1
+Right side: 2⁰⁺¹ − 1 = 2 − 1 = 1 ✓
+```
+
+**Inductive step:**
+
+Assume: 1 + 2 + … + 2ⁿ = 2ⁿ⁺¹ − 1
+
+Prove: 1 + 2 + … + 2ⁿ + 2ⁿ⁺¹ = 2ⁿ⁺² − 1
+
+```
+Left = (1 + 2 + … + 2ⁿ) + 2ⁿ⁺¹
+     = (2ⁿ⁺¹ − 1) + 2ⁿ⁺¹          ← induction hypothesis
+     = 2 × 2ⁿ⁺¹ − 1
+     = 2ⁿ⁺² − 1                     ← this is the right side ✓
+```
+
+---
+
+## Example 3: Loop Correctness
+
+Induction can prove that a loop produces the correct result.
+
+**Algorithm:**
+```python
+def sum_to_n(n):
+    total = 0
+    for i in range(1, n+1):
+        total += i
+    return total
+```
+
+**Loop invariant:** After k iterations, total = k(k+1)/2.
+
+**Proof by induction on k:**
+
+Base case (k=0, before the loop): total = 0 = 0×1/2 ✓
+
+Inductive step: Assume after k iterations, total = k(k+1)/2.  
+In iteration k+1, we add (k+1):
+```
+total_new = k(k+1)/2 + (k+1)
+          = (k+1)(k/2 + 1)
+          = (k+1)(k+2)/2   ✓
+```
+
+After n iterations: total = n(n+1)/2. The loop is correct.
+
+---
+
+## Strong Induction
+
+**Difference from weak induction:** Instead of assuming only P(n), you assume P(n₀), P(n₀+1), …, P(n) are all true (all previous values), then prove P(n+1).
+
+**Use strong induction when:** The inductive step needs more than just the immediately preceding value — for example, Fibonacci relies on the two previous values.
+
+**Structure:**
+
+1. **Base case:** Prove P(n₀).
+2. **Inductive step:** Assume P(n₀), P(n₀+1), …, P(n) are all true. Prove P(n+1).
+
+---
+
+## Example 4: Fundamental Theorem of Arithmetic (Sketch)
+
+**Claim:** Every integer n ≥ 2 can be written as a product of primes.
+
+**Base case (n = 2):** 2 is itself prime. ✓
+
+**Inductive step:** Assume every integer from 2 to n can be written as a product of primes. Prove n+1 can too.
+
+```
+Case 1: n+1 is prime. It is its own prime factorization. ✓
+
+Case 2: n+1 is not prime. Then n+1 = a × b where 2 ≤ a, b ≤ n.
+By the induction hypothesis, a and b are products of primes.
+Therefore n+1 = a × b is also a product of primes. ✓
+```
+
+This needed strong induction because n+1 may factor into values far less than n.
+
+---
+
+## Example 5: Merge Sort Correctness
+
+**Claim:** mergeSort(arr) returns the sorted version of arr.
+
+**Induction on array length n:**
+
+Base case (n=1): A one-element array is already sorted. ✓
+
+Inductive step: Assume mergeSort correctly sorts any array of length < n.  
+For an array of length n:
+- mergeSort recursively sorts the left half (length n/2 < n) → correct by induction hypothesis
+- mergeSort recursively sorts the right half (length n/2 < n) → correct by induction hypothesis
+- The merge step combines two sorted halves into a single sorted array → this is straightforward to verify directly. ✓
+
+---
+
+## Common Mistakes
+
+| Mistake | Example | What's wrong |
+|---|---|---|
+| Wrong base case | Proving n≥2 but starting at n=1 | Proof may be vacuously false for the wrong start |
+| Assuming what you're proving | "Assume P(n+1)..." | That's circular |
+| Not using the induction hypothesis | Just computing both sides independently | You must reference the IH in the step |
+| Forgetting edge cases | Proving for all n, but formula only valid for n≥3 | The base case must match the domain |
+
+---
+
+## Summary
+
+| | Weak Induction | Strong Induction |
+|---|---|---|
+| Induction hypothesis | P(n) | P(n₀), P(n₀+1), …, P(n) |
+| When to use | Each step depends only on previous step | Each step may depend on any earlier step |
+| Power | Same — can prove the same theorems | Same power, different convenience |

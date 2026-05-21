@@ -1,0 +1,223 @@
+---
+title: "Propositional Logic"
+description: "Propositional logic — statements, logical operators, truth tables, logical laws, simplification, and syntax trees."
+---
+
+Propositional logic is the formal system for reasoning about statements that are either true or false. It underpins program verification, hardware design, database queries, and automated reasoning.
+
+---
+
+## Statements (Propositions)
+
+A **statement** (Aussage) is any sentence that is either **true (1)** or **false (0)** — never both, never neither.
+
+| Statement | Truth value |
+|---|---|
+| "5 is greater than 3" | True (1) |
+| "Paris is in Germany" | False (0) |
+| "x > 5" | Neither — depends on x (this is a predicate, not a proposition) |
+| "Is it raining?" | Neither — a question is not a statement |
+
+### Atomic vs. Compound Statements
+
+- **Atomic:** Cannot be broken down further — the smallest unit of meaning.  
+  *"The file exists"*, *"The user is logged in"*
+
+- **Compound:** Built from atomic statements using logical operators.  
+  *"The file exists AND the user is logged in"*
+
+Propositional variables (usually letters like p, q, r) stand for atomic statements.
+
+---
+
+## Propositional Terms (Formulas)
+
+A **propositional term** is built recursively:
+1. Any variable (p, q, r, …) is a term.
+2. If A is a term, then ¬A is a term.
+3. If A and B are terms, then A ∧ B, A ∨ B, A ⊕ B, A → B, and A ↔ B are terms.
+
+**Example terms:**
+```
+p
+¬q
+p ∧ q
+¬p ∨ (q → r)
+(p ↔ q) ∧ ¬r
+```
+
+---
+
+## Syntax Trees
+
+A syntax tree visualizes the structure of a formula. The root is the outermost operator; leaves are atomic statements.
+
+**Example: Parse `¬p ∨ (q → r)`**
+
+```
+       ∨
+      / \
+     ¬   →
+     |  / \
+     p q   r
+```
+
+Reading: "NOT p, OR (q implies r)"
+
+**Why syntax trees matter:** They show the order of evaluation unambiguously, without needing to remember operator precedence.
+
+---
+
+## Truth Tables
+
+Build by listing all combinations of variable values (2ⁿ rows for n variables), then evaluating each column left-to-right by precedence.
+
+**Example: Build the truth table for `p → (q ∨ ¬r)`**
+
+| p | q | r | ¬r | q ∨ ¬r | p → (q ∨ ¬r) |
+|---|---|---|---|---|---|
+| 0 | 0 | 0 | 1 | 1 | 1 |
+| 0 | 0 | 1 | 0 | 0 | 1 |
+| 0 | 1 | 0 | 1 | 1 | 1 |
+| 0 | 1 | 1 | 0 | 1 | 1 |
+| 1 | 0 | 0 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 0 | 0 | 0 |
+| 1 | 1 | 0 | 1 | 1 | 1 |
+| 1 | 1 | 1 | 0 | 1 | 1 |
+
+The formula is false only when p=1, q=0, r=1.
+
+---
+
+## Classification of Formulas
+
+| Type | Definition | Example |
+|---|---|---|
+| **Tautology** | True in every row | p ∨ ¬p |
+| **Contradiction** | False in every row | p ∧ ¬p |
+| **Satisfiable** | True in at least one row | p ∧ q |
+
+A **consistent** specification has at least one interpretation where all requirements are simultaneously true.
+
+---
+
+## Logical Laws for Simplification
+
+These laws let you rewrite formulas into equivalent, simpler forms. Two formulas are **logically equivalent** (≡) if they have the same truth table.
+
+### Identity Laws
+
+| Law | Formula |
+|---|---|
+| Identity for AND | p ∧ 1 ≡ p |
+| Identity for OR | p ∨ 0 ≡ p |
+
+### Null (Dominance) Laws
+
+| Law | Formula |
+|---|---|
+| Null for AND | p ∧ 0 ≡ 0 |
+| Null for OR | p ∨ 1 ≡ 1 |
+
+### Idempotence
+
+| Law | Formula |
+|---|---|
+| AND idempotence | p ∧ p ≡ p |
+| OR idempotence | p ∨ p ≡ p |
+
+### Double Negation
+
+```
+¬¬p ≡ p
+```
+
+### Inverse Laws
+
+```
+p ∧ ¬p ≡ 0   (contradiction)
+p ∨ ¬p ≡ 1   (tautology)
+```
+
+### Commutativity
+
+```
+p ∧ q ≡ q ∧ p
+p ∨ q ≡ q ∨ p
+```
+
+### Associativity
+
+```
+(p ∧ q) ∧ r ≡ p ∧ (q ∧ r)
+(p ∨ q) ∨ r ≡ p ∨ (q ∨ r)
+```
+
+### Absorption
+
+```
+p ∧ (p ∨ q) ≡ p
+p ∨ (p ∧ q) ≡ p
+```
+
+**Intuition:** "p AND (p OR something)" — if p is true, the OR part doesn't change p; if p is false, the whole thing is false anyway. Result is always p.
+
+### Distributivity
+
+```
+p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)   ← AND distributes over OR
+p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)   ← OR distributes over AND
+```
+
+### De Morgan's Laws
+
+```
+¬(p ∧ q) ≡ ¬p ∨ ¬q
+¬(p ∨ q) ≡ ¬p ∧ ¬q
+```
+
+**Remember:** Push NOT through brackets → AND becomes OR, OR becomes AND.
+
+### Implication Elimination
+
+```
+p → q ≡ ¬p ∨ q
+```
+
+---
+
+## Simplification Walkthrough
+
+**Simplify: ¬(p ∨ q) ∧ (p ∨ r)**
+
+```
+Step 1: Apply De Morgan to ¬(p ∨ q)
+   = (¬p ∧ ¬q) ∧ (p ∨ r)
+
+Step 2: Distribute ∧ over ∨
+   = (¬p ∧ ¬q ∧ p) ∨ (¬p ∧ ¬q ∧ r)
+
+Step 3: ¬p ∧ p = 0 (inverse law)
+   = 0 ∨ (¬p ∧ ¬q ∧ r)
+
+Step 4: 0 ∨ x = x (identity)
+   = ¬p ∧ ¬q ∧ r
+```
+
+**Verify:** The simplified form is true only when p=0, q=0, r=1.
+
+---
+
+## Equivalence vs. Implication
+
+| Symbol | Meaning |
+|---|---|
+| ≡ | Logically equivalent — same truth table in every row |
+| → | Implication — true unless premise is true and conclusion is false |
+| ⊨ | Semantically entails — every model making left true also makes right true |
+
+```
+p ∧ q ≡ q ∧ p           (equivalent — always the same)
+p ∧ q → p               (valid implication — if both, then certainly p)
+p → p ∨ q               (valid implication — p is sufficient for p OR q)
+```

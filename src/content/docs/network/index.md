@@ -55,6 +55,9 @@ flowchart TB
     APP --> TRANS --> NET --> DL --> PHY
 ```
 
+![image] (https://computerguidehub.com/types-of-computer-network/)
+<img src="[Isolated.png](https://computerguidehub.com/types-of-computer-network/)" alt="isolated" width="200"/>
+
 ## Data Flow: End-to-End
 
 ```mermaid
@@ -124,3 +127,4 @@ flowchart TD
 - [Auth / Protocols](/auth/protocols/certificates-pki) — TLS, PKI, mTLS (used by HTTPS and VPNs)
 - [Cloud / Security](/cloud/security/cloud-security) — VPC, security groups, cloud network controls
 - [Cloud / Kubernetes Advanced](/cloud/orchestration/kubernetes-advanced) — Kubernetes NetworkPolicy, CNI
+

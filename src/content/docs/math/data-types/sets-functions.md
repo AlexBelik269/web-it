@@ -1,0 +1,247 @@
+---
+title: "Sets & Functions"
+description: "Mathematical sets and functions — definitions, operations (union, intersection, difference), subsets, power sets, and function types."
+---
+
+Sets and functions are the building blocks of all of mathematics. In computer science they model databases (sets of records), type systems (sets of values), and mappings between them.
+
+---
+
+## Sets
+
+A **set** is an unordered collection of distinct elements. Order does not matter and duplicates are not allowed.
+
+```
+A = {1, 2, 3, 4}
+B = {x : x is a digit}  = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+```
+
+Note: `{1, 2, 3} = {3, 1, 2}` — sets are equal regardless of order.
+
+### Key Notation
+
+| Notation | Meaning |
+|---|---|
+| x ∈ A | x is an element of A |
+| x ∉ A | x is not an element of A |
+| \|A\| | Cardinality of A — the number of elements |
+| ∅ or {} | Empty set — contains no elements |
+
+---
+
+## Set Operations
+
+### Equality
+
+Two sets are equal if they contain exactly the same elements:
+```
+{a, b, c} = {c, b, a}     ✓ (same elements, different order)
+{a, b, c} ≠ {a, b, c, d}  ✗ (d is extra)
+```
+
+### Subset (⊂)
+
+A is a subset of B if every element of A is also in B:
+```
+{a, b} ⊂ {a, b, c}   ✓
+{a, b, c} ⊂ {a, b}   ✗ (c is not in the right set)
+∅ ⊂ A                 ✓ for any set A (empty set is subset of everything)
+```
+
+Note: A ⊂ A is also true (every set is a subset of itself). Some books use ⊆ for "subset or equal" and ⊊ for "strict subset (proper subset)."
+
+### Intersection (∩) — "Set AND"
+
+Elements that are in **both** A and B:
+```
+A = {1, 2, 3, 4}
+B = {3, 4, 5, 6}
+A ∩ B = {3, 4}
+```
+
+```
+A = {cat, dog, fish}
+B = {fish, bird}
+A ∩ B = {fish}
+```
+
+### Union (∪) — "Set OR"
+
+Elements that are in **A or B (or both)**:
+```
+A = {1, 2, 3}
+B = {3, 4, 5}
+A ∪ B = {1, 2, 3, 4, 5}   ← no duplicates
+```
+
+### Difference (A \ B)
+
+Elements in A but **not** in B:
+```
+A = {1, 2, 3, 4}
+B = {3, 4, 5}
+A \ B = {1, 2}    (remove B's elements from A)
+B \ A = {5}       (order matters!)
+```
+
+### Complement (Ā or A')
+
+Elements in the universal set U but **not** in A:
+```
+U = {1, 2, 3, 4, 5}
+A = {1, 3}
+Ā = {2, 4, 5}
+```
+
+### Cartesian Product (A × B)
+
+All ordered pairs (a, b) where a ∈ A and b ∈ B:
+```
+A = {1, 2}
+B = {x, y}
+A × B = {(1,x), (1,y), (2,x), (2,y)}
+|A × B| = |A| × |B| = 2 × 2 = 4
+```
+
+**In databases:** A table with n rows and m columns is a subset of Row_IDs × Column_Values.
+
+---
+
+## Venn Diagrams
+
+Venn diagrams visualize set relationships. The overlapping region represents the intersection:
+
+```
+A only   A ∩ B   B only
+ [      [  |||  ]      ]
+```
+
+---
+
+## The Power Set
+
+The power set **𝒫(A)** contains all possible subsets of A, including ∅ and A itself.
+
+**Example:** A = {a, b}
+```
+𝒫(A) = {∅, {a}, {b}, {a,b}}
+|𝒫(A)| = 2² = 4
+```
+
+**Example:** A = {1, 2, 3}
+```
+𝒫(A) = {∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}}
+|𝒫(A)| = 2³ = 8
+```
+
+**General rule:** If |A| = n, then |𝒫(A)| = 2ⁿ.
+
+**Why?** Each element is independently either in a subset or not — 2 choices per element, n elements → 2ⁿ subsets.
+
+This is why generating all subsets takes O(2ⁿ) time — exponential.
+
+---
+
+## Lists and Matrices
+
+### List (Sequence / Tuple)
+
+A list is **ordered** and allows **duplicates**. Elements are accessed by index (starting at 1 in mathematics, 0 in most programming languages).
+
+```
+a = (5, 3, 8, 8, 1)
+a₂ = a[2] = 3
+```
+
+### Matrix
+
+A matrix is a 2-dimensional list (rows × columns). Element at row i, column j is written A[i,j] or aᵢⱼ.
+
+```
+A = | 5  1  8  9  1 |
+    | 7  3  0  8  7 |
+
+A[2,4] = 8   (row 2, column 4)
+```
+
+**Broadcasting:** Applying an operation to every element of a list or matrix.
+```
+(1, 2, 3) + 10 = (11, 12, 13)
+```
+
+---
+
+## Functions
+
+A **function** f: D → W maps every element of the domain D to exactly one element in the codomain W.
+
+```
+f: ℕ → ℕ,  f(x) = x²
+
+f(3) = 9
+f(5) = 25
+```
+
+**The key constraint:** Every input must map to **exactly one** output. No input can be left unmapped, and no input can map to two different outputs.
+
+### Function Diagrams
+
+```
+Not a function:       A function:
+D       W             D       W
+1 ──→ a               1 ──→ a
+2 ──→ b               2 ──→ b
+    └→ c               3 ──→ b
+3 ──→ d
+```
+
+In the left diagram, 2 maps to both b and c — that is not a function.
+
+---
+
+## Types of Functions
+
+These types describe the relationship between domain and codomain:
+
+### Injective (One-to-One)
+
+Every output is produced by **at most one** input. Different inputs give different outputs.
+
+```
+f(1) = a
+f(2) = b     ← injective: no two inputs share an output
+f(3) = c
+```
+
+### Surjective (Onto)
+
+Every element in the codomain is produced by **at least one** input. Nothing in W is "unreachable."
+
+```
+f(1) = a
+f(2) = a     ← surjective: every output is hit
+f(3) = b     (but a is hit twice — not injective)
+```
+
+### Bijective (One-to-One and Onto)
+
+Each input maps to exactly one output AND each output is hit exactly once. Perfect pairing.
+
+```
+f(1) = a
+f(2) = b     ← bijective: perfect 1-to-1 pairing
+f(3) = c
+```
+
+**Why bijections matter:**
+- Cryptography: encryption must be bijective (otherwise decryption is impossible)
+- Counting: if there is a bijection A → B, then |A| = |B|
+- Data structures: hash maps aim to be as close to bijective as possible
+
+### Summary Table
+
+| Type | Condition | Counting formula |
+|---|---|---|
+| Injective | At most one input per output (k ≤ 1) | |W| ≥ |D| |
+| Surjective | At least one input per output (k ≥ 1) | |W| ≤ |D| |
+| Bijective | Exactly one input per output (k = 1) | |W| = |D| |
