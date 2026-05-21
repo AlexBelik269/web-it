@@ -1,0 +1,51 @@
+---
+title: "Web Development Overview"
+description: "A comprehensive reference for modern web development — from HTTP fundamentals to distributed architectures and API design."
+---
+
+Web development spans everything from the raw bytes flowing through a TCP socket to the React component a user clicks in their browser. This section organises that knowledge into six coherent areas so you can navigate from fundamentals to advanced architecture without losing context.
+
+## What's covered
+
+| Area | Topics |
+|---|---|
+| **Web & HTTP** | DNS resolution, TCP handshake, HTTP/1.1–3, HTTPS & TLS |
+| **Frontend** | Browser rendering pipeline, JS runtime, CSS layout, performance |
+| **Backend** | Server-side architecture, request lifecycle, DB connections, ORMs |
+| **Hosting & Deployment** | Web servers, cloud hosting, CI/CD, containers |
+| **Architecture** | Monoliths, microservices, distributed systems, scalability, HA, caching, load balancing |
+| **APIs & Integration** | REST, GraphQL, gRPC, WebSockets, event-driven, API management & security |
+
+## The full request journey
+
+```mermaid
+sequenceDiagram
+    participant U as Browser
+    participant DNS as DNS Resolver
+    participant LB as Load Balancer
+    participant App as App Server
+    participant DB as Database
+    participant Cache as Cache (Redis)
+
+    U->>DNS: Resolve example.com
+    DNS-->>U: 93.184.216.34
+    U->>LB: HTTPS GET /api/products
+    LB->>App: Forward request
+    App->>Cache: GET products:list
+    Cache-->>App: Cache miss
+    App->>DB: SELECT * FROM products
+    DB-->>App: Row data
+    App->>Cache: SET products:list (TTL 60s)
+    App-->>LB: 200 OK JSON
+    LB-->>U: 200 OK JSON
+```
+
+## Key mental models
+
+**Separation of concerns** — frontend (presentation), backend (logic), database (state) are distinct layers with defined interfaces. Each can scale independently.
+
+**Statelessness** — HTTP is stateless by design. Sessions, tokens, and caches are mechanisms built *on top* of a stateless protocol, not part of it.
+
+**Everything is a trade-off** — consistency vs. availability, latency vs. throughput, developer velocity vs. operational complexity. The right choice depends on your SLOs and team size.
+
+**The build pipeline is part of the product** — CI/CD, IaC, and observability are first-class concerns, not afterthoughts.

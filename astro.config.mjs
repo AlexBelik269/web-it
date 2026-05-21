@@ -379,6 +379,55 @@ export default defineConfig({
 						},
 					],
 				},
+				{
+					label: 'Web',
+					items: [
+						{
+							label: 'Architecture',
+							items: [
+								{ label: 'Microservices', slug: 'web/architecture/microservices' },
+								{ label: 'Monoliths', slug: 'web/architecture/monoliths' },
+								{ label: 'Overview', slug: 'web/architecture/overview' },
+								{ label: 'Service Mesh', slug: 'web/architecture/service-mesh' },
+							],
+						},
+						{
+							label: 'Backend',
+							items: [
+								{ label: 'Database Connection', slug: 'web/backend/database-connection' },
+								{ label: 'Overview', slug: 'web/backend/overview' },
+								{ label: 'Server Side', slug: 'web/backend/server-side' },
+							],
+						},
+						{
+							label: 'Frontend',
+							items: [
+								{ label: 'Browser Rendering', slug: 'web/frontend/browser-rendering' },
+								{ label: 'CSS Layout', slug: 'web/frontend/css-layout' },
+								{ label: 'JavaScript Runtime', slug: 'web/frontend/javascript-runtime' },
+								{ label: 'Overview', slug: 'web/frontend/overview' },
+								{ label: 'Performance', slug: 'web/frontend/performance' },
+							],
+						},
+						{
+							label: 'Hosting',
+							items: [
+								{ label: 'CI CD', slug: 'web/hosting/ci-cd' },
+								{ label: 'Cloud Hosting', slug: 'web/hosting/cloud-hosting' },
+								{ label: 'Deployment Overview', slug: 'web/hosting/deployment-overview' },
+								{ label: 'Web Servers', slug: 'web/hosting/web-servers' },
+							],
+						},
+						{
+							label: 'HTTP',
+							items: [
+								{ label: 'How Web Works', slug: 'web/http/how-web-works' },
+								{ label: 'HTTP Fundamentals', slug: 'web/http/http-fundamentals' },
+								{ label: 'HTTPS TLS', slug: 'web/http/https-tls' },
+							],
+						},
+					]
+				}
 			],
 		}),
 	],

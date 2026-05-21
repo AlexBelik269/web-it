@@ -1,0 +1,287 @@
+---
+title: "CSS & Layout"
+description: "CSS cascade, specificity, Flexbox, Grid, responsive design, custom properties, and modern CSS features."
+---
+
+CSS controls visual presentation. Modern CSS is a capable layout system — understanding Flexbox, Grid, the cascade, and responsive design patterns eliminates most layout struggles.
+
+## The cascade
+
+The cascade determines which rule wins when multiple rules target the same element and property.
+
+### Specificity (high to low)
+
+1. `!important` — override of last resort
+2. Inline styles: `style="color: red"` — specificity (1,0,0,0)
+3. ID selectors: `#header` — (0,1,0,0)
+4. Class, attribute, pseudo-class: `.btn`, `[type]`, `:hover` — (0,0,1,0)
+5. Element, pseudo-element: `div`, `::before` — (0,0,0,1)
+6. Universal selector: `*` — (0,0,0,0)
+
+When specificity ties, **source order** wins (later rule wins).
+
+### Inheritance
+
+Some properties inherit by default (e.g. `color`, `font-size`, `line-height`). Others don't (e.g. `background`, `border`, `padding`). Use `inherit`, `initial`, `unset`, `revert` to control inherited values explicitly.
+
+## Box model
+
+Every element is a box:
+
+```
+┌──────────────────────────────┐
+│           margin             │
+│  ┌───────────────────────┐   │
+│  │        border         │   │
+│  │  ┌─────────────────┐  │   │
+│  │  │     padding      │  │   │
+│  │  │  ┌───────────┐  │  │   │
+│  │  │  │  content  │  │  │   │
+│  │  │  └───────────┘  │  │   │
+│  │  └─────────────────┘  │   │
+│  └───────────────────────┘   │
+└──────────────────────────────┘
+```
+
+**`box-sizing: border-box`** includes padding and border in `width`/`height` — use it everywhere:
+
+```css
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+```
+
+## Flexbox
+
+Flexbox is a **one-dimensional** layout model (row or column).
+
+```css
+.container {
+    display: flex;
+    flex-direction: row;          /* row | row-reverse | column | column-reverse */
+    justify-content: space-between; /* main axis alignment */
+    align-items: center;           /* cross axis alignment */
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.item {
+    flex: 1 1 200px; /* grow shrink basis */
+}
+```
+
+### Flex shorthand
+
+| Value | Equivalent | Meaning |
+|---|---|---|
+| `flex: 1` | `1 1 0%` | Grow and shrink equally, basis 0 |
+| `flex: auto` | `1 1 auto` | Grow/shrink, use content size |
+| `flex: none` | `0 0 auto` | Fixed size, don't flex |
+| `flex: 0 0 200px` | — | Rigid 200px item |
+
+### justify-content values
+
+`flex-start` `flex-end` `center` `space-between` `space-around` `space-evenly`
+
+### align-items values
+
+`flex-start` `flex-end` `center` `stretch` `baseline`
+
+## CSS Grid
+
+Grid is a **two-dimensional** layout model.
+
+```css
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 24px;
+}
+
+/* Item spanning multiple cells */
+.featured {
+    grid-column: 1 / 3; /* span columns 1–2 */
+    grid-row: 1 / 3;
+}
+```
+
+### Named template areas
+
+```css
+.layout {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "sidebar main   main"
+        "footer footer footer";
+    grid-template-columns: 240px 1fr 1fr;
+}
+
+.header  { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main    { grid-area: main; }
+.footer  { grid-area: footer; }
+```
+
+### Auto-placement and minmax
+
+```css
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+```
+
+`auto-fill` fills the row with as many columns as fit. `minmax(280px, 1fr)` means each column is at least 280px but expands to share space.
+
+## Positioning
+
+| Value | Removed from flow? | Relative to |
+|---|---|---|
+| `static` | No | Normal flow |
+| `relative` | No | Itself |
+| `absolute` | Yes | Nearest positioned ancestor |
+| `fixed` | Yes | Viewport |
+| `sticky` | Partial | Normal flow + scroll threshold |
+
+## Responsive design
+
+### Mobile-first media queries
+
+```css
+/* Base: mobile */
+.container {
+    padding: 16px;
+}
+
+/* Tablet+ */
+@media (min-width: 768px) {
+    .container {
+        padding: 24px;
+    }
+}
+
+/* Desktop+ */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+```
+
+### Container queries
+
+Respond to the **parent container's size**, not the viewport:
+
+```css
+@container (min-width: 600px) {
+    .card {
+        display: flex;
+        flex-direction: row;
+    }
+}
+```
+
+### Fluid typography with clamp
+
+```css
+html {
+    font-size: clamp(14px, 2vw, 18px);
+}
+```
+
+`clamp(min, preferred, max)` — scales between min and max, using preferred as the growth formula.
+
+## Custom properties (CSS variables)
+
+```css
+:root {
+    --color-primary: #3b82f6;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --border-radius: 6px;
+}
+
+.button {
+    background: var(--color-primary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+}
+```
+
+Custom properties cascade and inherit, and can be overridden at any scope. They're the foundation of theming and dark mode:
+
+```css
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-primary: #60a5fa;
+        --background: #0f172a;
+    }
+}
+```
+
+## Modern CSS features
+
+| Feature | Use case |
+|---|---|
+| `display: grid` | 2D layouts |
+| `display: flex` | 1D layouts and alignment |
+| `clamp()` / `min()` / `max()` | Fluid sizing |
+| `container queries` | Component-level responsiveness |
+| `cascade layers` (`@layer`) | Specificity management |
+| `logical properties` (`margin-inline`) | RTL/LTR support |
+| `has()` pseudo-class | Parent selection |
+| `subgrid` | Nested grid alignment |
+| `@property` | Typed custom properties |
+| `color-mix()` | Dynamic colour blending |
+
+## Pseudo-elements and pseudo-classes
+
+```css
+/* Generated content */
+.icon::before { content: url(icon.svg); }
+.clearfix::after { content: ''; display: block; clear: both; }
+
+/* State pseudo-classes */
+a:hover { color: blue; }
+input:focus-visible { outline: 2px solid var(--color-primary); }
+:nth-child(odd) { background: #f5f5f5; }
+:not(.disabled) { cursor: pointer; }
+:has(input:checked) .label { font-weight: bold; }
+```
+
+## Common layout patterns
+
+### Holy grail layout
+
+```css
+body {
+    display: grid;
+    grid-template:
+        "header"     auto
+        "sidebar main" 1fr
+        "footer"     auto
+        / 240px 1fr;
+    min-height: 100vh;
+}
+```
+
+### Centring (vertically and horizontally)
+
+```css
+/* Grid method — cleanest */
+.container {
+    display: grid;
+    place-items: center;
+}
+
+/* Flex method */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+```
