@@ -1,0 +1,215 @@
+---
+title: "Machine Learning Basics"
+description: "How machine learning works — supervised, unsupervised, and reinforcement learning explained with simple examples, plus key concepts like training data, overfitting, and model evaluation."
+---
+
+Machine learning (ML) is the process of teaching a computer to find patterns in data without programming those patterns explicitly. You provide examples and a feedback signal, and an algorithm adjusts internal parameters until it gets good at making predictions.
+
+## The Core Idea
+
+```mermaid
+flowchart LR
+    INPUT["Input data\n(features)"] --> MODEL["Model\n(learned parameters)"]
+    MODEL --> OUTPUT["Prediction\n(label / value)"]
+    OUTPUT -->|"Compare to correct answer"| LOSS["Loss\n(how wrong was it?)"]
+    LOSS -->|"Adjust parameters"| MODEL
+```
+
+This loop — predict, measure error, adjust — runs millions of times during training. Eventually the model's parameters stabilise at values that produce good predictions.
+
+---
+
+## Types of Machine Learning
+
+### Supervised Learning
+
+The most common type. You provide labelled examples: input + correct output. The model learns to map inputs to outputs.
+
+```
+Training data: (email text → spam / not spam)
+                (house features → price)
+                (image → "cat" / "dog")
+```
+
+**Real examples:**
+| Task | Input | Output |
+|---|---|---|
+| Email spam filter | Email text | Spam / Not spam |
+| House price prediction | Bedrooms, size, location | Price in £ |
+| Image classification | Pixel values | "Cat", "Dog", "Car" |
+| Sentiment analysis | Review text | Positive / Negative |
+| Credit scoring | Financial history | Approve / Deny |
+
+### Unsupervised Learning
+
+No labels. The model finds structure in the data on its own — groupings, patterns, compressed representations.
+
+**Real examples:**
+| Technique | What it finds | Use case |
+|---|---|---|
+| Clustering (k-means) | Groups of similar items | Customer segments |
+| Dimensionality reduction (PCA) | Compact representation | Visualisation, compression |
+| Anomaly detection | Outliers | Fraud detection |
+| Topic modelling | Topics in text | Organising documents |
+
+### Reinforcement Learning
+
+An agent takes actions in an environment and receives rewards or penalties. It learns to maximise cumulative reward through trial and error. No labelled dataset needed — the feedback comes from the environment.
+
+```mermaid
+flowchart LR
+    AGENT["Agent"] -->|"Action"| ENV["Environment"]
+    ENV -->|"State + Reward"| AGENT
+```
+
+**Real examples:**
+- AlphaGo / AlphaZero (board games)
+- Training robot arms
+- Game-playing AI (Atari, OpenAI Five)
+- ChatGPT fine-tuning via RLHF (Reinforcement Learning from Human Feedback)
+
+---
+
+## Key Concepts
+
+### Features and Labels
+
+- **Feature:** An input variable the model uses to make a prediction (e.g. email length, number of exclamation marks, sender domain).
+- **Label:** The correct answer you want the model to learn to predict (e.g. "spam" or "not spam").
+
+```python
+# Simple supervised learning example with scikit-learn
+from sklearn.linear_model import LogisticRegression
+
+# Features: [email_length, exclamation_count, from_known_sender]
+X_train = [
+    [120, 0, 1],   # not spam
+    [45,  5, 0],   # spam
+    [300, 1, 1],   # not spam
+    [30,  8, 0],   # spam
+]
+y_train = [0, 1, 0, 1]  # 0 = not spam, 1 = spam
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+print(model.predict([[60, 6, 0]]))  # → [1] (spam)
+```
+
+### Training, Validation, and Test Sets
+
+Never evaluate a model on the same data it was trained on — it will look great but fail on new data (memorisation, not learning).
+
+| Split | Purpose | Typical % |
+|---|---|---|
+| Training set | Fit model parameters | 70–80% |
+| Validation set | Tune hyperparameters, early stopping | 10–15% |
+| Test set | Final, unbiased evaluation | 10–15% |
+
+### Overfitting and Underfitting
+
+```mermaid
+flowchart LR
+    UNDER["Underfitting\n(too simple)\nHigh training error\nHigh test error"] 
+    GOOD["Good fit\nLow training error\nLow test error"]
+    OVER["Overfitting\n(too complex)\nLow training error\nHigh test error"]
+    
+    UNDER -->|"More complexity"| GOOD
+    GOOD -->|"More complexity"| OVER
+```
+
+- **Underfitting:** The model is too simple to capture the pattern. Solution: more parameters, better features.
+- **Overfitting:** The model memorised training data and doesn't generalise. Solution: more data, regularisation, dropout, simpler model.
+
+### Loss Function
+
+A number measuring how wrong the model's predictions are. Training is the process of minimising this number.
+
+| Task type | Common loss function | What it measures |
+|---|---|---|
+| Binary classification | Binary cross-entropy | Probability error on yes/no |
+| Multi-class | Categorical cross-entropy | Probability error across classes |
+| Regression | Mean Squared Error (MSE) | Average squared distance from correct value |
+
+### Gradient Descent
+
+The optimiser that actually adjusts model parameters to reduce loss. It calculates which direction to nudge each parameter to reduce the error, then takes a small step in that direction.
+
+```mermaid
+flowchart LR
+    PARAMS["Model parameters"] -->|"Forward pass"| LOSS["Loss (error)"]
+    LOSS -->|"Backpropagation\n(calculate gradients)"| GRAD["Gradients"]
+    GRAD -->|"Update: param -= lr × gradient"| PARAMS
+```
+
+**Learning rate** controls the step size. Too high → overshoot. Too low → very slow.
+
+---
+
+## Model Evaluation Metrics
+
+### Classification
+
+| Metric | Formula | When to use |
+|---|---|---|
+| Accuracy | Correct / Total | Balanced classes |
+| Precision | True Positive / (TP + FP) | When false positives are costly |
+| Recall | True Positive / (TP + FN) | When false negatives are costly |
+| F1 Score | 2 × (Precision × Recall) / (P + R) | Imbalanced classes |
+
+**Example:** A cancer detection model.
+- **High recall** is critical (missing a cancer is worse than a false alarm).
+- **High precision** matters for spam (you don't want to delete real emails).
+
+### Regression
+
+| Metric | What it means |
+|---|---|
+| MAE (Mean Absolute Error) | Average absolute difference from correct value |
+| MSE (Mean Squared Error) | Average squared difference (penalises large errors more) |
+| R² (R-squared) | How much variance the model explains (1.0 = perfect) |
+
+---
+
+## Common ML Algorithms
+
+| Algorithm | Type | Good for |
+|---|---|---|
+| Linear Regression | Supervised | Predicting continuous values |
+| Logistic Regression | Supervised | Binary classification |
+| Decision Tree | Supervised | Interpretable classifications |
+| Random Forest | Supervised | Tabular data, robust to noise |
+| K-Nearest Neighbours | Supervised | Simple classification/regression |
+| K-Means | Unsupervised | Clustering |
+| Neural Network | Supervised/Unsupervised | Images, text, audio, complex patterns |
+| SVM | Supervised | High-dimensional classification |
+
+---
+
+## The ML Workflow
+
+```mermaid
+flowchart TD
+    PROB["Define the problem\n(What are we predicting?)"]
+    DATA["Collect & clean data"]
+    FEAT["Feature engineering\n(select & transform inputs)"]
+    SPLIT["Split train / val / test"]
+    TRAIN["Train model"]
+    EVAL["Evaluate on validation set"]
+    TUNE["Tune hyperparameters"]
+    TEST["Final test set evaluation"]
+    DEPLOY["Deploy"]
+
+    PROB --> DATA --> FEAT --> SPLIT --> TRAIN --> EVAL
+    EVAL -->|"Not good enough"| TUNE
+    TUNE --> TRAIN
+    EVAL -->|"Good enough"| TEST --> DEPLOY
+```
+
+---
+
+## Next Steps
+
+- [Neural Networks](/ai/fundamentals/neural-networks) — how deep learning models are structured
+- [Training vs Inference](/ai/concepts/training-vs-inference) — the difference between building a model and using it
+- [How LLMs Work](/ai/llm/how-llms-work) — machine learning applied to language at scale

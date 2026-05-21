@@ -1,4 +1,4 @@
-// @ts-check
+﻿// @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
@@ -68,6 +68,103 @@ export default defineConfig({
 					],
 				},
 				{
+					label: 'Networking',
+					items: [
+						{ label: 'Overview', slug: 'network' },
+						{
+							label: 'Fundamentals',
+							items: [
+								{ label: 'OSI & TCP/IP Model', slug: 'network/fundamentals/osi-model' },
+								{ label: 'Network Devices', slug: 'network/fundamentals/network-devices' },
+								{ label: 'Cables & Physical Media', slug: 'network/fundamentals/cables-media' },
+							],
+						},
+						{
+							label: 'Addressing',
+							items: [
+								{ label: 'IP Addressing & Subnetting', slug: 'network/addressing/ip-addressing' },
+								{ label: 'DNS', slug: 'network/addressing/dns' },
+								{ label: 'DHCP', slug: 'network/addressing/dhcp' },
+							],
+						},
+						{
+							label: 'Protocols',
+							items: [
+								{ label: 'TCP & UDP', slug: 'network/protocols/tcp-udp' },
+								{ label: 'HTTP & HTTPS', slug: 'network/protocols/http-https' },
+								{ label: 'Routing Protocols', slug: 'network/protocols/routing-protocols' },
+								{ label: 'Protocol Reference', slug: 'network/protocols/protocol-reference' },
+							],
+						},
+						{
+							label: 'Traffic & Switching',
+							items: [
+								{ label: 'Traffic Analysis', slug: 'network/traffic/traffic-analysis' },
+								{ label: 'VLANs & Switching', slug: 'network/traffic/switching' },
+							],
+						},
+						{
+							label: 'Wireless',
+							items: [
+								{ label: 'Wi-Fi (802.11)', slug: 'network/wireless/wifi' },
+							],
+						},
+						{
+							label: 'Security',
+							items: [
+								{ label: 'Firewalls & IDS/IPS', slug: 'network/security/network-security' },
+								{ label: 'Attacks & Defenses', slug: 'network/security/attacks-defenses' },
+								{ label: 'VPN & Tunneling', slug: 'network/security/vpn-tunneling' },
+								{ label: 'Zero Trust Networking', slug: 'network/security/zero-trust-network' },
+							],
+						},
+					],
+				},
+				{
+					label: 'Cloud & Containers',
+					items: [
+						{ label: 'Overview', slug: 'cloud' },
+						{
+							label: 'Cloud Fundamentals',
+							items: [
+								{ label: 'Cloud Concepts', slug: 'cloud/fundamentals/cloud-concepts' },
+								{ label: 'Virtualization & Containers', slug: 'cloud/fundamentals/virtualization' },
+							],
+						},
+						{
+							label: 'Containers',
+							items: [
+								{ label: 'Docker', slug: 'cloud/containers/docker' },
+								{ label: 'Docker Compose', slug: 'cloud/containers/docker-compose' },
+								{ label: 'Container Registries', slug: 'cloud/containers/container-registry' },
+							],
+						},
+						{
+							label: 'Orchestration',
+							items: [
+								{ label: 'Kubernetes', slug: 'cloud/orchestration/kubernetes' },
+								{ label: 'Kubernetes Advanced', slug: 'cloud/orchestration/kubernetes-advanced' },
+								{ label: 'Helm', slug: 'cloud/orchestration/helm' },
+								{ label: 'OpenShift', slug: 'cloud/orchestration/openshift' },
+							],
+						},
+						{
+							label: 'Infrastructure as Code',
+							items: [
+								{ label: 'Ansible', slug: 'cloud/iac/ansible' },
+								{ label: 'Terraform', slug: 'cloud/iac/terraform' },
+							],
+						},
+						{
+							label: 'Security',
+							items: [
+								{ label: 'Cloud Security', slug: 'cloud/security/cloud-security' },
+								{ label: 'Container Security', slug: 'cloud/security/container-security' },
+							],
+						},
+					],
+				},
+				{
 					label: 'Auth',
 					items: [
 						{ label: 'Overview', slug: 'auth' },
@@ -128,6 +225,42 @@ export default defineConfig({
 								{ label: 'Threats & Attacks', slug: 'auth/security/threats-attacks' },
 								{ label: 'Best Practices', slug: 'auth/security/best-practices' },
 								{ label: 'Security Checklist', slug: 'auth/security/security-checklist' },
+							],
+						},
+					],
+				},
+				{
+					label: 'AI & LLMs',
+					items: [
+						{ label: 'Overview', slug: 'ai' },
+						{
+							label: 'Fundamentals',
+							items: [
+								{ label: 'What is AI?', slug: 'ai/fundamentals/what-is-ai' },
+								{ label: 'Machine Learning Basics', slug: 'ai/fundamentals/machine-learning-basics' },
+								{ label: 'Neural Networks', slug: 'ai/fundamentals/neural-networks' },
+							],
+						},
+						{
+							label: 'Large Language Models',
+							items: [
+								{ label: 'How LLMs Work', slug: 'ai/llm/how-llms-work' },
+								{ label: 'Tokens & Context Windows', slug: 'ai/llm/tokens-and-context' },
+								{ label: 'Prompt Engineering', slug: 'ai/llm/prompting' },
+							],
+						},
+						{
+							label: 'Concepts',
+							items: [
+								{ label: 'Training vs Inference', slug: 'ai/concepts/training-vs-inference' },
+								{ label: 'AI Safety & Ethics', slug: 'ai/concepts/ai-safety-ethics' },
+							],
+						},
+						{
+							label: 'Tools & APIs',
+							items: [
+								{ label: 'AI Tools Overview', slug: 'ai/tools/ai-tools-overview' },
+								{ label: 'Using AI APIs', slug: 'ai/tools/using-apis' },
 							],
 						},
 					],
