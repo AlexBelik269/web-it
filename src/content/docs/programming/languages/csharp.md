@@ -1,0 +1,329 @@
+---
+title: "C#"
+description: "C# language fundamentals — syntax, variables, functions, common pitfalls, and practical patterns."
+---
+
+C# (pronounced "C sharp") is a statically typed, compiled, object-oriented language developed by Microsoft. It runs on the **.NET runtime** (previously .NET Framework, now cross-platform .NET 6+) and is the primary language for ASP.NET web apps, Unity games, and Windows desktop software.
+
+**Key traits:** strong typing · garbage collected · LINQ · async/await · rich standard library · compiles to IL (Intermediate Language) then JIT-compiled to native code.
+
+---
+
+## Hello World
+
+```csharp
+// Minimal top-level statements (C# 9+)
+Console.WriteLine("Hello, World!");
+
+// Classic class-based form
+using System;
+
+namespace MyApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+        }
+    }
+}
+```
+
+---
+
+## Variables & Data Types
+
+C# is statically typed — every variable has a fixed type known at compile time. Use `var` for local type inference.
+
+```csharp
+// Primitives
+int    age     = 30;
+double pi      = 3.14159;
+bool   active  = true;
+char   grade   = 'A';
+string name    = "Alice";
+
+// Type inference
+var city = "Berlin";   // compiler infers string
+
+// Nullable types (value types can be null with ?)
+int? maybeNull = null;
+
+// Constants
+const double G = 9.81;
+
+// String interpolation
+string greeting = $"Hello, {name}! You are {age} years old.";
+
+// Common collections
+int[]        arr  = { 1, 2, 3 };
+List<int>    list = new List<int> { 1, 2, 3 };
+Dictionary<string, int> map = new() { ["a"] = 1, ["b"] = 2 };
+```
+
+### Value Types vs Reference Types
+
+| Category | Examples | Stored on |
+|---|---|---|
+| Value types | `int`, `double`, `bool`, `struct`, `enum` | Stack (usually) |
+| Reference types | `class`, `string`, `array`, `List<T>` | Heap |
+
+Value types are copied on assignment; reference types share the same object.
+
+```csharp
+int a = 5;
+int b = a;   // b is an independent copy
+b = 10;
+Console.WriteLine(a);  // 5 — unchanged
+
+var list1 = new List<int> { 1, 2, 3 };
+var list2 = list1;     // both point to the same list
+list2.Add(4);
+Console.WriteLine(list1.Count);  // 4 — list1 also changed!
+```
+
+---
+
+## User Input
+
+```csharp
+Console.Write("Enter your name: ");
+string? input = Console.ReadLine();   // returns null if stream ends
+
+Console.Write("Enter your age: ");
+if (int.TryParse(Console.ReadLine(), out int age))
+{
+    Console.WriteLine($"Hello {input}, you are {age}.");
+}
+else
+{
+    Console.WriteLine("Invalid age.");
+}
+```
+
+Always use `TryParse` rather than `int.Parse` — `Parse` throws on bad input.
+
+---
+
+## Functions (Methods)
+
+```csharp
+// Basic method
+static int Add(int a, int b)
+{
+    return a + b;
+}
+
+// Expression body (for single-expression methods)
+static int Multiply(int a, int b) => a * b;
+
+// Optional parameters with defaults
+static string Greet(string name, string greeting = "Hello")
+    => $"{greeting}, {name}!";
+
+// Named arguments
+Console.WriteLine(Greet(greeting: "Hi", name: "Bob"));
+
+// Out parameters
+static bool TryDivide(int a, int b, out double result)
+{
+    if (b == 0) { result = 0; return false; }
+    result = (double)a / b;
+    return true;
+}
+
+// Generic method
+static T FirstOrDefault<T>(IEnumerable<T> source, T fallback = default!)
+    => source.FirstOrDefault() ?? fallback;
+```
+
+---
+
+## Control Flow
+
+```csharp
+// if / else
+if (age >= 18) Console.WriteLine("Adult");
+else           Console.WriteLine("Minor");
+
+// switch expression (C# 8+)
+string category = age switch
+{
+    < 13  => "Child",
+    < 18  => "Teenager",
+    < 65  => "Adult",
+    _     => "Senior"
+};
+
+// for / foreach / while
+for (int i = 0; i < 5; i++) Console.Write(i + " ");
+
+foreach (var item in list) Console.Write(item + " ");
+
+int n = 0;
+while (n < 3) { Console.Write(n++); }
+```
+
+---
+
+## Classes & Properties
+
+```csharp
+public class Person
+{
+    // Auto-implemented properties
+    public string Name { get; set; } = string.Empty;
+    public int    Age  { get; private set; }
+
+    // Constructor
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age  = age;
+    }
+
+    // Method
+    public string Introduce() => $"Hi, I'm {Name}, {Age} years old.";
+
+    // Override ToString
+    public override string ToString() => $"Person({Name}, {Age})";
+}
+
+// Usage
+var p = new Person("Alice", 30);
+Console.WriteLine(p.Introduce());
+```
+
+---
+
+## LINQ
+
+LINQ (Language Integrated Query) lets you query collections with readable, SQL-like syntax.
+
+```csharp
+var numbers = new List<int> { 3, 1, 4, 1, 5, 9, 2, 6 };
+
+// Method syntax
+var result = numbers
+    .Where(n => n > 3)
+    .OrderBy(n => n)
+    .Select(n => n * 2)
+    .ToList();   // [8, 8, 10, 12, 18]
+
+// Query syntax
+var evens = from n in numbers
+            where n % 2 == 0
+            orderby n
+            select n;
+
+// Aggregations
+int sum  = numbers.Sum();
+int max  = numbers.Max();
+double avg = numbers.Average();
+```
+
+---
+
+## Async / Await
+
+```csharp
+using System.Net.Http;
+
+static async Task<string> FetchAsync(string url)
+{
+    using var client = new HttpClient();
+    string body = await client.GetStringAsync(url);
+    return body;
+}
+
+// Call from an async entry point
+static async Task Main()
+{
+    string html = await FetchAsync("https://example.com");
+    Console.WriteLine(html[..200]);
+}
+```
+
+---
+
+## Known Problems & Pitfalls
+
+### NullReferenceException
+The most common runtime crash. Use nullable reference types (`#nullable enable`) and null-coalescing operators.
+
+```csharp
+string? name = GetName();  // may return null
+int len = name?.Length ?? 0;           // safe — returns 0 if null
+string upper = name ?? "default";      // fallback value
+name!.ToUpper();                       // ! suppresses warning — only if you're SURE it's not null
+```
+
+### Value Type Boxing
+Storing a value type in `object` or an interface boxes it to the heap — silent but costly in hot loops.
+
+```csharp
+object boxed = 42;         // boxing — allocates on heap
+int unboxed = (int)boxed;  // unboxing — must cast correctly or InvalidCastException
+
+// Avoid: using ArrayList (non-generic) with value types
+// Prefer: List<int>, Span<T>, or generics
+```
+
+### `==` vs `.Equals()` on Strings
+`==` works correctly for strings (value equality), but on custom classes it defaults to reference equality unless overridden.
+
+```csharp
+string a = "hello";
+string b = "hel" + "lo";
+Console.WriteLine(a == b);        // true  (value comparison for string)
+Console.WriteLine(a.Equals(b));   // true
+
+object x = new MyClass();
+object y = new MyClass();
+Console.WriteLine(x == y);        // false (reference comparison unless overridden)
+```
+
+### Catching Too Broadly
+
+```csharp
+// Bad: swallows everything, hides bugs
+try { DoWork(); } catch (Exception) { }
+
+// Good: catch specific, log, re-throw if unrecoverable
+try
+{
+    DoWork();
+}
+catch (FileNotFoundException ex)
+{
+    Console.Error.WriteLine($"File missing: {ex.FileName}");
+    throw;  // re-throw preserves stack trace
+}
+```
+
+### Integer Overflow (unchecked by default)
+
+```csharp
+int max = int.MaxValue;
+int overflow = max + 1;   // silently wraps to int.MinValue!
+
+// Use checked to throw on overflow
+int safe = checked(max + 1);  // throws OverflowException
+```
+
+---
+
+## Quick Reference
+
+| Task | C# |
+|---|---|
+| Print | `Console.WriteLine(x)` |
+| Read line | `Console.ReadLine()` |
+| String format | `$"Hello {name}"` |
+| List | `new List<T>()` |
+| Dictionary | `new Dictionary<K,V>()` |
+| Null check | `x?.Property ?? fallback` |
+| Async method | `async Task<T> Foo() { await ... }` |
+| LINQ filter | `.Where(x => condition)` |
+| Try/catch | `try { } catch (ExType e) { }` |

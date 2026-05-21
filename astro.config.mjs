@@ -1,4 +1,4 @@
-﻿// @ts-check
+// @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
@@ -11,6 +11,46 @@ export default defineConfig({
 			title: 'IT Knowledge Base',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/AlexBelik269/web-it' }],
 			sidebar: [
+				{
+					label: 'Databases',
+					items: [
+						{ label: 'Overview', slug: 'databases' },
+						{
+							label: 'Relational',
+							items: [
+								{ label: 'Relational Databases', slug: 'databases/relational/relational-databases' },
+							],
+						},
+						{
+							label: 'NoSQL',
+							items: [
+								{ label: 'NoSQL & CAP Theorem', slug: 'databases/nosql/nosql' },
+							],
+						},
+						{
+							label: 'SQL',
+							items: [
+								{ label: 'SQL Fundamentals', slug: 'databases/sql/sql-fundamentals' },
+							],
+						},
+						{
+							label: 'Internals',
+							items: [
+								{ label: 'Transactions', slug: 'databases/internals/transactions' },
+								{ label: 'Indexing', slug: 'databases/internals/indexing' },
+							],
+						},
+						{
+							label: 'Operations',
+							items: [
+								{ label: 'Replication', slug: 'databases/operations/replication' },
+								{ label: 'Backup & Recovery', slug: 'databases/operations/backup-recovery' },
+								{ label: 'Performance Tuning', slug: 'databases/operations/performance-tuning' },
+								{ label: 'Security', slug: 'databases/operations/security' },
+							],
+						},
+					],
+				},
 				{
 					label: 'Security',
 					items: [
@@ -261,6 +301,80 @@ export default defineConfig({
 							items: [
 								{ label: 'AI Tools Overview', slug: 'ai/tools/ai-tools-overview' },
 								{ label: 'Using AI APIs', slug: 'ai/tools/using-apis' },
+							],
+						},
+					],
+				},
+				{
+					label: 'Programming',
+					items: [
+						{ label: 'Overview', slug: 'programming' },
+						{ label: 'Fundamentals', slug: 'programming/fundamentals' },
+						{ label: 'Data Structures', slug: 'programming/data-structures' },
+						{ label: 'Algorithms', slug: 'programming/algorithms' },
+						{ label: 'Object-Oriented Programming', slug: 'programming/oop' },
+						{ label: 'Functional Programming', slug: 'programming/functional' },
+						{ label: 'Design Patterns', slug: 'programming/design-patterns' },
+						{ label: 'Testing', slug: 'programming/testing' },
+						{ label: 'Error Handling', slug: 'programming/error-handling' },
+						{ label: 'Secure Coding', slug: 'programming/secure-coding' },
+						{
+							label: 'Languages',
+							items: [
+								{ label: 'C#', slug: 'programming/languages/csharp' },
+								{ label: 'Java', slug: 'programming/languages/java' },
+								{ label: 'Python', slug: 'programming/languages/python' },
+								{ label: 'JavaScript & TypeScript', slug: 'programming/languages/javascript-typescript' },
+								{ label: 'HTML & CSS', slug: 'programming/languages/html-css' },
+								{ label: 'Comparison: C# vs Java vs Python', slug: 'programming/languages/comparison-oop' },
+								{ label: 'Comparison: JS / TS / HTML / CSS', slug: 'programming/languages/comparison-web' },
+							],
+						},
+					],
+				},
+				{
+					label: 'Operating Systems',
+					items: [
+						{ label: 'Overview', slug: 'os' },
+						{
+							label: 'Linux',
+							items: [
+								{ label: 'Linux Fundamentals', slug: 'os/linux/linux-fundamentals' },
+							],
+						},
+						{
+							label: 'Windows',
+							items: [
+								{ label: 'Windows Fundamentals', slug: 'os/windows/windows-fundamentals' },
+							],
+						},
+						{
+							label: 'Internals',
+							items: [
+								{ label: 'Processes & Threads', slug: 'os/processes/processes-threads' },
+								{ label: 'Memory Management', slug: 'os/memory/memory-management' },
+								{ label: 'File Systems', slug: 'os/filesystems/file-systems' },
+							],
+						},
+						{
+							label: 'Management',
+							items: [
+								{ label: 'Services & Daemons', slug: 'os/services/services-daemons' },
+								{ label: 'Permissions & Access Control', slug: 'os/permissions/permissions-access-control' },
+							],
+						},
+						{
+							label: 'Shell & Scripting',
+							items: [
+								{ label: 'Bash', slug: 'os/shell/bash' },
+								{ label: 'PowerShell', slug: 'os/shell/powershell' },
+							],
+						},
+						{
+							label: 'Operations',
+							items: [
+								{ label: 'System Monitoring', slug: 'os/monitoring/system-monitoring' },
+								{ label: 'Troubleshooting', slug: 'os/troubleshooting/troubleshooting' },
 							],
 						},
 					],
