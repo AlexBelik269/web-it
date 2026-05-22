@@ -1,0 +1,123 @@
+---
+title: "Relational Databases"
+description: "Relational database fundamentals, PostgreSQL vs MySQL, the relational model, normalization, and ACID guarantees."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+A **relational database** stores data in tables (relations) with rows and columns. Tables are linked via foreign keys. A schema enforces structure and types at the database level.
+
+## The Relational Model
+
+| Concept | Description |
+|---|---|
+| **Table (Relation)** | A set of rows sharing the same columns |
+| **Row (Tuple)** | One record |
+| **Column (Attribute)** | A typed field in every row |
+| **Primary Key** | Uniquely identifies each row |
+| **Foreign Key** | References a primary key in another table |
+| **Constraint** | Rule enforced by the DB (NOT NULL, UNIQUE, CHECK) |
+
+### Normalisation
+
+Normalisation removes redundancy by splitting data into smaller tables.
+
+| Normal Form | Rule |
+|---|---|
+| **1NF** | Each cell holds one value; no repeating groups |
+| **2NF** | No partial dependency on a composite key |
+| **3NF** | No transitive dependency (non-key column depends on another non-key column) |
+| **BCNF** | Every determinant is a candidate key |
+
+Denormalise intentionally for read-heavy workloads — joins are expensive at scale.
+
+---
+
+## PostgreSQL
+
+PostgreSQL (Postgres) is a fully open-source, standards-compliant RDBMS known for correctness, extensibility, and advanced features.
+
+**Strengths:**
+- Full ACID compliance with MVCC (no read locks)
+- Rich types: JSON/JSONB, arrays, hstore, range types, enums
+- Advanced indexing: partial indexes, expression indexes, GIN, GiST, BRIN
+- Window functions, CTEs, lateral joins, full-text search
+- Extensions (PostGIS, pg_trgm, TimescaleDB, pgvector)
+- Row-level security (RLS)
+
+**Defaults:** Port `5432`, `psql` CLI, `pg_dump`/`pg_restore` for backups.
+
+```sql
+-- Create a table with common Postgres idioms
+CREATE TABLE orders (
+    id          BIGSERIAL PRIMARY KEY,
+    user_id     BIGINT NOT NULL REFERENCES users(id),
+    status      TEXT NOT NULL DEFAULT 'pending',
+    metadata    JSONB,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- JSONB query
+SELECT * FROM orders WHERE metadata->>'source' = 'mobile';
+```
+
+---
+
+## MySQL
+
+MySQL (and its drop-in fork MariaDB) is the most widely deployed open-source RDBMS, dominant in web stacks (LAMP).
+
+**Strengths:**
+- Fast reads; widely supported by hosting providers
+- InnoDB storage engine: ACID, row-level locking, foreign keys
+- Good replication ecosystem (binary log-based)
+- MySQL Cluster for high availability
+
+**Gotchas:**
+- Historically more lenient with invalid data (`strict_mode` off by default in older versions — enable it)
+- JSON support added in 5.7, improved in 8.0; not as rich as Postgres JSONB
+- Default character set was `latin1` historically; use `utf8mb4`
+
+**Defaults:** Port `3306`, `mysql` CLI, `mysqldump` for backups.
+
+```sql
+-- MySQL with strict mode and utf8mb4
+CREATE TABLE users (
+    id         BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email      VARCHAR(255) NOT NULL UNIQUE,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
+---
+
+## PostgreSQL vs MySQL
+
+| Feature | PostgreSQL | MySQL |
+|---|---|---|
+| License | PostgreSQL (open, permissive) | GPL v2 / commercial |
+| Standards compliance | Very high | Moderate |
+| JSON support | JSONB (indexed, fast) | JSON (not indexable directly) |
+| Concurrency | MVCC (no read locks) | MVCC (InnoDB) |
+| Full-text search | Built-in, extensible | Basic; use Elasticsearch for production |
+| Extensions | Rich ecosystem | Limited |
+| Replication | Streaming + logical | Binary log (row/statement/mixed) |
+| Hosted options | RDS, Cloud SQL, Supabase, Neon | RDS, Cloud SQL, PlanetScale |
+| Best for | Complex queries, correctness, new projects | High read throughput, existing LAMP apps |
+
+<Aside type="tip">Default choice for new projects: PostgreSQL.</Aside>
+
+---
+
+## ACID (Overview)
+
+ACID is covered in depth in [Transactions](/databases/internals/transactions). In brief:
+
+| Property | Guarantee |
+|---|---|
+| **Atomicity** | A transaction either fully commits or fully rolls back |
+| **Consistency** | Constraints and rules are never violated |
+| **Isolation** | Concurrent transactions don't interfere |
+| **Durability** | Committed data survives crashes |
+
+Both PostgreSQL and MySQL (InnoDB) are fully ACID-compliant.

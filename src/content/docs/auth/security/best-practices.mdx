@@ -1,0 +1,42 @@
+---
+title: "Best Practices"
+description: "Auth dos and don'ts — what every secure implementation must do and what to never do."
+---
+
+import \{ Tabs, TabItem \} from '@astrojs/starlight/components';
+import \{ Aside, Card, CardGrid, Steps, Badge \} from '@astrojs/starlight/components';
+
+
+## Always Do This
+
+- **Hash passwords with Argon2id, bcrypt (cost ≥ 12), or scrypt** — never plaintext, never MD5/SHA
+- **Enforce HTTPS everywhere** — auth over plain HTTP is meaningless
+- **Use short-lived access tokens (5–60 min)** with long-lived refresh tokens
+- **Validate JWT algorithm, issuer, audience, and expiry** explicitly on every request
+- **Set HttpOnly + Secure + SameSite=Lax** on all session/auth cookies
+- **Rate-limit authentication endpoints** with exponential backoff and account lockout
+- **Enforce MFA** — prefer TOTP apps or hardware keys over SMS
+- **Log all auth events** — success, failure, token issuance, revocation, with IP + user agent
+- **Rotate secrets on breach** — support key rotation without service downtime
+- **Verify email before allowing account use** — prevents account enumeration and takeover
+- **Regenerate session ID on login** — prevents session fixation
+- **Apply least-privilege** to all tokens, keys, API credentials, and service accounts
+- **Use a secrets manager** (HashiCorp Vault, AWS Secrets Manager, Doppler) — not environment variables in code
+- **PKCE for all OAuth Authorization Code flows** — even for confidential clients
+
+## Never Do This
+
+- Store plaintext passwords — ever
+- Use MD5, SHA-1, or unsalted hashes for passwords
+- Build your own cryptographic primitives — use vetted libraries
+- Trust the `alg` header in a JWT — explicitly allowlist algorithms
+- Store sensitive tokens in `localStorage` — XSS will steal them
+- Commit secrets, API keys, or credentials to version control
+- Use the same secret across dev, staging, and production environments
+- Rely solely on SMS OTP for high-value accounts
+- Include stack traces or error details in 401/403 responses — they leak information
+- Trust client-side authorization checks as the only enforcement layer
+- Put sensitive data (PII, secrets) in JWT payload without encryption
+- Transmit credentials or tokens in URL query parameters
+- Return `200 OK` for failed authentication — use proper 4xx codes
+- Use `GET` requests for state-changing operations — CSRF bypasses SameSite protections

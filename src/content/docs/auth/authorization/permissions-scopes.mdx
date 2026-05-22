@@ -1,0 +1,201 @@
+---
+title: "Permissions & Scopes"
+description: "Permission modeling with resource:action format, JWT permission claims, and IDOR prevention."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+## Permission Modeling
+
+Use the `resource:action` pattern for consistent, readable permissions:
+
+```
+# Read permissions
+users:read         → List or get user records
+invoices:read      → View invoices
+reports:read       → View reports
+
+# Write permissions
+users:write        → Create or update users
+invoices:write     → Create or update invoices
+
+# Delete permissions
+users:delete       → Delete users
+invoices:delete    → Delete invoices
+
+# Special permissions
+admin:impersonate  → Act as another user (high-privilege — always log)
+billing:manage     → Manage billing/subscription
+settings:admin     → Modify application settings
+```
+
+## JWT with Permissions
+
+```json
+{
+  "sub": "user_abc123",
+  "email": "alice@company.com",
+  "roles": ["editor", "billing_viewer"],
+  "permissions": ["users:read", "invoices:read", "invoices:write"],
+  "scope": "openid email read:reports write:reports",
+  "org_id": "org_xyz",
+  "exp": 1700003600
+}
+```
+
+## Scope Validation in Code
+
+<Tabs>
+<TabItem label="Python">
+```python
+from fastapi import Depends, HTTPException
+
+def require_scope(scope: str):
+    def checker(user=Depends(get_current_user)):
+        token_scopes = (user.scope or "").split(" ")
+        if scope not in token_scopes:
+            raise HTTPException(
+                status_code=403,
+                detail=f"insufficient_scope: Required scope: {scope}"
+            )
+        return user
+    return checker
+
+@app.get("/reports")
+async def get_reports(_=Depends(require_scope("read:reports"))):
+    ...
+
+@app.post("/reports")
+async def create_report(_=Depends(require_scope("write:reports"))):
+    ...
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Middleware: require a specific OAuth scope
+const requireScope = (scope) => (req, res, next) => {
+  const tokenScopes = (req.user.scope || '').split(' ');
+  if (!tokenScopes.includes(scope)) {
+    return res.status(403).json({
+      error: 'insufficient_scope',
+      error_description: `Required scope: ${scope}`,
+    });
+  }
+  next();
+};
+
+app.get('/reports', requireScope('read:reports'), getReports);
+app.post('/reports', requireScope('write:reports'), createReport);
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// ASP.NET Core — scope requirement via policy
+services.AddAuthorization(options =>
+{
+    options.AddPolicy("ReadReports", policy =>
+        policy.RequireClaim("scope", "read:reports"));
+    options.AddPolicy("WriteReports", policy =>
+        policy.RequireClaim("scope", "write:reports"));
+});
+
+[Authorize(Policy = "ReadReports")]
+[HttpGet("/reports")]
+public IActionResult GetReports() => Ok();
+
+[Authorize(Policy = "WriteReports")]
+[HttpPost("/reports")]
+public IActionResult CreateReport() => Ok();
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Spring Security — scope-based access
+@PreAuthorize("hasAuthority('SCOPE_read:reports')")
+@GetMapping("/reports")
+public ResponseEntity<?> getReports() {
+    return ResponseEntity.ok().build();
+}
+
+@PreAuthorize("hasAuthority('SCOPE_write:reports')")
+@PostMapping("/reports")
+public ResponseEntity<?> createReport() {
+    return ResponseEntity.ok().build();
+}
+```
+</TabItem>
+</Tabs>
+
+## Resource Ownership Check (prevents IDOR)
+
+<Aside type="danger">
+Always check resource ownership server-side — never trust the client-supplied ID alone. Skipping this check leads to IDOR (Insecure Direct Object Reference) vulnerabilities.
+</Aside>
+
+<Tabs>
+<TabItem label="Python">
+```python
+@app.get("/invoices/{invoice_id}")
+async def get_invoice(invoice_id: str, user=Depends(get_current_user)):
+    invoice = await db.invoices.find_by_id(invoice_id)
+    if not invoice:
+        raise HTTPException(status_code=404, detail="Not found")
+    # CRITICAL: always check ownership — never trust the ID alone
+    if invoice.user_id != user.sub:
+        raise HTTPException(status_code=403, detail="Forbidden")
+    return invoice
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+app.get('/invoices/:id', authenticate, async (req, res) => {
+  const invoice = await db.invoices.findById(req.params.id);
+
+  if (!invoice) return res.status(404).json({ error: 'Not found' });
+
+  // CRITICAL: always check ownership — never trust the ID alone
+  if (invoice.userId !== req.user.sub) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+
+  res.json(invoice);
+});
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+[Authorize]
+[HttpGet("/invoices/{id}")]
+public async Task<IActionResult> GetInvoice(string id)
+{
+    var invoice = await _db.Invoices.FindAsync(id);
+    if (invoice == null) return NotFound();
+
+    // CRITICAL: always check ownership — never trust the ID alone
+    var userId = User.FindFirst("sub")?.Value;
+    if (invoice.UserId != userId)
+        return Forbid();
+
+    return Ok(invoice);
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+@PreAuthorize("isAuthenticated()")
+@GetMapping("/invoices/{id}")
+public ResponseEntity<?> getInvoice(@PathVariable String id, Authentication auth) {
+    Invoice invoice = invoiceRepo.findById(id).orElse(null);
+    if (invoice == null) return ResponseEntity.notFound().build();
+
+    // CRITICAL: always check ownership — never trust the ID alone
+    String userId = auth.getName();
+    if (!invoice.getUserId().equals(userId))
+        return ResponseEntity.status(403).build();
+
+    return ResponseEntity.ok(invoice);
+}
+```
+</TabItem>
+</Tabs>

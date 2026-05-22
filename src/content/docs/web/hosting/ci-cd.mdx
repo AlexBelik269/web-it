@@ -1,0 +1,256 @@
+---
+title: "CI/CD Pipelines"
+description: "Continuous Integration and Continuous Deployment — pipeline design, GitHub Actions, testing strategies, and deployment automation."
+---
+
+import \{ Tabs, TabItem \} from '@astrojs/starlight/components';
+import \{ Aside, Card, CardGrid, Steps, Badge \} from '@astrojs/starlight/components';
+
+
+CI/CD turns a git push into a production deployment through automated build, test, and deploy stages. The goal: make deployments so reliable and fast that you can deploy dozens of times per day without fear.
+
+## CI vs CD
+
+| Term | Meaning |
+|---|---|
+| **Continuous Integration** | Merge code frequently; automated build and test on every push |
+| **Continuous Delivery** | Every commit could be deployed to production; deployment is a manual trigger |
+| **Continuous Deployment** | Every commit that passes tests is automatically deployed to production |
+
+## Pipeline stages
+
+```mermaid
+flowchart LR
+    Push[git push] --> CI
+    subgraph CI["Continuous Integration"]
+        Install[Install deps] --> Lint
+        Lint --> TypeCheck[Type check]
+        TypeCheck --> UnitTest[Unit tests]
+        UnitTest --> IntTest[Integration tests]
+        IntTest --> Build[Build artefact]
+        Build --> Security[Security scan]
+        Security --> Publish[Publish image]
+    end
+    CI --> CD
+    subgraph CD["Continuous Deployment"]
+        Deploy_Staging[Deploy staging] --> E2E[E2E tests]
+        E2E --> Approve{Manual approve?}
+        Approve -->|Yes| Deploy_Prod[Deploy production]
+        Approve -->|Skip| Deploy_Prod
+    end
+    Deploy_Prod --> Monitor[Monitor]
+    Monitor -->|Alerts| Rollback[Rollback]
+```
+
+## GitHub Actions
+
+GitHub Actions is the most common CI/CD platform for open-source and many enterprises.
+
+### Basic Node.js pipeline
+
+```yaml
+# .github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test:unit
+
+      - name: Integration tests
+        run: npm run test:integration
+        env:
+          DATABASE_URL: postgresql://postgres:test@localhost:5432/test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t ghcr.io/myorg/myapp:${{ github.sha }} .
+
+      - name: Push to registry
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker push ghcr.io/myorg/myapp:${{ github.sha }}
+```
+
+### Deployment job
+
+```yaml
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy to Kubernetes
+        uses: steebchen/kubectl@v2
+        with:
+          config: ${{ secrets.KUBE_CONFIG }}
+          command: |
+            set image deployment/myapp \
+              myapp=ghcr.io/myorg/myapp:${{ github.sha }}
+            rollout status deployment/myapp --timeout=5m
+```
+
+## Dockerfile best practices
+
+```dockerfile
+# Multi-stage build — separate build from runtime
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json .
+RUN npm ci --only=production && npm cache clean --force
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine AS runtime
+RUN addgroup -S app && adduser -S app -G app
+WORKDIR /app
+COPY --from=builder --chown=app:app /app/dist ./dist
+COPY --from=builder --chown=app:app /app/node_modules ./node_modules
+USER app
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost:3000/health || exit 1
+CMD ["node", "dist/server.js"]
+```
+
+Multi-stage builds keep the final image small (no dev tools, no build cache). Running as non-root reduces attack surface.
+
+## Testing in CI
+
+### Test pyramid
+
+```
+          /\
+         /E2E\         Few, slow, catch integration issues
+        /------\
+       / Service\       Medium, test service boundaries
+      / (API)    \
+     /------------\
+    /  Unit tests  \   Many, fast, test logic in isolation
+   /______________\
+```
+
+### Test types and their role
+
+| Type | What tests | Speed | Flake risk | When to run |
+|---|---|---|---|---|
+| Unit | Functions, classes | < 1 s | Low | Every commit |
+| Integration | DB queries, external calls | < 30 s | Medium | Every commit |
+| Contract | API contracts (Pact) | < 1 min | Low | Every commit |
+| E2E (Playwright) | Full user flows | Minutes | High | Before prod deploy |
+| Performance | Load testing | Minutes | Low | Weekly / release |
+
+## Branch strategy
+
+### GitHub Flow (simple)
+
+```
+main ← feature branches, direct PRs
+         PRs pass CI → merge → auto-deploy
+```
+
+Good for: small teams, continuous deployment.
+
+### GitFlow (structured releases)
+
+```
+main (production) ← release branches ← develop ← feature branches
+hotfix branches → main + develop
+```
+
+Good for: versioned releases, mobile apps, packaged software.
+
+### Trunk-based development (recommended)
+
+```
+main (all PRs → short-lived branches, max 1–2 days)
+     feature flags for incomplete features
+```
+
+Good for: high deployment frequency, SaaS.
+
+## Secrets management in CI
+
+Never hardcode secrets. Use your CI platform's secrets store:
+
+```yaml
+# GitHub Actions
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  API_KEY:      ${{ secrets.PROD_API_KEY }}
+```
+
+For Kubernetes deployments, inject secrets via:
+- Kubernetes Secrets + sealed-secrets or external-secrets-operator
+- HashiCorp Vault + Vault Agent
+- AWS Secrets Manager + CSI driver
+
+## Pipeline performance
+
+Slow pipelines kill developer flow. Optimise:
+
+```yaml
+# Cache dependencies
+- uses: actions/cache@v4
+  with:
+    path: ~/.npm
+    key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+
+# Run jobs in parallel
+jobs:
+  lint:    ...
+  test:    ...
+  typecheck: ...
+  build:
+    needs: [lint, test, typecheck]  # waits for all three
+```
+
+Target: < 5 min for CI on a typical PR. If longer, parallelise or split into separate workflows.
+
+## Deployment notifications
+
+```yaml
+- name: Notify Slack
+  if: always()
+  uses: slackapi/slack-github-action@v1
+  with:
+    payload: |
+      {
+        "text": "${{ job.status == 'success' && '✅' || '❌' }} Deploy ${{ github.sha }} to prod ${{ job.status }}"
+      }
+  env:
+    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+```

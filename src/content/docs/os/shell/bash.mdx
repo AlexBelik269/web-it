@@ -1,0 +1,239 @@
+---
+title: "Bash"
+description: "Bash scripting basics — variables, conditionals, loops, functions, and common patterns for automating tasks on Linux."
+---
+
+import \{ Tabs, TabItem \} from '@astrojs/starlight/components';
+import \{ Aside, Card, CardGrid, Steps, Badge \} from '@astrojs/starlight/components';
+
+
+Bash (Bourne Again SHell) is the default shell on most Linux distributions. It is both an interactive command interpreter and a scripting language for automating tasks.
+
+## Script Structure
+
+```bash
+#!/usr/bin/env bash
+# Shebang tells the OS to run this with bash
+
+set -euo pipefail   # recommended: exit on error, unbound vars, pipe failures
+
+echo "Hello, world!"
+```
+
+```bash
+# Make a script executable and run it
+chmod +x myscript.sh
+./myscript.sh
+```
+
+---
+
+## Variables
+
+```bash
+name="Alice"            # no spaces around =
+echo $name              # print variable
+echo "${name}s"         # brace syntax — use when concatenating
+
+readonly PI=3.14        # constant
+unset name              # delete variable
+
+# Command substitution
+today=$(date +%Y-%m-%d)
+files=$(ls /etc/*.conf | wc -l)
+echo "Today: $today, config files: $files"
+```
+
+### Special Variables
+
+| Variable | Meaning |
+|---|---|
+| `$0` | Script name |
+| `$1`, `$2`... | Positional arguments |
+| `$#` | Number of arguments |
+| `$@` | All arguments (as separate words) |
+| `$?` | Exit code of last command (0 = success) |
+| `$$` | PID of current shell |
+| `$!` | PID of last background process |
+
+---
+
+## Conditionals
+
+```bash
+# if / elif / else
+if [ "$1" = "hello" ]; then
+    echo "Hello to you too"
+elif [ "$1" = "bye" ]; then
+    echo "Goodbye"
+else
+    echo "Unknown: $1"
+fi
+
+# Numeric comparison
+if [ "$count" -gt 10 ]; then
+    echo "More than 10"
+fi
+
+# File tests
+if [ -f "/etc/hosts" ]; then echo "file exists"; fi
+if [ -d "/tmp" ];       then echo "is a directory"; fi
+if [ -z "$var" ];       then echo "variable is empty"; fi
+if [ -n "$var" ];       then echo "variable is not empty"; fi
+```
+
+### [[ ]] vs [ ]
+
+Prefer `[[ ]]` in modern bash — it supports regex, `&&`/`||` inside the test, and doesn't word-split variables.
+
+```bash
+if [[ "$name" == A* ]]; then echo "starts with A"; fi
+if [[ "$str" =~ ^[0-9]+$ ]]; then echo "all digits"; fi
+if [[ -f "$file" && -r "$file" ]]; then echo "readable file"; fi
+```
+
+---
+
+## Loops
+
+```bash
+# for loop over a list
+for fruit in apple banana cherry; do
+    echo "Fruit: $fruit"
+done
+
+# for loop over files
+for file in /etc/*.conf; do
+    echo "Processing $file"
+done
+
+# C-style for loop
+for (( i=1; i<=5; i++ )); do
+    echo "$i"
+done
+
+# while loop
+count=0
+while [ "$count" -lt 5 ]; do
+    echo "$count"
+    (( count++ ))
+done
+
+# Read lines from a file
+while IFS= read -r line; do
+    echo "Line: $line"
+done < /etc/hosts
+```
+
+---
+
+## Functions
+
+```bash
+greet() {
+    local name="$1"           # local variable — not visible outside function
+    echo "Hello, $name!"
+    return 0                  # return code (not a value)
+}
+
+greet "Alice"
+greet "Bob"
+
+# Capture function output
+result=$(greet "Charlie")
+```
+
+---
+
+## Input / Output & Pipelines
+
+```bash
+# Redirect stdout to file
+echo "log entry" >> /var/log/myapp.log   # append
+echo "fresh start" > /tmp/out.txt        # overwrite
+
+# Redirect stderr
+command 2> error.log
+command > out.log 2>&1         # both stdout and stderr to same file
+
+# Pipelines
+cat /etc/passwd | grep "alice" | cut -d: -f1,3
+ps aux | sort -rk3 | head -5   # top 5 by CPU
+
+# Here string
+grep "pattern" <<< "search in this string"
+```
+
+---
+
+## Arrays
+
+```bash
+fruits=("apple" "banana" "cherry")
+echo "${fruits[0]}"          # first element
+echo "${fruits[@]}"          # all elements
+echo "${#fruits[@]}"         # count
+
+# Append
+fruits+=("date")
+
+# Iterate
+for f in "${fruits[@]}"; do
+    echo "$f"
+done
+```
+
+---
+
+## Error Handling
+
+```bash
+set -e          # exit immediately on error
+set -u          # treat unset variables as errors
+set -o pipefail # pipeline fails if any command fails
+
+# Trap — run a function on exit/error
+cleanup() {
+    rm -f /tmp/myapp.lock
+    echo "Cleaned up"
+}
+trap cleanup EXIT
+
+# Check exit codes manually
+if ! cp source.txt dest.txt; then
+    echo "Copy failed" >&2
+    exit 1
+fi
+```
+
+---
+
+## Practical Script Template
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOG_FILE="/var/log/myscript.log"
+
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"; }
+die() { log "ERROR: $*" >&2; exit 1; }
+
+[[ "$#" -lt 1 ]] && die "Usage: $0 <target-dir>"
+
+TARGET="$1"
+[[ -d "$TARGET" ]] || die "Directory not found: $TARGET"
+
+log "Starting backup of $TARGET"
+tar czf "/backup/$(date +%Y%m%d)-backup.tar.gz" "$TARGET"
+log "Done"
+```
+
+---
+
+## Next Steps
+
+- [PowerShell](/os/shell/powershell) — Windows equivalent
+- [Services & Daemons](/os/services/services-daemons) — Bash scripts as systemd services
+- [System Monitoring](/os/monitoring/system-monitoring) — write monitoring scripts in Bash

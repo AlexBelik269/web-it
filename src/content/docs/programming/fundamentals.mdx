@@ -1,0 +1,996 @@
+---
+title: "Programming Fundamentals"
+description: "Core building blocks of programming — variables, data types, scope, loops, functions, and refactoring."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+Every program — regardless of language or paradigm — is built from the same handful of primitives: values stored in variables, code that repeats with loops, and logic packaged into functions. Mastering these fundamentals is what makes everything else learnable.
+
+---
+
+## Variables
+
+A **variable** is a named binding between an identifier and a value stored in memory.
+
+<Tabs>
+<TabItem label="Python">
+```python
+name   = "Alice"       # string
+age    = 30            # integer
+pi     = 3.14159       # float
+active = True          # boolean
+tags   = ["py", "js"]  # list (mutable)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+const name   = "Alice";   // block-scoped, immutable binding
+let   age    = 30;        // block-scoped, mutable
+var   legacy = true;      // function-scoped (avoid in modern JS)
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+string name   = "Alice";
+int    age    = 30;
+double pi     = 3.14159;
+bool   active = true;
+var    tags   = new List<string> { "csharp", "js" };  // inferred as List<string>
+```
+</TabItem>
+<TabItem label="Java">
+```java
+String  name   = "Alice";
+int     age    = 30;
+double  pi     = 3.14159;
+boolean active = true;
+var     tags   = new ArrayList<>(List.of("java", "js"));  // inferred (Java 10+)
+```
+</TabItem>
+</Tabs>
+
+### Data Types
+
+| Category | Examples | Notes |
+|---|---|---|
+| Integer | `int`, `long`, `i32` | Whole numbers; width matters for overflow |
+| Float | `float`, `double`, `f64` | IEEE 754; precision errors are real |
+| String | `str`, `String`, `&str` | Immutable in many languages |
+| Boolean | `bool` | `true` / `false` |
+| Null / None | `null`, `None`, `nil` | Absence of a value — handle explicitly |
+| Array / List | `[]`, `List<T>` | Ordered, indexed collection |
+| Map / Dict | `{}`, `HashMap<K,V>` | Key-value pairs |
+
+### Scope
+
+Scope determines where a variable is visible. Most languages use **block scope** — a variable is only accessible within the `{ }` block it was declared in.
+
+<Tabs>
+<TabItem label="Python">
+```python
+def greet():
+    message = "hello"   # function-scoped to greet()
+    if True:
+        inner = "world"
+        print(message)  # OK — outer scope is visible
+    # print(inner)      # NameError if accessed outside the if (in Python, if doesn't create a new scope)
+    # Note: Python scopes are function-level, not block-level
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+function greet() {
+  const message = "hello";  // function-scoped to greet()
+  if (true) {
+    const inner = "world";  // block-scoped to the if block
+    console.log(message);   // OK — outer scope is visible
+  }
+  // console.log(inner);    // ReferenceError — inner is out of scope
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+static void Greet()
+{
+    string message = "hello";   // method-scoped
+    if (true)
+    {
+        string inner = "world"; // block-scoped to the if block
+        Console.WriteLine(message); // OK
+    }
+    // Console.WriteLine(inner); // CS0103 — out of scope
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+static void greet() {
+    String message = "hello";   // method-scoped
+    if (true) {
+        String inner = "world"; // block-scoped to the if block
+        System.out.println(message); // OK
+    }
+    // System.out.println(inner); // compile error — out of scope
+}
+```
+</TabItem>
+</Tabs>
+
+**Key rules:**
+- Inner scopes can read outer scopes (closure)
+- Outer scopes cannot read inner scopes
+- Prefer the narrowest scope possible — reduces unintended mutation
+
+### Mutability
+
+| | Mutable | Immutable |
+|---|---|---|
+| Default | Python `list`, JS `let` | Python `tuple`, JS `const` |
+| Why immutable matters | Shared mutable state is a common source of bugs | Immutable values are safe to share across threads |
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Mutable — list can be changed in-place
+items = [1, 2, 3]
+items.append(4)   # [1, 2, 3, 4]
+
+# Immutable — tuple cannot be changed
+point = (10, 20)
+# point[0] = 99   # TypeError
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Mutable — array can be changed in-place
+const items = [1, 2, 3];
+items.push(4);   // [1, 2, 3, 4]
+
+// const binding is immutable — the array reference can't be replaced
+// but the array contents can still be mutated
+// Use Object.freeze() for deep immutability
+const point = Object.freeze([10, 20]);
+// point[0] = 99;   // silently ignored (or throws in strict mode)
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Mutable list
+var items = new List<int> { 1, 2, 3 };
+items.Add(4);   // [1, 2, 3, 4]
+
+// Immutable tuple / record
+var point = (10, 20);
+// point.Item1 = 99;   // error — tuples are immutable by default
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Mutable list
+var items = new ArrayList<>(List.of(1, 2, 3));
+items.add(4);   // [1, 2, 3, 4]
+
+// Immutable list (Java 9+)
+var point = List.of(10, 20);
+// point.set(0, 99);   // throws UnsupportedOperationException
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Loops
+
+Loops repeat a block of code. There are three main forms.
+
+### `for` loop — iterate over a known range or collection
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Iterate over a collection
+for item in ["a", "b", "c"]:
+    print(item)
+
+# Range-based
+for i in range(5):   # 0, 1, 2, 3, 4
+    print(i)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// for...of iterates values
+for (const item of ["a", "b", "c"]) {
+  console.log(item);
+}
+
+// Classic index loop
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// foreach iterates values
+foreach (var item in new[] { "a", "b", "c" })
+    Console.WriteLine(item);
+
+// Classic index loop
+for (int i = 0; i < 5; i++)
+    Console.WriteLine(i);
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Enhanced for iterates values
+for (String item : List.of("a", "b", "c"))
+    System.out.println(item);
+
+// Classic index loop
+for (int i = 0; i < 5; i++)
+    System.out.println(i);
+```
+</TabItem>
+</Tabs>
+
+### `while` loop — repeat while a condition is true
+
+<Tabs>
+<TabItem label="Python">
+```python
+n = 1
+while n < 100:
+    n *= 2
+print(n)  # 128
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+let n = 1;
+while (n < 100) {
+  n *= 2;
+}
+console.log(n);  // 128
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+int n = 1;
+while (n < 100) n *= 2;
+Console.WriteLine(n);  // 128
+```
+</TabItem>
+<TabItem label="Java">
+```java
+int n = 1;
+while (n < 100) n *= 2;
+System.out.println(n);  // 128
+```
+</TabItem>
+</Tabs>
+
+Use `while` when you don't know the iteration count in advance (e.g. reading input, polling, or traversing a linked list).
+
+### `do…while` — execute at least once
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Python has no do-while, simulate with while True + break
+attempt = 0
+while True:
+    attempt += 1
+    if attempt >= 3:
+        break
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+let attempt = 0;
+do {
+  attempt++;
+} while (attempt < 3);
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+int attempt = 0;
+do {
+    attempt++;
+} while (attempt < 3);
+```
+</TabItem>
+<TabItem label="Java">
+```java
+int attempt = 0;
+do {
+    attempt++;
+} while (attempt < 3);
+```
+</TabItem>
+</Tabs>
+
+### Loop Control
+
+| Keyword | Effect |
+|---|---|
+| `break` | Exit the loop immediately |
+| `continue` | Skip the rest of the current iteration, go to next |
+| `return` (inside function) | Exit the loop and the enclosing function |
+
+<Tabs>
+<TabItem label="Python">
+```python
+for n in range(10):
+    if n == 3:
+        continue   # skip 3
+    if n == 7:
+        break      # stop at 7
+    print(n)       # prints 0 1 2 4 5 6
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+for (let n = 0; n < 10; n++) {
+  if (n === 3) continue;  // skip 3
+  if (n === 7) break;     // stop at 7
+  console.log(n);         // prints 0 1 2 4 5 6
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+for (int n = 0; n < 10; n++) {
+    if (n == 3) continue;  // skip 3
+    if (n == 7) break;     // stop at 7
+    Console.Write(n + " "); // prints 0 1 2 4 5 6
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+for (int n = 0; n < 10; n++) {
+    if (n == 3) continue;  // skip 3
+    if (n == 7) break;     // stop at 7
+    System.out.print(n + " "); // prints 0 1 2 4 5 6
+}
+```
+</TabItem>
+</Tabs>
+
+### Common Patterns
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Enumerate — index + value together
+for i, val in enumerate(["a", "b", "c"]):
+    print(i, val)    # 0 a / 1 b / 2 c
+
+# List comprehension — transform while iterating
+squares = [x**2 for x in range(5)]  # [0, 1, 4, 9, 16]
+
+# Filter in comprehension
+evens = [x for x in range(10) if x % 2 == 0]  # [0, 2, 4, 6, 8]
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// entries() — index + value together
+["a", "b", "c"].forEach((val, i) => console.log(i, val));
+
+// map — transform while iterating
+const squares = Array.from({ length: 5 }, (_, x) => x ** 2);  // [0, 1, 4, 9, 16]
+
+// filter — keep matching elements
+const evens = Array.from({ length: 10 }, (_, x) => x).filter(x => x % 2 === 0);
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Index + value together
+foreach (var (val, i) in new[] { "a", "b", "c" }.Select((v, i) => (v, i)))
+    Console.WriteLine($"{i} {val}");
+
+// LINQ transform
+var squares = Enumerable.Range(0, 5).Select(x => x * x).ToArray();  // [0, 1, 4, 9, 16]
+
+// LINQ filter
+var evens = Enumerable.Range(0, 10).Where(x => x % 2 == 0).ToArray();
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Index + value together
+var items = List.of("a", "b", "c");
+IntStream.range(0, items.size())
+    .forEach(i -> System.out.println(i + " " + items.get(i)));
+
+// Stream transform
+var squares = IntStream.range(0, 5).map(x -> x * x).boxed().toList();
+
+// Stream filter
+var evens = IntStream.range(0, 10).filter(x -> x % 2 == 0).boxed().toList();
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Functions / Methods
+
+A **function** is a named, reusable block of code that takes inputs (parameters) and produces an output (return value). A **method** is a function attached to an object or class.
+
+<Tabs>
+<TabItem label="Python">
+```python
+def add(a: int, b: int) -> int:
+    return a + b
+
+result = add(3, 4)   # 7
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+function add(a, b) {
+  return a + b;
+}
+
+// Arrow function (same behaviour, shorter syntax)
+const addArrow = (a, b) => a + b;
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+static int Add(int a, int b) => a + b;
+
+int result = Add(3, 4);  // 7
+```
+</TabItem>
+<TabItem label="Java">
+```java
+static int add(int a, int b) {
+    return a + b;
+}
+
+int result = add(3, 4);  // 7
+```
+</TabItem>
+</Tabs>
+
+### Parameters vs Arguments
+
+- **Parameter** — the variable name in the function definition (`a`, `b`)
+- **Argument** — the value passed when calling the function (`3`, `4`)
+
+### Default Parameters
+
+<Tabs>
+<TabItem label="Python">
+```python
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+greet("Alice")            # "Hello, Alice!"
+greet("Alice", "Hi")      # "Hi, Alice!"
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+function greet(name, greeting = "Hello") {
+  return `${greeting}, ${name}!`;
+}
+
+greet("Alice");           // "Hello, Alice!"
+greet("Alice", "Hi");     // "Hi, Alice!"
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+static string Greet(string name, string greeting = "Hello")
+    => $"{greeting}, {name}!";
+
+Greet("Alice");                       // "Hello, Alice!"
+Greet("Alice", "Hi");                 // "Hi, Alice!"
+Greet(name: "Alice", greeting: "Hi"); // named args
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Java has no default parameters — use overloading
+static String greet(String name) { return greet(name, "Hello"); }
+static String greet(String name, String greeting) {
+    return greeting + ", " + name + "!";
+}
+
+greet("Alice");            // "Hello, Alice!"
+greet("Alice", "Hi");      // "Hi, Alice!"
+```
+</TabItem>
+</Tabs>
+
+### Variadic Parameters
+
+<Tabs>
+<TabItem label="Python">
+```python
+def total(*args):          # any number of positional args
+    return sum(args)
+
+def configure(**kwargs):   # any number of keyword args
+    for key, val in kwargs.items():
+        print(f"{key} = {val}")
+
+total(1, 2, 3, 4)          # 10
+configure(debug=True, port=8080)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+function total(...numbers) {
+  return numbers.reduce((sum, n) => sum + n, 0);
+}
+
+total(1, 2, 3, 4);  // 10
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+static int Total(params int[] numbers) => numbers.Sum();
+
+Total(1, 2, 3, 4);  // 10
+```
+</TabItem>
+<TabItem label="Java">
+```java
+static int total(int... numbers) {
+    int sum = 0;
+    for (int n : numbers) sum += n;
+    return sum;
+}
+
+total(1, 2, 3, 4);  // 10
+```
+</TabItem>
+</Tabs>
+
+### Return Values
+
+Functions should do one thing and return a single, predictable value. Avoid returning different types based on a condition — it makes callers harder to write.
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Avoid — returns either a user object or None
+def find_user(id):
+    if id in db:
+        return db[id]
+    return None          # caller must always check for None
+
+# Better — raise an exception on failure (clear intent)
+def find_user(id):
+    if id not in db:
+        raise KeyError(f"User {id} not found")
+    return db[id]
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Avoid — returns either a user or undefined
+function findUser(id) {
+  return db.get(id);  // may be undefined
+}
+
+// Better — throw on missing (clear intent)
+function findUser(id) {
+  const user = db.get(id);
+  if (!user) throw new Error(`User ${id} not found`);
+  return user;
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Avoid — nullable return forces callers to null-check
+static User? FindUser(int id) => db.ContainsKey(id) ? db[id] : null;
+
+// Better — throw on missing (clear intent)
+static User FindUser(int id)
+{
+    if (!db.ContainsKey(id)) throw new KeyNotFoundException($"User {id} not found");
+    return db[id];
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Avoid — null return forces callers to null-check
+static User findUser(int id) { return db.getOrDefault(id, null); }
+
+// Better — throw on missing (clear intent)
+static User findUser(int id) {
+    if (!db.containsKey(id)) throw new NoSuchElementException("User " + id + " not found");
+    return db.get(id);
+}
+```
+</TabItem>
+</Tabs>
+
+### Pure Functions
+
+A **pure function** always returns the same output for the same input and has no side effects (no I/O, no mutation of shared state). Pure functions are trivially testable.
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Pure
+def celsius_to_fahrenheit(c):
+    return c * 9/5 + 32
+
+# Impure — reads external state, result varies
+def current_temp_f():
+    return fetch_sensor() * 9/5 + 32
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Pure
+const celsiusToFahrenheit = c => c * 9/5 + 32;
+
+// Impure — reads external state, result varies
+function currentTempF() {
+  return fetchSensor() * 9/5 + 32;
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Pure
+static double CelsiusToFahrenheit(double c) => c * 9.0 / 5.0 + 32;
+
+// Impure — reads external state, result varies
+static double CurrentTempF() => FetchSensor() * 9.0 / 5.0 + 32;
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Pure
+static double celsiusToFahrenheit(double c) { return c * 9.0 / 5.0 + 32; }
+
+// Impure — reads external state, result varies
+static double currentTempF() { return fetchSensor() * 9.0 / 5.0 + 32; }
+```
+</TabItem>
+</Tabs>
+
+### Closures
+
+A closure is a function that captures variables from its enclosing scope.
+
+<Tabs>
+<TabItem label="Python">
+```python
+def make_counter():
+    count = 0
+    def increment():
+        nonlocal count
+        count += 1
+        return count
+    return increment
+
+counter = make_counter()
+counter()  # 1
+counter()  # 2
+counter()  # 3
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+function makeCounter() {
+  let count = 0;
+  return function() {
+    count += 1;
+    return count;
+  };
+}
+
+const counter = makeCounter();
+counter();  // 1
+counter();  // 2
+counter();  // 3
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+static Func<int> MakeCounter()
+{
+    int count = 0;
+    return () => ++count;   // lambda captures `count`
+}
+
+var counter = MakeCounter();
+counter();  // 1
+counter();  // 2
+counter();  // 3
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Java lambdas require effectively-final captures;
+// use an array or AtomicInteger for mutable state
+static Supplier<Integer> makeCounter() {
+    int[] count = {0};
+    return () -> ++count[0];
+}
+
+var counter = makeCounter();
+counter.get();  // 1
+counter.get();  // 2
+counter.get();  // 3
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Refactoring
+
+Refactoring means restructuring existing code without changing its observable behaviour. The goal is to make code easier to read, test, and modify.
+
+### When to Refactor
+
+- Before adding a new feature to an area of code you don't understand
+- After a passing test — the tests protect against regressions while you clean up
+- When you notice a code smell (see below)
+
+### Common Code Smells
+
+| Smell | Description | Fix |
+|---|---|---|
+| Long function | Does too many things | Extract into smaller functions |
+| Duplicate code | Same logic in multiple places | Extract to a shared function |
+| Magic number | Unexplained literal value (`60 * 60 * 24`) | Name it (`SECONDS_PER_DAY`) |
+| Deep nesting | 4+ levels of `if/for` | Early return / extract function |
+| Long parameter list | 5+ parameters | Group into an object/struct |
+| Dead code | Unreachable or unused code | Delete it |
+
+### Extract Function
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Before — one long function
+def process_order(order):
+    total = 0
+    for item in order.items:
+        total += item.price * item.quantity
+    tax = total * 0.2
+    final = total + tax
+    print(f"Order #{order.id}: £{final:.2f}")
+    send_confirmation_email(order.customer, final)
+
+# After — each responsibility is named
+def calculate_total(items):
+    return sum(item.price * item.quantity for item in items)
+
+def apply_tax(amount, rate=0.2):
+    return amount * (1 + rate)
+
+def process_order(order):
+    subtotal = calculate_total(order.items)
+    final    = apply_tax(subtotal)
+    print(f"Order #{order.id}: £{final:.2f}")
+    send_confirmation_email(order.customer, final)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Before — one long function
+function processOrder(order) {
+  let total = 0;
+  for (const item of order.items) total += item.price * item.quantity;
+  const tax   = total * 0.2;
+  const final = total + tax;
+  console.log(`Order #${order.id}: £${final.toFixed(2)}`);
+  sendConfirmationEmail(order.customer, final);
+}
+
+// After — each responsibility is named
+const calculateTotal = items => items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+const applyTax = (amount, rate = 0.2) => amount * (1 + rate);
+
+function processOrder(order) {
+  const subtotal = calculateTotal(order.items);
+  const final    = applyTax(subtotal);
+  console.log(`Order #${order.id}: £${final.toFixed(2)}`);
+  sendConfirmationEmail(order.customer, final);
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Before — one long method
+void ProcessOrder(Order order) {
+    decimal total = order.Items.Sum(i => i.Price * i.Quantity);
+    decimal final = total * 1.2m;
+    Console.WriteLine($"Order #{order.Id}: £{final:F2}");
+    SendConfirmationEmail(order.Customer, final);
+}
+
+// After — each responsibility is named
+static decimal CalculateTotal(IEnumerable<Item> items) =>
+    items.Sum(i => i.Price * i.Quantity);
+
+static decimal ApplyTax(decimal amount, decimal rate = 0.2m) =>
+    amount * (1 + rate);
+
+void ProcessOrder(Order order) {
+    var subtotal = CalculateTotal(order.Items);
+    var final    = ApplyTax(subtotal);
+    Console.WriteLine($"Order #{order.Id}: £{final:F2}");
+    SendConfirmationEmail(order.Customer, final);
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Before — one long method
+void processOrder(Order order) {
+    double total = 0;
+    for (var item : order.getItems()) total += item.getPrice() * item.getQuantity();
+    double final_ = total * 1.2;
+    System.out.printf("Order #%d: £%.2f%n", order.getId(), final_);
+    sendConfirmationEmail(order.getCustomer(), final_);
+}
+
+// After — each responsibility is named
+static double calculateTotal(List<Item> items) {
+    return items.stream().mapToDouble(i -> i.getPrice() * i.getQuantity()).sum();
+}
+static double applyTax(double amount, double rate) { return amount * (1 + rate); }
+
+void processOrder(Order order) {
+    double subtotal = calculateTotal(order.getItems());
+    double final_   = applyTax(subtotal, 0.2);
+    System.out.printf("Order #%d: £%.2f%n", order.getId(), final_);
+    sendConfirmationEmail(order.getCustomer(), final_);
+}
+```
+</TabItem>
+</Tabs>
+
+### Early Return (Guard Clause)
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Before — arrow-shaped nesting
+def process(user):
+    if user is not None:
+        if user.is_active:
+            if user.has_permission("write"):
+                do_work(user)
+
+# After — flat, readable
+def process(user):
+    if user is None:
+        return
+    if not user.is_active:
+        return
+    if not user.has_permission("write"):
+        return
+    do_work(user)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Before — arrow-shaped nesting
+function process(user) {
+  if (user !== null) {
+    if (user.isActive) {
+      if (user.hasPermission("write")) {
+        doWork(user);
+      }
+    }
+  }
+}
+
+// After — flat, readable
+function process(user) {
+  if (!user)                          return;
+  if (!user.isActive)                 return;
+  if (!user.hasPermission("write"))   return;
+  doWork(user);
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// After — flat, readable
+static void Process(User? user)
+{
+    if (user is null)                    return;
+    if (!user.IsActive)                  return;
+    if (!user.HasPermission("write"))    return;
+    DoWork(user);
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// After — flat, readable
+static void process(User user) {
+    if (user == null)                   return;
+    if (!user.isActive())               return;
+    if (!user.hasPermission("write"))   return;
+    doWork(user);
+}
+```
+</TabItem>
+</Tabs>
+
+### Replace Magic Number with Named Constant
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Before
+if age >= 18:
+    ...
+
+# After
+LEGAL_DRINKING_AGE = 18
+if age >= LEGAL_DRINKING_AGE:
+    ...
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Before
+if (age >= 18) { /* ... */ }
+
+// After
+const LEGAL_DRINKING_AGE = 18;
+if (age >= LEGAL_DRINKING_AGE) { /* ... */ }
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Before
+if (age >= 18) { /* ... */ }
+
+// After
+const int LegalDrinkingAge = 18;
+if (age >= LegalDrinkingAge) { /* ... */ }
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Before
+if (age >= 18) { /* ... */ }
+
+// After
+static final int LEGAL_DRINKING_AGE = 18;
+if (age >= LEGAL_DRINKING_AGE) { /* ... */ }
+```
+</TabItem>
+</Tabs>
+
+### The Refactoring Rule
+
+> Make it work. Make it right. Make it fast.
+
+Fix correctness first (tests pass), then clarity (refactor), then performance (only if measured as a bottleneck).
+
+---
+
+## Related
+
+- [Data Structures](/programming/data-structures) — how values are stored and organised
+- [OOP](/programming/oop) — structuring code around objects and classes
+- [Functional Programming](/programming/functional) — functions as first-class values
+- [Testing](/programming/testing) — writing tests that make refactoring safe

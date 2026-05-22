@@ -1,0 +1,104 @@
+---
+title: "Replication"
+description: "Database replication — primary/replica architecture, synchronous vs asynchronous, failover, and read scaling."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**Replication** copies data from one database server (primary) to one or more others (replicas). It provides redundancy, read scaling, and the foundation for high availability.
+
+## Primary / Replica Architecture
+
+```mermaid
+flowchart LR
+    APP["Application"]
+    P["Primary\n(reads + writes)"]
+    R1["Replica 1\n(reads only)"]
+    R2["Replica 2\n(reads only)"]
+    R3["Standby Replica\n(failover)"]
+
+    APP -->|"writes"| P
+    APP -->|"reads"| R1
+    APP -->|"reads"| R2
+    P -->|"replication stream"| R1
+    P -->|"replication stream"| R2
+    P -->|"replication stream"| R3
+```
+
+The primary handles all writes. Replicas receive a stream of changes and apply them.
+
+---
+
+## Synchronous vs Asynchronous
+
+| | Synchronous | Asynchronous |
+|---|---|---|
+| **Durability** | Write confirmed only after replica acknowledges | Write confirmed after primary writes to WAL |
+| **Latency** | Higher (waits for replica) | Lower (no waiting) |
+| **Data loss on crash** | Zero (replica is up-to-date) | Possible (replica may lag) |
+| **Throughput** | Lower | Higher |
+| **Use case** | Financial data, zero-RPO requirement | Analytics replicas, read scaling |
+
+```sql
+-- Postgres: configure synchronous standby
+synchronous_commit = on          -- default: async
+synchronous_standby_names = '1 (replica1)'  -- wait for at least 1 named standby
+```
+
+---
+
+## Replication in PostgreSQL
+
+PostgreSQL uses **streaming replication** (WAL-based).
+
+- **Physical replication**: byte-for-byte copy of the WAL. Fast, simple. Replica must be same major version.
+- **Logical replication**: replicate specific tables or change events. Allows cross-version replication, partial table replication, and use by subscribers (e.g., message queues).
+
+```sql
+-- Check replication lag on primary
+SELECT client_addr, state, write_lag, flush_lag, replay_lag
+FROM pg_stat_replication;
+```
+
+---
+
+## Replication in MySQL
+
+MySQL uses **binary log (binlog)** replication:
+
+- **Statement-based**: replicates SQL statements (smaller log, non-deterministic functions can cause drift)
+- **Row-based**: replicates actual row changes (larger log, safe)
+- **Mixed**: default in newer MySQL versions
+
+---
+
+## Failover
+
+When the primary fails, a replica must be promoted to primary.
+
+```mermaid
+flowchart TD
+    F["Primary fails"]
+    D["Detect failure\n(health check / Patroni / Orchestrator)"]
+    P["Promote replica\nwith most recent data"]
+    U["Update DNS /\nload balancer endpoint"]
+    R["Old primary comes back\nas replica"]
+
+    F --> D --> P --> U --> P --> R
+```
+
+**Automatic failover tools:**
+- Postgres: **Patroni** (etcd/Consul/ZooKeeper backed), **pg_auto_failover**, AWS RDS Multi-AZ
+- MySQL: **Orchestrator**, **ProxySQL**, MySQL Group Replication, AWS RDS Multi-AZ
+
+---
+
+## Read Scaling
+
+Replicas can serve read traffic, reducing load on the primary.
+
+**Pattern:** Route `SELECT` queries to replicas, all writes to primary.
+
+Common tools: **PgBouncer** (connection pooling), **HAProxy**, **ProxySQL**, **RDS Proxy**, application-level read/write splitting.
+
+<Aside type="caution">Watch for replica lag — reads from replicas may return slightly stale data. This is acceptable for analytics, feeds, and searches; not acceptable for "read-your-own-writes" scenarios.</Aside>

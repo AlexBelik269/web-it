@@ -1,0 +1,416 @@
+---
+title: "Docker Compose"
+description: "Define and run multi-container applications with Docker Compose — services, networks, volumes, environment management, and production patterns."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Docker Compose lets you define an entire multi-service application in a single `compose.yaml` file and manage it with simple commands. It is the standard tool for local development environments and a common stepping-stone to Kubernetes for small production deployments.
+
+## Compose File Structure
+
+```yaml
+# compose.yaml  (formerly docker-compose.yml)
+name: myapp
+
+services:          # one or more containers
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://user:pass@db:5432/mydb
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: mydb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - backend
+
+volumes:
+  pgdata:
+
+networks:
+  backend:
+    driver: bridge
+```
+
+---
+
+## Service Configuration
+
+### Build Options
+
+```yaml
+services:
+  app:
+    build:
+      context: .                    # build context directory
+      dockerfile: Dockerfile.prod   # custom Dockerfile name
+      target: runtime               # multi-stage target
+      args:
+        BUILD_VERSION: "1.0.0"
+        NODE_ENV: production
+      cache_from:
+        - myregistry/myapp:latest   # warm the layer cache from a remote image
+```
+
+### Image vs Build
+
+```yaml
+services:
+  # Use a pre-built image
+  nginx:
+    image: nginx:1.25-alpine
+
+  # Build from local Dockerfile
+  api:
+    build: ./api
+
+  # Build AND push with a tag
+  worker:
+    build: ./worker
+    image: myregistry/worker:${VERSION:-latest}
+```
+
+### Restart Policies
+
+```yaml
+services:
+  app:
+    restart: unless-stopped    # always restart except when explicitly stopped
+    # Options: "no" | "always" | "on-failure" | "unless-stopped"
+    # on-failure can include a max restart count:
+    # restart: on-failure:5
+```
+
+### Resource Limits
+
+```yaml
+services:
+  app:
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+```
+
+---
+
+## Environment Variables
+
+### Inline
+
+```yaml
+services:
+  app:
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      DEBUG: "false"
+```
+
+### From .env File
+
+Compose automatically reads `.env` in the same directory as `compose.yaml`:
+
+```bash
+# .env
+DATABASE_URL=postgres://user:pass@db:5432/mydb
+REDIS_URL=redis://redis:6379
+SECRET_KEY=my-super-secret
+```
+
+```yaml
+services:
+  app:
+    env_file:
+      - .env
+      - .env.local   # optional overrides, git-ignored
+```
+
+### Variable Substitution
+
+```yaml
+services:
+  app:
+    image: myapp:${APP_VERSION:-latest}
+    environment:
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+```
+
+---
+
+## Volumes & Bind Mounts
+
+```yaml
+services:
+  app:
+    volumes:
+      # Named volume — managed by Docker
+      - appdata:/app/data
+
+      # Bind mount — host path synced into container
+      - ./src:/app/src:ro          # read-only
+      - ./config:/app/config
+
+      # tmpfs in-memory mount
+      - type: tmpfs
+        target: /tmp
+
+volumes:
+  appdata:
+    driver: local
+
+  # External volume (created outside compose)
+  pgdata:
+    external: true
+```
+
+---
+
+## Networking
+
+Every compose project gets its own default bridge network. Services reach each other by their service name.
+
+```yaml
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+  # Attach to an existing external network
+  shared-net:
+    external: true
+    name: mycompany-shared
+
+services:
+  nginx:
+    networks:
+      - frontend
+      - backend   # nginx proxies to the api
+  api:
+    networks:
+      - backend   # not reachable from frontend directly
+  db:
+    networks:
+      - backend
+```
+
+---
+
+## Compose Commands
+
+```bash
+# Start all services (build if needed)
+docker compose up
+
+# Start detached
+docker compose up -d
+
+# Build images before starting
+docker compose up --build
+
+# Scale a service to N replicas
+docker compose up --scale worker=3
+
+# Stop and remove containers (keep volumes)
+docker compose down
+
+# Stop and remove containers AND volumes
+docker compose down -v
+
+# View logs (all services)
+docker compose logs -f
+
+# View logs for one service
+docker compose logs -f api
+
+# Execute a command in a running service
+docker compose exec api sh
+
+# Run a one-off command (new container)
+docker compose run --rm api npm run migrate
+
+# List running services
+docker compose ps
+
+# Rebuild a specific service
+docker compose build api
+
+# Pull latest images
+docker compose pull
+
+# Validate compose file
+docker compose config
+```
+
+---
+
+## Compose Overrides & Multiple Files
+
+Compose merges files in order. Use this for environment-specific config:
+
+```
+compose.yaml           # base config (committed)
+compose.override.yaml  # local dev overrides (auto-loaded, git-ignored)
+compose.prod.yaml      # production overrides
+```
+
+```yaml
+# compose.override.yaml — local dev additions
+services:
+  app:
+    volumes:
+      - .:/app            # live code reload
+    environment:
+      NODE_ENV: development
+      DEBUG: "true"
+    ports:
+      - "9229:9229"       # Node.js debugger
+```
+
+```bash
+# Use specific files
+docker compose -f compose.yaml -f compose.prod.yaml up -d
+```
+
+---
+
+## Health Checks & Dependencies
+
+```yaml
+services:
+  db:
+    image: postgres:16
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  api:
+    depends_on:
+      db:
+        condition: service_healthy    # wait for db to be healthy
+      redis:
+        condition: service_started    # just wait for start (no healthcheck)
+```
+
+---
+
+## Full Development Stack Example
+
+```yaml
+name: dev-stack
+
+services:
+  traefik:
+    image: traefik:v3
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+    ports:
+      - "80:80"
+      - "8080:8080"   # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - web
+
+  api:
+    build:
+      context: ./api
+      target: development
+    labels:
+      - "traefik.http.routers.api.rule=Host(`api.localhost`)"
+    environment:
+      DATABASE_URL: postgres://dev:dev@db:5432/devdb
+      REDIS_URL: redis://redis:6379
+    volumes:
+      - ./api:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - web
+      - backend
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: devdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev"]
+      interval: 5s
+      retries: 10
+    networks:
+      - backend
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - backend
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "8025:8025"   # web UI
+    networks:
+      - backend
+
+volumes:
+  pgdata:
+
+networks:
+  web:
+  backend:
+```
+
+---
+
+## Compose vs Kubernetes
+
+| Feature | Docker Compose | Kubernetes |
+|---|---|---|
+| Target | Local dev, small deployments | Production, large scale |
+| Scaling | Manual (`--scale`) | Auto-scaling (HPA) |
+| Self-healing | Basic restart policies | Full pod lifecycle management |
+| Rolling updates | Recreate by default | Rolling update strategy |
+| Service discovery | DNS by service name | kube-dns + ClusterIP |
+| Storage | Docker volumes | PersistentVolumes |
+| Config/secrets | Environment files | ConfigMaps / Secrets |
+| Load balancing | Port mappings | Services + Ingress |
+| Learning curve | Low | High |
+
+Use Compose for local development and simple single-host deployments. Graduate to Kubernetes when you need horizontal scaling, self-healing, or multi-node deployment.

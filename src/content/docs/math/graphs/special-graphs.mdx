@@ -1,0 +1,233 @@
+---
+title: "Special Graphs"
+description: "Regular, complete, bipartite, and planar graphs — definitions, properties, edge counts, and Euler's formula for planar graphs."
+---
+
+import \{ Tabs, TabItem \} from '@astrojs/starlight/components';
+import \{ Aside, Card, CardGrid, Steps, Badge \} from '@astrojs/starlight/components';
+
+
+Many graphs that appear in practice belong to well-studied families with known properties and formulas. Recognizing the type of graph immediately gives you structural information.
+
+---
+
+## Regular Graphs
+
+A graph is **k-regular** if every vertex has exactly k neighbors (degree k).
+
+**Formula for edge count:** |E| = k × n / 2
+
+(Each vertex contributes k to the sum of degrees; the total is k×n; divide by 2 by the Handshaking Lemma.)
+
+| k | Name | Example |
+|---|---|---|
+| 0-regular | Empty graph | No edges at all |
+| 1-regular | Perfect matching | Pairs of vertices |
+| 2-regular | Cycle | Every vertex has degree 2 |
+| 3-regular | Cubic graph | Each vertex has 3 neighbors |
+
+**Example: 3-regular graph with n=4 vertices**
+```
+  A — B
+  |× |
+  D — C
+
+g(A) = g(B) = g(C) = g(D) = 3
+|E| = 3×4/2 = 6
+```
+
+---
+
+## Complete Graphs (Kₙ)
+
+A **complete graph Kₙ** has n vertices where every vertex is connected to every other vertex. It is (n−1)-regular.
+
+**Formula for edge count:** |E| = n(n−1)/2
+
+**Why:** Each vertex connects to n−1 others; n vertices give n(n−1) directed edges; divide by 2 for undirected.
+
+| n | Kₙ | Edges |
+|---|---|---|
+| 1 | K₁ | 0 |
+| 2 | K₂ | 1 |
+| 3 | K₃ | 3 (triangle) |
+| 4 | K₄ | 6 |
+| 5 | K₅ | 10 |
+
+**K₃ (triangle):**
+```
+    A
+   / \
+  B — C
+```
+
+**K₄:**
+```
+  A — B
+  |×× |
+  D — C
+```
+
+---
+
+## Cliques
+
+A **clique** is a complete subgraph — a subset of vertices where every pair is connected.
+
+The **clique number** ω(G) is the size of the largest clique in G.
+
+```
+In a complete graph Kₙ: ω(Kₙ) = n
+In a bipartite graph:   ω(G) = 2  (at most an edge between one vertex from each side)
+```
+
+A **perfect matching** is a 1-regular spanning subgraph — every vertex is matched with exactly one other vertex.
+
+```
+Perfect matching of 6 vertices:
+{1,2}, {3,4}, {5,6}
+Each vertex appears in exactly one edge.
+```
+
+---
+
+## Bipartite Graphs
+
+A **bipartite graph** divides its vertices into two disjoint sets L (left) and R (right) such that every edge goes from L to R — no edges within the same side.
+
+```
+V = L ∪ R,  L ∩ R = ∅
+Every edge in E is of the form {l, r} where l ∈ L, r ∈ R
+```
+
+**Visualization:**
+```
+L          R
+1 ——————— a
+1 ——————— b
+2 ——————— b
+3 ——————— c
+```
+
+**Complete bipartite graph Kₘ,ₙ:** Every vertex in L is connected to every vertex in R.
+
+```
+K₂,₃:
+L = {1, 2}, R = {a, b, c}
+
+1 — a    |E| = 2 × 3 = 6
+1 — b
+1 — c
+2 — a
+2 — b
+2 — c
+```
+
+**Formula:** |E| = |L| × |R|
+
+**Recognizing bipartite graphs:** A graph is bipartite if and only if it contains **no odd-length cycles**.
+
+**Practical uses:**
+- Job assignment: workers (L) and tasks (R)
+- Matching students (L) to courses (R)
+- Database joins: two entity types connected by relationships
+
+---
+
+## Planar Graphs
+
+A graph is **planar** if it can be drawn in the plane (on paper) such that **no edges cross**.
+
+**Key fact:** K₄ is planar (can be drawn without crossings); K₅ is not planar.
+
+```
+K₄ drawn planar:
+    A
+   /|\
+  / | \
+ B — C — D
+ (A is the outer vertex, triangle B-C-D in the middle)
+```
+
+**Checking planarity:** K₅ and K₃,₃ (complete bipartite with 3+3 vertices) are the fundamental non-planar graphs. By **Kuratowski's Theorem**, a graph is non-planar if and only if it contains a subdivision of K₅ or K₃,₃.
+
+---
+
+## Euler's Formula for Planar Graphs
+
+For any **connected planar graph**:
+
+**|V| − |E| + |F| = 2**
+
+Where:
+- |V| = number of vertices
+- |E| = number of edges
+- |F| = number of **faces** (regions, including the unbounded outer region)
+
+**Example: A triangle (K₃)**
+```
+    A
+   / \
+  B — C
+
+|V| = 3, |E| = 3, |F| = 2 (inside triangle + outside)
+3 − 3 + 2 = 2 ✓
+```
+
+**Example: K₄ drawn planar**
+```
+|V| = 4, |E| = 6, |F| = 4 (3 triangular faces + outer face)
+4 − 6 + 4 = 2 ✓
+```
+
+### Consequences of Euler's Formula
+
+For a simple connected planar graph with |V| ≥ 3:
+
+| Inequality | Meaning |
+|---|---|
+| 2|E| ≥ 3|F| | Each face has at least 3 edges on its boundary |
+| |E| ≤ 3|V| − 6 | Upper bound on edges in a planar graph |
+| Average degree < 6 | Each vertex has < 6 neighbors on average |
+
+**Proving K₅ is not planar:**
+
+```
+K₅: |V| = 5, |E| = 10
+Check: |E| ≤ 3|V| − 6 = 3×5 − 6 = 9
+But |E| = 10 > 9 → K₅ is not planar ✓
+```
+
+---
+
+## Graph Coloring
+
+A **graph coloring** assigns colors to vertices such that no two adjacent vertices share a color.
+
+The **chromatic number** χ(G) is the minimum number of colors needed.
+
+| Graph type | Chromatic number |
+|---|---|
+| Empty graph | 1 |
+| Bipartite graph | ≤ 2 |
+| Odd cycle (C₅, C₇, …) | 3 |
+| Complete graph Kₙ | n |
+
+**Four Color Theorem:** Every planar graph can be colored with at most 4 colors (vertices = countries, edges = shared borders).
+
+**In CS:** Register allocation in compilers reduces to graph coloring — variables that are "live" at the same time cannot share a register.
+
+---
+
+## Euler Paths and Circuits
+
+An **Euler path** visits every edge exactly once.  
+An **Euler circuit** is an Euler path that starts and ends at the same vertex.
+
+| Condition | Euler circuit exists | Euler path exists |
+|---|---|---|
+| All vertices have even degree | Yes | Yes (same as circuit) |
+| Exactly 2 vertices have odd degree | No | Yes (start and end at those 2 vertices) |
+| More than 2 vertices have odd degree | No | No |
+
+**The Seven Bridges of Königsberg:** The original graph theory problem. The city had 7 bridges; Euler proved you cannot walk each bridge exactly once because the graph had 4 vertices with odd degree.

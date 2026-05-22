@@ -1,0 +1,203 @@
+---
+title: "Proof Methods"
+description: "Formal proof methods in logic — semantic entailment, proof calculus, resolution, and conjunctive normal form (CNF)."
+---
+
+import \{ Tabs, TabItem \} from '@astrojs/starlight/components';
+import \{ Aside, Card, CardGrid, Steps, Badge \} from '@astrojs/starlight/components';
+
+
+A proof is a formal argument that a conclusion must be true given a set of premises. In computer science, proof methods power automated theorem provers, SAT solvers, and program verification tools.
+
+---
+
+## Semantic Entailment (⊨)
+
+**KB ⊨ Q** means: Every interpretation that makes all formulas in KB (knowledge base) true also makes Q true.
+
+In plain language: *"Q logically follows from KB."*
+
+**Example:**
+
+```
+KB = {p → q,  p}
+Q  = q
+
+Claim: KB ⊨ Q
+
+Check: Is there any world where p → q and p are true but q is false?
+- p → q is true + p is true → q must be true (by modus ponens)
+→ No such world exists. KB ⊨ Q. ✓
+```
+
+**How to verify semantically:** Build a truth table. Check every row where all KB formulas are true. If Q is true in all those rows, then KB ⊨ Q.
+
+---
+
+## Proof Calculus
+
+A **proof calculus** is a formal system with:
+- **Axioms:** Formulas assumed to be true
+- **Inference rules:** Rules for deriving new formulas
+
+| Property | Meaning |
+|---|---|
+| **Sound (korrekt)** | Only derives true consequences — "doesn't produce falsehoods" |
+| **Complete (vollständig)** | Can derive every valid consequence — "doesn't miss anything" |
+
+---
+
+## Syntactic Derivation (⊢)
+
+**KB ⊢ Q** means: Q can be derived from KB by applying the rules of the proof calculus.
+
+| Symbol | Meaning |
+|---|---|
+| ⊨ | Semantic entailment — truth-table based, checks all models |
+| ⊢ | Syntactic derivation — rule-based, symbolic manipulation |
+
+A **sound** calculus ensures: if KB ⊢ Q, then KB ⊨ Q.  
+A **complete** calculus ensures: if KB ⊨ Q, then KB ⊢ Q.
+
+---
+
+## Clauses
+
+Before applying resolution, we need to understand **clauses**:
+
+- A **literal** is an atomic statement or its negation: `p`, `¬q`, `r`
+- A **clause** is a disjunction (OR) of literals: `p ∨ ¬q ∨ r`
+- An **empty clause** `□` is false — it represents a contradiction
+
+---
+
+## Resolution Rule
+
+**Resolution** is a single inference rule used in automated theorem proving. Given two clauses that each contain a literal and its negation, we can derive a new clause:
+
+```
+Clause 1:  A ∨ p
+Clause 2:  B ∨ ¬p
+─────────────────
+Result:    A ∨ B
+```
+
+The literal `p` and its negation `¬p` cancel out. The remaining literals are combined.
+
+**Example:**
+
+```
+Clause 1:  human(x) ∨ ¬mortal(x)   ← "if mortal, then human"
+Clause 2:  mortal(Socrates)
+Apply resolution (cancel mortal(Socrates) with ¬mortal(x) at x=Socrates):
+Result:    human(Socrates)
+```
+
+### Proof by Resolution (Refutation)
+
+To prove **KB ⊢ Q** using resolution:
+1. Add **¬Q** to KB (assume the opposite)
+2. Apply resolution repeatedly to all pairs of clauses
+3. If you derive the empty clause □, then ¬Q leads to a contradiction
+4. Therefore Q must be true
+
+**Example: Prove that KB = \{p → q, p\} entails q**
+
+```
+Convert to clauses (eliminate →):
+  p → q becomes ¬p ∨ q
+  p stays as p
+
+KB = {¬p ∨ q,  p}
+Negate conclusion: ¬q
+
+Apply resolution to (¬p ∨ q) and ¬q:
+  (¬p ∨ q) and ¬q → ¬p
+
+Apply resolution to ¬p and p:
+  ¬p and p → □  (empty clause!)
+
+Found a contradiction → q must be true. ✓
+```
+
+---
+
+## Conjunctive Normal Form (CNF / KNF)
+
+CNF is a standard form that makes applying resolution straightforward.
+
+**A formula is in CNF if it is:**
+- A conjunction (AND) of clauses
+- Each clause is a disjunction (OR) of literals
+
+```
+CNF example: (p ∨ q) ∧ (¬p ∨ r) ∧ (q ∨ ¬r)
+Not CNF:     (p ∧ q) ∨ r    ← AND inside OR is not allowed
+```
+
+### Converting to CNF — Step by Step
+
+**Step 1: Eliminate equivalences (↔) and implications (→)**
+```
+A ↔ B  =  (A → B) ∧ (B → A)
+A → B  =  ¬A ∨ B
+```
+
+**Step 2: Push NOT inward using De Morgan's laws**
+```
+¬(A ∧ B) = ¬A ∨ ¬B
+¬(A ∨ B) = ¬A ∧ ¬B
+¬¬A      = A
+```
+
+**Step 3: Distribute OR over AND to get CNF**
+```
+(A ∧ B) ∨ C  =  (A ∨ C) ∧ (B ∨ C)
+A ∨ (B ∧ C)  =  (A ∨ B) ∧ (A ∨ C)
+```
+
+**Full example: Convert `¬(p ∨ q) → r` to CNF**
+
+```
+Step 1: Eliminate →
+  = ¬(¬(p ∨ q)) ∨ r
+  = (p ∨ q) ∨ r      ← double negation
+
+Step 2: Already no complex negations.
+
+Step 3: Already a single clause.
+  CNF: (p ∨ q ∨ r)
+```
+
+**Harder example: Convert `¬(p → q)` to CNF**
+
+```
+Step 1: ¬(¬p ∨ q)    ← expand implication first
+
+Step 2: Push ¬ inside:
+  = ¬¬p ∧ ¬q         ← De Morgan on ¬(A ∨ B)
+  = p ∧ ¬q            ← double negation
+
+CNF: p ∧ ¬q   (two unit clauses)
+```
+
+---
+
+## Common Proof Techniques (Preview)
+
+| Technique | Approach |
+|---|---|
+| **Direct proof** | Assume premises, apply rules, reach conclusion |
+| **Proof by contradiction** | Assume ¬Q, derive contradiction |
+| **Proof by induction** | Base case + inductive step (see [Mathematical Induction](/math/algorithms/induction)) |
+| **Resolution** | Convert to CNF, apply resolution rule, derive empty clause |
+
+---
+
+## SAT and Automated Reasoning
+
+The **Boolean Satisfiability Problem (SAT)** asks: is there any assignment of variables that makes a CNF formula true?
+
+- SAT was the first problem proved NP-complete (Cook-Levin theorem, 1971)
+- Modern SAT solvers (like Z3, MiniSat) can handle millions of variables
+- Used in: hardware verification, AI planning, cryptography analysis, compiler optimization

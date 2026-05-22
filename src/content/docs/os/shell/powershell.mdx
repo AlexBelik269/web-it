@@ -1,0 +1,266 @@
+---
+title: "PowerShell"
+description: "PowerShell scripting basics — cmdlets, the pipeline, objects, variables, conditionals, loops, and functions for automating Windows and cross-platform tasks."
+---
+
+import \{ Tabs, TabItem \} from '@astrojs/starlight/components';
+import \{ Aside, Card, CardGrid, Steps, Badge \} from '@astrojs/starlight/components';
+
+
+PowerShell is an object-oriented shell and scripting language built on .NET. Unlike Bash (which passes text between commands), PowerShell passes **objects** — structured data with properties and methods.
+
+## The Key Difference: Objects, Not Text
+
+```powershell
+# Bash: you get text — you must parse it
+ps aux | grep nginx | awk '{print $1}'
+
+# PowerShell: you get objects — you query properties directly
+Get-Process nginx | Select-Object -ExpandProperty Id
+```
+
+---
+
+## Cmdlets
+
+The basic command unit. Named as `Verb-Noun`. PowerShell includes hundreds of built-in cmdlets.
+
+```powershell
+Get-Command              # list all cmdlets
+Get-Help Get-Process     # read documentation
+Get-Help Get-Process -Examples
+
+# Common verbs
+Get-    # retrieve something
+Set-    # change something
+New-    # create something
+Remove- # delete something
+Start-  # begin something
+Stop-   # end something
+```
+
+---
+
+## Variables
+
+```powershell
+$name = "Alice"
+$count = 42
+$files = Get-ChildItem C:\
+
+# String interpolation
+Write-Host "Hello, $name"                  # expands variable
+Write-Host "Files: $($files.Count)"        # expression inside $()
+
+# Type-constrained
+[int]$port = 8080
+[string]$host = "localhost"
+```
+
+---
+
+## The Pipeline
+
+Objects flow from one cmdlet to the next.
+
+```powershell
+# Each step receives and processes objects
+Get-Process |
+    Where-Object CPU -gt 10 |
+    Sort-Object CPU -Descending |
+    Select-Object Name, Id, CPU |
+    Format-Table
+
+# Common pipeline cmdlets
+Where-Object  # filter objects (alias: where, ?)
+Select-Object # choose properties or first/last N items
+Sort-Object   # sort
+ForEach-Object # run a script block per object (alias: foreach, %)
+Measure-Object # count, sum, average
+```
+
+```powershell
+# ForEach-Object — $_ is the current object
+Get-ChildItem C:\logs -Filter "*.log" |
+    ForEach-Object { Write-Host "Processing: $($_.Name)" }
+```
+
+---
+
+## Conditionals
+
+```powershell
+$age = 20
+
+if ($age -ge 18) {
+    Write-Host "Adult"
+} elseif ($age -ge 13) {
+    Write-Host "Teenager"
+} else {
+    Write-Host "Child"
+}
+```
+
+### Comparison Operators
+
+| Operator | Meaning |
+|---|---|
+| `-eq` | Equal |
+| `-ne` | Not equal |
+| `-gt` / `-lt` | Greater / less than |
+| `-ge` / `-le` | Greater or equal / less or equal |
+| `-like` | Wildcard match (`*`, `?`) |
+| `-match` | Regex match |
+| `-contains` | Collection contains value |
+| `-and` / `-or` / `-not` | Boolean operators |
+
+---
+
+## Loops
+
+```powershell
+# foreach loop over array
+$fruits = @("apple", "banana", "cherry")
+foreach ($fruit in $fruits) {
+    Write-Host $fruit
+}
+
+# for loop
+for ($i = 0; $i -lt 5; $i++) {
+    Write-Host $i
+}
+
+# while loop
+$count = 0
+while ($count -lt 3) {
+    Write-Host $count
+    $count++
+}
+
+# loop over files
+foreach ($file in Get-ChildItem C:\logs -Filter "*.log") {
+    Write-Host $file.FullName
+}
+```
+
+---
+
+## Functions
+
+```powershell
+function Get-DiskInfo {
+    param(
+        [string]$DriveLetter = "C"
+    )
+    $drive = Get-PSDrive -Name $DriveLetter
+    [PSCustomObject]@{
+        Drive     = $DriveLetter
+        FreeGB    = [math]::Round($drive.Free / 1GB, 2)
+        UsedGB    = [math]::Round($drive.Used / 1GB, 2)
+    }
+}
+
+Get-DiskInfo -DriveLetter C
+Get-DiskInfo   # uses default
+```
+
+---
+
+## Error Handling
+
+```powershell
+# Try / catch / finally
+try {
+    $content = Get-Content "C:\nonexistent.txt" -ErrorAction Stop
+}
+catch {
+    Write-Error "Failed to read file: $_"
+}
+finally {
+    Write-Host "Always runs"
+}
+
+# Stop on all errors
+$ErrorActionPreference = "Stop"
+
+# Check last command result
+if (-not $?) { Write-Error "Last command failed" }
+```
+
+---
+
+## Working with Files
+
+```powershell
+# Read / write
+$content = Get-Content C:\data.txt
+$content | Set-Content C:\data-copy.txt
+Add-Content C:\log.txt "new line"
+
+# Test existence
+if (Test-Path C:\myfile.txt) { "exists" }
+
+# Copy / move / delete
+Copy-Item C:\src\file.txt D:\dst\
+Move-Item C:\old.txt C:\new.txt
+Remove-Item C:\temp -Recurse -Force
+
+# Directory listing
+Get-ChildItem C:\ -Recurse -Filter "*.log" | Select-Object FullName, Length
+```
+
+---
+
+## Practical Script Template
+
+```powershell
+#Requires -Version 5.1
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory)]
+    [string]$TargetPath,
+
+    [int]$MaxAgeDays = 30
+)
+
+$ErrorActionPreference = "Stop"
+
+function Write-Log {
+    param([string]$Message)
+    "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') $Message" |
+        Tee-Object -FilePath "C:\logs\cleanup.log" -Append
+}
+
+Write-Log "Starting cleanup of $TargetPath (files older than $MaxAgeDays days)"
+
+$cutoff = (Get-Date).AddDays(-$MaxAgeDays)
+$files = Get-ChildItem $TargetPath -File | Where-Object LastWriteTime -lt $cutoff
+Write-Log "Found $($files.Count) files to delete"
+
+$files | Remove-Item -Force
+Write-Log "Done"
+```
+
+---
+
+## Remoting
+
+PowerShell can run commands on remote machines.
+
+```powershell
+# One-off remote command
+Invoke-Command -ComputerName server01 -ScriptBlock { Get-Service | Where-Object Status -eq "Stopped" }
+
+# Interactive remote session
+Enter-PSSession -ComputerName server01
+# ... do stuff ...
+Exit-PSSession
+```
+
+---
+
+## Next Steps
+
+- [Bash](/os/shell/bash) — Linux shell scripting
+- [Windows Fundamentals](/os/windows/windows-fundamentals) — PowerShell in the Windows context
+- [System Monitoring](/os/monitoring/system-monitoring) — PowerShell monitoring commands
