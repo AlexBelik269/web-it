@@ -1,4 +1,7 @@
-# C# & .NET Scenario-Based MCQ
+---
+title: "C# & .NET Multiple Choice Questions"
+description: "Scenario-based multiple choice questions for C# and .NET — type system, OOP, generics, LINQ, async/await, exception handling, and memory management."
+---
 
 > Scenario-based multiple choice questions covering core C# and .NET topics.
 

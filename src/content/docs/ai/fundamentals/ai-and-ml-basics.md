@@ -1,4 +1,7 @@
-# Artificial Intelligence and Machine Learning Basics
+---
+title: "AI and Machine Learning Basics"
+description: "Foundational questions and answers covering artificial intelligence and machine learning — algorithms, models, training, and core concepts for beginners and practitioners."
+---
 
 > *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
 

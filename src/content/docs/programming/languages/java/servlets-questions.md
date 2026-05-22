@@ -1,4 +1,7 @@
-# Servlets Interview Questions and Answers
+---
+title: "Java Servlets Interview Questions"
+description: "Java Servlets interview questions — servlet lifecycle (init, service, destroy), HttpServletRequest/Response, session management, filters, and web.xml configuration."
+---
 
 ## Q. Explain Servlets Lifecycle?
 The web container maintains the life cycle of a servlet instance. 

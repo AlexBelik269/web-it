@@ -1,4 +1,7 @@
-# ADO.NET Basics
+---
+title: "ADO.NET"
+description: "ADO.NET data access in C# — connections, commands, DataReader, DataSet, DataAdapter, parameterized queries, and SQL injection prevention."
+---
 
 > *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
 

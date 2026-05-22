@@ -1,4 +1,7 @@
-# Design Patterns in .NET Core
+---
+title: "Design Patterns in .NET"
+description: "Design patterns applied in .NET Core — dependency injection, singleton, factory, observer, strategy, and middleware patterns with C# examples."
+---
 
 > *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
 

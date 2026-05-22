@@ -1,4 +1,7 @@
-# JSP Interview Questions
+﻿---
+title: "JSP Interview Questions"
+description: "JavaServer Pages (JSP) interview questions â€” implicit objects, directives, scriptlets, expression language, JSTL, and the JSP lifecycle."
+---
 
 ## Q. What is JSP Implicit Object?
 
@@ -6,7 +9,7 @@
 
 Example: index.jsp
 
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -24,7 +27,7 @@ Example: index.jsp
 </html>
 ```
 request.jsp
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -44,7 +47,7 @@ request.jsp
 * **response**: This is the HttpServletResponse object associated with the response to the client.
 
 Example:
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -62,7 +65,7 @@ Example:
 * **session**: This is the HttpSession object associated with the request.
 
 Example: index.jsp
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -78,7 +81,7 @@ Example: index.jsp
 </html>
 ```
 session.jsp
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -98,7 +101,7 @@ session.jsp
 * **out**: This is the PrintWriter object used to send output to the client.
 
 Example:
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -119,7 +122,7 @@ Example:
 * **application**: This is the ServletContext object associated with the application context.
 
 Example:
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -153,7 +156,7 @@ Example: web.xml
 </web-app>
 ```
 index.jsp
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -174,7 +177,7 @@ index.jsp
 * **page**: Page implicit variable holds the currently executed servlet object for the corresponding jsp. Acts as this object for current jsp page.
 
 Example:
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -194,7 +197,7 @@ Example:
 * **Exception**: It is used for exception handling in JSP.
 
 Example:
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" isErrorPage="true"%>
 <!DOCTYPE html>
@@ -278,11 +281,11 @@ The most commonly used JSP Action Elements are:
 **1. jsp:useBean**  
 
 This action name is used when we want to use beans in the JSP page. With this tag, we can easily invoke a bean.
-```jsp
+```html
 <jsp:useBean id="" class="" />
 ```
 Example:
-```jsp
+```html
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -300,37 +303,37 @@ Example:
 
 It also used to insert a jsp file into another file, just like include directive. It is added during request processing phase
 
-```jsp
+```html
 <jsp:include page="page URL" flush="true/false">
 ```
 **3. jsp:setProperty**  
 
 This property is used to set the property of the bean. We need to define a bean before setting the property
-```jsp
+```html
 <jsp:setproperty name="" property="">
 ```
 **4. jsp:getProperty**  
 
 This property is used to get the property of the bean. It converts into a string and finally inserts into the output.
-```jsp
+```html
 <jsp:getAttribute name="" property="">
 ```
 **5. jsp:forward**  
 
 It is used to forward the request to another jsp or any static page. Here the request can be forwarded with no parameters or with parameters.
-```jsp
+```html
 <jsp:forward page="value">
 ```
 **6. jsp:plugin**  
 
 It is used to introduce Java components into jsp, i.e., the java components can be either an applet or bean. It detects the browser and adds <object> or <embed> tags into the file
-```jsp
+```html
 <jsp:plugin type="applet/bean" code="objectcode" codebase="objectcodebase">
 ```
 **7. jsp:param**   
 
 This is child object of the plugin object described above. It must contain one or more actions to provide additional parameters.
-```jsp
+```html
 <jsp:params>
     <jsp:param name="val" value="val"/>
 </jsp:params>
@@ -339,27 +342,27 @@ This is child object of the plugin object described above. It must contain one o
 
 This tag is used to define the XML dynamically i.e., the elements can generate during request time than compilation time.
 It actually defines the XML, which is generated dynamically element body.
-```jsp
+```html
 <jsp:body></jsp:body>
 ```
 **9. jsp:attribute**  
 
 This tag is used to define the XML dynamically i.e. the elements can be generated during request time than compilation time
 It actually defines the attribute of XML which will be generated dynamically.
-```jsp
+```html
 <jsp:attribute></jsp:attribute>
 ```
 
 **10. jsp:text**  
 
 It is used to template text in JSP pages. Its body does not contain any other elements, and it contains only text and EL expressions.
-```jsp
+```html
 <jsp:text>template text</jsp:text>
 ```
 **11. jsp:output**  
 
 It specifies the XML declaration or the DOCTYPE declaration of jsp. The XML declaration and DOCTYPE are declared by the output
-```jsp
+```html
 <jsp:output doctype-root-element="" doctype-system="">
 ```
 ## Q. JSP - Servlet - JSP interaction?
@@ -430,7 +433,7 @@ To configure various parameters of JSP pages, an element is used jsp-configthat 
 ## Q. Is a session object always created on a JSP page, can I disable its creation?
 The jsp page, by default, always creates a session. Using a directive pagewith an attribute, sessionyou can change this behavior:
 
-```jsp
+```html
 <%@ page session ="false" %>
 ```
 ## Q. What is the difference between JSPWriter and PrintWriter?
@@ -438,7 +441,7 @@ The jsp page, by default, always creates a session. Using a directive pagewith a
 
 ## Q. How to disable caching on back button of the browser?
 for this, once the session is invalidated, in your respective jsp page add following code snippet 
-```jsp
+```html
 <%
     response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
     response.setHeader("Pragma","no-cache");

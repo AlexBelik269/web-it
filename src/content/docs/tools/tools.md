@@ -1,3 +1,8 @@
+---
+title: "CLI Tools"
+description: "Overview of CLI tools and utilities used in development and operations workflows."
+---
+
 ## :anger: &nbsp;Table of Contents
 
 Only main chapters:

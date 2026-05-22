@@ -1,4 +1,7 @@
-# Multithreading Interview Questions
+---
+title: "Java Multithreading Interview Questions"
+description: "Java multithreading interview questions — thread lifecycle, synchronization, volatile keyword, deadlocks, ExecutorService, and concurrent collections."
+---
 
 ## Q. What are the states in the lifecycle of a Thread?
 A java thread can be in any of following thread states during it\'s life cycle i.e. New, Runnable, Blocked, Waiting, Timed Waiting or Terminated. These are also called life cycle events of a thread in java. 

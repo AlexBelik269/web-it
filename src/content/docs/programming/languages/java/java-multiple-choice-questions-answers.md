@@ -1,4 +1,7 @@
-# Java Multiple Choice Questions 
+---
+title: "Java Multiple Choice Questions"
+description: "Java multiple choice questions covering heap vs stack, interfaces, OOP mechanics, data types, and core language behavior."
+---
 
 
 ## Q. Which of the follwing below live on the heap in java?

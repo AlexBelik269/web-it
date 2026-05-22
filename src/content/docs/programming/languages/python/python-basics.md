@@ -1,4 +1,7 @@
-# Python Basics
+---
+title: "Python Basics"
+description: "Core Python concepts and interview questions — data types, dictionaries, operators, control flow, data structures, functions, closures, OOP, and concurrency."
+---
 
 > *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
 

@@ -20,6 +20,7 @@ export default defineConfig({
 							items: [
 								{ label: 'What is AI?', slug: 'ai/fundamentals/what-is-ai' },
 								{ label: 'Machine Learning Basics', slug: 'ai/fundamentals/machine-learning-basics' },
+								{ label: 'AI and Machine Learning Basics', slug: 'ai/fundamentals/ai-and-ml-basics' },
 								{ label: 'Neural Networks', slug: 'ai/fundamentals/neural-networks' },
 							],
 						},
@@ -372,7 +373,21 @@ export default defineConfig({
 						{
 							label: 'Languages',
 							items: [
-								{ label: 'C#', slug: 'programming/languages/csharp/csharp' },
+								{
+									label: 'C#',
+									items: [
+										{ label: 'Overview', slug: 'programming/languages/csharp/csharp' },
+										{ label: 'Basics', slug: 'programming/languages/csharp/csharp-basics' },
+										{ label: 'ADO.NET', slug: 'programming/languages/csharp/ado-net' },
+										{ label: 'ASP.NET Core', slug: 'programming/languages/csharp/asp-net-core' },
+										{ label: 'Design Patterns', slug: 'programming/languages/csharp/dotnet-dp' },
+										{ label: 'Data Structures', slug: 'programming/languages/csharp/dotnet-ds' },
+										{ label: 'FAQ', slug: 'programming/languages/csharp/dotnet-faq' },
+										{ label: 'Multiple Choice Q&A', slug: 'programming/languages/csharp/dotnet-mcq' },
+										{ label: '.NET Programming', slug: 'programming/languages/csharp/dotnet-programming' },
+										{ label: 'Unit Testing', slug: 'programming/languages/csharp/dotnet-unit-test' },
+									],
+								},
 								{
 									label: 'Java',
 									items: [
@@ -386,7 +401,14 @@ export default defineConfig({
 										{ label: 'Servlets Questions', slug: 'programming/languages/java/servlets-questions' },
 									],
 								},
-								{ label: 'Python', slug: 'programming/languages/python/python' },
+								{
+									label: 'Python',
+									items: [
+										{ label: 'Overview', slug: 'programming/languages/python/python' },
+										{ label: 'Python Basics', slug: 'programming/languages/python/python-basics' },
+										{ label: 'Python Programs', slug: 'programming/languages/python/python-programs' },
+									],
+								},
 								{ label: 'JavaScript & TypeScript', slug: 'programming/languages/javascript-typescript' },
 								{ label: 'HTML & CSS', slug: 'programming/languages/html-css' },
 								{ label: 'Comparison: C# vs Java vs Python', slug: 'programming/languages/comparison-oop' },
@@ -502,10 +524,10 @@ export default defineConfig({
 					]
 				},
 				{
-					label: 'Secret',
+					label: 'Tools',
 					items: [
-						{ label: 'Tool Commands', slug: 'secret/tool-comands' },
-						{ label: 'Tools', slug: 'secret/tools' },
+						{ label: 'Tool Commands', slug: 'tools/tool-comands' },
+						{ label: 'Tools', slug: 'tools/tools' },
 					],
 				}
 			],

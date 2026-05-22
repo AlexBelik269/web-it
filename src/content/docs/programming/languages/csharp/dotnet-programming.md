@@ -1,4 +1,7 @@
-# .NET Core Coding Practice
+---
+title: ".NET Programming Practice"
+description: "Practical .NET coding exercises — boxing/unboxing, value vs reference types, closures, output prediction questions, and tricky C# programs."
+---
 
 > *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
 

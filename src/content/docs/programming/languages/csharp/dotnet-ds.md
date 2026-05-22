@@ -1,4 +1,7 @@
-# Data Structures and Algorithms in .NET Core
+---
+title: "Data Structures and Algorithms in .NET"
+description: "Data structures and algorithms in .NET Core — Big O notation, arrays, stacks, queues, linked lists, trees, and sorting algorithms with C# examples."
+---
 
 > *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
 

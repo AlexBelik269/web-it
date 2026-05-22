@@ -1,4 +1,7 @@
-# Java String Methods
+---
+title: "Java String Methods"
+description: "Reference guide to Java String methods — charAt, equals, compareTo, substring, split, replace, indexOf, and all key String API methods with examples."
+---
 
 ## char charAt(int index)
 

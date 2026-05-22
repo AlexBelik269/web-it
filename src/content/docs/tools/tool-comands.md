@@ -1,4 +1,7 @@
-#### Shell One-liners &nbsp;[<sup>[TOC]</sup>](#anger-table-of-contents)
+---
+title: "Shell One-liners"
+description: "Quick-reference shell one-liners and command-line snippets for common tasks."
+---
 
 ##### Table of Contents
 

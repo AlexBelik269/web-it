@@ -1,4 +1,7 @@
-# .NET Unit Testing using xUnit
+---
+title: ".NET Unit Testing with xUnit"
+description: "Unit testing in .NET using xUnit — test attributes, lifecycle, assertions, data-driven tests, mocking with Moq, async testing, and shared test fixtures."
+---
 
 > *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
 

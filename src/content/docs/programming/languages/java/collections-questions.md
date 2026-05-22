@@ -1,4 +1,7 @@
-# Collections Interview Questions
+---
+title: "Java Collections Interview Questions"
+description: "Java Collections Framework interview questions — List, Set, Map, Queue interfaces, ArrayList, HashMap, TreeSet, and common iteration and sorting patterns."
+---
 
 <br/>
 

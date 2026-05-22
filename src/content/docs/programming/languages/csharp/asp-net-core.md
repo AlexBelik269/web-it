@@ -1,4 +1,7 @@
-# ASP.NET Core Basics
+---
+title: "ASP.NET Core"
+description: "ASP.NET Core interview questions and concepts — middleware pipeline, dependency injection, routing, Kestrel, MVC pattern, and differences from classic ASP.NET."
+---
 
 > *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
 

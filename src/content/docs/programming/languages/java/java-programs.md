@@ -1,4 +1,7 @@
-# Java Programs
+---
+title: "Java Programming Exercises"
+description: "Common Java programming problems and solutions — string manipulation, duplicate detection, sorting, data structures, and coding interview exercises."
+---
 
 ## Q. Write a function to find out duplicate words in a given string?
 
