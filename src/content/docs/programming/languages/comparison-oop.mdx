@@ -1,0 +1,547 @@
+---
+title: "C# vs Java vs Python"
+description: "Side-by-side comparison of C#, Java, and Python — syntax, type systems, error handling, performance, and when to use each."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
+
+C#, Java, and Python are all general-purpose, object-oriented languages with garbage collection and large standard libraries. They're often compared because they overlap heavily in application domains (backends, tooling, enterprise software). This page puts them side by side so you can see the difference at a glance.
+
+---
+
+## At a Glance
+
+| | C# | Java | Python |
+|---|---|---|---|
+| **Typing** | Static (strong) | Static (strong) | Dynamic (duck typing) |
+| **Compilation** | IL → JIT (CLR/.NET) | Bytecode → JIT (JVM) | Interpreted (CPython) |
+| **Syntax style** | C-family, modern | C-family, verbose | Whitespace/indentation |
+| **Null safety** | Optional (`#nullable`) | Optional (`@NotNull`) | None (`None` anywhere) |
+| **Primary runtime** | .NET 8+ (cross-platform) | JVM (JRE/JDK) | CPython 3.x |
+| **Package manager** | NuGet | Maven / Gradle | pip / conda |
+| **Main use cases** | ASP.NET, Unity, desktop | Spring Boot, Android, enterprise | Data science, scripting, AI/ML, Django/FastAPI |
+| **Performance** | Fast (JIT, near-native) | Fast (JIT, JVM-tuned) | Slow (interpreted, GIL) |
+
+---
+
+## Hello World
+
+Python wins for brevity. Java requires the most ceremony. C# (with top-level statements in .NET 6+) is nearly as concise as Python. JavaScript shares Python's simplicity.
+
+<Tabs>
+<TabItem label="C#">
+```csharp
+// Minimal top-level statements (C# 9+)
+Console.WriteLine("Hello, World!");
+```
+</TabItem>
+<TabItem label="Java">
+```java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+</TabItem>
+<TabItem label="Python">
+```python
+print("Hello, World!")
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Node.js or browser console
+console.log("Hello, World!");
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Variables & Types
+
+**Key difference:** C# and Java catch type errors at **compile time**. Python and JavaScript catch them at **runtime** (or via tools like mypy / TypeScript).
+
+<Tabs>
+<TabItem label="C#">
+```csharp
+// Statically typed, type inference with var
+int age       = 30;
+string name   = "Alice";
+double pi     = 3.14;
+var city      = "Berlin";   // inferred as string
+int? maybeNull = null;       // nullable value type
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Statically typed, less flexible inference
+int    age  = 30;
+String name = "Alice";
+double pi   = 3.14;
+var    city = "Berlin";   // local inference (Java 10+)
+Integer boxed = null;     // nullable via wrapper class
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# Dynamically typed, no declarations
+age  = 30
+name = "Alice"
+pi   = 3.14
+city = "Berlin"
+maybe = None   # can assign to anything later
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Dynamically typed — use let/const (avoid var)
+let age  = 30;
+let name = "Alice";
+const pi = 3.14;
+let city = "Berlin";
+let maybe = null;
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Functions / Methods
+
+<Tabs>
+<TabItem label="C#">
+```csharp
+// Methods inside classes, or top-level in .NET 6+
+static int Add(int a, int b) => a + b;
+
+// Default + named parameters
+static string Greet(string name, string greeting = "Hello")
+    => $"{greeting}, {name}!";
+
+Greet("Alice");                       // "Hello, Alice!"
+Greet("Bob", greeting: "Hi");         // "Hi, Bob!"
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Methods must be in a class
+public static int add(int a, int b) {
+    return a + b;
+}
+
+// Overloading — same name, different signature
+public static String greet(String name)                  { return "Hello, " + name; }
+public static String greet(String name, String greeting) { return greeting + ", " + name; }
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# Functions are first-class, outside classes
+def add(a, b):
+    return a + b
+
+# Default + keyword arguments
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+greet("Alice")                     # "Hello, Alice!"
+greet("Bob", greeting="Hi")        # "Hi, Bob!"
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Functions are first-class values
+function add(a, b) { return a + b; }
+
+// Arrow functions with default parameters
+const greet = (name, greeting = "Hello") => `${greeting}, ${name}!`;
+
+greet("Alice");              // "Hello, Alice!"
+greet("Bob", "Hi");          // "Hi, Bob!"
+```
+</TabItem>
+</Tabs>
+
+---
+
+## String Formatting
+
+<Tabs>
+<TabItem label="C#">
+```csharp
+// String interpolation (cleanest)
+string msg = $"Hello, {name}! You are {age} years old.";
+
+// Format with alignment and number formatting
+string price  = $"Price: {cost:C2}";     // Currency: $3.50
+string padded = $"{value,10:F2}";        // Right-aligned, 2 decimal places
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// printf-style or String.format
+String msg = String.format("Hello, %s! You are %d years old.", name, age);
+
+// Java 15+ text blocks
+String json = """
+    {
+        "name": "%s"
+    }
+    """.formatted(name);
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# f-strings (Python 3.6+)
+msg = f"Hello, {name}! You are {age} years old."
+
+# Format specifiers
+price  = f"Price: {cost:.2f}"     # 2 decimal places
+padded = f"{value:>10.2f}"        # right-aligned
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Template literals
+const msg = `Hello, ${name}! You are ${age} years old.`;
+
+// Number formatting
+const price  = `Price: ${cost.toFixed(2)}`;
+const padded = String(value).padStart(10);
+
+// Intl.NumberFormat for localized currency
+const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cost);
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Collections
+
+<Tabs>
+<TabItem label="C#">
+```csharp
+// Generic collections
+var list = new List<int> { 1, 2, 3 };
+list.Add(4);
+
+var dict = new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 };
+dict["c"] = 3;
+
+// LINQ for transformation
+var evens = list.Where(x => x % 2 == 0).ToList();
+var sum   = list.Sum();
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Collections hierarchy
+List<Integer> list = new ArrayList<>(List.of(1, 2, 3));
+list.add(4);
+
+Map<String, Integer> dict = new HashMap<>(Map.of("a", 1, "b", 2));
+dict.put("c", 3);
+
+// Streams for transformation
+List<Integer> evens = list.stream().filter(x -> x % 2 == 0).collect(Collectors.toList());
+int sum = list.stream().mapToInt(Integer::intValue).sum();
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# Built-in lists, dicts, sets
+lst = [1, 2, 3]
+lst.append(4)
+
+dct = {"a": 1, "b": 2}
+dct["c"] = 3
+
+# Comprehensions for transformation
+evens = [x for x in lst if x % 2 == 0]
+total = sum(lst)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Arrays and objects (Maps for key-value)
+const list = [1, 2, 3];
+list.push(4);
+
+const dict = { a: 1, b: 2 };
+dict.c = 3;
+
+// Array methods for transformation
+const evens = list.filter(x => x % 2 === 0);
+const total = list.reduce((sum, x) => sum + x, 0);
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Error Handling
+
+**Key difference:** Java forces you to declare and handle **checked exceptions** — the compiler won't let you ignore them. C#, Python, and JavaScript have only unchecked exceptions.
+
+<Tabs>
+<TabItem label="C#">
+```csharp
+// Unchecked exceptions only
+try
+{
+    int result = int.Parse("abc");
+}
+catch (FormatException ex)
+{
+    Console.Error.WriteLine($"Parse error: {ex.Message}");
+}
+catch (Exception ex) when (ex.Message.Contains("overflow"))
+{
+    // Exception filters (C# 6+)
+}
+finally
+{
+    // Always runs
+}
+
+// Result pattern (alternative to exceptions for expected errors)
+bool ok = int.TryParse("123", out int value);
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Checked + unchecked exceptions
+try {
+    int result = Integer.parseInt("abc");    // unchecked
+    Files.readString(Path.of("file.txt"));  // checked — must handle IOException
+} catch (NumberFormatException e) {
+    System.err.println("Parse error: " + e.getMessage());
+} catch (IOException e) {
+    throw new RuntimeException("File error", e);  // wrap checked as unchecked
+} finally {
+    // Always runs
+}
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# Unchecked exceptions (all RuntimeError subclasses)
+try:
+    result = int("abc")
+except ValueError as e:
+    print(f"Parse error: {e}")
+except (TypeError, AttributeError):
+    print("Type problem")
+else:
+    print("Success — runs only if no exception")
+finally:
+    print("Always runs")
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Unchecked exceptions — sync and async
+try {
+    const result = JSON.parse("invalid json");
+} catch (err) {
+    if (err instanceof SyntaxError) {
+        console.error(`Parse error: ${err.message}`);
+    } else {
+        throw err;  // re-throw unknown errors
+    }
+} finally {
+    // Always runs
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## OOP: Classes & Inheritance
+
+<Tabs>
+<TabItem label="C#">
+```csharp
+public class Animal
+{
+    public string Name { get; }
+    public Animal(string name) { Name = name; }
+    public virtual string Speak() => $"{Name} makes a sound.";
+}
+
+public class Dog : Animal
+{
+    public Dog(string name) : base(name) { }
+    public override string Speak() => $"{Name} barks!";
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+public class Animal {
+    protected final String name;
+    public Animal(String name) { this.name = name; }
+    public String speak() { return name + " makes a sound."; }
+}
+
+public class Dog extends Animal {
+    public Dog(String name) { super(name); }
+    @Override
+    public String speak() { return name + " barks!"; }
+}
+```
+</TabItem>
+<TabItem label="Python">
+```python
+class Animal:
+    def __init__(self, name: str):
+        self.name = name
+
+    def speak(self) -> str:
+        return f"{self.name} makes a sound."
+
+class Dog(Animal):
+    def speak(self) -> str:
+        return f"{self.name} barks!"
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+class Animal {
+    #name;
+
+    constructor(name) {
+        this.#name = name;
+    }
+
+    speak() {
+        return `${this.#name} makes a sound.`;
+    }
+
+    get name() { return this.#name; }
+}
+
+class Dog extends Animal {
+    speak() {
+        return `${this.name} barks!`;
+    }
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Async / Concurrency
+
+<Tabs>
+<TabItem label="C#">
+```csharp
+// async/await, TPL, Tasks
+async Task<string> FetchAsync(string url)
+{
+    using var client = new HttpClient();
+    return await client.GetStringAsync(url);
+}
+
+// Parallel
+var results = await Task.WhenAll(FetchAsync(url1), FetchAsync(url2));
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// CompletableFuture (Java 8+), virtual threads (Java 21+)
+CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> fetchData());
+String result = future
+    .thenApply(String::toUpperCase)
+    .exceptionally(ex -> "Error: " + ex.getMessage())
+    .get();
+
+// Java 21 virtual threads (Project Loom)
+try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+    executor.submit(() -> doWork());
+}
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# asyncio (single-threaded, I/O concurrency)
+import asyncio, aiohttp
+
+async def fetch(session, url):
+    async with session.get(url) as response:
+        return await response.text()
+
+async def main():
+    async with aiohttp.ClientSession() as session:
+        results = await asyncio.gather(fetch(session, url1), fetch(session, url2))
+
+# For CPU-bound parallelism use multiprocessing (bypasses GIL)
+from concurrent.futures import ProcessPoolExecutor
+with ProcessPoolExecutor() as pool:
+    results = list(pool.map(compute, data))
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// async/await with Promises
+async function fetchAsync(url) {
+    const response = await fetch(url);
+    return response.text();
+}
+
+// Parallel
+const [result1, result2] = await Promise.all([fetchAsync(url1), fetchAsync(url2)]);
+
+// Handle partial failures
+const results = await Promise.allSettled([fetchAsync(url1), fetchAsync(url2)]);
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Performance Comparison
+
+| Benchmark area | C# | Java | Python | JavaScript |
+|---|---|---|---|---|
+| Startup time | Fast (AOT option with NativeAOT) | Slow (JVM warmup) | Fast | Fast (V8) |
+| Throughput (after warmup) | Near-native | Near-native | 10–100× slower | Fast (JIT) |
+| Memory | Moderate | Higher (JVM overhead) | Moderate | Moderate |
+| CPU parallelism | Yes (true multi-thread) | Yes (true multi-thread) | Hampered by GIL | Single-threaded (Worker Threads for CPU) |
+| GC pauses | Low (generational GC) | Configurable (G1, ZGC, Shenandoah) | Simple, shorter pauses | Incremental |
+
+Python's slowness rarely matters for I/O-bound work (web requests, DB queries). For CPU-bound tasks, use C extensions (NumPy, PyTorch) or switch languages.
+
+---
+
+## When to Use Which
+
+| Scenario | Best choice | Why |
+|---|---|---|
+| Enterprise backend / microservices | Java (Spring Boot) or C# (ASP.NET) | Mature ecosystems, tooling, long-term support |
+| Windows-first or Microsoft stack | C# | Deep .NET integration, Azure SDKs |
+| Cross-platform desktop apps | C# (MAUI) or Java (JavaFX) | Native feel |
+| Data science / ML / AI | Python | NumPy, pandas, PyTorch, scikit-learn dominate |
+| Scripting & automation | Python | Fast to write, huge stdlib |
+| Android apps | Java or Kotlin (Kotlin preferred) | Android SDK |
+| Game development | C# (Unity) | Unity's primary language |
+| Frontend / full-stack web | JavaScript / TypeScript | Only language that runs in browsers |
+| Rapid prototyping | Python | Least ceremony |
+
+---
+
+## Common Gotchas Side by Side
+
+| Gotcha | C# | Java | Python | JavaScript |
+|---|---|---|---|---|
+| Null errors | `NullReferenceException` | `NullPointerException` | `AttributeError` / `TypeError` on `None` | `TypeError: Cannot read properties of null` |
+| String equality | `==` works (overloaded) | Use `.equals()` — `==` is reference | `==` compares value | `===` compares value and type |
+| Integer overflow | Silent wrap (use `checked`) | Silent wrap | Arbitrary precision — no overflow | `Number.MAX_SAFE_INTEGER` limit |
+| Default mutables | Not applicable | `Collections.unmodifiableList` | Mutable default args trap | Object/array mutation through references |
+| Async pitfall | Forgetting `await` | `.get()` blocks on CompletableFuture | Missing `await` on coroutine | Missing `await` returns Promise, not value |

@@ -1,0 +1,977 @@
+---
+title: "Using AI APIs"
+description: "Practical guide to calling AI APIs in code — OpenAI and Anthropic SDK examples, streaming, tool use, error handling, and cost management."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
+
+Both OpenAI and Anthropic provide simple REST APIs and official SDKs for Python, JavaScript/TypeScript, and other languages. This page walks through the core patterns you need to integrate LLMs into your own applications.
+
+---
+
+## Getting Started
+
+### Install SDKs
+
+```bash
+# Python
+pip install openai anthropic
+
+# Node.js / TypeScript
+npm install openai @anthropic-ai/sdk
+
+# .NET
+dotnet add package Azure.AI.OpenAI   # or OpenAI (community)
+
+# Java (Maven)
+# com.openai:openai-java
+# com.anthropic:anthropic-java (beta)
+```
+
+### API Keys
+
+Store keys in environment variables — never hardcode them in source. See [Auth / API Keys](/auth/tokens/api-keys).
+
+<Tabs>
+<TabItem label="Python">
+```python
+import os
+openai_key    = os.environ["OPENAI_API_KEY"]
+anthropic_key = os.environ["ANTHROPIC_API_KEY"]
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+const openaiKey    = process.env.OPENAI_API_KEY;
+const anthropicKey = process.env.ANTHROPIC_API_KEY;
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+string openaiKey    = Environment.GetEnvironmentVariable("OPENAI_API_KEY")!;
+string anthropicKey = Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY")!;
+```
+</TabItem>
+<TabItem label="Java">
+```java
+String openaiKey    = System.getenv("OPENAI_API_KEY");
+String anthropicKey = System.getenv("ANTHROPIC_API_KEY");
+```
+</TabItem>
+</Tabs>
+
+```bash
+# .env file (use python-dotenv / dotenv npm package to load)
+OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-ant-...
+```
+
+---
+
+## Basic Completion
+
+<Tabs>
+<TabItem label="Python">
+```python
+# ── OpenAI ──────────────────────────────────────────
+from openai import OpenAI
+
+client   = OpenAI()  # reads OPENAI_API_KEY from env
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user",   "content": "Explain what an API is in one paragraph."}
+    ]
+)
+print(response.choices[0].message.content)
+
+# ── Anthropic / Claude ───────────────────────────────
+import anthropic
+
+client  = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env
+message = client.messages.create(
+    model="claude-3-5-sonnet-20241022",
+    max_tokens=1024,
+    system="You are a helpful assistant.",
+    messages=[{"role": "user", "content": "Explain what an API is in one paragraph."}]
+)
+print(message.content[0].text)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// ── OpenAI ──────────────────────────────────────────
+import OpenAI from "openai";
+
+const openai   = new OpenAI();  // reads OPENAI_API_KEY from env
+const response = await openai.chat.completions.create({
+  model: "gpt-4o-mini",
+  messages: [
+    { role: "system", content: "You are a helpful assistant." },
+    { role: "user",   content: "Explain what an API is in one paragraph." }
+  ]
+});
+console.log(response.choices[0].message.content);
+
+// ── Anthropic / Claude ───────────────────────────────
+import Anthropic from "@anthropic-ai/sdk";
+
+const anthropic = new Anthropic();  // reads ANTHROPIC_API_KEY from env
+const message   = await anthropic.messages.create({
+  model: "claude-3-5-sonnet-20241022",
+  max_tokens: 1024,
+  system: "You are a helpful assistant.",
+  messages: [{ role: "user", content: "Explain what an API is in one paragraph." }]
+});
+console.log(message.content[0].text);
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// ── OpenAI (dotnet add package OpenAI) ──────────────
+using OpenAI.Chat;
+
+var client   = new ChatClient("gpt-4o-mini");
+var response = await client.CompleteChatAsync(new ChatMessage[] {
+    new SystemChatMessage("You are a helpful assistant."),
+    new UserChatMessage("Explain what an API is in one paragraph.")
+});
+Console.WriteLine(response.Value.Content[0].Text);
+
+// ── Anthropic — no official .NET SDK yet ─────────────
+// Use HTTP directly or a community wrapper (e.g. Anthropic.SDK on NuGet)
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// ── OpenAI (com.openai:openai-java) ─────────────────
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.*;
+
+var client   = OpenAIOkHttpClient.fromEnv();
+var response = client.chat().completions().create(
+    ChatCompletionCreateParams.builder()
+        .model("gpt-4o-mini")
+        .addSystemMessage("You are a helpful assistant.")
+        .addUserMessage("Explain what an API is in one paragraph.")
+        .build()
+);
+System.out.println(response.choices().get(0).message().content().orElse(""));
+
+// ── Anthropic (com.anthropic:anthropic-java — beta) ──
+import com.anthropic.client.Anthropic;
+import com.anthropic.models.*;
+
+var anthropic = Anthropic.fromEnv();
+var message   = anthropic.messages().create(
+    MessageCreateParams.builder()
+        .model("claude-3-5-sonnet-20241022")
+        .maxTokens(1024)
+        .system("You are a helpful assistant.")
+        .addUserMessage("Explain what an API is in one paragraph.")
+        .build()
+);
+System.out.println(((TextBlock) message.content().get(0)).text());
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Multi-Turn Conversation
+
+To hold a conversation, include all previous messages in each request. The API is stateless — you maintain the history.
+
+<Tabs>
+<TabItem label="Python">
+```python
+from openai import OpenAI
+
+client       = OpenAI()
+conversation = [{"role": "system", "content": "You are a helpful Python tutor."}]
+
+def chat(user_message: str) -> str:
+    conversation.append({"role": "user", "content": user_message})
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=conversation
+    )
+    assistant_message = response.choices[0].message.content
+    conversation.append({"role": "assistant", "content": assistant_message})
+    return assistant_message
+
+print(chat("What is a list comprehension?"))
+print(chat("Can you show me an example?"))  # model remembers previous turn
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+import OpenAI from "openai";
+
+const openai       = new OpenAI();
+const conversation = [{ role: "system", content: "You are a helpful Python tutor." }];
+
+async function chat(userMessage) {
+  conversation.push({ role: "user", content: userMessage });
+  const response = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: conversation
+  });
+  const reply = response.choices[0].message.content;
+  conversation.push({ role: "assistant", content: reply });
+  return reply;
+}
+
+console.log(await chat("What is a list comprehension?"));
+console.log(await chat("Can you show me an example?"));  // model remembers previous turn
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+using OpenAI.Chat;
+
+var client       = new ChatClient("gpt-4o-mini");
+var conversation = new List<ChatMessage> {
+    new SystemChatMessage("You are a helpful Python tutor.")
+};
+
+async Task<string> Chat(string userMessage) {
+    conversation.Add(new UserChatMessage(userMessage));
+    var response = await client.CompleteChatAsync(conversation);
+    var reply    = response.Value.Content[0].Text;
+    conversation.Add(new AssistantChatMessage(reply));
+    return reply;
+}
+
+Console.WriteLine(await Chat("What is a list comprehension?"));
+Console.WriteLine(await Chat("Can you show me an example?"));
+```
+</TabItem>
+<TabItem label="Java">
+```java
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.*;
+import java.util.*;
+
+var client       = OpenAIOkHttpClient.fromEnv();
+var conversation = new ArrayList<ChatCompletionMessageParam>();
+conversation.add(ChatCompletionSystemMessageParam.builder()
+    .content("You are a helpful Python tutor.").build());
+
+String chat(String userMessage) {
+    conversation.add(ChatCompletionUserMessageParam.builder()
+        .content(userMessage).build());
+    var response = client.chat().completions().create(
+        ChatCompletionCreateParams.builder()
+            .model("gpt-4o-mini")
+            .messages(conversation)
+            .build()
+    );
+    String reply = response.choices().get(0).message().content().orElse("");
+    conversation.add(ChatCompletionAssistantMessageParam.builder()
+        .content(reply).build());
+    return reply;
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Streaming Responses
+
+Instead of waiting for the full response, stream tokens as they are generated. This dramatically improves perceived latency.
+
+<Tabs>
+<TabItem label="Python">
+```python
+# ── OpenAI ──────────────────────────────────────────
+from openai import OpenAI
+
+client = OpenAI()
+stream = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Write a haiku about Python."}],
+    stream=True
+)
+for chunk in stream:
+    delta = chunk.choices[0].delta.content
+    if delta:
+        print(delta, end="", flush=True)
+print()
+
+# ── Anthropic ────────────────────────────────────────
+import anthropic
+
+client = anthropic.Anthropic()
+with client.messages.stream(
+    model="claude-3-5-sonnet-20241022",
+    max_tokens=256,
+    messages=[{"role": "user", "content": "Write a haiku about Python."}]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// ── OpenAI ──────────────────────────────────────────
+import OpenAI from "openai";
+
+const openai = new OpenAI();
+const stream = await openai.chat.completions.create({
+  model: "gpt-4o-mini",
+  messages: [{ role: "user", content: "Write a haiku about Python." }],
+  stream: true
+});
+for await (const chunk of stream) {
+  const delta = chunk.choices[0]?.delta?.content ?? "";
+  process.stdout.write(delta);
+}
+
+// ── Anthropic ────────────────────────────────────────
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic();
+const stream = client.messages.stream({
+  model: "claude-3-5-sonnet-20241022",
+  max_tokens: 256,
+  messages: [{ role: "user", content: "Write a haiku about Python." }]
+});
+for await (const event of stream) {
+  if (event.type === "content_block_delta")
+    process.stdout.write(event.delta.text);
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+using OpenAI.Chat;
+
+var client = new ChatClient("gpt-4o-mini");
+
+await foreach (var update in client.CompleteChatStreamingAsync(
+    new[] { new UserChatMessage("Write a haiku about Python.") }))
+{
+    foreach (var part in update.ContentUpdate)
+        Console.Write(part.Text);
+}
+Console.WriteLine();
+```
+</TabItem>
+<TabItem label="Java">
+```java
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.*;
+
+var client = OpenAIOkHttpClient.fromEnv();
+
+client.chat().completions().createStreaming(
+    ChatCompletionCreateParams.builder()
+        .model("gpt-4o-mini")
+        .addUserMessage("Write a haiku about Python.")
+        .build()
+).stream().forEach(chunk ->
+    chunk.choices().stream()
+        .map(c -> c.delta().content().orElse(""))
+        .forEach(System.out::print)
+);
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Tool Use (Function Calling)
+
+Tool use lets you give the model a set of functions it can call, and it will ask you to run them when needed. This is how AI agents interact with the outside world.
+
+<Tabs>
+<TabItem label="Python">
+```python
+from openai import OpenAI
+import json
+
+client = OpenAI()
+
+tools = [{
+    "type": "function",
+    "function": {
+        "name": "get_weather",
+        "description": "Get the current weather for a city",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "city": {"type": "string", "description": "The city name, e.g. London"}
+            },
+            "required": ["city"]
+        }
+    }
+}]
+
+def get_weather(city: str) -> dict:
+    return {"city": city, "temperature": "18°C", "condition": "Cloudy"}
+
+messages = [{"role": "user", "content": "What's the weather in Paris?"}]
+response = client.chat.completions.create(model="gpt-4o-mini", messages=messages, tools=tools)
+
+if response.choices[0].finish_reason == "tool_calls":
+    tool_call = response.choices[0].message.tool_calls[0]
+    args      = json.loads(tool_call.function.arguments)
+    result    = get_weather(**args)
+
+    messages.append(response.choices[0].message)
+    messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": json.dumps(result)})
+
+    final = client.chat.completions.create(model="gpt-4o-mini", messages=messages)
+    print(final.choices[0].message.content)
+    # "The current weather in Paris is 18°C and cloudy."
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+import OpenAI from "openai";
+
+const openai = new OpenAI();
+
+const tools = [{
+  type: "function",
+  function: {
+    name: "get_weather",
+    description: "Get the current weather for a city",
+    parameters: {
+      type: "object",
+      properties: { city: { type: "string", description: "City name, e.g. London" } },
+      required: ["city"]
+    }
+  }
+}];
+
+function getWeather(city) {
+  return { city, temperature: "18°C", condition: "Cloudy" };
+}
+
+const messages = [{ role: "user", content: "What's the weather in Paris?" }];
+const response = await openai.chat.completions.create({ model: "gpt-4o-mini", messages, tools });
+
+if (response.choices[0].finish_reason === "tool_calls") {
+  const toolCall = response.choices[0].message.tool_calls[0];
+  const args     = JSON.parse(toolCall.function.arguments);
+  const result   = getWeather(args.city);
+
+  messages.push(response.choices[0].message);
+  messages.push({ role: "tool", tool_call_id: toolCall.id, content: JSON.stringify(result) });
+
+  const final = await openai.chat.completions.create({ model: "gpt-4o-mini", messages });
+  console.log(final.choices[0].message.content);
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+using OpenAI.Chat;
+using System.Text.Json;
+
+var client = new ChatClient("gpt-4o-mini");
+
+var weatherTool = ChatTool.CreateFunctionTool(
+    "get_weather",
+    "Get the current weather for a city",
+    BinaryData.FromString("""
+    {
+      "type": "object",
+      "properties": { "city": { "type": "string" } },
+      "required": ["city"]
+    }
+    """)
+);
+
+var messages = new List<ChatMessage> { new UserChatMessage("What's the weather in Paris?") };
+var options  = new ChatCompletionOptions { Tools = { weatherTool } };
+var response = await client.CompleteChatAsync(messages, options);
+
+if (response.Value.FinishReason == ChatFinishReason.ToolCalls) {
+    var toolCall = response.Value.ToolCalls[0];
+    var city     = JsonDocument.Parse(toolCall.FunctionArguments).RootElement.GetProperty("city").GetString();
+    var result   = JsonSerializer.Serialize(new { city, temperature = "18°C", condition = "Cloudy" });
+
+    messages.Add(new AssistantChatMessage(response.Value));
+    messages.Add(new ToolChatMessage(toolCall.Id, result));
+
+    var final = await client.CompleteChatAsync(messages);
+    Console.WriteLine(final.Value.Content[0].Text);
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.*;
+
+var client  = OpenAIOkHttpClient.fromEnv();
+var mapper  = new ObjectMapper();
+
+var weatherTool = ChatCompletionTool.builder()
+    .function(FunctionDefinition.builder()
+        .name("get_weather")
+        .description("Get the current weather for a city")
+        .parameters(FunctionParameters.fromJson(
+            "{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"]}"))
+        .build())
+    .build();
+
+var messages = new ArrayList<ChatCompletionMessageParam>();
+messages.add(ChatCompletionUserMessageParam.builder().content("What's the weather in Paris?").build());
+
+var response = client.chat().completions().create(
+    ChatCompletionCreateParams.builder().model("gpt-4o-mini")
+        .messages(messages).tools(List.of(weatherTool)).build()
+);
+
+if (response.choices().get(0).finishReason() == ChatCompletionFinishReason.TOOL_CALLS) {
+    var toolCall = response.choices().get(0).message().toolCalls().get().get(0);
+    var city     = mapper.readTree(toolCall.function().arguments()).get("city").asText();
+    var result   = mapper.writeValueAsString(Map.of("city", city, "temperature", "18°C"));
+
+    messages.add(ChatCompletionAssistantMessageParam.builder()
+        .toolCalls(response.choices().get(0).message().toolCalls().get()).build());
+    messages.add(ChatCompletionToolMessageParam.builder()
+        .toolCallId(toolCall.id()).content(result).build());
+
+    var final_ = client.chat().completions().create(
+        ChatCompletionCreateParams.builder().model("gpt-4o-mini").messages(messages).build());
+    System.out.println(final_.choices().get(0).message().content().orElse(""));
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Structured Output (JSON Mode)
+
+Force the model to return valid JSON matching a schema.
+
+<Tabs>
+<TabItem label="Python">
+```python
+from openai import OpenAI
+from pydantic import BaseModel
+
+client = OpenAI()
+
+class BookSummary(BaseModel):
+    title:       str
+    author:      str
+    key_themes:  list[str]
+    difficulty:  str  # beginner / intermediate / advanced
+
+response = client.beta.chat.completions.parse(
+    model="gpt-4o-mini",
+    messages=[{"role": "user",
+               "content": "Summarise 'The Pragmatic Programmer' by Andy Hunt and Dave Thomas."}],
+    response_format=BookSummary
+)
+
+book = response.choices[0].message.parsed
+print(book.title)       # "The Pragmatic Programmer"
+print(book.key_themes)  # ["DRY principle", "automation", ...]
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+import OpenAI from "openai";
+import { zodResponseFormat } from "openai/helpers/zod";
+import { z } from "zod";
+
+const openai = new OpenAI();
+
+const BookSummary = z.object({
+  title:      z.string(),
+  author:     z.string(),
+  keyThemes:  z.array(z.string()),
+  difficulty: z.enum(["beginner", "intermediate", "advanced"])
+});
+
+const response = await openai.beta.chat.completions.parse({
+  model: "gpt-4o-mini",
+  messages: [{ role: "user",
+               content: "Summarise 'The Pragmatic Programmer' by Andy Hunt and Dave Thomas." }],
+  response_format: zodResponseFormat(BookSummary, "book_summary")
+});
+
+const book = response.choices[0].message.parsed;
+console.log(book.title);      // "The Pragmatic Programmer"
+console.log(book.keyThemes);  // ["DRY principle", "automation", ...]
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+using OpenAI.Chat;
+using System.Text.Json;
+
+var client = new ChatClient("gpt-4o-mini");
+
+// Provide the JSON schema via system instructions
+var response = await client.CompleteChatAsync(new ChatMessage[] {
+    new SystemChatMessage(
+        "Always respond with valid JSON matching: {title, author, key_themes[], difficulty}"),
+    new UserChatMessage(
+        "Summarise 'The Pragmatic Programmer' by Andy Hunt and Dave Thomas.")
+});
+
+var json = response.Value.Content[0].Text;
+var book = JsonDocument.Parse(json).RootElement;
+Console.WriteLine(book.GetProperty("title").GetString());
+```
+</TabItem>
+<TabItem label="Java">
+```java
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+var client = OpenAIOkHttpClient.fromEnv();
+var mapper = new ObjectMapper();
+
+var response = client.chat().completions().create(
+    ChatCompletionCreateParams.builder()
+        .model("gpt-4o-mini")
+        .addSystemMessage(
+            "Always respond with valid JSON: {title, author, key_themes[], difficulty}")
+        .addUserMessage(
+            "Summarise 'The Pragmatic Programmer' by Andy Hunt and Dave Thomas.")
+        .responseFormat(ResponseFormat.jsonObject())
+        .build()
+);
+
+String json = response.choices().get(0).message().content().orElse("{}");
+JsonNode book = mapper.readTree(json);
+System.out.println(book.get("title").asText());
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Error Handling
+
+<Tabs>
+<TabItem label="Python">
+```python
+from openai import OpenAI, RateLimitError, APIError
+import time
+
+client = OpenAI()
+
+def call_with_retry(messages, retries=3):
+    for attempt in range(retries):
+        try:
+            return client.chat.completions.create(
+                model="gpt-4o-mini", messages=messages)
+        except RateLimitError:
+            if attempt < retries - 1:
+                wait = 2 ** attempt  # exponential backoff: 1s, 2s, 4s
+                print(f"Rate limited. Waiting {wait}s...")
+                time.sleep(wait)
+            else:
+                raise
+        except APIError as e:
+            print(f"API error: {e}")
+            raise
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+import OpenAI, { RateLimitError, APIError } from "openai";
+
+const openai = new OpenAI();
+
+async function callWithRetry(messages, retries = 3) {
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      return await openai.chat.completions.create({ model: "gpt-4o-mini", messages });
+    } catch (err) {
+      if (err instanceof RateLimitError && attempt < retries - 1) {
+        const wait = 2 ** attempt * 1000;
+        console.log(`Rate limited. Waiting ${wait}ms...`);
+        await new Promise(r => setTimeout(r, wait));
+      } else if (err instanceof APIError) {
+        console.error(`API error ${err.status}: ${err.message}`);
+        throw err;
+      } else throw err;
+    }
+  }
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+using OpenAI.Chat;
+
+var client = new ChatClient("gpt-4o-mini");
+
+async Task<ChatCompletion> CallWithRetry(IEnumerable<ChatMessage> messages, int retries = 3) {
+    for (int attempt = 0; attempt < retries; attempt++) {
+        try {
+            return await client.CompleteChatAsync(messages);
+        } catch (Exception ex) when (ex.Message.Contains("429") && attempt < retries - 1) {
+            int wait = (int) Math.Pow(2, attempt) * 1000;
+            Console.WriteLine($"Rate limited. Waiting {wait}ms...");
+            await Task.Delay(wait);
+        }
+    }
+    throw new Exception("Max retries exceeded");
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.errors.RateLimitException;
+import com.openai.models.*;
+
+var client = OpenAIOkHttpClient.fromEnv();
+
+ChatCompletion callWithRetry(List<ChatCompletionMessageParam> messages, int retries) throws InterruptedException {
+    for (int attempt = 0; attempt < retries; attempt++) {
+        try {
+            return client.chat().completions().create(
+                ChatCompletionCreateParams.builder()
+                    .model("gpt-4o-mini").messages(messages).build());
+        } catch (RateLimitException e) {
+            if (attempt < retries - 1) {
+                long wait = (long) Math.pow(2, attempt) * 1000;
+                System.out.println("Rate limited. Waiting " + wait + "ms...");
+                Thread.sleep(wait);
+            } else throw e;
+        }
+    }
+    throw new RuntimeException("Max retries exceeded");
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Cost Estimation
+
+Before running a task at scale, estimate the token count and cost.
+
+<Tabs>
+<TabItem label="Python">
+```python
+import tiktoken
+
+def estimate_cost(text: str, model="gpt-4o-mini") -> dict:
+    enc          = tiktoken.encoding_for_model(model)
+    input_tokens = len(enc.encode(text))
+
+    prices = {
+        "gpt-4o":      {"input": 5.00,  "output": 15.00},
+        "gpt-4o-mini": {"input": 0.15,  "output": 0.60},
+    }
+    price      = prices.get(model, prices["gpt-4o-mini"])
+    input_cost = (input_tokens / 1_000_000) * price["input"]
+
+    return {"input_tokens": input_tokens,
+            "estimated_input_cost_usd": round(input_cost, 6)}
+
+print(estimate_cost("Summarise the entire works of Shakespeare"))
+# {'input_tokens': 9, 'estimated_input_cost_usd': 0.0000014}
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+import { encoding_for_model } from "tiktoken";
+
+function estimateCost(text, model = "gpt-4o-mini") {
+  const enc         = encoding_for_model(model);
+  const inputTokens = enc.encode(text).length;
+
+  const prices = {
+    "gpt-4o":      { input: 5.00,  output: 15.00 },
+    "gpt-4o-mini": { input: 0.15,  output: 0.60  },
+  };
+  const price     = prices[model] ?? prices["gpt-4o-mini"];
+  const inputCost = (inputTokens / 1_000_000) * price.input;
+
+  return { inputTokens, estimatedInputCostUsd: inputCost.toFixed(6) };
+}
+
+console.log(estimateCost("Summarise the entire works of Shakespeare"));
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+using Microsoft.ML.Tokenizers;
+
+static (int tokens, double costUsd) EstimateCost(string text, string model = "gpt-4o-mini") {
+    var tokenizer   = TiktokenTokenizer.CreateForModel(model);
+    int inputTokens = tokenizer.CountTokens(text);
+
+    var prices = new Dictionary<string, double> {
+        ["gpt-4o"]      = 5.00 / 1_000_000,
+        ["gpt-4o-mini"] = 0.15 / 1_000_000,
+    };
+    double pricePerToken = prices.GetValueOrDefault(model, prices["gpt-4o-mini"]);
+    return (inputTokens, inputTokens * pricePerToken);
+}
+
+var (tokens, cost) = EstimateCost("Summarise the entire works of Shakespeare");
+Console.WriteLine($"Tokens: {tokens}, Cost: ${cost:F6}");
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Using jtokkit (com.knuddels:jtokkit)
+import com.knuddels.jtokkit.Encodings;
+import com.knuddels.jtokkit.api.EncodingType;
+import java.util.Map;
+
+static Map<String, Object> estimateCost(String text, String model) {
+    var registry    = Encodings.newDefaultEncodingRegistry();
+    var enc         = registry.getEncoding(EncodingType.CL100K_BASE);
+    int inputTokens = enc.encode(text).size();
+
+    Map<String, Double> prices = Map.of(
+        "gpt-4o",      5.00 / 1_000_000,
+        "gpt-4o-mini", 0.15 / 1_000_000
+    );
+    double cost = inputTokens * prices.getOrDefault(model, 0.15 / 1_000_000);
+    return Map.of("inputTokens", inputTokens, "estimatedInputCostUsd", cost);
+}
+
+System.out.println(estimateCost("Summarise the entire works of Shakespeare", "gpt-4o-mini"));
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Working with Files and Images
+
+### Sending an image (GPT-4o / Claude 3)
+
+<Tabs>
+<TabItem label="Python">
+```python
+import base64
+from openai import OpenAI
+
+client = OpenAI()
+
+with open("screenshot.png", "rb") as f:
+    image_data = base64.b64encode(f.read()).decode("utf-8")
+
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{
+        "role": "user",
+        "content": [
+            {"type": "text",      "text": "What's in this image?"},
+            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{image_data}"}}
+        ]
+    }]
+)
+print(response.choices[0].message.content)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+import OpenAI from "openai";
+import fs from "fs";
+
+const openai = new OpenAI();
+
+const imageData  = fs.readFileSync("screenshot.png").toString("base64");
+const response   = await openai.chat.completions.create({
+  model: "gpt-4o",
+  messages: [{
+    role: "user",
+    content: [
+      { type: "text",      text: "What's in this image?" },
+      { type: "image_url", image_url: { url: `data:image/png;base64,${imageData}` } }
+    ]
+  }]
+});
+console.log(response.choices[0].message.content);
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+using OpenAI.Chat;
+
+var client    = new ChatClient("gpt-4o");
+var imageData = BinaryData.FromBytes(File.ReadAllBytes("screenshot.png"));
+
+var response = await client.CompleteChatAsync(new[] {
+    new UserChatMessage(
+        ChatMessageContentPart.CreateTextPart("What's in this image?"),
+        ChatMessageContentPart.CreateImagePart(imageData, "image/png"))
+});
+Console.WriteLine(response.Value.Content[0].Text);
+```
+</TabItem>
+<TabItem label="Java">
+```java
+import com.openai.client.OpenAIOkHttpClient;
+import com.openai.models.*;
+import java.nio.file.Files;
+import java.util.Base64;
+
+var client    = OpenAIOkHttpClient.fromEnv();
+var imageBytes = Files.readAllBytes(java.nio.file.Path.of("screenshot.png"));
+var base64     = Base64.getEncoder().encodeToString(imageBytes);
+
+var response = client.chat().completions().create(
+    ChatCompletionCreateParams.builder()
+        .model("gpt-4o")
+        .addUserMessage(List.of(
+            ChatCompletionContentPart.ofText("What's in this image?"),
+            ChatCompletionContentPart.ofImageUrl(
+                ChatCompletionContentPartImage.builder()
+                    .imageUrl(ImageUrl.builder()
+                        .url("data:image/png;base64," + base64).build())
+                    .build())
+        ))
+        .build()
+);
+System.out.println(response.choices().get(0).message().content().orElse(""));
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Quick Reference
+
+| Task | OpenAI | Anthropic |
+|---|---|---|
+| Basic completion | `client.chat.completions.create()` | `client.messages.create()` |
+| Streaming | `stream=True` | `client.messages.stream()` |
+| Token count | `tiktoken` library | `client.messages.count_tokens()` |
+| Tool use | `tools=` parameter | `tools=` parameter |
+| JSON output | `response_format=` | Prompt + instruct |
+| Embedding | `client.embeddings.create()` | Third-party or Amazon Titan |
+
+---
+
+## Next Steps
+
+- [Prompt Engineering](/ai/llm/prompting) — making the most of your API calls
+- [Tokens & Context](/ai/llm/tokens-and-context) — managing context and costs
+- [Training vs Inference](/ai/concepts/training-vs-inference) — RAG and fine-tuning for custom needs
+- [Auth / API Keys](/auth/tokens/api-keys) — securely managing API credentials

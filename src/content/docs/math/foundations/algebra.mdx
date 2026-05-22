@@ -1,0 +1,199 @@
+---
+title: "Algebra Basics"
+description: "Fundamental algebraic rules used throughout discrete mathematics — arithmetic laws, modular arithmetic, exponents, and logarithms."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
+
+Algebra is the language of mathematical manipulation. Before working with logic, proofs, or algorithm analysis, you need to be comfortable rearranging expressions. This page covers the rules you will use constantly.
+
+---
+
+## Arithmetic Laws
+
+These laws hold for addition and multiplication over integers, rationals, and reals.
+
+| Law | Addition | Multiplication |
+|---|---|---|
+| **Commutative** | a + b = b + a | a × b = b × a |
+| **Associative** | (a + b) + c = a + (b + c) | (a × b) × c = a × (b × c) |
+| **Distributive** | a × (b + c) = a×b + a×c | — |
+| **Identity** | a + 0 = a | a × 1 = a |
+| **Inverse** | a + (−a) = 0 | a × (1/a) = 1 (a ≠ 0) |
+
+**Why these matter:** The laws justify every algebraic manipulation. When you simplify `3(x + 2) = 3x + 6`, you applied the distributive law.
+
+---
+
+## Integer Division and Modulo
+
+For integers a and b (b > 0), division always produces a quotient and a remainder:
+
+```
+a = b × q + r     where 0 ≤ r < b
+```
+
+- **q = a div b** — the quotient (rounded down, also written ⌊a/b⌋)
+- **r = a mod b** — the remainder
+
+**Example: 17 div 5 and 17 mod 5**
+```
+17 = 5 × 3 + 2
+      ↑       ↑
+   quotient  remainder
+   17 div 5 = 3
+   17 mod 5  = 2
+```
+
+**Example: 14 div 3**
+```
+14 = 3 × 4 + 2
+14 div 3 = 4
+14 mod 3 = 2
+Verify: 3 × 4 + 2 = 14 ✓
+```
+
+**Modulo in code:** Note that languages differ in how they handle the sign of the remainder for negative operands — Python rounds toward −∞, while most other languages round toward zero.
+
+<Tabs>
+<TabItem label="Python">
+```python
+17 % 5    # = 2
+-7 % 3    # = 2  — Python rounds toward −∞ (result takes sign of divisor)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+17 % 5    // = 2
+-7 % 3    // = -1 — JS rounds toward zero (result takes sign of dividend)
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+17 % 5    // = 2
+-7 % 3    // = -1 — C# rounds toward zero (result takes sign of dividend)
+```
+</TabItem>
+<TabItem label="Java">
+```java
+17 % 5    // = 2
+-7 % 3    // = -1 — Java rounds toward zero (result takes sign of dividend)
+```
+</TabItem>
+</Tabs>
+
+**Checking if even/odd:** `n mod 2 = 0` → even, `n mod 2 = 1` → odd.
+
+---
+
+## Modular Arithmetic
+
+Modular arithmetic wraps numbers around a fixed modulus, like a clock face. "Clock arithmetic" uses modulus 12: 11 + 3 = 14, but on a clock that is 2.
+
+**Notation:** a ≡ b (mod n) means a and b have the same remainder when divided by n.
+
+```
+14 ≡ 2 (mod 12)   because 14 mod 12 = 2
+26 ≡ 2 (mod 12)   because 26 mod 12 = 2
+38 ≡ 2 (mod 12)   same remainder
+```
+
+**Rules — you can add, subtract, and multiply modulo n:**
+
+| Operation | Rule |
+|---|---|
+| Addition | (a + b) mod n = ((a mod n) + (b mod n)) mod n |
+| Subtraction | (a − b) mod n = ((a mod n) − (b mod n) + n) mod n |
+| Multiplication | (a × b) mod n = ((a mod n) × (b mod n)) mod n |
+
+**Example:** What is (99 + 47) mod 10?
+```
+Instead of computing 146 mod 10 directly:
+(99 mod 10 + 47 mod 10) mod 10
+= (9 + 7) mod 10
+= 16 mod 10
+= 6
+```
+
+**Why modular arithmetic matters in CS:**
+- Hashing: `index = key mod table_size`
+- Cryptography: RSA, Diffie-Hellman, and AES all operate modulo a large number
+- Cyclic buffers: next position = `(current + 1) mod buffer_size`
+
+---
+
+## Exponents
+
+| Rule | Formula | Example |
+|---|---|---|
+| Product rule | aᵐ × aⁿ = aᵐ⁺ⁿ | 2³ × 2⁴ = 2⁷ = 128 |
+| Quotient rule | aᵐ / aⁿ = aᵐ⁻ⁿ | 2⁵ / 2² = 2³ = 8 |
+| Power rule | (aᵐ)ⁿ = aᵐⁿ | (2³)² = 2⁶ = 64 |
+| Zero exponent | a⁰ = 1 | 5⁰ = 1 |
+| Negative exponent | a⁻ⁿ = 1/aⁿ | 2⁻³ = 1/8 |
+
+**Big O notation uses exponents constantly.** An algorithm that does n² steps is much slower than one that does n steps, but much faster than one that does 2ⁿ steps.
+
+| n | n² | 2ⁿ |
+|---|---|---|
+| 10 | 100 | 1,024 |
+| 20 | 400 | 1,048,576 |
+| 30 | 900 | 1,073,741,824 |
+
+---
+
+## Logarithms
+
+The logarithm is the inverse of the exponent. If 2³ = 8, then log₂(8) = 3.
+
+**General definition:** logₐ(x) = y means aʸ = x
+
+| Exponent form | Logarithm form |
+|---|---|
+| 2³ = 8 | log₂(8) = 3 |
+| 10² = 100 | log₁₀(100) = 2 |
+| eˣ = y | ln(y) = x |
+
+**Key identities:**
+
+| Identity | Example |
+|---|---|
+| logₐ(x × y) = logₐ(x) + logₐ(y) | log₂(8 × 4) = log₂(8) + log₂(4) = 3 + 2 = 5 |
+| logₐ(x / y) = logₐ(x) − logₐ(y) | log₂(8 / 4) = 3 − 2 = 1 |
+| logₐ(xⁿ) = n × logₐ(x) | log₂(8²) = 2 × 3 = 6 |
+| Change of base | logₐ(x) = log_b(x) / log_b(a) | log₂(100) = log₁₀(100) / log₁₀(2) ≈ 6.64 |
+
+**Why logarithms appear in CS:**
+- Binary search on n elements takes O(log₂ n) steps — every step halves the search space
+- A balanced binary tree of n nodes has height log₂ n
+- Huffman encoding, merge sort, and many divide-and-conquer algorithms run in O(n log n)
+
+**Intuition:** If you keep halving a number, how many steps until you reach 1?
+```
+1024 → 512 → 256 → 128 → 64 → 32 → 16 → 8 → 4 → 2 → 1
+That's 10 steps. log₂(1024) = 10. ✓
+```
+
+---
+
+## Summation Notation
+
+The Sigma notation Σ compactly expresses a sum:
+
+**Σᵢ₌₁ⁿ i** means "sum i from 1 to n" = 1 + 2 + 3 + … + n
+
+**Gauss's formula:** Σᵢ₌₁ⁿ i = n(n+1)/2
+
+**Example:** Sum of 1 to 100:
+```
+100 × 101 / 2 = 5050
+```
+
+Gauss supposedly computed this instantly as a child by pairing 1+100, 2+99, 3+98, … — 50 pairs each summing to 101.
+
+| Sum | Formula |
+|---|---|
+| 1 + 2 + … + n | n(n+1) / 2 |
+| 1² + 2² + … + n² | n(n+1)(2n+1) / 6 |
+| 1 + r + r² + … + rⁿ (geometric) | (rⁿ⁺¹ − 1) / (r − 1) for r ≠ 1 |

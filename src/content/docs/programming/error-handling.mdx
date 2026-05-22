@@ -1,0 +1,753 @@
+---
+title: "Error Handling"
+description: "Error handling strategies — exception types, when to throw vs return, error propagation, defensive programming, and language-specific patterns."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
+
+Errors are inevitable. Good error handling means your program fails gracefully, gives useful feedback, and leaves the system in a consistent state.
+
+---
+
+## Types of Errors
+
+| Type | Description | Examples |
+|---|---|---|
+| **Syntax errors** | Code that cannot be parsed | Missing bracket, typo in keyword |
+| **Runtime errors** | Valid code that fails during execution | Division by zero, null dereference |
+| **Logic errors** | Code runs but produces wrong results | Off-by-one, wrong formula |
+| **External errors** | Failure in a system outside your code | Network timeout, disk full, DB down |
+
+The first two are caught by compilers or at startup. Logic errors require testing to find. External errors must be handled in production.
+
+---
+
+## Exceptions vs Return Codes
+
+Two broad strategies for signalling errors:
+
+| | Exceptions | Return codes / Result types |
+|---|---|---|
+| Mechanism | Throw/catch mechanism unwinds the call stack | Function returns a success or error value |
+| Forgettable | No — uncaught exceptions crash the program | Yes — callers can ignore error values |
+| Flow | Non-linear — separates happy path from error path | Linear — every call site must check |
+| Performance | Small overhead for the throw | Near zero |
+| Use in | Python, Java, C#, JavaScript | Go, Rust, C |
+
+### Throwing and Catching Exceptions
+
+The following examples show how to raise, catch, and handle exceptions including multiple exception types and the `finally` clause.
+
+<Tabs>
+<TabItem label="Python">
+```python
+def divide(a, b):
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero")
+    return a / b
+
+try:
+    result = divide(10, 0)
+except ZeroDivisionError as e:
+    print(f"Error: {e}")
+except (ValueError, TypeError) as e:
+    print(f"Bad input: {e}")
+else:
+    print(f"Result: {result}")   # runs only if no exception
+finally:
+    print("Always runs — cleanup here")
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+function divide(a, b) {
+    if (b === 0) throw new Error("Cannot divide by zero");
+    return a / b;
+}
+
+try {
+    const result = divide(10, 0);
+    console.log(`Result: ${result}`);
+} catch (err) {
+    if (err instanceof TypeError) {
+        console.error(`Bad input: ${err.message}`);
+    } else {
+        console.error(`Error: ${err.message}`);
+    }
+} finally {
+    console.log("Always runs — cleanup here");
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+static double Divide(double a, double b)
+{
+    if (b == 0) throw new DivideByZeroException("Cannot divide by zero");
+    return a / b;
+}
+
+try
+{
+    double result = Divide(10, 0);
+    Console.WriteLine($"Result: {result}");
+}
+catch (DivideByZeroException ex)
+{
+    Console.Error.WriteLine($"Error: {ex.Message}");
+}
+catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
+{
+    Console.Error.WriteLine($"Bad input: {ex.Message}");
+}
+finally
+{
+    Console.WriteLine("Always runs — cleanup here");
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+static double divide(double a, double b) {
+    if (b == 0) throw new ArithmeticException("Cannot divide by zero");
+    return a / b;
+}
+
+try {
+    double result = divide(10, 0);
+    System.out.println("Result: " + result);
+} catch (ArithmeticException e) {
+    System.err.println("Error: " + e.getMessage());
+} catch (IllegalArgumentException | NumberFormatException e) {
+    System.err.println("Bad input: " + e.getMessage());
+} finally {
+    System.out.println("Always runs — cleanup here");
+}
+```
+</TabItem>
+</Tabs>
+
+### Result Types (Rust / Go style)
+
+An alternative to exceptions: return a value that is either a success (`Ok`) or failure (`Err`), forcing callers to handle both cases. Go and Rust use this natively; all four languages can simulate it.
+
+<Tabs>
+<TabItem label="Python">
+```python
+from dataclasses import dataclass
+from typing import Generic, TypeVar
+
+T = TypeVar("T")
+E = TypeVar("E")
+
+@dataclass
+class Ok(Generic[T]):
+    value: T
+
+@dataclass
+class Err(Generic[E]):
+    error: E
+
+def parse_age(raw: str):
+    if not raw.isdigit():
+        return Err("Age must be a number")
+    age = int(raw)
+    if age < 0 or age > 150:
+        return Err("Age out of range")
+    return Ok(age)
+
+result = parse_age("30")
+match result:
+    case Ok(value=age):  print(f"Age: {age}")
+    case Err(error=msg): print(f"Error: {msg}")
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Result type via plain objects
+function parseAge(raw) {
+    const age = parseInt(raw, 10);
+    if (isNaN(age)) return { ok: false, error: "Age must be a number" };
+    if (age < 0 || age > 150) return { ok: false, error: "Age out of range" };
+    return { ok: true, value: age };
+}
+
+const result = parseAge("30");
+if (result.ok) {
+    console.log(`Age: ${result.value}`);
+} else {
+    console.error(`Error: ${result.error}`);
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Result type using a discriminated union or a simple wrapper
+record Ok<T>(T Value);
+record Err<E>(E Error);
+
+static object ParseAge(string raw)
+{
+    if (!int.TryParse(raw, out int age))
+        return new Err<string>("Age must be a number");
+    if (age < 0 || age > 150)
+        return new Err<string>("Age out of range");
+    return new Ok<int>(age);
+}
+
+var result = ParseAge("30");
+if (result is Ok<int> ok)       Console.WriteLine($"Age: {ok.Value}");
+else if (result is Err<string> err) Console.Error.WriteLine($"Error: {err.Error}");
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Result type using a sealed interface (Java 17+)
+sealed interface Result<T> permits Ok, Err {}
+record Ok<T>(T value) implements Result<T> {}
+record Err<T>(String error) implements Result<T> {}
+
+static Result<Integer> parseAge(String raw) {
+    try {
+        int age = Integer.parseInt(raw);
+        if (age < 0 || age > 150) return new Err<>("Age out of range");
+        return new Ok<>(age);
+    } catch (NumberFormatException e) {
+        return new Err<>("Age must be a number");
+    }
+}
+
+Result<Integer> result = parseAge("30");
+switch (result) {
+    case Ok<Integer> ok   -> System.out.println("Age: " + ok.value());
+    case Err<Integer> err -> System.err.println("Error: " + err.error());
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Exception Hierarchy
+
+Python and Java use class hierarchies for exception types. Catching a parent class catches all its children.
+
+```python
+# Python hierarchy (simplified)
+BaseException
+├── SystemExit
+├── KeyboardInterrupt
+└── Exception
+    ├── ValueError        # bad value (wrong type for context)
+    ├── TypeError         # wrong type entirely
+    ├── KeyError          # dict key not found
+    ├── IndexError        # list index out of range
+    ├── FileNotFoundError # specific IOError subclass
+    ├── AttributeError
+    └── RuntimeError
+        └── RecursionError
+```
+
+**Custom exceptions** — create your own to give callers precise error types:
+
+<Tabs>
+<TabItem label="Python">
+```python
+class AppError(Exception):
+    """Base for all application errors."""
+
+class UserNotFoundError(AppError):
+    def __init__(self, user_id: int):
+        super().__init__(f"User {user_id} not found")
+        self.user_id = user_id
+
+class InsufficientFundsError(AppError):
+    def __init__(self, balance: float, required: float):
+        super().__init__(f"Balance {balance} < required {required}")
+        self.balance  = balance
+        self.required = required
+
+try:
+    withdraw(account, 500)
+except InsufficientFundsError as e:
+    show_error(f"Not enough funds. You have £{e.balance:.2f}")
+except AppError as e:
+    log.error(f"Application error: {e}")
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+class AppError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "AppError";
+    }
+}
+
+class UserNotFoundError extends AppError {
+    constructor(userId) {
+        super(`User ${userId} not found`);
+        this.name  = "UserNotFoundError";
+        this.userId = userId;
+    }
+}
+
+class InsufficientFundsError extends AppError {
+    constructor(balance, required) {
+        super(`Balance ${balance} < required ${required}`);
+        this.name     = "InsufficientFundsError";
+        this.balance  = balance;
+        this.required = required;
+    }
+}
+
+try {
+    await withdraw(account, 500);
+} catch (err) {
+    if (err instanceof InsufficientFundsError) {
+        showError(`Not enough funds. You have £${err.balance.toFixed(2)}`);
+    } else if (err instanceof AppError) {
+        log.error(`Application error: ${err.message}`);
+    }
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+public class AppException : Exception
+{
+    public AppException(string message) : base(message) { }
+}
+
+public class UserNotFoundException : AppException
+{
+    public int UserId { get; }
+    public UserNotFoundException(int userId)
+        : base($"User {userId} not found") => UserId = userId;
+}
+
+public class InsufficientFundsException : AppException
+{
+    public decimal Balance  { get; }
+    public decimal Required { get; }
+    public InsufficientFundsException(decimal balance, decimal required)
+        : base($"Balance {balance} < required {required}")
+    {
+        Balance  = balance;
+        Required = required;
+    }
+}
+
+try { Withdraw(account, 500); }
+catch (InsufficientFundsException ex) { ShowError($"Not enough funds. You have £{ex.Balance:F2}"); }
+catch (AppException ex)               { log.Error($"Application error: {ex.Message}"); }
+```
+</TabItem>
+<TabItem label="Java">
+```java
+public class AppException extends RuntimeException {
+    public AppException(String message) { super(message); }
+}
+
+public class UserNotFoundException extends AppException {
+    private final int userId;
+    public UserNotFoundException(int userId) {
+        super("User " + userId + " not found");
+        this.userId = userId;
+    }
+    public int getUserId() { return userId; }
+}
+
+public class InsufficientFundsException extends AppException {
+    private final double balance, required;
+    public InsufficientFundsException(double balance, double required) {
+        super(String.format("Balance %.2f < required %.2f", balance, required));
+        this.balance  = balance;
+        this.required = required;
+    }
+    public double getBalance() { return balance; }
+}
+
+try { withdraw(account, 500); }
+catch (InsufficientFundsException e) { showError("Not enough funds. You have £" + e.getBalance()); }
+catch (AppException e)               { log.error("Application error: " + e.getMessage()); }
+```
+</TabItem>
+</Tabs>
+
+---
+
+## When to Throw, When to Return
+
+| Situation | Prefer |
+|---|---|
+| Truly unexpected / programming error | Raise exception |
+| Expected failure in business logic | Return result / error value, or raise domain exception |
+| Caller can reasonably recover | Return error, let caller decide |
+| Caller cannot recover | Raise exception, let it propagate |
+| Public API | Document what exceptions are raised |
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Good — domain exception for a recoverable, expected failure
+def find_user(user_id: int) -> User:
+    user = db.query("SELECT * FROM users WHERE id = %s", user_id)
+    if user is None:
+        raise UserNotFoundError(user_id)   # callers can catch this
+    return user
+
+# Bad — catching and swallowing an exception with no action
+try:
+    result = parse_data(raw)
+except Exception:
+    pass   # silent failure — the error is lost
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Good — domain exception for an expected failure
+async function findUser(userId) {
+    const user = await db.query("SELECT * FROM users WHERE id = $1", [userId]);
+    if (!user) throw new UserNotFoundError(userId);
+    return user;
+}
+
+// Bad — swallowing the error
+try {
+    result = parseData(raw);
+} catch (err) {
+    // silent failure — the error is lost
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Good — throw when not found, callers catch specifically
+async Task<User> FindUserAsync(int userId)
+{
+    var user = await db.Users.FindAsync(userId);
+    if (user is null) throw new UserNotFoundException(userId);
+    return user;
+}
+
+// Bad — swallowing the exception
+try { result = ParseData(raw); }
+catch (Exception) { }  // silent failure
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Good — domain exception for an expected failure
+User findUser(int userId) {
+    User user = db.find(User.class, userId);
+    if (user == null) throw new UserNotFoundException(userId);
+    return user;
+}
+
+// Bad — swallowing the exception
+try { result = parseData(raw); }
+catch (Exception e) { /* silent failure */ }
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Error Propagation
+
+Errors often originate deep in a call stack and need to travel up to a layer that can handle them meaningfully.
+
+<Tabs>
+<TabItem label="Python">
+```python
+def load_config(path: str) -> dict:
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        raise ConfigError(f"Config file not found: {path}") from None
+    except json.JSONDecodeError as e:
+        raise ConfigError(f"Invalid JSON in config {path}: {e}") from e
+
+# raise X from Y — attaches the original exception as __cause__
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+async function loadUser(id) {
+    try {
+        const response = await fetch(`/api/users/${id}`);
+        if (!response.ok) {
+            throw new ApiError(`Failed to load user ${id}`, response.status);
+        }
+        return await response.json();
+    } catch (err) {
+        if (err instanceof ApiError) throw err;  // re-raise domain error
+        throw new ApiError(`Unexpected error loading user: ${err.message}`, 500);
+    }
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+async Task<Config> LoadConfigAsync(string path)
+{
+    try
+    {
+        string json = await File.ReadAllTextAsync(path);
+        return JsonSerializer.Deserialize<Config>(json)
+            ?? throw new ConfigException($"Config at {path} was null");
+    }
+    catch (FileNotFoundException)
+    {
+        throw new ConfigException($"Config file not found: {path}");
+    }
+    catch (JsonException ex)
+    {
+        throw new ConfigException($"Invalid JSON in config {path}", ex);
+    }
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+Config loadConfig(String path) {
+    try {
+        String json = Files.readString(Path.of(path));
+        return objectMapper.readValue(json, Config.class);
+    } catch (NoSuchFileException e) {
+        throw new ConfigException("Config file not found: " + path);
+    } catch (IOException e) {
+        throw new ConfigException("Failed to read config " + path, e);
+    } catch (JsonProcessingException e) {
+        throw new ConfigException("Invalid JSON in config " + path + ": " + e.getMessage(), e);
+    }
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Defensive Programming
+
+Catch potential errors before they become exceptions.
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Validate at system boundaries (user input, API responses)
+def create_user(name: str, email: str, age: int) -> User:
+    if not name or not name.strip():
+        raise ValueError("Name is required")
+    if "@" not in email:
+        raise ValueError(f"Invalid email: {email!r}")
+    if not 0 <= age <= 150:
+        raise ValueError(f"Age out of range: {age}")
+    return User(name=name.strip(), email=email.lower(), age=age)
+
+# Guard clauses — fail fast at the top of a function
+def process_payment(order, card):
+    if order is None:
+        raise ValueError("Order is required")
+    if order.total <= 0:
+        raise ValueError(f"Invalid order total: {order.total}")
+    if card is None or not card.is_valid():
+        raise PaymentError("Invalid payment card")
+    # happy path continues here...
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+function createUser(name, email, age) {
+    if (!name?.trim()) throw new Error("Name is required");
+    if (!email.includes("@")) throw new Error(`Invalid email: ${email}`);
+    if (age < 0 || age > 150) throw new RangeError(`Age out of range: ${age}`);
+    return { name: name.trim(), email: email.toLowerCase(), age };
+}
+
+// Guard clauses
+function processPayment(order, card) {
+    if (!order)        throw new TypeError("Order is required");
+    if (order.total <= 0) throw new RangeError(`Invalid order total: ${order.total}`);
+    if (!card?.isValid()) throw new PaymentError("Invalid payment card");
+    // happy path continues here...
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+User CreateUser(string name, string email, int age)
+{
+    if (string.IsNullOrWhiteSpace(name))
+        throw new ArgumentException("Name is required", nameof(name));
+    if (!email.Contains('@'))
+        throw new ArgumentException($"Invalid email: {email}", nameof(email));
+    if (age is < 0 or > 150)
+        throw new ArgumentOutOfRangeException(nameof(age), $"Age out of range: {age}");
+    return new User(name.Trim(), email.ToLower(), age);
+}
+
+// Guard clauses using ArgumentNullException.ThrowIfNull (C# 10+)
+void ProcessPayment(Order order, Card card)
+{
+    ArgumentNullException.ThrowIfNull(order);
+    if (order.Total <= 0)    throw new ArgumentException($"Invalid order total: {order.Total}");
+    if (!card?.IsValid() ?? true) throw new PaymentException("Invalid payment card");
+    // happy path continues here...
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+User createUser(String name, String email, int age) {
+    if (name == null || name.isBlank())
+        throw new IllegalArgumentException("Name is required");
+    if (!email.contains("@"))
+        throw new IllegalArgumentException("Invalid email: " + email);
+    if (age < 0 || age > 150)
+        throw new IllegalArgumentException("Age out of range: " + age);
+    return new User(name.strip(), email.toLowerCase(), age);
+}
+
+// Guard clauses
+void processPayment(Order order, Card card) {
+    Objects.requireNonNull(order, "Order is required");
+    if (order.getTotal() <= 0)
+        throw new IllegalArgumentException("Invalid order total: " + order.getTotal());
+    if (card == null || !card.isValid())
+        throw new PaymentException("Invalid payment card");
+    // happy path continues here...
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Logging Errors
+
+Log enough to diagnose the problem. Never log sensitive data.
+
+<Tabs>
+<TabItem label="Python">
+```python
+import logging
+
+logger = logging.getLogger(__name__)
+
+def process_order(order_id: int) -> None:
+    try:
+        order = order_service.fetch(order_id)
+        payment.charge(order.total)
+    except PaymentDeclinedError as e:
+        logger.warning("Payment declined for order %d: %s", order_id, e)
+        raise
+    except Exception as e:
+        logger.exception("Unexpected error processing order %d", order_id)
+        raise
+
+# logger.exception() automatically includes the full stack trace
+# Don't log passwords, tokens, card numbers, or PII
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+const logger = require("pino")();  // or winston, console in simple cases
+
+async function processOrder(orderId) {
+    try {
+        const order = await orderService.fetch(orderId);
+        await payment.charge(order.total);
+    } catch (err) {
+        if (err instanceof PaymentDeclinedError) {
+            logger.warn({ orderId, err: err.message }, "Payment declined");
+            throw err;
+        }
+        logger.error({ orderId, err }, "Unexpected error processing order");
+        throw err;
+    }
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Using ILogger<T> (Microsoft.Extensions.Logging)
+async Task ProcessOrderAsync(int orderId)
+{
+    try
+    {
+        var order = await _orderService.FetchAsync(orderId);
+        await _payment.ChargeAsync(order.Total);
+    }
+    catch (PaymentDeclinedException ex)
+    {
+        _logger.LogWarning(ex, "Payment declined for order {OrderId}", orderId);
+        throw;
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Unexpected error processing order {OrderId}", orderId);
+        throw;
+    }
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Using SLF4J + Logback/Log4j2
+private static final Logger log = LoggerFactory.getLogger(OrderService.class);
+
+void processOrder(int orderId) {
+    try {
+        Order order = orderService.fetch(orderId);
+        payment.charge(order.getTotal());
+    } catch (PaymentDeclinedException e) {
+        log.warn("Payment declined for order {}: {}", orderId, e.getMessage());
+        throw e;
+    } catch (Exception e) {
+        log.error("Unexpected error processing order {}", orderId, e);
+        throw e;
+    }
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Language Patterns at a Glance
+
+| Language | Pattern | Notes |
+|---|---|---|
+| Python | `try / except / else / finally` | Exception hierarchy; use specific types |
+| JavaScript | `try / catch / finally`, Promise `.catch()` | Always handle rejected promises |
+| TypeScript | Same as JS + `never` return type for unreachable | Use `unknown` in catch, not `any` |
+| Go | `val, err := fn()` — check `err != nil` | Explicit, no exceptions |
+| Rust | `Result<T, E>` — `.unwrap()` only in tests | Compiler enforces handling |
+| Java | Checked vs unchecked exceptions | Checked must be declared or caught |
+
+```typescript
+// TypeScript — catch type is `unknown`, not `any`
+try {
+  await riskyOperation();
+} catch (err: unknown) {
+  if (err instanceof NetworkError) {
+    handleNetworkError(err);
+  } else if (err instanceof Error) {
+    logger.error(err.message);
+  } else {
+    logger.error("Unknown error", err);
+  }
+}
+```
+
+---
+
+## Related
+
+- [Testing](/programming/testing) — test error paths, not just the happy path
+- [Secure Coding](/programming/secure-coding) — never expose internal error details to users
+- [Security / Logging & Monitoring](/security/incident-response/logging-monitoring) — structured error logging for production

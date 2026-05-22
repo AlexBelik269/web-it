@@ -1,0 +1,620 @@
+---
+title: "Secure Coding"
+description: "Secure coding practices — input validation, injection prevention, least privilege, secrets management, and common vulnerabilities with code examples."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
+
+Secure coding means writing code that is correct not just in the happy path, but in the presence of hostile input, misconfigured dependencies, and untrustworthy environments. Most security vulnerabilities are not sophisticated attacks — they are programming mistakes that an attacker exploits.
+
+---
+
+## The Golden Rules
+
+1. **Never trust input** — validate and sanitise everything that enters your system
+2. **Least privilege** — every component should have only the access it needs
+3. **Fail securely** — errors should not leak information or leave the system in an exploitable state
+4. **Defence in depth** — no single control should be the only line of defence
+5. **Keep secrets out of code** — credentials, tokens, and keys belong in a secrets manager
+
+---
+
+## Input Validation
+
+Validate all data at system boundaries: HTTP request bodies, query parameters, headers, file uploads, and responses from external APIs.
+
+<Tabs>
+<TabItem label="Python">
+```python
+from pydantic import BaseModel, EmailStr, Field, validator
+
+class CreateUserRequest(BaseModel):
+    name:  str       = Field(..., min_length=1, max_length=100)
+    email: EmailStr              # validated email format
+    age:   int       = Field(..., ge=0, le=150)
+    role:  str       = Field("user")
+
+    @validator("role")
+    def role_must_be_allowed(cls, v):
+        allowed = {"user", "moderator"}
+        if v not in allowed:
+            raise ValueError(f"Role must be one of {allowed}")
+        return v
+
+# FastAPI auto-validates and returns 422 Unprocessable Entity on failure
+@app.post("/users")
+async def create_user(body: CreateUserRequest):
+    return user_service.create(body)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Zod — TypeScript/JavaScript validation
+import { z } from "zod";
+
+const CreateUserSchema = z.object({
+  name:  z.string().min(1).max(100),
+  email: z.string().email(),
+  age:   z.number().int().min(0).max(150),
+  role:  z.enum(["user", "moderator"]).default("user"),
+});
+
+app.post("/users", (req, res) => {
+  const result = CreateUserSchema.safeParse(req.body);
+  if (!result.success) {
+    return res.status(422).json({ errors: result.error.flatten() });
+  }
+  const user = userService.create(result.data);
+  res.json(user);
+});
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Data Annotations + FluentValidation
+public class CreateUserRequest
+{
+    [Required, StringLength(100, MinimumLength = 1)]
+    public string Name  { get; set; } = "";
+
+    [Required, EmailAddress]
+    public string Email { get; set; } = "";
+
+    [Range(0, 150)]
+    public int    Age   { get; set; }
+
+    public string Role  { get; set; } = "user";
+}
+
+// FluentValidation for complex rules
+public class CreateUserValidator : AbstractValidator<CreateUserRequest>
+{
+    public CreateUserValidator()
+    {
+        RuleFor(x => x.Role).Must(r => new[] { "user", "moderator" }.Contains(r))
+            .WithMessage("Role must be 'user' or 'moderator'");
+    }
+}
+
+// ASP.NET Core returns 400 automatically when ModelState is invalid
+[HttpPost]
+public IActionResult CreateUser([FromBody] CreateUserRequest body) =>
+    Ok(_userService.Create(body));
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Bean Validation (Jakarta Validation)
+public class CreateUserRequest {
+    @NotBlank @Size(min = 1, max = 100)
+    private String name;
+
+    @NotBlank @Email
+    private String email;
+
+    @Min(0) @Max(150)
+    private int age;
+
+    private String role = "user";
+}
+
+// Spring Boot auto-validates with @Valid
+@PostMapping("/users")
+public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest body) {
+    return ResponseEntity.ok(userService.create(body));
+}
+// Returns 400 Bad Request with violation details automatically
+```
+</TabItem>
+</Tabs>
+
+<Aside type="caution">
+Whitelist (allow known good) rather than blacklist (block known bad). Validate type, length, format, and range. Reject invalid input early — do not attempt to sanitise and continue. Validate server-side even if you also validate client-side.
+</Aside>
+
+---
+
+## SQL Injection Prevention
+
+SQL injection happens when user input is concatenated into a SQL string. **Always use parameterised queries.**
+
+<Tabs>
+<TabItem label="Python">
+```python
+# VULNERABLE — string concatenation
+def find_user_bad(username):
+    query = f"SELECT * FROM users WHERE username = '{username}'"
+    return db.execute(query)
+# Input: admin' OR '1'='1  → returns all users!
+
+# SECURE — parameterised query
+def find_user(username):
+    return db.execute("SELECT * FROM users WHERE username = %s", (username,))
+
+# SECURE — ORM (SQLAlchemy)
+def find_user_orm(username):
+    return db.query(User).filter(User.username == username).first()
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// VULNERABLE
+const query = `SELECT * FROM users WHERE id = ${req.params.id}`;
+
+// SECURE — parameterised (pg / mysql2)
+const { rows } = await db.query("SELECT * FROM users WHERE id = $1", [req.params.id]);
+
+// SECURE — ORM (Prisma)
+const user = await prisma.user.findUnique({ where: { id: parseInt(req.params.id) } });
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// VULNERABLE
+string query = $"SELECT * FROM Users WHERE Id = {id}";  // Never do this!
+
+// SECURE — parameterised query (ADO.NET)
+using var cmd = new SqlCommand("SELECT * FROM Users WHERE Id = @Id", connection);
+cmd.Parameters.AddWithValue("@Id", id);
+var reader = await cmd.ExecuteReaderAsync();
+
+// SECURE — ORM (Entity Framework Core)
+var user = await db.Users.FindAsync(id);
+// Or LINQ (also parameterised automatically)
+var user = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// VULNERABLE
+String query = "SELECT * FROM users WHERE id = " + id;  // Never do this!
+
+// SECURE — PreparedStatement
+PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE id = ?");
+ps.setInt(1, id);
+ResultSet rs = ps.executeQuery();
+
+// SECURE — JPA / Hibernate
+User user = entityManager.find(User.class, id);
+// Or JPQL with parameters
+TypedQuery<User> query = em.createQuery(
+    "SELECT u FROM User u WHERE u.id = :id", User.class);
+query.setParameter("id", id);
+```
+</TabItem>
+</Tabs>
+
+See [SQL Injection](/security/web/sql-injection) for full coverage.
+
+---
+
+## Cross-Site Scripting (XSS) Prevention
+
+XSS happens when user-supplied content is rendered as HTML without escaping. The attacker's script runs in the victim's browser.
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Flask — Jinja2 auto-escapes by default
+# {{ user.name }} → escaped automatically
+# {{ user.name | safe }} → NOT escaped — avoid unless intentional
+
+# Django — templates auto-escape by default
+# {{ user.name }} → escaped
+# {{ user.name | safe }} → only use with trusted content
+
+# Never build HTML by string concatenation with user data
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// VULNERABLE — innerHTML with user content
+element.innerHTML = userInput;
+
+// SECURE — textContent never interprets as HTML
+element.textContent = userInput;
+
+// SECURE — DOMPurify for cases where you need to allow some HTML
+import DOMPurify from "dompurify";
+element.innerHTML = DOMPurify.sanitize(userInput);
+
+// In React: JSX escapes by default
+// <p>{userInput}</p>  → safe
+// <p dangerouslySetInnerHTML={{ __html: userInput }} />  → dangerous!
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Razor (ASP.NET Core) auto-escapes by default
+// @Model.UserName  → escaped
+// @Html.Raw(Model.UserName)  → NOT escaped — avoid unless intentional
+
+// When building HTML manually, always encode:
+string safe = HtmlEncoder.Default.Encode(userInput);
+
+// Content-Security-Policy header
+app.Use(async (ctx, next) => {
+    ctx.Response.Headers.Append("Content-Security-Policy",
+        "default-src 'self'; script-src 'self'");
+    await next();
+});
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// JSP / Thymeleaf auto-escapes by default
+// th:text="${user.name}"  → escaped
+// th:utext="${user.name}"  → NOT escaped — avoid unless intentional
+
+// When building HTML manually, use OWASP Java Encoder:
+// (org.owasp.encoder:encoder)
+import org.owasp.encoder.Encode;
+String safe = Encode.forHtml(userInput);
+
+// Spring Security sets security headers including basic XSS protection
+// by default when @EnableWebSecurity is present
+```
+</TabItem>
+</Tabs>
+
+**Content Security Policy (CSP)** — tells the browser which sources are allowed to execute scripts, providing a second line of defence:
+
+```
+Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-abc123'; object-src 'none'
+```
+
+See [XSS](/security/web/xss) for full coverage.
+
+---
+
+## Secrets Management
+
+Never put secrets (passwords, API keys, tokens, private keys) in source code, config files committed to git, or environment variables that are logged.
+
+<Tabs>
+<TabItem label="Python">
+```python
+# BAD — secret hardcoded in source
+db_password = "supersecret123"
+api_key     = "sk-prod-abc123"
+
+# GOOD — read from environment (set by deployment system, never committed)
+import os
+db_password = os.environ["DATABASE_PASSWORD"]
+
+# BETTER — read from a secrets manager at runtime
+import boto3
+client = boto3.client("secretsmanager", region_name="eu-west-1")
+secret = client.get_secret_value(SecretId="prod/db/password")
+db_password = secret["SecretString"]
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// BAD — secret hardcoded in source
+const apiKey = "sk-prod-abc123";
+
+// GOOD — read from environment (set by deployment, never committed)
+const apiKey = process.env.API_KEY;
+
+// BETTER — AWS Secrets Manager via SDK
+import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
+const client = new SecretsManagerClient({ region: "eu-west-1" });
+const { SecretString } = await client.send(
+    new GetSecretValueCommand({ SecretId: "prod/api-key" })
+);
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// BAD — secret hardcoded in source
+string apiKey = "sk-prod-abc123";
+
+// GOOD — read from environment or configuration (appsettings.json never committed with secrets)
+string apiKey = Environment.GetEnvironmentVariable("API_KEY")
+    ?? throw new InvalidOperationException("API_KEY not set");
+
+// BETTER — Azure Key Vault
+var secretClient = new SecretClient(
+    new Uri("https://my-vault.vault.azure.net/"),
+    new DefaultAzureCredential());
+KeyVaultSecret secret = await secretClient.GetSecretAsync("api-key");
+string apiKey = secret.Value;
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// BAD — secret hardcoded in source
+String apiKey = "sk-prod-abc123";
+
+// GOOD — read from environment
+String apiKey = System.getenv("API_KEY");
+if (apiKey == null) throw new IllegalStateException("API_KEY not set");
+
+// BETTER — AWS Secrets Manager
+SecretsManagerClient client = SecretsManagerClient.builder()
+    .region(Region.EU_WEST_1).build();
+GetSecretValueResponse response = client.getSecretValue(
+    GetSecretValueRequest.builder().secretId("prod/api-key").build());
+String apiKey = response.secretString();
+```
+</TabItem>
+</Tabs>
+
+```bash
+# Scan your repo for accidentally committed secrets
+git secrets --scan
+trufflehog git file://. --since-commit HEAD~10
+gitleaks detect --source .
+```
+
+**Rules:**
+- Add `.env` to `.gitignore` — never commit it
+- Rotate any secret that has ever been committed to a repo, even briefly
+- Use separate secrets per environment (dev / staging / prod)
+- Audit secret access — know who read what and when
+
+---
+
+## Authentication and Authorisation
+
+<Tabs>
+<TabItem label="Python">
+```python
+import jwt
+
+def get_current_user(token: str) -> dict:
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+    except jwt.ExpiredSignatureError:
+        raise AuthError("Token expired")
+    except jwt.InvalidTokenError:
+        raise AuthError("Invalid token")
+    return payload
+
+# Always authorise server-side — never trust client-supplied roles
+@app.get("/admin/users")
+def list_users(current_user = Depends(get_current_user)):
+    if current_user["role"] != "admin":
+        raise HTTPException(status_code=403, detail="Forbidden")
+    return user_service.get_all()
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+import jwt from "jsonwebtoken";
+
+function getCurrentUser(token) {
+    try {
+        return jwt.verify(token, process.env.JWT_SECRET);
+    } catch (err) {
+        if (err.name === "TokenExpiredError") throw new AuthError("Token expired");
+        throw new AuthError("Invalid token");
+    }
+}
+
+// Middleware — verify on every protected route
+function requireAdmin(req, res, next) {
+    const user = getCurrentUser(req.headers.authorization?.split(" ")[1]);
+    if (user.role !== "admin") return res.status(403).json({ error: "Forbidden" });
+    req.user = user;
+    next();
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// ASP.NET Core — JWT authentication via middleware
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opts => {
+        opts.TokenValidationParameters = new TokenValidationParameters {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["JWT_SECRET"]!)),
+            ValidateIssuer   = false,
+            ValidateAudience = false,
+        };
+    });
+
+// Attribute-based authorisation on controllers
+[Authorize(Roles = "admin")]
+[HttpGet("admin/users")]
+public IActionResult ListUsers() => Ok(_userService.GetAll());
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Spring Security — JWT filter
+@Component
+public class JwtFilter extends OncePerRequestFilter {
+    @Override
+    protected void doFilterInternal(HttpServletRequest req,
+            HttpServletResponse res, FilterChain chain) throws ServletException, IOException {
+        String token = req.getHeader("Authorization");
+        if (token != null && token.startsWith("Bearer ")) {
+            Claims claims = jwtUtil.parse(token.substring(7));
+            // Set authentication in security context
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                claims.getSubject(), null, getAuthorities(claims));
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+        chain.doFilter(req, res);
+    }
+}
+
+// Role-based access control
+@PreAuthorize("hasRole('ADMIN')")
+@GetMapping("/admin/users")
+public List<User> listUsers() { return userService.getAll(); }
+```
+</TabItem>
+</Tabs>
+
+**Common mistakes:**
+- Checking auth only in middleware, not in individual route handlers
+- Trusting `role` from the request body instead of the authenticated session
+- Using `==` instead of a constant-time comparison for tokens
+
+---
+
+## Error Handling and Information Leakage
+
+Stack traces, SQL errors, and internal paths must never reach users or be logged in a way that could be exfiltrated.
+
+<Tabs>
+<TabItem label="Python">
+```python
+# VULNERABLE — exposes internal error details
+@app.exception_handler(Exception)
+async def generic_error(request, exc):
+    return JSONResponse({"error": str(exc), "traceback": traceback.format_exc()})
+
+# SECURE — generic message to client; full detail in server logs only
+@app.exception_handler(Exception)
+async def generic_error(request, exc):
+    request_id = str(uuid.uuid4())
+    logger.exception("Unhandled error [%s]", request_id)
+    return JSONResponse(
+        {"error": "Internal server error", "requestId": request_id},
+        status_code=500,
+    )
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// VULNERABLE — exposes stack trace
+app.use((err, req, res, next) => {
+    res.status(500).json({ error: err.message, stack: err.stack });
+});
+
+// SECURE — generic message to client, details in logs
+app.use((err, req, res, next) => {
+    const requestId = crypto.randomUUID();
+    logger.error({ requestId, err }, "Unhandled error");
+    res.status(500).json({ error: "Internal server error", requestId });
+});
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// VULNERABLE — default developer exception page in production
+// app.UseDeveloperExceptionPage();  // NEVER in production
+
+// SECURE — generic error page in production
+app.UseExceptionHandler(appErr => appErr.Run(async ctx => {
+    var requestId = Guid.NewGuid().ToString();
+    var feature   = ctx.Features.Get<IExceptionHandlerFeature>();
+    logger.LogError(feature?.Error, "Unhandled error [{RequestId}]", requestId);
+    ctx.Response.StatusCode = 500;
+    await ctx.Response.WriteAsJsonAsync(new {
+        error = "Internal server error", requestId
+    });
+}));
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// SECURE — custom error controller hides internal details
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> handleAll(Exception ex) {
+        String requestId = UUID.randomUUID().toString();
+        log.error("Unhandled error [{}]", requestId, ex);
+        return Map.of("error", "Internal server error", "requestId", requestId);
+    }
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Least Privilege
+
+Every component — database user, IAM role, service account, file system permission — should have only the minimum access it needs.
+
+```sql
+-- SECURE — create a dedicated user with scoped permissions
+CREATE USER app_user WITH PASSWORD 'secure-password';
+GRANT SELECT, INSERT, UPDATE ON TABLE orders TO app_user;
+GRANT SELECT ON TABLE users TO app_user;
+-- app_user cannot DROP, CREATE, or access other tables
+```
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Action": ["s3:GetObject", "s3:PutObject"],
+    "Resource": "arn:aws:s3:::my-app-uploads/*"
+  }]
+}
+```
+
+---
+
+## Dependency Security
+
+Your application's attack surface includes all its dependencies.
+
+```bash
+# Scan dependencies for known CVEs
+npm audit --audit-level=high    # Node.js
+pip-audit                       # Python
+trivy fs .                      # any project (Trivy)
+grype .                         # any project (Grype)
+```
+
+---
+
+## Secure Coding Checklist
+
+| Area | Check |
+|---|---|
+| Input | All user input validated server-side before use |
+| SQL | Parameterised queries everywhere — no string concatenation |
+| XSS | Output HTML-escaped; CSP header set |
+| Auth | JWT/session verified on every protected route |
+| Authz | Role/permission checked server-side, not client-supplied |
+| Secrets | No credentials in source code or committed config |
+| Dependencies | CVE scan running in CI; lock files committed |
+| Errors | No stack traces or internal paths returned to clients |
+| Logging | No passwords, tokens, or PII in logs |
+| Least privilege | DB user, IAM role, and file permissions scoped to minimum |
+| HTTPS | All traffic encrypted; HSTS header set |
+
+---
+
+## Related
+
+- [OWASP Top 10](/security/web/owasp-top-10) — the most common web application vulnerabilities
+- [SQL Injection](/security/web/sql-injection) — deep dive on injection attacks
+- [XSS](/security/web/xss) — cross-site scripting attacks and defences
+- [Secrets Management](/security/infrastructure/secrets-management) — managing credentials at scale
+- [Error Handling](/programming/error-handling) — handling errors without leaking internals
+- [Testing](/programming/testing) — writing tests for security logic (validation, auth checks)

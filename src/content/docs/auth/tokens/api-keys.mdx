@@ -1,0 +1,251 @@
+---
+title: "API Keys"
+description: "API key design, generation, storage, and management best practices."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
+
+API keys are long-lived static credentials used primarily for machine-to-machine (M2M) authentication. They identify and authenticate a client application.
+
+```mermaid
+flowchart LR
+    subgraph Creation
+        GEN["Generate\ncrypto.randomBytes(32)"] --> RAW["sk_live_4xK9m..."]
+        RAW -->|SHA-256| HASH["Store hash in DB"]
+        RAW -->|First 12 chars| PREFIX["Store prefix\nfor display"]
+        RAW -->|Show ONCE| USER["Return to user\nnever stored in plain"]
+    end
+
+    subgraph Each Request
+        REQ["Incoming request\nX-API-Key: sk_live_4xK9m..."] -->|SHA-256| LH["Lookup hash in DB"]
+        LH -->|Found| AUTH["✅ Authenticated\nCheck scopes"]
+        LH -->|Not found| DENY["❌ 401 Unauthorized"]
+    end
+```
+
+## Key Anatomy
+
+Good API keys have a recognizable structure:
+
+```
+sk_live_4xK9mN2pQ7rT1vW8yA3bC6eFjH5dL0nP
+│  │      └─ 32+ bytes of cryptographic randomness
+│  └─ environment: live / test
+└─ service prefix
+```
+
+Examples: Stripe uses `sk_live_`, GitHub uses `ghp_`, AWS uses `AKIA` prefix.
+
+## Sending API Keys
+
+```http
+# Header-based (preferred)
+Authorization: Api-Key sk_live_4xK9mN2pQ7rT1vW8yA3bC6eF
+X-API-Key: sk_live_4xK9mN2pQ7rT1vW8yA3bC6eF
+
+# Basic auth (also acceptable)
+Authorization: Basic base64(api_key:)
+
+# Query parameter (avoid — leaks in logs, browser history)
+GET /endpoint?api_key=sk_live_4xK9mN2pQ7...  ← BAD
+```
+
+## Generating and Storing API Keys
+
+The pattern is: generate cryptographically random bytes, return the raw key to the user **once**, store only the SHA-256 hash in the database, and keep a short prefix for display purposes. On each incoming request, hash the supplied key and look it up in the database.
+
+<Tabs>
+<TabItem label="JavaScript">
+```javascript
+const { randomBytes, createHash } = require('crypto');
+
+// Generate — 32 bytes = 43 base64url characters
+function generateApiKey(prefix = 'sk_live') {
+  const secret = randomBytes(32).toString('base64url');
+  return `${prefix}_${secret}`;
+}
+
+// SHA-256 is fine for API keys (not passwords) because
+// keys are long random strings, not user-chosen values that need slow hashing
+function hashApiKey(key) {
+  return createHash('sha256').update(key).digest('hex');
+}
+
+// On key creation:
+const rawKey    = generateApiKey();
+const keyHash   = hashApiKey(rawKey);
+const keyPrefix = rawKey.slice(0, 12); // "sk_live_4xK9" — for display
+
+await db.apiKeys.insert({
+  hash:      keyHash,
+  prefix:    keyPrefix,
+  userId:    user.id,
+  scopes:    ['read:reports'],
+  createdAt: new Date(),
+});
+
+// IMPORTANT: Return rawKey to user exactly ONCE — never store it
+return { key: rawKey, prefix: keyPrefix };
+
+// On incoming request:
+const incomingKey = req.headers['x-api-key'];
+const hash        = hashApiKey(incomingKey);
+const keyRecord   = await db.apiKeys.findOne({ hash });
+if (!keyRecord) throw new UnauthorizedError();
+```
+</TabItem>
+<TabItem label="Python">
+```python
+import os
+import secrets
+import hashlib
+
+def generate_api_key(prefix: str = "sk_live") -> str:
+    # 32 bytes = 43 URL-safe base64 characters
+    secret = secrets.token_urlsafe(32)
+    return f"{prefix}_{secret}"
+
+def hash_api_key(key: str) -> str:
+    # SHA-256 is fine for long random API keys (not user passwords)
+    return hashlib.sha256(key.encode()).hexdigest()
+
+# On key creation:
+raw_key    = generate_api_key()
+key_hash   = hash_api_key(raw_key)
+key_prefix = raw_key[:12]  # "sk_live_4xK9" — for display
+
+await db.api_keys.insert({
+    "hash":       key_hash,
+    "prefix":     key_prefix,
+    "user_id":    user.id,
+    "scopes":     ["read:reports"],
+    "created_at": datetime.utcnow(),
+})
+
+# IMPORTANT: Return raw_key to user exactly ONCE — never store it
+return {"key": raw_key, "prefix": key_prefix}
+
+# On incoming request:
+incoming_key = request.headers.get("x-api-key")
+key_hash     = hash_api_key(incoming_key)
+key_record   = await db.api_keys.find_one({"hash": key_hash})
+if not key_record:
+    raise HTTPException(status_code=401, detail="Unauthorized")
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+using System.Security.Cryptography;
+using System.Text;
+
+string GenerateApiKey(string prefix = "sk_live")
+{
+    // 32 bytes = 43 URL-safe base64 characters
+    var bytes = RandomNumberGenerator.GetBytes(32);
+    var secret = Convert.ToBase64String(bytes)
+        .Replace('+', '-').Replace('/', '_').TrimEnd('=');
+    return $"{prefix}_{secret}";
+}
+
+string HashApiKey(string key)
+{
+    // SHA-256 is fine for long random API keys (not user passwords)
+    var hash = SHA256.HashData(Encoding.UTF8.GetBytes(key));
+    return Convert.ToHexString(hash).ToLowerInvariant();
+}
+
+// On key creation:
+var rawKey    = GenerateApiKey();
+var keyHash   = HashApiKey(rawKey);
+var keyPrefix = rawKey[..12]; // "sk_live_4xK9" — for display
+
+await db.ApiKeys.AddAsync(new ApiKey
+{
+    Hash      = keyHash,
+    Prefix    = keyPrefix,
+    UserId    = user.Id,
+    Scopes    = ["read:reports"],
+    CreatedAt = DateTime.UtcNow,
+});
+
+// IMPORTANT: Return rawKey to user exactly ONCE — never store it
+return new { key = rawKey, prefix = keyPrefix };
+
+// On incoming request:
+var incomingKey = request.Headers["X-API-Key"].ToString();
+var hash        = HashApiKey(incomingKey);
+var keyRecord   = await db.ApiKeys.FirstOrDefaultAsync(k => k.Hash == hash);
+if (keyRecord is null) return Unauthorized();
+```
+</TabItem>
+<TabItem label="Java">
+```java
+import java.security.SecureRandom;
+import java.security.MessageDigest;
+import java.util.Base64;
+import java.nio.charset.StandardCharsets;
+
+String generateApiKey(String prefix) {
+    // 32 bytes = 43 URL-safe base64 characters
+    byte[] bytes = new byte[32];
+    new SecureRandom().nextBytes(bytes);
+    String secret = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+    return prefix + "_" + secret;
+}
+
+String hashApiKey(String key) throws Exception {
+    // SHA-256 is fine for long random API keys (not user passwords)
+    MessageDigest digest = MessageDigest.getInstance("SHA-256");
+    byte[] hash = digest.digest(key.getBytes(StandardCharsets.UTF_8));
+    StringBuilder sb = new StringBuilder();
+    for (byte b : hash) sb.append(String.format("%02x", b));
+    return sb.toString();
+}
+
+// On key creation:
+String rawKey    = generateApiKey("sk_live");
+String keyHash   = hashApiKey(rawKey);
+String keyPrefix = rawKey.substring(0, 12); // "sk_live_4xK9" — for display
+
+apiKeyRepository.save(ApiKey.builder()
+    .hash(keyHash)
+    .prefix(keyPrefix)
+    .userId(user.getId())
+    .scopes(List.of("read:reports"))
+    .createdAt(Instant.now())
+    .build());
+
+// IMPORTANT: Return rawKey to user exactly ONCE — never store it
+return Map.of("key", rawKey, "prefix", keyPrefix);
+
+// On incoming request:
+String incomingKey = request.getHeader("X-API-Key");
+String hash        = hashApiKey(incomingKey);
+Optional<ApiKey> keyRecord = apiKeyRepository.findByHash(hash);
+if (keyRecord.isEmpty()) throw new UnauthorizedException();
+```
+</TabItem>
+</Tabs>
+
+## API Key Best Practices
+
+<CardGrid>
+<Card title="Show Once">
+Display the full key only at creation time — never again. Store only the hash.
+</Card>
+<Card title="Prefix by Environment">
+Use `sk_live_` vs `sk_test_` prefixes to prevent accidental cross-environment key use.
+</Card>
+<Card title="Scope Keys">
+Each key should have limited scopes (`read:reports`), not blanket admin access.
+</Card>
+<Card title="Support Rotation">
+Allow multiple active keys simultaneously so clients can rotate without downtime.
+</Card>
+</CardGrid>
+
+- **Store hash:** Store SHA-256 hash in DB; keep a human-readable prefix for identification
+- **Expiry:** Optionally support key expiration dates
+- **Per-key audit logs:** Log every API call attributed to each key
+- **Revocation:** Revoke immediately on suspected compromise

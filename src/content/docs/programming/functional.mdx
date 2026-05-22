@@ -1,0 +1,650 @@
+---
+title: "Functional Programming"
+description: "Functional programming concepts — pure functions, immutability, higher-order functions, closures, map/filter/reduce, and composition."
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
+
+**Functional programming (FP)** treats computation as the evaluation of mathematical functions and avoids shared mutable state. Where OOP organises code around objects, FP organises it around **transformations** — data flows through a pipeline of functions, each of which takes input and returns a new value without modifying the original.
+
+---
+
+## Core Ideas
+
+### Pure Functions
+
+A function is **pure** if:
+1. Given the same inputs, it always returns the same output
+2. It produces no side effects (no I/O, no mutation of external state)
+
+Pure functions are **predictable**, **testable** (no setup or mocks needed), and **parallelisable** (no shared state to coordinate).
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Pure — result depends only on inputs
+def add(a, b):
+    return a + b
+
+# Impure — reads external state; result varies
+total = 0
+def add_to_total(n):
+    global total
+    total += n   # mutates external variable — side effect
+    return total
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Pure — result depends only on inputs
+const add = (a, b) => a + b;
+
+// Impure — mutates external state
+let total = 0;
+function addToTotal(n) {
+    total += n;   // side effect
+    return total;
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Pure — no side effects
+static int Add(int a, int b) => a + b;
+
+// Impure — mutates external state
+static int total = 0;
+static int AddToTotal(int n)
+{
+    total += n;   // side effect
+    return total;
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Pure — no side effects
+static int add(int a, int b) { return a + b; }
+
+// Impure — mutates external state
+static int total = 0;
+static int addToTotal(int n) {
+    total += n;   // side effect
+    return total;
+}
+```
+</TabItem>
+</Tabs>
+
+### Immutability
+
+Instead of modifying data in place, create new data with the change applied.
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Mutable approach — modifies the original list
+def add_item_mutable(cart, item):
+    cart.append(item)   # mutates — callers share the same list
+    return cart
+
+# Immutable approach — returns a new list, original unchanged
+def add_item(cart, item):
+    return [*cart, item]   # spread into new list
+
+cart1 = ["apple", "banana"]
+cart2 = add_item(cart1, "cherry")
+print(cart1)  # ["apple", "banana"] — untouched
+print(cart2)  # ["apple", "banana", "cherry"]
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Immutable object update — Object.assign or spread
+const user  = { name: "Alice", age: 30 };
+const older = { ...user, age: 31 };   // new object, original unchanged
+
+// Immutable array operations
+const nums     = [1, 2, 3, 4, 5];
+const without3 = nums.filter(n => n !== 3);   // [1, 2, 4, 5]
+const doubled  = nums.map(n => n * 2);        // [2, 4, 6, 8, 10]
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Immutable record (C# 9+)
+record User(string Name, int Age);
+var user  = new User("Alice", 30);
+var older = user with { Age = 31 };   // new record, original unchanged
+
+// Immutable collection operations
+var nums     = new List<int> { 1, 2, 3, 4, 5 };
+var without3 = nums.Where(n => n != 3).ToList();   // [1, 2, 4, 5]
+var doubled  = nums.Select(n => n * 2).ToList();   // [2, 4, 6, 8, 10]
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Immutable record (Java 16+)
+record User(String name, int age) {}
+var user  = new User("Alice", 30);
+// "with" requires a new instance manually
+var older = new User(user.name(), 31);   // new record, original unchanged
+
+// Immutable collection operations (Streams)
+var nums     = List.of(1, 2, 3, 4, 5);
+var without3 = nums.stream().filter(n -> n != 3).toList();
+var doubled  = nums.stream().map(n -> n * 2).toList();
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Higher-Order Functions
+
+A **higher-order function** is one that either takes a function as an argument or returns a function (or both). This is possible because in FP, functions are **first-class values** — they can be assigned to variables, stored in data structures, and passed around like any other value.
+
+### `map` — Transform Each Element
+
+<Tabs>
+<TabItem label="Python">
+```python
+numbers = [1, 2, 3, 4, 5]
+squares = list(map(lambda x: x**2, numbers))
+# [1, 4, 9, 16, 25]
+
+# Python comprehension equivalent (often preferred for readability)
+squares = [x**2 for x in numbers]
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const squares = numbers.map(x => x ** 2);   // [1, 4, 9, 16, 25]
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+var numbers = new[] { 1, 2, 3, 4, 5 };
+var squares = numbers.Select(x => x * x).ToArray();   // [1, 4, 9, 16, 25]
+```
+</TabItem>
+<TabItem label="Java">
+```java
+var numbers = List.of(1, 2, 3, 4, 5);
+var squares = numbers.stream()
+    .map(x -> x * x)
+    .toList();   // [1, 4, 9, 16, 25]
+```
+</TabItem>
+</Tabs>
+
+### `filter` — Keep Matching Elements
+
+<Tabs>
+<TabItem label="Python">
+```python
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+# [2, 4]
+
+evens = [x for x in numbers if x % 2 == 0]
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+const evens = numbers.filter(x => x % 2 === 0);   // [2, 4]
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+var evens = numbers.Where(x => x % 2 == 0).ToArray();   // [2, 4]
+```
+</TabItem>
+<TabItem label="Java">
+```java
+var evens = numbers.stream()
+    .filter(x -> x % 2 == 0)
+    .toList();   // [2, 4]
+```
+</TabItem>
+</Tabs>
+
+### `reduce` — Collapse to a Single Value
+
+<Tabs>
+<TabItem label="Python">
+```python
+from functools import reduce
+
+total = reduce(lambda acc, x: acc + x, numbers, 0)
+# 15
+
+# Python built-in equivalent
+total = sum(numbers)
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+const total = numbers.reduce((acc, x) => acc + x, 0);   // 15
+
+// Build an object from an array
+const freq = ["a","b","a","c","b","a"].reduce((acc, letter) => {
+  acc[letter] = (acc[letter] ?? 0) + 1;
+  return acc;
+}, {});
+// \{ a: 3, b: 2, c: 1 \}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+var total = numbers.Aggregate(0, (acc, x) => acc + x);   // 15
+
+// Or use the built-in
+var sum = numbers.Sum();
+```
+</TabItem>
+<TabItem label="Java">
+```java
+int total = numbers.stream()
+    .reduce(0, Integer::sum);   // 15
+
+// Or mapToInt + sum
+int sum = numbers.stream().mapToInt(Integer::intValue).sum();
+```
+</TabItem>
+</Tabs>
+
+### Chaining
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Chain with generator expressions
+result = sum(
+    x**2
+    for x in range(1, 11)
+    if x % 2 == 0
+)
+# Sum of squares of even numbers 1–10: 220
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Method chaining
+const result = Array.from({ length: 10 }, (_, i) => i + 1)
+  .filter(n => n % 2 === 0)
+  .map(n => n ** 2)
+  .reduce((sum, n) => sum + n, 0);
+// 220
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// LINQ method chaining
+int result = Enumerable.Range(1, 10)
+    .Where(n => n % 2 == 0)
+    .Select(n => n * n)
+    .Sum();
+// 220
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Stream pipeline
+int result = IntStream.rangeClosed(1, 10)
+    .filter(n -> n % 2 == 0)
+    .map(n -> n * n)
+    .sum();
+// 220
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Closures
+
+A **closure** is a function that captures variables from its lexical environment (the scope it was defined in), even after that scope has exited.
+
+<Tabs>
+<TabItem label="Python">
+```python
+def make_multiplier(factor):
+    def multiply(x):
+        return x * factor   # captures `factor` from the enclosing scope
+    return multiply
+
+double = make_multiplier(2)
+triple = make_multiplier(3)
+
+double(5)   # 10
+triple(5)   # 15
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+function makeAdder(n) {
+  return x => x + n;   // arrow function closes over `n`
+}
+
+const add5 = makeAdder(5);
+add5(10);   // 15
+add5(20);   // 25
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+static Func<int, int> MakeMultiplier(int factor)
+{
+    return x => x * factor;   // lambda closes over `factor`
+}
+
+var double_ = MakeMultiplier(2);
+var triple  = MakeMultiplier(3);
+
+double_(5);   // 10
+triple(5);    // 15
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Lambdas can capture effectively-final variables from enclosing scope
+static Function<Integer, Integer> makeMultiplier(int factor) {
+    return x -> x * factor;   // captures `factor` (must be effectively final)
+}
+
+Function<Integer, Integer> double_ = makeMultiplier(2);
+Function<Integer, Integer> triple  = makeMultiplier(3);
+
+double_.apply(5);   // 10
+triple.apply(5);    // 15
+```
+</TabItem>
+</Tabs>
+
+Closures are the foundation for factory functions, memoisation, partial application, and callbacks with captured state.
+
+---
+
+## Function Composition
+
+Compose small, pure functions into larger pipelines. Each function's output becomes the next function's input.
+
+<Tabs>
+<TabItem label="Python">
+```python
+def compose(*fns):
+    def pipeline(x):
+        for fn in fns:
+            x = fn(x)
+        return x
+    return pipeline
+
+clean_name = compose(str.strip, str.lower, lambda s: s.replace(" ", "_"))
+clean_name("  Hello World  ")   # "hello_world"
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+const compose = (...fns) => x => fns.reduce((v, f) => f(v), x);
+
+const processName = compose(
+  s => s.trim(),
+  s => s.toLowerCase(),
+  s => s.replace(/\s+/g, "_"),
+);
+processName("  Hello World  ");   // "hello_world"
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+static Func<T, T> Compose<T>(params Func<T, T>[] fns) =>
+    x => fns.Aggregate(x, (v, f) => f(v));
+
+var processName = Compose<string>(
+    s => s.Trim(),
+    s => s.ToLower(),
+    s => s.Replace(" ", "_")
+);
+processName("  Hello World  ");   // "hello_world"
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Using Function.andThen for left-to-right composition
+Function<String, String> processName = ((Function<String, String>) String::trim)
+    .andThen(String::toLowerCase)
+    .andThen(s -> s.replace(" ", "_"));
+
+processName.apply("  Hello World  ");   // "hello_world"
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Partial Application and Currying
+
+**Partial application** — fix some arguments of a function, return a new function awaiting the rest.
+
+<Tabs>
+<TabItem label="Python">
+```python
+from functools import partial
+
+def power(base, exponent):
+    return base ** exponent
+
+square = partial(power, exponent=2)
+cube   = partial(power, exponent=3)
+
+square(5)   # 25
+cube(3)     # 27
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Partial application via a helper
+const partial = (fn, ...preArgs) => (...laterArgs) => fn(...preArgs, ...laterArgs);
+
+const power  = (base, exp) => base ** exp;
+const square = partial(power, 2);   // base fixed at 2 — actually base is first arg
+// Or curry:
+const square2 = exp => base => base ** exp;
+const squareFn = square2(2);
+squareFn(5);   // 25
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Partial application via lambda capture
+Func<double, double> MakePower(double exponent) =>
+    base_ => Math.Pow(base_, exponent);
+
+var square = MakePower(2);
+var cube   = MakePower(3);
+
+square(5);   // 25
+cube(3);     // 27
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Partial application via lambda
+Function<Double, Double> makePower(double exponent) {
+    return base -> Math.pow(base, exponent);
+}
+
+Function<Double, Double> square = makePower(2);
+Function<Double, Double> cube   = makePower(3);
+
+square.apply(5.0);   // 25.0
+cube.apply(3.0);     // 27.0
+```
+</TabItem>
+</Tabs>
+
+**Currying** — transform a function of `n` arguments into a chain of `n` single-argument functions.
+
+<Tabs>
+<TabItem label="Python">
+```python
+def add(a):
+    return lambda b: a + b   # curried
+
+add10 = add(10)
+add10(5)    # 15
+add10(20)   # 30
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+const add = a => b => a + b;   // curried
+
+const add10 = add(10);
+add10(5);    // 15
+add10(20);   // 30
+
+// Practical: curried validator
+const validate = rule => value => rule(value)
+  ? { ok: true }
+  : { ok: false, error: `Failed: ${rule.name}` };
+
+const isEmail = v => /\S+@\S+\.\S+/.test(v);
+const validateEmail = validate(isEmail);
+validateEmail("user@example.com");   // { ok: true }
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Curried addition with Func delegates
+Func<int, Func<int, int>> add = a => b => a + b;
+
+var add10 = add(10);
+add10(5);    // 15
+add10(20);   // 30
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Curried addition with Function
+Function<Integer, Function<Integer, Integer>> add = a -> b -> a + b;
+
+Function<Integer, Integer> add10 = add.apply(10);
+add10.apply(5);    // 15
+add10.apply(20);   // 30
+```
+</TabItem>
+</Tabs>
+
+---
+
+## Avoiding Side Effects
+
+Side effects are not always avoidable — programs must read from databases, write files, and call APIs. FP manages this by **pushing side effects to the boundaries** of the system and keeping the core logic pure.
+
+<Tabs>
+<TabItem label="Python">
+```python
+# Better — pure core, side effects at the edges
+def calculate_discount(total: float) -> float:   # pure
+    return total * 0.1 if total > 100 else 0
+
+def apply_discount(order: dict) -> dict:          # pure — returns new dict
+    discount = calculate_discount(order["total"])
+    return {**order, "total": order["total"] - discount}
+
+# Side effects confined to the orchestration layer
+def process_order(order_id):
+    order         = db.fetch_order(order_id)       # edge: I/O in
+    updated_order = apply_discount(order)          # pure transformation
+    db.save_order(updated_order)                   # edge: I/O out
+    email.send(updated_order["customer"], "...")   # edge: I/O out
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+// Pure core
+const calculateDiscount = total => total > 100 ? total * 0.1 : 0;
+
+const applyDiscount = order => ({
+    ...order,
+    total: order.total - calculateDiscount(order.total),
+});
+
+// Side effects at the edges
+async function processOrder(orderId) {
+    const order        = await db.fetchOrder(orderId);    // I/O in
+    const updatedOrder = applyDiscount(order);            // pure
+    await db.saveOrder(updatedOrder);                     // I/O out
+    await email.send(updatedOrder.customer, "...");       // I/O out
+}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Pure core
+static decimal CalculateDiscount(decimal total) =>
+    total > 100 ? total * 0.1m : 0;
+
+static Order ApplyDiscount(Order order) =>
+    order with { Total = order.Total - CalculateDiscount(order.Total) };
+
+// Side effects at the edges
+async Task ProcessOrderAsync(int orderId)
+{
+    var order        = await _db.FetchOrderAsync(orderId);  // I/O in
+    var updatedOrder = ApplyDiscount(order);                // pure
+    await _db.SaveOrderAsync(updatedOrder);                 // I/O out
+    await _email.SendAsync(updatedOrder.Customer, "...");   // I/O out
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Pure core
+static double calculateDiscount(double total) {
+    return total > 100 ? total * 0.1 : 0;
+}
+
+static Order applyDiscount(Order order) {
+    double discount = calculateDiscount(order.getTotal());
+    return new Order(order.getId(), order.getTotal() - discount, order.getCustomer());
+}
+
+// Side effects at the edges
+void processOrder(int orderId) {
+    Order order        = db.fetchOrder(orderId);    // I/O in
+    Order updatedOrder = applyDiscount(order);       // pure
+    db.saveOrder(updatedOrder);                     // I/O out
+    email.send(updatedOrder.getCustomer(), "...");  // I/O out
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## FP vs OOP
+
+| | Functional | Object-Oriented |
+|---|---|---|
+| Core unit | Function | Object (data + behaviour) |
+| State | Immutable, passed through functions | Mutable, encapsulated in objects |
+| Side effects | Minimised, pushed to edges | Accepted, managed via encapsulation |
+| Code reuse | Composition, higher-order functions | Inheritance, mixins |
+| Testing | Easy — pure functions need no mocks | Requires DI to substitute dependencies |
+| Natural fit | Data transformation pipelines, event streams | Stateful simulations, GUIs, domain modelling |
+
+Modern languages blend both. Python, JavaScript, Kotlin, and Scala support functional and OOP style in the same codebase. The best code often uses OOP for structure and FP for transformations.
+
+---
+
+## Related
+
+- [OOP](/programming/oop) — the complementary object-oriented approach
+- [Design Patterns](/programming/design-patterns) — patterns like Strategy and Command borrow from FP ideas
+- [Testing](/programming/testing) — pure functions are trivially unit-testable
+- [Fundamentals](/programming/fundamentals) — functions and closures introduced

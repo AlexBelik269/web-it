@@ -1,4 +1,4 @@
-// @ts-check
+﻿// @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
@@ -110,6 +110,7 @@ export default defineConfig({
 								{ label: 'Security Checklist', slug: 'auth/security/security-checklist' },
 							],
 						},
+						{ label: 'Security & Auth Reference', slug: 'auth/security-auth-reference' },
 					],
 				},
 				{
@@ -371,9 +372,21 @@ export default defineConfig({
 						{
 							label: 'Languages',
 							items: [
-								{ label: 'C#', slug: 'programming/languages/csharp' },
-								{ label: 'Java', slug: 'programming/languages/java' },
-								{ label: 'Python', slug: 'programming/languages/python' },
+								{ label: 'C#', slug: 'programming/languages/csharp/csharp' },
+								{
+									label: 'Java',
+									items: [
+										{ label: 'Overview', slug: 'programming/languages/java/java' },
+										{ label: 'Collections Questions', slug: 'programming/languages/java/collections-questions' },
+										{ label: 'Multiple Choice Q&A', slug: 'programming/languages/java/java-multiple-choice-questions-answers' },
+										{ label: 'Java Programs', slug: 'programming/languages/java/java-programs' },
+										{ label: 'String Methods', slug: 'programming/languages/java/java-string-methods' },
+										{ label: 'JSP Questions', slug: 'programming/languages/java/jsp-questions' },
+										{ label: 'Multithreading Questions', slug: 'programming/languages/java/multithreading-questions' },
+										{ label: 'Servlets Questions', slug: 'programming/languages/java/servlets-questions' },
+									],
+								},
+								{ label: 'Python', slug: 'programming/languages/python/python' },
 								{ label: 'JavaScript & TypeScript', slug: 'programming/languages/javascript-typescript' },
 								{ label: 'HTML & CSS', slug: 'programming/languages/html-css' },
 								{ label: 'Comparison: C# vs Java vs Python', slug: 'programming/languages/comparison-oop' },
@@ -441,6 +454,7 @@ export default defineConfig({
 				{
 					label: 'Web',
 					items: [
+						{ label: 'Overview', slug: 'web' },
 						{
 							label: 'Architecture',
 							items: [
@@ -486,6 +500,13 @@ export default defineConfig({
 							],
 						},
 					]
+				},
+				{
+					label: 'Secret',
+					items: [
+						{ label: 'Tool Commands', slug: 'secret/tool-comands' },
+						{ label: 'Tools', slug: 'secret/tools' },
+					],
 				}
 			],
 		}),
