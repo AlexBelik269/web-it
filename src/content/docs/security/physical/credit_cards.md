@@ -1,4 +1,7 @@
-# Credit Cards & Payment Methods
+---
+title: "Credit Cards & Payment Security"
+description: "Security of electronic payments and credit cards — how card data is encoded, methods used to steal it, and technologies improving payment security."
+---
 
 ## Overview
 Payment methods are increasingly digital and the security of the transaction varies depending on the card type and the merchant's ability to secure their data.  In this lesson we will look at the security of different payment methods, how credit card data is stolen, and methods being used to increase security.

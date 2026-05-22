@@ -1,4 +1,7 @@
-# Steganography
+---
+title: "Steganography"
+description: "Hiding information in plain sight inside images and other media — techniques for concealing secret messages that are invisible without knowing where to look."
+---
 
 ## Overview
 Students will learn about and engage with steganography techniques and software.

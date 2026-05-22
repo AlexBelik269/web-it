@@ -1,4 +1,7 @@
-# Basic HTML & CSS
+---
+title: "Basic HTML & CSS"
+description: "Foundations of web development — writing HTML markup and CSS styles to create and link web pages from scratch."
+---
 ## Overview
 Students will learn HTML and CSS in order to make a basic web site. The knowledge for creating a web page can come from several sources, including prior experience.
 

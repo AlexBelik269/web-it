@@ -1,4 +1,7 @@
-# Setup Remote Server
+---
+title: "Setup Remote Server"
+description: "Configuring a remote development server for web hosting — uploading HTML files and enabling server-side functionality like PHP and SQL."
+---
 ## Overview
 We will be working on a server for HTML development. This will allow us to create pages that can be shown to others and we have the benefit of a full server. This also allows for server-side functions like PHP and SQL.
 

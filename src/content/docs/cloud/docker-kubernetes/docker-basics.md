@@ -1,4 +1,7 @@
-# Docker and Kubernetes Basics
+---
+title: "Docker & Kubernetes Basics"
+description: "Overview and index of Docker and Kubernetes learning resources — containers, images, orchestration, and command references."
+---
 
 > *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
 

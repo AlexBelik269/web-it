@@ -1,4 +1,7 @@
-# Online Detective
+---
+title: "Online Detective & OSINT"
+description: "Using publicly available data for reconnaissance — how hackers gather information through OSINT, and how to protect your digital footprint."
+---
 
 TODO: Add blog post prompt about personal security and what can be found online.
 

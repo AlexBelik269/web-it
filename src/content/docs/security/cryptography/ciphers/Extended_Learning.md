@@ -1,4 +1,7 @@
-# Cipher Presentation
+---
+title: "Cipher Presentation"
+description: "Research and present a classic cipher — covering historical context, mechanics, mathematical key space analysis, and a working demo."
+---
 
 Based on our work with Ciphers, I would like each of you to research and present about one of the classic ciphers.
 

@@ -1,4 +1,7 @@
-# Keys & Locks
+---
+title: "Keys & Locks"
+description: "Physical security of locks and keys — how pin tumbler locks work, vulnerabilities to lock picking and bumping, and physical security measures for buildings."
+---
 
 ## Overview
 Locking the door is one of the easiest methods of securing our house, offices, and other important spaces.  Standard locks are vulnerable to attack from lock picking or more crude methods of breaking in.  In addition to securing computer systems digitally, students should consider how computers are physically secured.

@@ -10,13 +10,144 @@ export default defineConfig({
 		starlight({
 			title: 'IT Knowledge Base',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/AlexBelik269/web-it' }],
+			components: {
+				Sidebar: './src/components/Sidebar.astro',
+			},
 			sidebar: [
 				{
+					label: 'Overview',
+					collapsed: true,
+					items: [
+						{ label: 'Knowledge Base Overview', slug: 'overview' },
+					],
+				},
+				{
+					label: 'Security',
+					collapsed: true,
+					items: [
+						{ label: 'Overview', slug: 'security' },
+						{
+							label: 'Web App Security',
+							collapsed: true,
+							items: [
+								{ label: 'OWASP Top 10', slug: 'security/web/owasp-top-10' },
+								{ label: 'Cross-Site Scripting (XSS)', slug: 'security/web/xss' },
+								{ label: 'SQL Injection', slug: 'security/web/sql-injection' },
+								{ label: 'CSRF & Clickjacking', slug: 'security/web/csrf-clickjacking' },
+								{ label: 'CORS & Same-Origin Policy', slug: 'security/web/cors-sop' },
+								{ label: 'HTML & CSS', slug: 'security/web/html_css' },
+								{ label: 'Linux CLI', slug: 'security/web/linux_cli' },
+								{ label: 'Networks', slug: 'security/web/networks' },
+								{ label: 'PHP & SQL', slug: 'security/web/php_sql' },
+								{ label: 'Setup C9', slug: 'security/web/setup_c9' },
+								{ label: 'Setup Server', slug: 'security/web/setup_server' },
+							],
+						},
+						{
+							label: 'Malware',
+							collapsed: true,
+							items: [
+								{ label: 'Malware Overview', slug: 'security/malware/malware' },
+								{ label: 'Attack Types', slug: 'security/malware/attack_types' },
+							],
+						},
+						{
+							label: 'Physical Security',
+							collapsed: true,
+							items: [
+								{ label: 'Combo Locks', slug: 'security/physical/combo_locks' },
+								{ label: 'Credit Cards', slug: 'security/physical/credit_cards' },
+								{ label: 'Keys', slug: 'security/physical/keys' },
+								{ label: 'RFID', slug: 'security/physical/rfid' },
+							],
+						},
+						{
+							label: 'Principals',
+							collapsed: true,
+							items: [
+								{ label: 'Cyber Warfare', slug: 'security/principals/cyber_warfare' },
+								{ label: 'Email Security', slug: 'security/principals/email' },
+								{ label: 'Online Detective', slug: 'security/principals/online_detective' },
+								{ label: 'Passwords', slug: 'security/principals/passwords' },
+								{ label: 'Protection Software', slug: 'security/principals/protection_software' },
+							],
+						},
+						{
+							label: 'Cryptography',
+							collapsed: true,
+							items: [
+								{ label: 'Fundamentals', slug: 'security/cryptography/fundamentals' },
+								{ label: 'Symmetric Encryption', slug: 'security/cryptography/symmetric-encryption' },
+								{ label: 'Asymmetric Encryption & Signatures', slug: 'security/cryptography/asymmetric-encryption' },
+								{ label: 'Key Management', slug: 'security/cryptography/key-management' },
+								{
+									label: 'Ciphers',
+									collapsed: true,
+									items: [
+										{ label: 'Caesar Cipher', slug: 'security/cryptography/ciphers/caesar_cipher' },
+										{ label: 'Encoding: Binary', slug: 'security/cryptography/ciphers/encoding_binary' },
+										{ label: 'Encoding: Mary', slug: 'security/cryptography/ciphers/encoding_mary' },
+										{ label: 'Encoding: Morse', slug: 'security/cryptography/ciphers/encoding_morse' },
+										{ label: 'Enigma', slug: 'security/cryptography/ciphers/enigma' },
+										{ label: 'Extended Learning', slug: 'security/cryptography/ciphers/extended_learning' },
+										{ label: 'Physical Ciphers', slug: 'security/cryptography/ciphers/physical_ciphers' },
+										{ label: 'Public Key', slug: 'security/cryptography/ciphers/public_key' },
+										{ label: 'Salt', slug: 'security/cryptography/ciphers/salt' },
+										{ label: 'Shortest Message', slug: 'security/cryptography/ciphers/shortest_message' },
+										{ label: 'Steganography', slug: 'security/cryptography/ciphers/steganography' },
+										{ label: 'Substitution Cipher', slug: 'security/cryptography/ciphers/substitution_cipher' },
+										{ label: 'Vigenère Cipher', slug: 'security/cryptography/ciphers/vigenere_cipher' },
+									],
+								},
+							],
+						},
+						{
+							label: 'Infrastructure',
+							collapsed: true,
+							items: [
+								{ label: 'Secrets Management', slug: 'security/infrastructure/secrets-management' },
+								{ label: 'Container Security', slug: 'security/infrastructure/container-security' },
+								{ label: 'Cloud Security', slug: 'security/infrastructure/cloud-security' },
+							],
+						},
+						{
+							label: 'API Security',
+							collapsed: true,
+							items: [
+								{ label: 'API Security Fundamentals', slug: 'security/api/api-security-fundamentals' },
+								{ label: 'Rate Limiting', slug: 'security/api/rate-limiting' },
+								{ label: 'Input Validation', slug: 'security/api/input-validation' },
+							],
+						},
+						{
+							label: 'Compliance',
+							collapsed: true,
+							items: [
+								{ label: 'General Concepts', slug: 'security/compliance/general_concepts' },
+								{ label: 'Intro & Ethics', slug: 'security/compliance/intro_ethics' },
+								{ label: 'Security Frameworks', slug: 'security/compliance/security-frameworks' },
+								{ label: 'GDPR for Engineers', slug: 'security/compliance/gdpr' },
+							],
+						},
+						{
+							label: 'Incident Response',
+							collapsed: true,
+							items: [
+								{ label: 'Logging & Monitoring', slug: 'security/incident-response/logging-monitoring' },
+								{ label: 'Incident Playbooks', slug: 'security/incident-response/incident-playbooks' },
+								{ label: 'Digital Forensics', slug: 'security/incident-response/forensics' },
+							],
+						},
+					],
+				},
+				{
 					label: 'AI & LLMs',
+					collapsed: true,
 					items: [
 						{ label: 'Overview', slug: 'ai' },
 						{
 							label: 'Fundamentals',
+							collapsed: true,
 							items: [
 								{ label: 'What is AI?', slug: 'ai/fundamentals/what-is-ai' },
 								{ label: 'Machine Learning Basics', slug: 'ai/fundamentals/machine-learning-basics' },
@@ -26,6 +157,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Large Language Models',
+							collapsed: true,
 							items: [
 								{ label: 'How LLMs Work', slug: 'ai/llm/how-llms-work' },
 								{ label: 'Tokens & Context Windows', slug: 'ai/llm/tokens-and-context' },
@@ -34,6 +166,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Concepts',
+							collapsed: true,
 							items: [
 								{ label: 'Training vs Inference', slug: 'ai/concepts/training-vs-inference' },
 								{ label: 'AI Safety & Ethics', slug: 'ai/concepts/ai-safety-ethics' },
@@ -41,6 +174,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Tools & APIs',
+							collapsed: true,
 							items: [
 								{ label: 'AI Tools Overview', slug: 'ai/tools/ai-tools-overview' },
 								{ label: 'Using AI APIs', slug: 'ai/tools/using-apis' },
@@ -50,10 +184,12 @@ export default defineConfig({
 				},
 				{
 					label: 'Auth',
+					collapsed: true,
 					items: [
 						{ label: 'Overview', slug: 'auth' },
 						{
 							label: 'Fundamentals',
+							collapsed: true,
 							items: [
 								{ label: 'Core Concepts', slug: 'auth/fundamentals/overview' },
 								{ label: 'AuthN vs AuthZ', slug: 'auth/fundamentals/authn-vs-authz' },
@@ -61,6 +197,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Credentials',
+							collapsed: true,
 							items: [
 								{ label: 'Authentication Factors & MFA', slug: 'auth/credentials/mfa-factors' },
 								{ label: 'Passwords & Hashing', slug: 'auth/credentials/passwords-hashing' },
@@ -70,6 +207,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Tokens',
+							collapsed: true,
 							items: [
 								{ label: 'JWT', slug: 'auth/tokens/jwt' },
 								{ label: 'Bearer Tokens', slug: 'auth/tokens/bearer-tokens' },
@@ -79,6 +217,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Protocols',
+							collapsed: true,
 							items: [
 								{ label: 'OAuth 2.0', slug: 'auth/protocols/oauth2' },
 								{ label: 'OpenID Connect (OIDC)', slug: 'auth/protocols/oidc' },
@@ -89,6 +228,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Authorization',
+							collapsed: true,
 							items: [
 								{ label: 'RBAC & ABAC', slug: 'auth/authorization/rbac-abac' },
 								{ label: 'Permissions & Scopes', slug: 'auth/authorization/permissions-scopes' },
@@ -97,6 +237,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Implementation',
+							collapsed: true,
 							items: [
 								{ label: 'Auth in Code', slug: 'auth/implementation/auth-in-code' },
 								{ label: 'Sessions & Cookies', slug: 'auth/implementation/sessions-cookies' },
@@ -105,21 +246,23 @@ export default defineConfig({
 						},
 						{
 							label: 'Security',
+							collapsed: true,
 							items: [
 								{ label: 'Threats & Attacks', slug: 'auth/security/threats-attacks' },
 								{ label: 'Best Practices', slug: 'auth/security/best-practices' },
 								{ label: 'Security Checklist', slug: 'auth/security/security-checklist' },
 							],
 						},
-						{ label: 'Security & Auth Reference', slug: 'auth/security-auth-reference' },
 					],
 				},
 				{
 					label: 'Cloud & Containers',
+					collapsed: true,
 					items: [
 						{ label: 'Overview', slug: 'cloud' },
 						{
 							label: 'Cloud Fundamentals',
+							collapsed: true,
 							items: [
 								{ label: 'Cloud Concepts', slug: 'cloud/fundamentals/cloud-concepts' },
 								{ label: 'Virtualization & Containers', slug: 'cloud/fundamentals/virtualization' },
@@ -127,6 +270,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Containers',
+							collapsed: true,
 							items: [
 								{ label: 'Docker', slug: 'cloud/containers/docker' },
 								{ label: 'Docker Compose', slug: 'cloud/containers/docker-compose' },
@@ -135,6 +279,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Orchestration',
+							collapsed: true,
 							items: [
 								{ label: 'Kubernetes', slug: 'cloud/orchestration/kubernetes' },
 								{ label: 'Kubernetes Advanced', slug: 'cloud/orchestration/kubernetes-advanced' },
@@ -144,6 +289,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Infrastructure as Code',
+							collapsed: true,
 							items: [
 								{ label: 'Ansible', slug: 'cloud/iac/ansible' },
 								{ label: 'Terraform', slug: 'cloud/iac/terraform' },
@@ -151,37 +297,57 @@ export default defineConfig({
 						},
 						{
 							label: 'Security',
+							collapsed: true,
 							items: [
 								{ label: 'Cloud Security', slug: 'cloud/security/cloud-security' },
 								{ label: 'Container Security', slug: 'cloud/security/container-security' },
+							],
+						},
+						{
+							label: 'Docker & Kubernetes Workshop',
+							collapsed: true,
+							items: [
+								{ label: 'Cloud Overview', slug: 'cloud/docker-kubernetes/cloud' },
+								{ label: 'Docker', slug: 'cloud/docker-kubernetes/docker' },
+								{ label: 'Docker Basics', slug: 'cloud/docker-kubernetes/docker-basics' },
+								{ label: 'Docker Commands', slug: 'cloud/docker-kubernetes/docker-commands' },
+								{ label: 'Docker Practice', slug: 'cloud/docker-kubernetes/docker-practice' },
+								{ label: 'Kubernetes', slug: 'cloud/docker-kubernetes/kubernetes' },
+								{ label: 'Kubernetes Commands', slug: 'cloud/docker-kubernetes/kubernetes-commands' },
+								{ label: 'Kubernetes Workshop', slug: 'cloud/docker-kubernetes/kubernetes-workshop' },
 							],
 						},
 					],
 				},
 				{
 					label: 'Databases',
+					collapsed: true,
 					items: [
 						{ label: 'Overview', slug: 'databases' },
 						{
 							label: 'Relational',
+							collapsed: true,
 							items: [
 								{ label: 'Relational Databases', slug: 'databases/relational/relational-databases' },
 							],
 						},
 						{
 							label: 'NoSQL',
+							collapsed: true,
 							items: [
 								{ label: 'NoSQL & CAP Theorem', slug: 'databases/nosql/nosql' },
 							],
 						},
 						{
 							label: 'SQL',
+							collapsed: true,
 							items: [
 								{ label: 'SQL Fundamentals', slug: 'databases/sql/sql-fundamentals' },
 							],
 						},
 						{
 							label: 'Internals',
+							collapsed: true,
 							items: [
 								{ label: 'Transactions', slug: 'databases/internals/transactions' },
 								{ label: 'Indexing', slug: 'databases/internals/indexing' },
@@ -189,6 +355,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Operations',
+							collapsed: true,
 							items: [
 								{ label: 'Replication', slug: 'databases/operations/replication' },
 								{ label: 'Backup & Recovery', slug: 'databases/operations/backup-recovery' },
@@ -200,10 +367,12 @@ export default defineConfig({
 				},
 				{
 					label: 'Mathematics',
+					collapsed: true,
 					items: [
 						{ label: 'Overview', slug: 'math' },
 						{
 							label: 'Foundations',
+							collapsed: true,
 							items: [
 								{ label: 'Number Sets', slug: 'math/foundations/number-sets' },
 								{ label: 'Algebra Basics', slug: 'math/foundations/algebra' },
@@ -211,6 +380,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Data Types',
+							collapsed: true,
 							items: [
 								{ label: 'Boolean & Logic', slug: 'math/data-types/boolean' },
 								{ label: 'Integers & Binary', slug: 'math/data-types/integers' },
@@ -220,6 +390,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Logic',
+							collapsed: true,
 							items: [
 								{ label: 'Propositional Logic', slug: 'math/logic/propositional-logic' },
 								{ label: 'Predicate Logic', slug: 'math/logic/predicate-logic' },
@@ -228,6 +399,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Algorithm Analysis',
+							collapsed: true,
 							items: [
 								{ label: 'Complexity & Big O', slug: 'math/algorithms/complexity' },
 								{ label: 'Recursive Algorithms', slug: 'math/algorithms/recursion' },
@@ -236,6 +408,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Combinatorics',
+							collapsed: true,
 							items: [
 								{ label: 'Counting Rules', slug: 'math/combinatorics/counting-rules' },
 								{ label: 'Permutations & Combinations', slug: 'math/combinatorics/permutations-combinations' },
@@ -243,12 +416,14 @@ export default defineConfig({
 						},
 						{
 							label: 'Relations',
+							collapsed: true,
 							items: [
 								{ label: 'Relations & Properties', slug: 'math/relations/relations' },
 							],
 						},
 						{
 							label: 'Graph Theory',
+							collapsed: true,
 							items: [
 								{ label: 'Graph Basics', slug: 'math/graphs/graph-basics' },
 								{ label: 'Special Graphs', slug: 'math/graphs/special-graphs' },
@@ -259,10 +434,12 @@ export default defineConfig({
 				},
 				{
 					label: 'Networking',
+					collapsed: true,
 					items: [
 						{ label: 'Overview', slug: 'network' },
 						{
 							label: 'Fundamentals',
+							collapsed: true,
 							items: [
 								{ label: 'OSI & TCP/IP Model', slug: 'network/fundamentals/osi-model' },
 								{ label: 'Network Devices', slug: 'network/fundamentals/network-devices' },
@@ -271,6 +448,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Addressing',
+							collapsed: true,
 							items: [
 								{ label: 'IP Addressing & Subnetting', slug: 'network/addressing/ip-addressing' },
 								{ label: 'DNS', slug: 'network/addressing/dns' },
@@ -279,6 +457,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Protocols',
+							collapsed: true,
 							items: [
 								{ label: 'TCP & UDP', slug: 'network/protocols/tcp-udp' },
 								{ label: 'HTTP & HTTPS', slug: 'network/protocols/http-https' },
@@ -288,6 +467,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Traffic & Switching',
+							collapsed: true,
 							items: [
 								{ label: 'Traffic Analysis', slug: 'network/traffic/traffic-analysis' },
 								{ label: 'VLANs & Switching', slug: 'network/traffic/switching' },
@@ -295,12 +475,14 @@ export default defineConfig({
 						},
 						{
 							label: 'Wireless',
+							collapsed: true,
 							items: [
 								{ label: 'Wi-Fi (802.11)', slug: 'network/wireless/wifi' },
 							],
 						},
 						{
 							label: 'Security',
+							collapsed: true,
 							items: [
 								{ label: 'Firewalls & IDS/IPS', slug: 'network/security/network-security' },
 								{ label: 'Attacks & Defenses', slug: 'network/security/attacks-defenses' },
@@ -312,22 +494,26 @@ export default defineConfig({
 				},
 				{
 					label: 'Operating Systems',
+					collapsed: true,
 					items: [
 						{ label: 'Overview', slug: 'os' },
 						{
 							label: 'Linux',
+							collapsed: true,
 							items: [
 								{ label: 'Linux Fundamentals', slug: 'os/linux/linux-fundamentals' },
 							],
 						},
 						{
 							label: 'Windows',
+							collapsed: true,
 							items: [
 								{ label: 'Windows Fundamentals', slug: 'os/windows/windows-fundamentals' },
 							],
 						},
 						{
 							label: 'Internals',
+							collapsed: true,
 							items: [
 								{ label: 'Processes & Threads', slug: 'os/processes/processes-threads' },
 								{ label: 'Memory Management', slug: 'os/memory/memory-management' },
@@ -336,6 +522,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Management',
+							collapsed: true,
 							items: [
 								{ label: 'Services & Daemons', slug: 'os/services/services-daemons' },
 								{ label: 'Permissions & Access Control', slug: 'os/permissions/permissions-access-control' },
@@ -343,6 +530,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Shell & Scripting',
+							collapsed: true,
 							items: [
 								{ label: 'Bash', slug: 'os/shell/bash' },
 								{ label: 'PowerShell', slug: 'os/shell/powershell' },
@@ -350,6 +538,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Operations',
+							collapsed: true,
 							items: [
 								{ label: 'System Monitoring', slug: 'os/monitoring/system-monitoring' },
 								{ label: 'Troubleshooting', slug: 'os/troubleshooting/troubleshooting' },
@@ -359,6 +548,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Programming',
+					collapsed: true,
 					items: [
 						{ label: 'Overview', slug: 'programming' },
 						{ label: 'Fundamentals', slug: 'programming/fundamentals' },
@@ -372,9 +562,11 @@ export default defineConfig({
 						{ label: 'Secure Coding', slug: 'programming/secure-coding' },
 						{
 							label: 'Languages',
+							collapsed: true,
 							items: [
 								{
 									label: 'C#',
+									collapsed: true,
 									items: [
 										{ label: 'Overview', slug: 'programming/languages/csharp/csharp' },
 										{ label: 'Basics', slug: 'programming/languages/csharp/csharp-basics' },
@@ -390,6 +582,7 @@ export default defineConfig({
 								},
 								{
 									label: 'Java',
+									collapsed: true,
 									items: [
 										{ label: 'Overview', slug: 'programming/languages/java/java' },
 										{ label: 'Collections Questions', slug: 'programming/languages/java/collections-questions' },
@@ -403,6 +596,7 @@ export default defineConfig({
 								},
 								{
 									label: 'Python',
+									collapsed: true,
 									items: [
 										{ label: 'Overview', slug: 'programming/languages/python/python' },
 										{ label: 'Python Basics', slug: 'programming/languages/python/python-basics' },
@@ -418,67 +612,13 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Security',
-					items: [
-						{ label: 'Overview', slug: 'security' },
-						{
-							label: 'Web App Security',
-							items: [
-								{ label: 'OWASP Top 10', slug: 'security/web/owasp-top-10' },
-								{ label: 'Cross-Site Scripting (XSS)', slug: 'security/web/xss' },
-								{ label: 'SQL Injection', slug: 'security/web/sql-injection' },
-								{ label: 'CSRF & Clickjacking', slug: 'security/web/csrf-clickjacking' },
-								{ label: 'CORS & Same-Origin Policy', slug: 'security/web/cors-sop' },
-							],
-						},
-						{
-							label: 'Cryptography',
-							items: [
-								{ label: 'Fundamentals', slug: 'security/cryptography/fundamentals' },
-								{ label: 'Symmetric Encryption', slug: 'security/cryptography/symmetric-encryption' },
-								{ label: 'Asymmetric Encryption & Signatures', slug: 'security/cryptography/asymmetric-encryption' },
-								{ label: 'Key Management', slug: 'security/cryptography/key-management' },
-							],
-						},
-						{
-							label: 'Infrastructure',
-							items: [
-								{ label: 'Secrets Management', slug: 'security/infrastructure/secrets-management' },
-								{ label: 'Container Security', slug: 'security/infrastructure/container-security' },
-								{ label: 'Cloud Security', slug: 'security/infrastructure/cloud-security' },
-							],
-						},
-						{
-							label: 'API Security',
-							items: [
-								{ label: 'API Security Fundamentals', slug: 'security/api/api-security-fundamentals' },
-								{ label: 'Rate Limiting', slug: 'security/api/rate-limiting' },
-								{ label: 'Input Validation', slug: 'security/api/input-validation' },
-							],
-						},
-						{
-							label: 'Compliance',
-							items: [
-								{ label: 'Security Frameworks', slug: 'security/compliance/security-frameworks' },
-								{ label: 'GDPR for Engineers', slug: 'security/compliance/gdpr' },
-							],
-						},
-						{
-							label: 'Incident Response',
-							items: [
-								{ label: 'Logging & Monitoring', slug: 'security/incident-response/logging-monitoring' },
-								{ label: 'Incident Playbooks', slug: 'security/incident-response/incident-playbooks' },
-								{ label: 'Digital Forensics', slug: 'security/incident-response/forensics' },
-							],
-						},
-					],
-				},
-				{
 					label: 'Web',
+					collapsed: true,
 					items: [
 						{ label: 'Overview', slug: 'web' },
 						{
 							label: 'Architecture',
+							collapsed: true,
 							items: [
 								{ label: 'Microservices', slug: 'web/architecture/microservices' },
 								{ label: 'Monoliths', slug: 'web/architecture/monoliths' },
@@ -488,6 +628,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Backend',
+							collapsed: true,
 							items: [
 								{ label: 'Database Connection', slug: 'web/backend/database-connection' },
 								{ label: 'Overview', slug: 'web/backend/overview' },
@@ -496,6 +637,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Frontend',
+							collapsed: true,
 							items: [
 								{ label: 'Browser Rendering', slug: 'web/frontend/browser-rendering' },
 								{ label: 'CSS Layout', slug: 'web/frontend/css-layout' },
@@ -506,6 +648,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Hosting',
+							collapsed: true,
 							items: [
 								{ label: 'CI CD', slug: 'web/hosting/ci-cd' },
 								{ label: 'Cloud Hosting', slug: 'web/hosting/cloud-hosting' },
@@ -515,6 +658,7 @@ export default defineConfig({
 						},
 						{
 							label: 'HTTP',
+							collapsed: true,
 							items: [
 								{ label: 'How Web Works', slug: 'web/http/how-web-works' },
 								{ label: 'HTTP Fundamentals', slug: 'web/http/http-fundamentals' },
@@ -525,10 +669,15 @@ export default defineConfig({
 				},
 				{
 					label: 'Tools',
+					collapsed: true,
 					items: [
 						{ label: 'Tool Commands', slug: 'tools/tool-comands' },
 						{ label: 'Tools', slug: 'tools/tools' },
 					],
+				},
+				{
+					label: 'Tools', slug: 'overview' 
+					
 				}
 			],
 		}),

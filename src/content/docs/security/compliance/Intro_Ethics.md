@@ -1,4 +1,7 @@
-# Introduction & Ethics
+---
+title: "Introduction & Ethics"
+description: "Introduction to cybersecurity and the ethical responsibilities of studying offensive techniques — cyber ethics, major hacking events, and responsible disclosure."
+---
 
 ## Overview
 Cyber Security is an increasingly in-demand field of Computer Science. In this course we will look at the major ideas in the fields of Cyber Security or Information Assurance. This is not a "hacking" class but we are looking at the ways that computers, programs, networks, and people are exploited by hackers and what we can do to prevent or minimize the damage caused by bad actors.

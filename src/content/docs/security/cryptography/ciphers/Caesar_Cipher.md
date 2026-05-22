@@ -1,78 +1,198 @@
-# Caesar Cipher
+---
+title: "The Caesar Cipher"
+description: "The Caesar Cipher, the oldest and simplest encryption technique."
+---
 
-## Overview
-Students will explore encoding/decoding messages using the Caesar Cipher. Using a cipher wheel, messages will be encoded and decoded.
+> *"If he had anything confidential to say, he wrote it in cipher..."*
+> — Suetonius, *The Twelve Caesars*
 
-## Purpose
-The Caesar Cipher is one of the best known forms of encryption.  This signifies a change from encoding where a message was hidden with a set of substitutions for each letter to one where the only knowledge needed is a key to "unlock" the message.
+---
 
-### Objectives
-#### Students will be able to:
-- Encode/Decode a message using a Caesar Cipher and a known key
-- Begin to decode messages where the key is unknown using cryptanalysis
+#### What Is It?
 
-### Preparation
-- [x] Print the [Caesar Cipher wheel](Caesar_Cipher/Papercraft_Caesar_Wheel.docx) on cardstock
-- [x] Get brad fasteners
-- [x] Print [Caesar Cipher Worksheet](Caesar_Cipher/Caesar_Cipher_Activity.docx)
-- [x] Download [CaesarCipher.py](code/CaesarCipher.py) python file.
+The **Caesar cipher** is one of the oldest and simplest encryption techniques known. It is a **substitution cipher** in which each letter in the plaintext is shifted a fixed number of positions along the alphabet. Named after Julius Caesar, who reportedly used it with a shift of 3 to protect military communications.
 
-### Links
-- For the Teacher
-	- https://en.wikipedia.org/wiki/Caesar_cipher
-	- http://practicalcryptography.com/ciphers/caesar-cipher/
-- For the Students
-	- http://www.cryptoclub.org/games/desert_oasis.php
+---
 
-### Vocabulary
-Plaintext - a message or text that can be read normally
-Ciphertext - a message that has been encrypted so it is not readable in current form.
-Encode - the act of converting plaintext to ciphertext
-Decode - the act of converting ciphertext to plaintext
+## How It Works
 
-## Teaching Guide
-### Getting Started
-- Overview of Caesar Cipher (video)		
-	- https://www.youtube.com/watch?v=sMOZf4GN3oc
+Each letter is replaced by the letter **N positions** further in the alphabet. The alphabet wraps around — after `Z` comes `A` again.
 
-### Activity:
-Paper craft Caesar Cipher wheel
-- Have students cut out and assemble the paper cipher wheel.
-- Students will work through the encryption process on the worksheet.
-- Students can engage with the CryptoClub Desert Oasis game.
+### Encryption Formula
 
-### Activity (coding):
-Look at the CaesarCipher.py Python file.
-- The program is setup to accept a message
-- The message can be encoded using a Caesar Shift
-- Have students finish the decode method to convert ciphertext to plaintext.
+```
+E(x) = (x + n) mod 26
+```
 
-### Wrap-up
-#### Discussion:
-1. How many possible keys are there in a Caesar Cipher?
-1. What level of security does this provide us?  How difficult is it to break a message encrypted using the Caesar Cipher?
+### Decryption Formula
 
-1. TED Talk: [Why Privacy Matters](https://www.ted.com/talks/alessandro_acquisti_why_privacy_matters?language=en)
+```
+D(x) = (x - n + 26) mod 26
+```
 
-### Assessment Questions
-- How have computers changed the security of a cipher like this one?
-- Create a Caesar Cipher where the key changes for each word or letter.
-	- What would the rules of this cipher be?
-	- How would you encode / decode this message?
-	- What would you need to know to decode this message?
-	- How does this change the security of the cipher?
+Where:
+- `x` = position of the letter (A=0, B=1, … Z=25)
+- `n` = shift value (key)
 
-### Extended Learning
-3D Printing: Print the Caesar Cipher ring to use instead of the paper wheel.
-- [https://www.thingiverse.com/thing:18315](https://www.thingiverse.com/thing:18315)
-3D Printing: Print a Cipher Disk
-- [https://www.thingiverse.com/thing:3404817](https://www.thingiverse.com/thing:3404817)
-3D Printing: Print a Braille Disk
-- [https://www.thingiverse.com/thing:3701018](https://www.thingiverse.com/thing:3701018)
-Programming: Bruteforce Caesar Decode
-- Using the decode method written in the programming activity, create a program that decodes using all 25 possible Caesar shifts.
+---
 
-### Standards Alignment
+## Shift Visualisation (Shift = 3)
 
-## License
-[Cyber Security Curriculum](https://github.com/DerekBabb/CyberSecurity) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+```mermaid
+graph LR
+    A -->|+3| D
+    B -->|+3| E
+    C -->|+3| F
+    D -->|+3| G
+    X -->|+3| A
+    Y -->|+3| B
+    Z -->|+3| C
+```
+
+---
+
+## Encryption Flow
+
+```mermaid
+flowchart TD
+    A([Plaintext Message]) --> B[Split into characters]
+    B --> C{Is it a letter?}
+    C -- Yes --> D[Convert to number\nA=0 … Z=25]
+    D --> E[Add shift key n]
+    E --> F[Apply mod 26]
+    F --> G[Convert back to letter]
+    G --> H([Ciphertext])
+    C -- No --> H
+```
+
+---
+
+## Example: Encrypting "HELLO" with Shift 3
+
+| Plaintext | Index | + Shift | mod 26 | Ciphertext |
+|-----------|-------|---------|--------|------------|
+| H         | 7     | 10      | 10     | **K**      |
+| E         | 4     | 7       | 7      | **H**      |
+| L         | 11    | 14      | 14     | **O**      |
+| L         | 11    | 14      | 14     | **O**      |
+| O         | 14    | 17      | 17     | **R**      |
+
+**HELLO → KHOOR**
+
+---
+
+## The Cipher Wheel
+
+```mermaid
+graph TD
+    subgraph "Outer Ring — Plaintext"
+        A1[A] --- B1[B] --- C1[C] --- D1[D] --- E1[E]
+    end
+    subgraph "Inner Ring — Ciphertext (shift 3)"
+        D2[D] --- E2[E] --- F2[F] --- G2[G] --- H2[H]
+    end
+    A1 -.->|maps to| D2
+    B1 -.->|maps to| E2
+    C1 -.->|maps to| F2
+```
+
+---
+
+## Key Space
+
+The Caesar cipher has only **26 possible keys** (shifts 0–25). Shift 0 means no encryption.
+
+```mermaid
+pie title Distribution of Key Space
+    "Shift 1–12 (weak)" : 12
+    "Shift 13 (ROT13)" : 1
+    "Shift 14–25 (weak)" : 12
+    "Shift 0 (no cipher)" : 1
+```
+
+---
+
+## ROT13 — The Special Case
+
+When the shift is exactly **13**, the cipher is its own inverse:
+
+```
+Encrypt(ROT13(x)) = Decrypt(ROT13(x))
+```
+
+This means applying ROT13 **twice** returns the original text. It is widely used online to hide spoilers or puzzle answers.
+
+---
+
+## Historical Usage
+
+```mermaid
+timeline
+    title Caesar Cipher Through History
+    50 BC  : Julius Caesar uses shift-3 for military dispatches
+    ~100 AD : Augustus Caesar uses shift-1 in personal letters
+    1000 AD : Arab scholars (Al-Kindi) document frequency analysis, breaking the cipher
+    1500s  : Vigenère builds on Caesar to create the polyalphabetic cipher
+    1900s  : ROT13 emerges in early internet culture (Usenet)
+    Today  : Used in puzzles, education, and as a teaching tool for cryptography
+```
+
+---
+
+## Security Analysis
+
+| Property         | Caesar Cipher       |
+|------------------|---------------------|
+| Key space        | 26 keys             |
+| Security         | ❌ Extremely weak    |
+| Brute-force      | Trivially possible  |
+| Frequency attack | Easy — 1 sample     |
+| Modern use       | Educational only    |
+
+### Why It Fails: Frequency Analysis
+
+Because letter frequencies are preserved, an attacker can compare the ciphertext frequency distribution to known language frequencies (e.g. `E` is the most common letter in English). A single ciphertext of ~20 characters is usually enough to crack it.
+
+```mermaid
+xychart-beta
+    title "English Letter Frequency (%)"
+    x-axis [E, T, A, O, I, N, S, H, R, D]
+    y-axis "Frequency (%)" 0 --> 14
+    bar [12.7, 9.1, 8.2, 7.5, 7.0, 6.7, 6.3, 6.1, 6.0, 4.3]
+```
+
+---
+
+## Comparison with Related Ciphers
+
+```mermaid
+graph LR
+    Caesar["Caesar Cipher\n(fixed shift)"]
+    Vigenere["Vigenère Cipher\n(multiple shifts)"]
+    Atbash["Atbash Cipher\n(reverse alphabet)"]
+    ROT13["ROT13\n(shift = 13)"]
+    OTP["One-Time Pad\n(random key)"]
+
+    Caesar -->|extended by| Vigenere
+    Caesar -->|special case| ROT13
+    Atbash -->|similar concept| Caesar
+    Vigenere -->|infinite key →| OTP
+```
+
+---
+
+## Quick Reference
+
+```
+Alphabet: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+Shift +3: D E F G H I J K L M N O P Q R S T U V W X Y Z A B C
+```
+
+To **encrypt**: find the letter in the top row → take the letter below it.
+To **decrypt**: find the letter in the bottom row → take the letter above it.
+
+---
+
+## Summary
+
+The Caesar cipher is a cornerstone of cryptography history — simple enough to grasp immediately, yet illustrative of fundamental concepts like **key-based transformation**, **modular arithmetic**, and **the importance of key space size**. While completely insecure by modern standards, it remains the perfect starting point for understanding how encryption works.

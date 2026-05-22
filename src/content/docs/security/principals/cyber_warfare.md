@@ -1,4 +1,7 @@
-# Cyber Warfare
+---
+title: "Cyber Warfare"
+description: "The role of cyber operations in modern warfare — notable state-sponsored attacks, motivations behind cyber aggression, and defense strategies for individuals and organizations."
+---
 
 TODO:
 	Discussion of some topics and themes

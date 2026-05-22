@@ -1,4 +1,7 @@
-# Combo Locks
+---
+title: "Combination Locks"
+description: "Combination locks as a security metaphor — mathematics of possible combinations, vulnerabilities in Masterlock-style padlocks, and how the keyspace shrinks with known constraints."
+---
 
 ## Overview
 Combination locks are a metaphor for security.  On the surface it seems as though there are thousands of possibilities but as we learn the rules that govern their workings we can get the number of possible combinations down to a much smaller number.

@@ -1,4 +1,7 @@
-# Shortest Message Encoding
+---
+title: "Shortest Message Encoding"
+description: "Designing compact encoding systems — how to represent a message in the fewest possible bits using custom encoding schemes."
+---
 
 ## Overview
 Students will create a system to encode a specific message using the fewest number of bits possible.  Then students will encode that message in a chain of paper rings.

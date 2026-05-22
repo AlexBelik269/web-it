@@ -1,4 +1,7 @@
-# Encoding - Morse Code
+---
+title: "Encoding: Morse Code"
+description: "Converting messages to Morse code for transmission — encoding and decoding using dots and dashes, and understanding signal-based communication methods."
+---
 
 TODO: Still need to come up with a few assessment questions
 

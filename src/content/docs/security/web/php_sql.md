@@ -1,4 +1,7 @@
-# PHP and SQL
+---
+title: "PHP & SQL"
+description: "Connecting a web page to a SQL database using PHP — querying a database and displaying results dynamically on a web page."
+---
 
 ## Overview
 In our last lesson we setup a SQL database, now we would like to access that information in the database on our website.  We will create sites using PHP that can display information found in a SQL database.

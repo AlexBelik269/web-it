@@ -1,4 +1,7 @@
-# Protection Software Research
+---
+title: "Protection Software"
+description: "Overview of antivirus and security software — how it protects against malware, what features to look for, and evaluating options for home and enterprise use."
+---
 
 ## Overview
 Students will read about and share their findings on various anti-virus, and other software designed to protect a computer from attackers.

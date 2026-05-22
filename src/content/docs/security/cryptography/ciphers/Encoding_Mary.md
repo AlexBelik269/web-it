@@ -1,4 +1,7 @@
-# Encoding - Mary Queen of Scots
+---
+title: "Encoding: Mary Queen of Scots"
+description: "Historical symbol-substitution cipher used by Mary Queen of Scots — encoding and decoding messages, and creating custom secret codes with modern symbols."
+---
 
 ## Overview
 Codes have been used throughout history to keep messages secret.  One famous example is Mary Queen of Scots.  Students will learn about this famous code, use it to encode and decode messages, and finally create their own secret code using modern symbols (emojis).

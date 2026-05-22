@@ -1,4 +1,7 @@
-# Network Security
+---
+title: "Network Security Fundamentals"
+description: "How internet networks communicate — ports, protocols, DNS lookups, WHOIS, and tools for exploring network structure and traffic."
+---
 
 ## Overview
 The Internet is built on a hierarchy of connected devices like servers, routers, switches, hubs, and many more connected devices. These devices talk to each other using protocols that are well defined and allow for new devices to be added to the network. We want to understand how these networks communicate and the protocols that they use.

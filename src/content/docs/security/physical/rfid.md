@@ -1,4 +1,7 @@
-# RFID & Other Authentication
+---
+title: "RFID & Authentication Tokens"
+description: "RFID-based authentication — how contactless access cards work, cloning vulnerabilities, and security considerations for physical access control systems."
+---
 
 TODO:
 	- Add the clone thing from Amazon.

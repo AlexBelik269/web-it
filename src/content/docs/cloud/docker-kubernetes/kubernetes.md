@@ -1,4 +1,7 @@
-# Kubernetes Basics
+---
+title: "Kubernetes Interview Questions"
+description: "Interview-style Q&A on Kubernetes — container orchestration, architecture, pods, services, deployments, and scaling strategies."
+---
 
 <br/>
 

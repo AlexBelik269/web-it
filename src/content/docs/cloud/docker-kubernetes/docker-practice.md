@@ -1,4 +1,7 @@
-# Docker Workshop
+---
+title: "Docker Workshop"
+description: "Hands-on workshop covering Docker fundamentals — images, containers, Dockerfiles, Docker Compose, and deploying a Node.js app to Docker Hub."
+---
 
 1. [Introduction](#1-introduction)
 1. [Images and Containers](#2-images-and-containers)

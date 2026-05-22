@@ -1,4 +1,7 @@
-# Linux Command Line
+---
+title: "Linux Command Line"
+description: "Essential Linux CLI commands for navigating the file system — directory navigation, file creation, searching, and working in a Linux environment."
+---
 
 ## Overview
 Students will learn basic commands on the Linux Command Line.  We will need to be able to navigate a Linux system in our next lessons.

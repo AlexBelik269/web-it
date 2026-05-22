@@ -1,4 +1,7 @@
-# Docker Command Cheatsheet
+---
+title: "Docker Command Cheatsheet"
+description: "Quick reference for essential Docker CLI commands — login, build, run, exec, inspect, network, volume, and registry operations."
+---
 
 > ***[Install Docker Desktop on Windows](https://docs.docker.com/desktop/windows/install/)***
 

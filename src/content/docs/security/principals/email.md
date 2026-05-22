@@ -1,4 +1,7 @@
-# E-mail
+---
+title: "Email Security"
+description: "Security vulnerabilities in everyday email systems — disposable accounts, phishing risks, and encrypting email with PGP for private communication."
+---
 
 ## Overview
 Students will explore the security of e-mail, disposable e-mail accounts and use a secure e-mail system.

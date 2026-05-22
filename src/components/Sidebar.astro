@@ -1,0 +1,40 @@
+---
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+import SidebarTabs from './SidebarTabs.astro';
+
+const { sidebar } = Astro.locals.starlightRoute;
+const pathname = Astro.url.pathname;
+
+const TAB_SECTIONS: Record<string, string[]> = {
+	overview:  ['Overview'],
+	dev:       ['Programming', 'Web'],
+	security:  ['Security', 'Auth', 'Networking'],
+	ai:        ['AI & LLMs'],
+	math:      ['Mathematics'],
+	infra:     ['Cloud & Containers', 'Databases', 'Operating Systems', 'Tools'],
+};
+
+function getTab(path: string): string {
+	if (path.startsWith('/it/programming') || path.startsWith('/it/web'))                                    return 'dev';
+	if (path.startsWith('/it/security') || path.startsWith('/it/auth') || path.startsWith('/it/network'))   return 'security';
+	if (path.startsWith('/it/ai'))                                                                           return 'ai';
+	if (path.startsWith('/it/math'))                                                                         return 'math';
+	if (path.startsWith('/it/cloud') || path.startsWith('/it/databases') || path.startsWith('/it/os') || path.startsWith('/it/tools')) return 'infra';
+	return 'overview';
+}
+
+const activeTab = getTab(pathname);
+const allowed = TAB_SECTIONS[activeTab];
+const filteredSidebar = sidebar.filter((e) => e.type === 'group' && allowed.includes(e.label));
+---
+
+<SidebarTabs />
+<SidebarPersister>
+	<SidebarSublist sublist={filteredSidebar} />
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+	<MobileMenuFooter />
+</div>

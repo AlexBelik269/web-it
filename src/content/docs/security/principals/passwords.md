@@ -1,4 +1,7 @@
-# Password Selection
+---
+title: "Password Selection & Management"
+description: "Best practices for choosing strong passwords — why password reuse is dangerous, how brute-force attacks work, and using a password manager."
+---
 
 ## Overview
 Students will learn about good practices in selecting passwords, the dangers of weak passwords or sharing passwords between sites, and how to use password managers.

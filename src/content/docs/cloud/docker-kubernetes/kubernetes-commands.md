@@ -1,4 +1,7 @@
-# Kubectl Command Cheatsheet
+---
+title: "Kubectl Command Cheatsheet"
+description: "Quick reference for kubectl commands — cluster management, pod operations, deployments, services, scaling, and config inspection."
+---
 
 Kubectl is the command line configuration tool for Kubernetes that communicates with a Kubernetes API server. Using kubectl allows you to create, inspect, update, and delete Kubernetes objects.
 

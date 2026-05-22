@@ -1,4 +1,7 @@
-# Text Encoding & Binary Numbers
+---
+title: "Text Encoding & Binary Numbers"
+description: "ASCII encoding and binary number systems — converting text to numbers, base-10 to base-2, and encoding/decoding messages using ASCII and binary."
+---
 
 ## Overview
 In this lesson, students will learn about ASCII encoding of text. Students will also look at how binary numbers can be used to store and transmit data on computer systems.

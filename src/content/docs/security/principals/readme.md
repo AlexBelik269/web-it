@@ -1,4 +1,7 @@
-# General Security Principles
+---
+title: "General Security Principles"
+description: "Index of general security principle topics — passwords, email security, protection software, social engineering, and cyber warfare."
+---
 
 1. [Passwords](passwords.md)
 1. [E-Mail](email.md)

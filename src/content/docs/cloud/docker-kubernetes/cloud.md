@@ -1,4 +1,7 @@
-# Cloud Computing Basics
+---
+title: "Cloud Computing Basics"
+description: "Interview-style Q&A covering cloud computing concepts — delivery models (IaaS, PaaS, SaaS), key features, deployment types, and cloud service provider roles."
+---
 
 ## Q. ***What is a Cloud Technology?***
 

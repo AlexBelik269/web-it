@@ -1,4 +1,7 @@
-# Kubernetes Workshop
+---
+title: "Kubernetes Workshop"
+description: "Hands-on Kubernetes workshop covering architecture, pods, nodes, services, deployments, ReplicaSets, namespaces, volumes, secrets, and deploying a Node.js app."
+---
 
 1. [Kubernetes Architecture](#1-Kubernetes-architecture)
 1. [Kubernetes Installation and Dashboard Setup](#2-kubernetes-installation-and-dashboard-setup)

@@ -1,4 +1,7 @@
-# Setup Site on Cloud 9
+---
+title: "Setup Site on Cloud9"
+description: "Creating a web development workspace in Cloud9 — uploading a local site to a cloud-hosted server for development and testing."
+---
 ## Overview
 We will be creating a new workspace in Cloud 9 for HTML development. This will allow us to create pages that can be shown to others and we have the benefit of a full server.
 

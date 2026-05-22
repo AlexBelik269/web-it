@@ -1,4 +1,7 @@
-# General Concepts
+---
+title: "General Security Concepts"
+description: "Overview of foundational cybersecurity concepts and recurring themes that apply across all areas of security study."
+---
 
 ## Overview
 There are major themes that will re-occur as we go through the course. You should be aware of how these concepts pertain to different aspects of security.

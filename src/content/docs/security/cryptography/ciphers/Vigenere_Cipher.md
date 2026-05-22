@@ -1,4 +1,7 @@
-# The Vigenère cipher
+---
+title: "Vigenère Cipher"
+description: "Polyalphabetic encryption using a repeating keyword to shift each letter differently — harder to crack than simple shift ciphers, with frequency analysis resistance."
+---
 
 ## Overview
 The Vigenère cipher is similar to the Caesar cipher but the key shifts between each letter.  This makes frequency analysis more difficult since the same letter in plaintext could be different letters in the cipher text.

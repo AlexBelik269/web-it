@@ -1,4 +1,7 @@
-# Substitution Cipher
+---
+title: "Substitution Cipher"
+description: "Encrypting and decrypting messages by substituting each letter with another — more secure than shift ciphers, with analysis of the mathematical key space advantage."
+---
 
 ## Overview
 Students will use a substitution cipher to encrypt a message and then to decrypt a message. In a substitution cipher each letter of the alphabet is swapped with a different letter.

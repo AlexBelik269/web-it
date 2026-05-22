@@ -1,4 +1,7 @@
-# Enigma Cipher
+---
+title: "Enigma Cipher"
+description: "The German Enigma machine — how rotor-based mechanical encryption works, historical context, and the codebreakers who cracked it."
+---
 
 ## Overview
 Students will make a papercraft version of the German Enigma machine to better understand how the encryption worked.  Students will also look at the historical significance of Enigma and the people who worked to break the code.

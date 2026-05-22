@@ -1,4 +1,7 @@
-# Physical Ciphers
+---
+title: "Physical Ciphers"
+description: "Physical object-based encryption methods — encoding and decoding messages using a scytale and the rail fence cipher."
+---
 
 ## Overview
 Create encryption/decryption schemes that are based on physical items.

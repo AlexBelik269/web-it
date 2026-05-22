@@ -1,4 +1,7 @@
-# Salt and Hashing
+---
+title: "Salt & Hashing"
+description: "How password salting and hashing protect stored credentials — salt prevents rainbow table attacks, and hash outputs validate passwords without revealing plaintext."
+---
 ## Overview
 Passwords are stored on servers and computers to validate users.  These passwords should not be stored as plaintext so anyone can read them.  To obscure the passwords, salt is added to make the passwords unreadable.  Students will explore how salt can turn a password into a garbled message once hashed.
 

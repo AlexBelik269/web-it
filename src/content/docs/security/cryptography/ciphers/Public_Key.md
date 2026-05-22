@@ -1,4 +1,7 @@
-# Public Key Cryptography
+---
+title: "Public Key Cryptography"
+description: "Asymmetric encryption and public key cryptography — how public/private key pairs enable secure communication without a shared secret."
+---
 
 ## Overview
 Students will learn about and practice public key encryption. Focus on asymmetric algorithms where the process is not the same in both directions.
