@@ -2,14 +2,21 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
+	markdown: {
+		remarkPlugins: [remarkMath],
+		rehypePlugins: [rehypeKatex],
+	},
 	base: '/it',
 	integrations: [
 		mermaid({ theme: 'neutral', autoTheme: true }),
 		starlight({
 			title: 'IT Knowledge Base',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/AlexBelik269/web-it' }],
+			customCss: ['katex/dist/katex.min.css'],
 			components: {
 				Sidebar: './src/components/Sidebar.astro',
 			},
@@ -137,6 +144,7 @@ export default defineConfig({
 								{ label: 'SW02: Awareness', slug: 'security/isf/sw02_awareness' },
 								{ label: 'SW03: Intercepten', slug: 'security/isf/sw03_intercepten' },
 								{ label: 'SW05: Grundlagen der Kryptologie', slug: 'security/isf/sw05_grundlagen_kryptologie' },
+								{ label: 'SW06: Asymmetrische Kryptologie', slug: 'security/isf/sw06_asymmetrische_kryptologie' },
 
 							],
 						},
