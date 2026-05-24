@@ -1,0 +1,201 @@
+---
+title: "Ethics & Security Law"
+description: "The ethical principles that guide security research and practice, the legal frameworks that govern computer access, and how responsible disclosure bridges the gap between finding and fixing vulnerabilities."
+---
+
+Security is one of the few technical disciplines where the same skills used to protect systems are used to attack them. This creates fundamental ethical questions: When is it acceptable to probe a system? Who owns a discovered vulnerability? What obligations does a researcher have to vendors and the public? And what laws govern these activities?
+
+## Ethics in Security
+
+### The Security Professional's Dilemma
+
+Security professionals regularly need to think like attackers — to find vulnerabilities before attackers do. This requires:
+- Knowledge of attack tools and techniques
+- Understanding of how systems fail
+- Willingness to probe and test
+
+The same knowledge that makes someone an effective defender makes them capable of causing harm. Ethics provides the framework for using that knowledge appropriately.
+
+### Core Ethical Principles
+
+**Do no harm:** Security research and testing should not damage systems, expose data, disrupt services, or harm individuals. If a test would cause harm, it requires careful scoping, written authorization, and safeguards.
+
+**Authorization:** Testing systems without explicit permission is illegal in most jurisdictions regardless of intent. "I was just trying to help" is not a defense. Written scope, time windows, and authorization from the system owner are required.
+
+**Proportionality:** The methods used should be proportionate to the objective. A port scan is very different from attempting to exploit a vulnerability in a production system.
+
+**Confidentiality:** Vulnerabilities discovered should be handled carefully — not disclosed publicly until the vendor has had reasonable time to patch.
+
+**Minimize exposure:** When testing, collect only what is necessary. Avoid accessing or retaining personal data.
+
+**Transparency:** Accurate reporting of findings, methodology, and limitations. Security assessments should not overstate or understate findings.
+
+### The Black Hat / White Hat Distinction
+
+These terms come from old Western films (villains wear black hats; heroes wear white):
+
+| Category | Authorization | Intention | Legal status |
+|----------|--------------|-----------|-------------|
+| **White hat** | Full authorization from system owner | Defensive — finding and fixing vulnerabilities | Legal |
+| **Grey hat** | None, or ambiguous | Finding vulnerabilities, may disclose or notify | Often illegal regardless of intent |
+| **Black hat** | None | Malicious — exploitation for personal gain, disruption | Illegal |
+
+Grey hat is particularly interesting ethically: a researcher who discovers and reports a vulnerability without authorization may have broken the law even though their intent was beneficial. The Computer Fraud and Abuse Act (CFAA) in the US does not have a "good faith" exception (though proposed amendments have sought to add one).
+
+### Hacker Ethics
+
+The original hacker ethic (as articulated in Steven Levy's 1984 book "Hackers: Heroes of the Computer Revolution") centered on:
+- Information wants to be free — knowledge and access to systems should be open
+- Computers can improve the world
+- Decentralization is good; bureaucracy is bad
+- You can create art and beauty on a computer
+
+This ethos emphasized curiosity, openness, and learning — not malicious intent. The conflation of "hacker" with "criminal" came later. Many security researchers prefer the term **hacker** in its original sense and distinguish between **crackers** (those who break security maliciously).
+
+---
+
+## Responsible Disclosure
+
+**Responsible disclosure** (also called **coordinated vulnerability disclosure**) is the practice of notifying a vendor about a discovered vulnerability privately, giving them reasonable time to develop and release a patch, and then disclosing publicly.
+
+### The Disclosure Spectrum
+
+```
+Full immediate       Coordinated         Limited disclosure    No disclosure
+disclosure    ←————————————————————————————————————→  indefinitely
+
+Risk: Attackers      Balanced: gives      Only share with      Vulnerability
+exploit before       vendor time while    trusted parties      never gets fixed;
+patch exists         ensuring eventual    (government, etc.)   eventually found
+                     accountability                            by attackers
+```
+
+### The Disclosure Timeline (Standard Practice)
+
+1. **Researcher discovers vulnerability**
+2. **Researcher notifies vendor** privately, with technical details
+3. **Vendor acknowledges** (ideally within 48 hours)
+4. **Vendor develops and tests patch** — standard window: 90 days
+5. **Patch released to the public**
+6. **Researcher discloses publicly** (proof-of-concept, writeup) — typically after patch has been deployed for a few days to give users time to update
+
+**CVE (Common Vulnerabilities and Exposures):** A standardized identifier for vulnerabilities. The researcher or vendor can request a CVE number from MITRE; this creates a public record of the vulnerability once disclosed.
+
+**Bug bounty programs:** Many organizations formally invite security researchers to find and report vulnerabilities in exchange for payment. Programs are run on platforms like HackerOne, Bugcrowd, and Intigriti, or in-house. They provide legal clarity (authorization) and financial incentive aligned with responsible disclosure.
+
+### When Disclosure Goes Wrong
+
+**Premature disclosure:** Publishing exploit details before a patch is available gives attackers a weapon while defenders are still exposed. This is generally considered unethical.
+
+**No response from vendor:** If a vendor doesn't respond or refuses to patch, the researcher faces a difficult choice. Standard practice: escalate through legal counsel or a coordination body (CERT/CC, NCSC), set a deadline (often 90 days total), then disclose publicly. The threat of public disclosure is often what motivates unresponsive vendors.
+
+**Weaponization:** Some researchers sell vulnerabilities to brokers (Zerodium, Crowdfence) rather than disclosing to vendors. Zero-day brokers sell to government intelligence agencies, law enforcement, and others. This practice is legal but ethically contested — it keeps vulnerabilities unpatched and in the hands of well-resourced actors.
+
+**Google Project Zero:** Google's elite vulnerability research team publishes vulnerabilities after 90 days regardless of vendor patch status. This strict policy is controversial but has been credited with pressuring vendors to patch faster.
+
+---
+
+## Computer Crime Law
+
+### Computer Fraud and Abuse Act (CFAA) — United States
+
+The CFAA (1986, amended multiple times) is the primary US federal law governing computer crime. Key provisions:
+
+- **Unauthorized access:** Accessing a computer "without authorization" or "exceeding authorized access" is criminal
+- **Intentional damage:** Intentionally causing damage to a protected computer
+- **Trafficking in passwords:** Distributing credentials that can be used for unauthorized access
+- **Extortion:** Threatening to damage a computer to extort something of value
+
+**Penalties:** Range from fines to up to 20 years imprisonment for serious offenses.
+
+**Problems with the CFAA:**
+- **"Without authorization" is undefined.** Courts have interpreted this broadly — violating a website's Terms of Service has been prosecuted under CFAA.
+- **Chilling effect:** Researchers avoid testing anything without explicit written authorization because the law is vague.
+- **Aaron Swartz:** The iconic case — Swartz was prosecuted under CFAA for bulk downloading JSTOR academic articles via MIT's network. He faced 35 years in prison. He died by suicide in 2013. The case became a symbol of prosecutorial overreach.
+- **Security research reform efforts:** The 2022 DOJ policy update stated that good-faith security research would not be prosecuted under CFAA — but this is policy, not law.
+
+### Computer Misuse Act (CMA) — United Kingdom
+
+The CMA (1990) is the UK equivalent, covering:
+- Unauthorized access to computer material (up to 2 years)
+- Unauthorized access with intent to commit further offenses (up to 5 years)
+- Unauthorized modification of computer material (up to 10 years)
+- Making, supplying, or obtaining articles for use in computer misuse (up to 2 years)
+
+**Section 3ZA (added 2015):** Unauthorized acts causing serious damage to national security, economy, environment, or human welfare — up to life imprisonment.
+
+### EU Cybercrime Directive (2013)
+
+Establishes minimum standards for cybercrime laws across EU member states:
+- Attacks against information systems (unauthorized access, interference)
+- Illegal interception
+- Tools used for cybercrime
+- Minimum penalties for serious offenses
+
+### Budapest Convention on Cybercrime
+
+The first international treaty on cybercrime (2001), with 66 state parties. Provides a framework for:
+- Substantive cybercrime law harmonization
+- International cooperation (evidence sharing, extradition)
+- 24/7 point of contact for urgent requests
+
+---
+
+## Privacy Rights and Security
+
+Privacy and security are closely linked — security is often a prerequisite for privacy protection.
+
+### Key Privacy Principles
+
+**Data minimization:** Collect only what is necessary for the stated purpose. Less data collected = less data to protect = less data to lose in a breach.
+
+**Purpose limitation:** Data collected for one purpose should not be used for another without consent. Captured email addresses for a newsletter should not be used for targeted advertising.
+
+**Individual rights:** Most modern privacy laws (GDPR, CCPA) grant individuals rights over their personal data: access, correction, deletion, portability.
+
+**Security as a requirement:** GDPR Article 32 explicitly requires "appropriate technical and organisational measures" to protect personal data. A data breach is a potential GDPR violation — not just a business incident.
+
+### Privacy by Design
+
+Privacy by Design (PbD) — developed by Ann Cavoukian — means incorporating privacy protections into system architecture from the start, rather than adding them afterward:
+
+1. **Proactive, not reactive:** Anticipate privacy risks before they occur
+2. **Privacy as the default:** Systems should default to the most privacy-protective settings
+3. **Privacy embedded into design:** Not bolted on as an add-on
+4. **Full functionality:** Privacy and security are not zero-sum
+5. **End-to-end security:** Protect data through its entire lifecycle
+6. **Visibility and transparency:** Systems and policies should be transparent to users
+7. **Respect for user privacy:** Keep it user-centric
+
+---
+
+## Security Research Ethics in Practice
+
+### Penetration Testing Authorization
+
+Before any penetration test:
+1. **Written authorization (Rules of Engagement / Statement of Work)** — scope, IP ranges, excluded systems, time windows, emergency contacts
+2. **Get it signed:** Verbal authorization is not sufficient if questioned by law enforcement
+3. **Understand the scope:** Test only what is authorized
+4. **Stop if you find something critical:** Notify the client immediately rather than continuing to a conclusion
+
+**Scope creep** — accidentally testing out-of-scope systems — is a real risk. An IP address that looks like a test target might be a third party's system sharing a network range. Always verify scope before testing.
+
+### Bug Bounty Participation
+
+When participating in a bug bounty program:
+- Read the program's scope document carefully — what is in scope, what is excluded (often production databases, user accounts)
+- Do not access or retain personal data you encounter
+- Do not perform DoS testing unless explicitly authorized
+- Report promptly — don't sit on findings
+- Respect disclosure timelines specified by the program
+
+### Handling Discovered Data
+
+If security testing uncovers sensitive data (personal records, credentials, confidential information):
+- Do not copy it beyond what is necessary to demonstrate the vulnerability
+- Delete it after reporting
+- Do not disclose it to anyone other than the client/vendor
+- Consider notifying affected users if the client refuses to act
+
+This is both an ethical obligation and, in many jurisdictions, a legal one under data breach notification laws.

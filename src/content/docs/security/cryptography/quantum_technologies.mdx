@@ -1,0 +1,501 @@
+---
+title: "Quantum Technologies"
+description: "Based on lectures by Prof. Dr. Esther Hänggi and Iyán Méndez Veiga — HSLU Applied Cyber Security Research Lab"
+---
+
+### Table of Contents
+
+1. [What Are Quantum Technologies?](#quantum-technologies)
+2. [Key Quantum Phenomena](#quantum-phenomena)
+3. [Quantum Computing](#quantum-computing)
+4. [The Quantum Threat to Security](#quantum-threat)
+5. [Impact on Cryptography](#impact-on-cryptography)
+6. [Post-Quantum Cryptography (PQC)](#post-quantum-cryptography)
+7. [Quantum Cryptography](#quantum-cryptography)
+8. [When Should You Act?](#when-to-act)
+9. [Key Takeaways](#key-takeaways)
+
+---
+
+## 1. What Are Quantum Technologies?
+
+Quantum technologies are not new — they have been part of everyday life for decades. The **first quantum revolution** emerged in the 1920s when quantum mechanics was developed to explain phenomena that classical physics simply could not account for (e.g., black-body radiation, the photoelectric effect).
+
+### First Quantum Revolution — Technologies We Already Use
+
+These technologies passively exploit quantum mechanical properties of materials without directly controlling individual quantum systems:
+
+| Technology | Quantum Basis |
+|---|---|
+| Semiconductors & transistors | Quantum band theory |
+| Lasers | Stimulated emission of photons |
+| MRI scanners | Nuclear magnetic resonance |
+| Optical fibers | Quantum optics |
+| Atomic clocks | Quantum energy level transitions |
+| Solar panels | Photoelectric effect |
+
+> **Example:** A second is now defined by the frequency of light emitted by a Caesium-133 atom transitioning between two energy levels — accurate to **1 second in 1.4 million years**.
+
+### Second Quantum Revolution — Active Engineering
+
+The ongoing **second quantum revolution** goes further: it aims to actively manipulate and exploit **individual quantum systems** (single atoms, single photons). This unlocks three major technology families:
+
+- **Quantum Computing** — solving specific problems exponentially faster
+- **Quantum Sensing & Metrology** — ultra-precise measurements
+- **Quantum Communication** — provably secure key exchange
+
+---
+
+## 2. Key Quantum Phenomena
+
+Two quantum phenomena are central to understanding quantum computing and cryptography:
+
+### Superposition
+
+A quantum system (e.g., a qubit) can exist in **multiple states simultaneously** until it is measured. The act of measurement forces it to "collapse" into one definite state.
+
+The classic thought experiment is **Schrödinger's Cat** — a cat in a box that is simultaneously alive and dead until observed.
+
+In practice: a **qubit** can be in a superposition of `|0⟩` and `|1⟩`, unlike a classical bit which is strictly 0 or 1.
+
+### Entanglement
+
+Two or more quantum particles can become **entangled** — their quantum states are correlated regardless of the distance between them. Measuring one particle instantly determines the state of its entangled partner.
+
+This is not faster-than-light communication, but it is a powerful resource for quantum cryptography and quantum computing.
+
+### Why These Matter for Computing
+
+- **Superposition** allows quantum computers to process many possible inputs simultaneously
+- **Entanglement** enables correlations between qubits that have no classical equivalent
+- Together, they allow certain algorithms to reach the answer in **far fewer steps** than any classical algorithm
+
+---
+
+## 3. Quantum Computing
+
+### From Bits to Qubits
+
+| Property | Classical Bit | Qubit |
+|---|---|---|
+| States | 0 or 1 | `|0⟩`, `|1⟩`, or any superposition |
+| Measurement | Reads exact value | Collapses superposition probabilistically |
+| Multi-bit state | 2ⁿ states (one at a time) | 2ⁿ amplitudes (simultaneously) |
+| Entanglement | Not possible | Possible |
+
+### Physical Implementations
+
+Building qubits is hard — they must be isolated from the environment (to stay quantum) while still being controllable. Current approaches include:
+
+- **Superconducting qubits** — IBM, Google (require cooling to ~15 millikelvin, colder than outer space)
+- **Trapped ion qubits** — Quantinuum, IonQ (very accurate but slow)
+- **Photonic qubits** — PsiQuantum
+- **Topological qubits** — Microsoft (Majorana-based, still early stage)
+
+### Current State: NISQ Era
+
+Today's quantum computers are called **NISQ** — *Noisy Intermediate-Scale Quantum*. Key facts:
+
+- IBM's publicly available systems have **hundreds of noisy physical qubits**
+- You can try quantum computing today for free via [IBM Quantum Platform](https://quantum.cloud.ibm.com/)
+- Google demonstrated in December 2024 that **surface codes** can produce "better" logical qubits (error correction below threshold)
+- The next major milestone is a **fault-tolerant qubit** with gate error rates ~10⁻⁶
+
+### What Can Quantum Computers Actually Do Better?
+
+Quantum computers are **not general-purpose speed-ups**. They only outperform classical computers for specific problems:
+
+| Problem Type | Quantum Algorithm | Speedup | Relevance |
+|---|---|---|---|
+| Integer factorization | Shor's (1994) | **Exponential** | Breaks RSA, DH, ECC |
+| Discrete logarithm | Shor's (1994) | **Exponential** | Breaks DH, ECDH |
+| Unstructured search | Grover's (1996) | Quadratic (√N) | Weakens symmetric crypto |
+| Quantum simulation | Various | Exponential | Drug discovery, materials |
+| Linear systems | HHL algorithm | Exponential* | Finance, ML |
+
+> *Note: Many claimed quantum speedups have been "ewinized" (classically matched) — finding genuinely useful quantum algorithms is harder than it looks.
+
+Quantum computers will **complement** classical computers as an acceleration platform (similar to how GPUs complement CPUs), not replace them.
+
+---
+
+## 4. The Quantum Threat to Security
+
+This is the critical section for IT and security professionals.
+
+### The Core Problem
+
+Modern **public-key cryptography** derives its security from the computational hardness of mathematical problems:
+
+- **RSA** → security relies on the hardness of **integer factorization**
+- **Diffie-Hellman (DH)** → security relies on the hardness of the **discrete logarithm problem**
+- **Elliptic Curve (ECDH, ECDSA)** → security relies on the **elliptic curve discrete logarithm problem**
+
+**Shor's algorithm solves both factorization and discrete logarithm problems in polynomial time** on a sufficiently large quantum computer.
+
+This means a cryptographically relevant quantum computer could:
+
+- **Break encrypted communications** (confidentiality) — decrypt TLS sessions, VPNs, email
+- **Forge digital signatures** (integrity/authentication) — impersonate websites, software publishers, users
+- **Compromise PKI** — forge certificates, undermine the entire certificate authority chain
+
+### What Is NOT Broken by Quantum Computers
+
+| Cryptographic Primitive | Quantum Impact | Reason |
+|---|---|---|
+| AES-128 encryption | **Weakened** (→ use AES-256) | Grover halves key space effectively |
+| AES-256 encryption | **Safe** | 128-bit security remains after Grover |
+| SHA-256 / SHA-3 hashing | **Mostly safe** | Grover has limited practical impact |
+| One-time pad | **Safe** | Information-theoretically secure |
+| RSA (any key size) | **Broken** | Shor's algorithm |
+| Diffie-Hellman | **Broken** | Shor's algorithm |
+| ECDH / ECDSA | **Broken** | Shor's algorithm |
+
+### The "Harvest Now, Decrypt Later" Attack
+
+This is the **most urgent threat today**, even before any large quantum computer exists:
+
+```
+Attacker captures encrypted traffic NOW (2025)
+         ↓
+Stores it in cold storage
+         ↓
+Waits until quantum computer is available (202X)
+         ↓
+Decrypts all historical traffic retrospectively
+```
+
+**Any data that must remain confidential for 10+ years is already at risk.** This includes:
+
+- Classified government communications
+- Healthcare records
+- Financial transaction histories
+- Intellectual property
+- Long-term contracts and legal documents
+
+### Mosca's Theorem
+
+The framework for deciding **when you need to act** is Mosca's Theorem:
+
+```
+If:
+  (migration time to quantum-safe crypto) 
+  + (required data confidentiality period) 
+  > (time until cryptographically relevant quantum computer)
+
+Then: You have a problem.
+```
+
+Concrete examples of how "relevant time" varies:
+
+| Use Case | Data Confidentiality Period | Urgency |
+|---|---|---|
+| Quick chat message | Hours | Low |
+| E-banking session authentication | Days | Low-Medium |
+| Medical records | 30+ years | **High** |
+| Mortgage signature | 25+ years | **High** |
+| Government secrets | 50+ years | **Critical** |
+| Industrial control systems | Lifetime of hardware | **Critical** |
+
+### Timeline Uncertainty
+
+No one knows exactly when a cryptographically relevant quantum computer will exist. Estimates vary widely:
+
+- Breaking RSA-2048 requires approximately **20 million physical qubits** (per 2021 estimates)
+- Improvements in quantum error correction have reduced this estimate by **20× in recent years**
+- Current best machines: ~1,000 noisy physical qubits
+- The gap is still enormous — but it is closing
+
+**The uncertainty itself is the reason to act now.**
+
+---
+
+## 5. Impact on Cryptography
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    IMPACT OF QUANTUM COMPUTERS                  │
+├──────────────────────────────┬──────────────────────────────────┤
+│   SYMMETRIC CRYPTOGRAPHY     │    PUBLIC-KEY CRYPTOGRAPHY       │
+│   (requires shared key)      │    (asymmetric)                  │
+├──────────────────────────────┼──────────────────────────────────┤
+│ ✅ One-time pad              │ ❌ RSA (encryption/signatures)  │
+│    SAFE (info-theoretic)     │ ❌ Diffie-Hellman (key exchange) │
+│                              │ ❌ ECDH (key exchange)           │
+│ ⚠️  AES-128                  │ ❌ ECDSA (signatures)           │
+│    WEAKENED → use AES-256    │ ❌ DSA (signatures)              │
+│                              │                                  │
+│ ⚠️  SHA-256 / SHA-3          │    All BROKEN by Shor's          │
+│    WEAKENED but still usable │    algorithm                     │
+│                              │                                  │
+│ ✅ AES-256                   │                                  │
+│    SAFE (with doubled keys)  │                                  │
+└──────────────────────────────┴──────────────────────────────────┘
+```
+
+---
+
+## 6. Post-Quantum Cryptography (PQC)
+
+Post-quantum cryptography is **classical (software-based) cryptography** designed to resist attacks from both classical and quantum computers. It replaces vulnerable public-key algorithms with new ones based on different hard mathematical problems.
+
+### NIST Standardization Process
+
+NIST launched a global competition in 2016 to standardize quantum-resistant algorithms. The process involved hundreds of submissions and multiple rounds of analysis.
+
+**Finalized Standards (2024):**
+
+| Standard | Algorithm | Type | Mathematical Basis |
+|---|---|---|---|
+| FIPS 203 | **ML-KEM** (Kyber) | Key Encapsulation | Module Learning With Errors (MLWE) |
+| FIPS 204 | **ML-DSA** (Dilithium) | Digital Signature | Module Learning With Errors |
+| FIPS 205 | **SLH-DSA** (SPHINCS+) | Digital Signature | Hash functions only |
+
+**Coming Soon:**
+- FIPS 206: **FN-DSA** (FALCON) — lattice-based signatures, very compact
+- FIPS ???: Based on **HQC** — code-based key encapsulation (backup for ML-KEM)
+
+### Why Multiple Algorithms?
+
+Diversity is intentional — if one mathematical assumption is broken (e.g., a new algorithm for lattice problems), alternatives remain secure.
+
+### PQC vs. Classical Crypto — Performance Comparison
+
+| Algorithm | Public Key | Signature | Sign Speed | Verify Speed |
+|---|---|---|---|---|
+| Ed25519 (classical) | 44 B | 64 B | 269 µs | 805 µs |
+| RSA-2048 (classical) | 272 B | 256 B | 803 µs | 0.4 µs |
+| **ML-DSA-65 (PQC)** | 1,952 B | 3,309 B | 97 µs | 46 µs |
+| SLH-DSA-128s (PQC) | 32 B | 7,856 B | 14,000 µs | 40 µs |
+| FN-DSA-512 (PQC) | 897 B | 666 B | 3 µs | 0.7 µs |
+
+**Key takeaway:** PQC signatures are significantly larger, which matters for TLS certificates, code signing, and PKI infrastructure.
+
+### Migration Is Happening NOW
+
+The PQC migration is not waiting for quantum computers — it is already underway:
+
+- **~56% of HTTPS traffic** is already protected with quantum-safe key exchange (hybrid ML-KEM + X25519), as of late 2025 (Cloudflare data)
+- **Firefox, Chrome** support hybrid PQC key exchange
+- **Signal** deployed post-quantum ratchets (PQXDH)
+- **OpenSSH 9.0+** supports ML-KEM by default (`mlkem768x25519-sha256`)
+- **OpenSSL 3.5** includes native PQC support (ML-KEM, ML-DSA, SLH-DSA)
+- **AWS, Google, Zoom** have rolled out PQC key encapsulation
+
+### The Two Migrations
+
+**Migration 1 — Key Exchange (mostly done):**
+- Replacing ECDH/DH with ML-KEM
+- Relatively easy: drop-in replacement, performance overhead acceptable
+- Already deployed across most major internet infrastructure
+
+**Migration 2 — Digital Signatures (harder, ~2026–2030):**
+- Replacing RSA/ECDSA in TLS certificates, code signing, PKI
+- Much harder: involves CAs, HSMs, CA/B Forum, certificate lifetime policies, legacy devices
+- ~0% of the internet uses quantum-safe authentication today
+- First PQ certificates expected during 2026
+- Default adoption of PQ certificates estimated ~2030
+
+> **For IT teams:** Start your cryptographic inventory now. Identify all uses of RSA, ECDH, and ECDSA in your systems — certificates, SSH keys, JWT signing, VPN configs, hardware security modules.
+
+---
+
+## 7. Quantum Cryptography
+
+Quantum cryptography is **fundamentally different** from post-quantum cryptography, despite the similar names. It uses the laws of physics — not mathematical hardness — to provide security.
+
+### Quantum Key Distribution (QKD)
+
+QKD allows two parties (Alice and Bob) to generate a shared secret key over an untrusted quantum channel, with **information-theoretic security** — meaning security that holds even against an adversary with unlimited computational power (including quantum computers).
+
+#### The Physical Principle
+
+QKD typically uses **photon polarization**. A photon sent through a polarizing filter will either pass through or be blocked depending on the alignment:
+
+- `0°` filter → horizontally polarized photon passes through
+- `90°` filter → horizontally polarized photon is blocked
+- `45°` filter → **50% chance** either way (the photon's state is disturbed)
+
+The key insight: **measuring a quantum state disturbs it**. An eavesdropper (Eve) cannot intercept and re-transmit photons without introducing detectable errors.
+
+#### BB84 Protocol (Step by Step)
+
+BB84 is the foundational QKD protocol, invented by Bennett and Brassard in 1984:
+
+```
+Step 1: Quantum transmission
+  Alice sends photons with random polarizations
+  encoding random bits in two bases (+ or ×)
+
+Step 2: Measurement  
+  Bob measures each photon using a randomly chosen basis
+  (~50% of measurements use the wrong basis → random result)
+
+Step 3: Sifting (over classical authenticated channel)
+  Alice and Bob publicly compare which bases they used
+  Bits where bases don't match → discarded
+  Remaining bits form the "sifted key"
+
+Step 4: Parameter estimation
+  They compare a small sample of the sifted key
+  If error rate too high → Eve is present → ABORT
+  If error rate acceptable → proceed
+
+Step 5: Information reconciliation
+  Correct remaining errors using error-correcting codes
+  (some information about the key is leaked to Eve)
+
+Step 6: Privacy amplification
+  Apply a hash function to shorten the key
+  This "amplifies" security, removing Eve's partial knowledge
+  Result: shorter but perfectly secret key
+```
+
+#### What QKD Provides (and Doesn't)
+
+| Property | QKD | PQC |
+|---|---|---|
+| Security assumption | Laws of physics | Mathematical hardness |
+| Secure against quantum computers | ✅ Yes | ✅ Yes |
+| Requires quantum hardware | ✅ Yes | ❌ No (software only) |
+| Works over long distances | ❌ Limited (~300 km fiber) | ✅ Yes (internet) |
+| Key rate (speed) | Low (kbps–Mbps) | High |
+| Authentication requirement | Needs initial shared secret or PQC auth | Self-contained |
+| Cost | ~CHF 100,000 per device pair | Minimal |
+
+#### Hardware Requirements for QKD
+
+**Needed:**
+- Direct optical fiber connection (or free-space optical link/satellite)
+- Single-photon laser source
+- Beam splitter
+- Single-photon detector
+
+**NOT needed:**
+- Quantum computer
+- Quantum memory
+- Complex multi-particle interactions
+
+Commercial QKD devices are available today from companies like **ID Quantique** (Swiss), **Toshiba**, **Huawei**. A full QKD appliance pair costs approximately **CHF 100,000**.
+
+### Quantum Random Number Generators (QRNG)
+
+Classical computers cannot produce truly random numbers — only pseudo-random numbers generated by deterministic algorithms. True randomness requires a quantum source.
+
+**How QRNGs work:** Send photons through a 50/50 beam splitter. Quantum mechanics guarantees each photon has exactly 50% probability of going each way — this is provably non-deterministic, not just apparently random.
+
+**Use cases:**
+- Seeding cryptographic key generation
+- Generating one-time pads
+- Improving security of any randomness-dependent protocol
+
+Commercial QRNGs are much cheaper than QKD devices — around **CHF 1,000**, and some modern smartphones include QRNG chips (Samsung Galaxy series).
+
+### QKD in Networks
+
+Point-to-point QKD is limited to ~300 km due to photon loss in fiber. Extending range requires:
+
+- **Trusted relays** — intermediate nodes that re-key (but must be physically secured)
+- **Satellite QKD** — China's MICIUS satellite demonstrated intercontinental QKD
+- **Quantum repeaters** — theoretical devices requiring quantum memory (not yet practical)
+- **European Quantum Internet** — the European Commission and ESA are building a pan-European quantum communication infrastructure
+
+### QKD vs. PQC — Not a Competition
+
+A common misconception is that QKD and PQC compete with each other. In fact:
+
+- **QKD needs PQC** — QKD requires an authenticated classical channel, which requires digital signatures, which requires PQC (or a pre-shared secret)
+- **PQC is the foundation** — PQC migration is happening regardless of QKD
+- **QKD adds a layer** — for adversaries who don't trust any mathematical assumption, QKD provides physics-based guarantees
+- **The question is not "which one"** — it's "which combination makes sense for your threat model and budget"
+
+**Recommended transition roadmap (HSLU):**
+
+```
+Phase 1 (Now):    Deploy Quantum Random Number Generators (QRNG)
+Phase 2 (Now):    Migrate to Post-Quantum Algorithms (PQC)
+Phase 3 (Future): Deploy Quantum Key Distribution (QKD) where justified
+```
+
+---
+
+## 8. When Should You Act?
+
+### Security Level Comparison (Post-Quantum vs. Classical)
+
+| Application | Current Algorithm | Recommended Action |
+|---|---|---|
+| HTTPS/TLS key exchange | ECDH (P-256) | ✅ Migrate to ML-KEM now |
+| TLS certificates | RSA-2048 / ECDSA | ⏳ Prepare for ML-DSA (~2026) |
+| SSH keys | RSA / Ed25519 | ⏳ Evaluate hybrid schemes |
+| Code signing | RSA / ECDSA | ⏳ Plan migration |
+| VPN (IKE/IPsec) | DH / ECDH | 🔴 Assess urgency by data lifetime |
+| Long-term document signing | RSA | 🔴 High urgency |
+| Encrypted archives (long retention) | RSA key wrap | 🔴 Immediate action needed |
+
+### Regulatory Pressure
+
+Several bodies are already mandating PQC migration:
+
+- **NIST** — finalized standards; US agencies must migrate
+- **BSI (Germany)** — published PQC recommendations, timeline guidance
+- **NCSC (UK)** — migration guidance published
+- **Financial regulators** — increasing pressure on banks and payment systems
+- **Healthcare** — long data retention requirements make this urgent
+
+### Practical Steps for IT Teams
+
+1. **Cryptographic inventory** — catalog all algorithms, key sizes, certificate expiries across your infrastructure
+2. **Prioritize by data sensitivity and longevity** — what needs to stay secret for how long?
+3. **Deploy hybrid schemes** — combine classical + PQC (e.g., X25519 + ML-KEM) during transition for compatibility
+4. **Update libraries** — OpenSSL 3.5+, liboqs (Open Quantum Safe project)
+5. **Monitor standards** — NIST continues releasing new standards; stay current
+6. **Test performance** — PQC signatures are larger; assess impact on TLS handshakes, certificate chains, HSM throughput
+7. **Plan for crypto-agility** — design systems to swap algorithms without re-architecting
+
+---
+
+## 9. Key Takeaways
+
+### Quantum Computing
+
+- Quantum computers exploit superposition and entanglement to solve **specific problems** much faster
+- Current machines (NISQ era) are **not yet cryptographically threatening** — too noisy, too few qubits
+- **Shor's algorithm** will break all RSA, DH, and elliptic curve cryptography on a sufficiently large fault-tolerant quantum computer
+- Timeline is uncertain (likely 10–20 years), but "harvest now, decrypt later" attacks are happening **today**
+
+### Post-Quantum Cryptography
+
+- PQC is **classical math-based software** — no quantum hardware required
+- NIST standards exist: **ML-KEM** (key exchange), **ML-DSA** and **SLH-DSA** (signatures)
+- **~56% of internet traffic** already uses quantum-safe key exchange
+- Digital signatures migration is harder and will take until ~2030
+- **Start your cryptographic inventory and migration planning now**
+
+### Quantum Cryptography
+
+- Provides **information-theoretic security** based on physics, not math
+- **QKD** generates provably secret keys — secure even against quantum computers
+- **QRNG** generates provably true randomness
+- Requires specialized hardware and direct fiber connections
+- **QKD needs PQC** to work in practice — they are complementary, not competing
+- PQC adoption is certain; QKD adoption depends on specific high-security use cases
+
+---
+
+## Further Resources
+
+| Resource | Description |
+|---|---|
+| [NIST PQC Project](https://csrc.nist.gov/projects/post-quantum-cryptography) | Official NIST standardization |
+| [Open Quantum Safe (liboqs)](https://openquantumsafe.org/) | Open-source PQC implementations |
+| [Cloudflare PQC Radar](https://radar.cloudflare.com/adoption-and-usage#post-quantum-encryption) | Real-time PQC adoption stats |
+| [IBM Quantum Platform](https://quantum.cloud.ibm.com/) | Try quantum computers for free |
+| [Quantum Algorithm Zoo](https://quantumalgorithmzoo.org/) | Comprehensive algorithm catalog |
+| [HSLU Applied Cyber Security Lab](https://www.hslu.ch/acs) | Research group behind these lectures |
+| [PQC Crypto Lab HSLU](https://pqc.crypto-lab.ch/) | PQC benchmarks and visualizations |
+| [Sam Jaques' QC Landscape](https://sam-jaques.appspot.com/quantum_landscape) | Updated qubit requirements for breaking RSA |
+
+---
+
+*Summary compiled from HSLU ISF lectures: "Quantencomputing & Quantenkryptographie" (Prof. Dr. Esther Hänggi) and "Quantum Technologies" (Iyán Méndez Veiga), 2025.*

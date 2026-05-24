@@ -1,0 +1,365 @@
+---
+title: "HTTP Security Headers"
+description: "The complete guide to HTTP security headers — what each one does, how to configure it correctly, and how to set them across major frameworks."
+---
+
+HTTP security headers are directives sent from your server to the browser that instruct it how to behave when handling your content. They are the fastest, highest-ROI security controls available — a one-time configuration change that mitigates entire classes of attacks. Yet they are routinely missing or misconfigured.
+
+Use [securityheaders.com](https://securityheaders.com) to instantly scan any URL and see which headers are missing or misconfigured.
+
+---
+
+## Content-Security-Policy (CSP)
+
+CSP is the most powerful but most complex security header. It tells the browser which sources of content (scripts, styles, images, fonts, etc.) are legitimate — and blocks everything else. This defeats XSS attacks that inject malicious scripts from attacker-controlled origins.
+
+### Directives
+
+```
+Content-Security-Policy:
+  default-src 'self';
+  script-src  'self' 'nonce-{random}' https://cdn.example.com;
+  style-src   'self' 'nonce-{random}';
+  img-src     'self' data: https:;
+  font-src    'self' https://fonts.gstatic.com;
+  connect-src 'self' https://api.example.com;
+  frame-ancestors 'none';
+  base-uri    'self';
+  form-action 'self';
+  upgrade-insecure-requests;
+  block-all-mixed-content;
+```
+
+| Directive | What it controls |
+|-----------|----------------|
+| `default-src` | Fallback for any directive not explicitly set |
+| `script-src` | JavaScript sources — the most critical directive |
+| `style-src` | CSS sources |
+| `img-src` | Image sources (including `<img>` and CSS `url()`) |
+| `connect-src` | Fetch, XHR, WebSocket, EventSource destinations |
+| `frame-src` | `<iframe>` sources (what your page can embed) |
+| `frame-ancestors` | Who can embed your page in a frame (replaces X-Frame-Options) |
+| `base-uri` | Restricts `<base>` tag — prevents base URI injection |
+| `form-action` | Where `<form>` elements can submit |
+| `upgrade-insecure-requests` | Browser upgrades HTTP subresource requests to HTTPS |
+
+### Nonces: The Right Way to Allow Inline Scripts
+
+The `'unsafe-inline'` keyword allows all inline scripts — this defeats CSP's XSS protection. Instead, use **nonces** — per-request random values:
+
+```javascript
+// Express middleware — generate a nonce for each request
+import crypto from 'crypto';
+
+app.use((req, res, next) => {
+  res.locals.nonce = crypto.randomBytes(16).toString('base64');
+  res.setHeader('Content-Security-Policy',
+    `script-src 'self' 'nonce-${res.locals.nonce}'; object-src 'none'; base-uri 'self'`
+  );
+  next();
+});
+```
+
+```html
+<!-- Template — the nonce must be on every legitimate script tag -->
+<script nonce="<%= nonce %>">
+  // This script is allowed; an injected <script> without the nonce is blocked
+  initApp();
+</script>
+```
+
+Each request gets a fresh, unpredictable nonce. An attacker injecting a `<script>` tag cannot know the nonce, so the browser blocks it.
+
+### CSP Reporting
+
+Use `report-uri` or `report-to` to receive violation reports when the browser blocks something — invaluable during rollout:
+
+```
+Content-Security-Policy-Report-Only:
+  default-src 'self';
+  script-src 'self' 'nonce-abc123';
+  report-uri /csp-violations;
+```
+
+`Content-Security-Policy-Report-Only` enforces nothing — it only sends reports. Use this during the initial rollout phase to identify legitimate sources before switching to enforcement mode.
+
+### CSP Rollout Strategy
+
+```
+Phase 1: Deploy Report-Only with broad policy → collect violations for 1–2 weeks
+Phase 2: Tighten policy based on reports → add legitimate sources, remove 'unsafe-*'
+Phase 3: Switch to enforcement (Content-Security-Policy)
+Phase 4: Monitor violation reports for new sources or injections
+```
+
+---
+
+## Strict-Transport-Security (HSTS)
+
+HSTS tells browsers to **always connect via HTTPS**, even if the user types `http://` or follows an HTTP link. Once a browser sees this header, it automatically upgrades all requests to your domain to HTTPS for the specified duration.
+
+```
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+```
+
+| Parameter | Value | Meaning |
+|-----------|-------|---------|
+| `max-age` | `63072000` | Cache HTTPS-only policy for 2 years (recommended minimum: 1 year) |
+| `includeSubDomains` | — | Apply to all subdomains — important for cookie security |
+| `preload` | — | Opt in to browser preload lists — your domain is hardcoded as HTTPS-only |
+
+### HSTS Preload
+
+The HSTS preload list (maintained by Google, used by all major browsers) hardcodes domains as HTTPS-only, protecting even first-time visitors before they receive the header. Submit at [hstspreload.org](https://hstspreload.org).
+
+**Warning:** Preloading is a long-term commitment. Removal from the preload list takes months and many browser versions to propagate. Ensure you can maintain HTTPS permanently before submitting.
+
+### Rollout Strategy
+
+Start with a short `max-age` and no subdomains, then increase:
+
+```
+Step 1: max-age=300                          (5 minutes — test)
+Step 2: max-age=86400                        (1 day)
+Step 3: max-age=604800                       (1 week)
+Step 4: max-age=2592000; includeSubDomains   (30 days + subdomains)
+Step 5: max-age=63072000; includeSubDomains; preload  (2 years — preload eligible)
+```
+
+---
+
+## X-Content-Type-Options
+
+Prevents the browser from MIME-type sniffing — guessing a response's content type from its content rather than using the declared `Content-Type`. MIME sniffing enabled attackers to upload a file that looked like an image but was treated as JavaScript.
+
+```
+X-Content-Type-Options: nosniff
+```
+
+Only one value: `nosniff`. Always set it. No configuration needed.
+
+---
+
+## X-Frame-Options
+
+Controls whether your page can be embedded in a `<frame>`, `<iframe>`, `<embed>`, or `<object>`. Prevents **clickjacking** attacks where attackers overlay your site in a transparent frame.
+
+```
+X-Frame-Options: DENY        # Never allow framing
+X-Frame-Options: SAMEORIGIN  # Allow framing only from the same origin
+```
+
+**Note:** `X-Frame-Options` is superseded by `frame-ancestors` in CSP, which offers more granularity. Set both for broad compatibility:
+
+```
+X-Frame-Options: DENY
+Content-Security-Policy: frame-ancestors 'none';
+```
+
+---
+
+## Referrer-Policy
+
+Controls how much referrer information is sent in the `Referer` header when a user navigates from your site to another.
+
+```
+Referrer-Policy: strict-origin-when-cross-origin
+```
+
+| Policy | What gets sent |
+|--------|---------------|
+| `no-referrer` | Nothing ever |
+| `no-referrer-when-downgrade` | Full URL to HTTPS; nothing to HTTP (default if not set) |
+| `origin` | Only `https://yoursite.com`, never the path |
+| `strict-origin` | Only origin; nothing when downgrading to HTTP |
+| `strict-origin-when-cross-origin` | Full URL same-origin; only origin cross-origin; nothing to HTTP |
+| `unsafe-url` | Always full URL (leaks paths, query strings) |
+
+**Recommended:** `strict-origin-when-cross-origin` — same-origin requests keep the full URL (for analytics), cross-origin requests see only your domain, HTTP gets nothing.
+
+**Why it matters:** URLs often contain sensitive data — session tokens, personal identifiers, search terms. `Referer` headers that include these paths leak them to third-party analytics, CDNs, and external resources.
+
+---
+
+## Permissions-Policy (formerly Feature-Policy)
+
+Controls which browser features and APIs your page (and any embedded iframes) are allowed to use. Prevents malicious iframes or injected scripts from accessing camera, microphone, geolocation, etc.
+
+```
+Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+```
+
+| Feature | Example value | Effect |
+|---------|-------------|--------|
+| `camera` | `()` | Disable camera access entirely |
+| `microphone` | `(self)` | Allow only your own origin |
+| `geolocation` | `(self "https://maps.example.com")` | Allow self and a specific trusted origin |
+| `payment` | `()` | Disable Payment Request API |
+| `usb` | `()` | Disable WebUSB |
+| `fullscreen` | `(self)` | Allow fullscreen only from your origin |
+
+Disable everything you don't use. This limits the blast radius if your site is compromised or if a third-party script goes rogue.
+
+---
+
+## Cross-Origin Headers (COOP / COEP / CORP)
+
+These three headers emerged in response to **Spectre and Meltdown** — CPU vulnerabilities that allow reading memory across process boundaries. Browsers responded by restricting cross-origin resource sharing unless explicitly permitted.
+
+### Cross-Origin-Opener-Policy (COOP)
+
+Controls whether your page can share a browsing context group (and therefore process) with cross-origin pages.
+
+```
+Cross-Origin-Opener-Policy: same-origin
+```
+
+| Value | Effect |
+|-------|--------|
+| `unsafe-none` | No isolation (default) |
+| `same-origin-allow-popups` | Isolates from cross-origin openers, but popups are allowed |
+| `same-origin` | Full isolation — your page gets its own process, enabling `SharedArrayBuffer` |
+
+### Cross-Origin-Embedder-Policy (COEP)
+
+Requires all cross-origin resources to explicitly opt in to being loaded.
+
+```
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+Combined with `COOP: same-origin`, this enables **cross-origin isolation** — required for `SharedArrayBuffer` and high-precision timers (`performance.measureUserAgentSpecificMemory()`).
+
+### Cross-Origin-Resource-Policy (CORP)
+
+Set on resources (images, scripts, fonts) to specify which origins can include them.
+
+```
+Cross-Origin-Resource-Policy: same-site    # Only same-site pages can use this resource
+Cross-Origin-Resource-Policy: same-origin  # Strict — same origin only
+Cross-Origin-Resource-Policy: cross-origin # Any origin (for public CDN resources)
+```
+
+---
+
+## Cache-Control for Sensitive Pages
+
+Prevent browsers and proxies from caching sensitive pages (dashboards, account settings, authenticated content):
+
+```
+Cache-Control: no-store, no-cache, must-revalidate, private
+Pragma: no-cache    # Legacy HTTP/1.0 compatibility
+```
+
+`no-store` is the strongest directive — tells the browser not to store the response at all. Use it on pages containing personal data, financial information, or session-sensitive content.
+
+For public static assets (JS, CSS, images with content hashes), use aggressive caching:
+```
+Cache-Control: public, max-age=31536000, immutable
+```
+
+---
+
+## Setting Headers in Frameworks
+
+### Express.js (Helmet)
+
+```javascript
+import helmet from 'helmet';
+
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`],
+      styleSrc: ["'self'", "'unsafe-inline'"],  // Avoid unsafe-inline if possible
+      imgSrc: ["'self'", "data:", "https:"],
+      frameAncestors: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  hsts: {
+    maxAge: 63072000,
+    includeSubDomains: true,
+    preload: true,
+  },
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+}));
+```
+
+### Django (django-csp + SecurityMiddleware)
+
+```python
+# settings.py
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'csp.middleware.CSPMiddleware',
+    # ...
+]
+
+SECURE_HSTS_SECONDS = 63072000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+
+# django-csp
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_FRAME_ANCESTORS = ("'none'",)
+```
+
+### Spring Boot
+
+```java
+@Configuration
+public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.headers(headers -> headers
+            .contentSecurityPolicy(csp -> csp
+                .policyDirectives("default-src 'self'; script-src 'self'; frame-ancestors 'none'"))
+            .frameOptions(frame -> frame.deny())
+            .httpStrictTransportSecurity(hsts -> hsts
+                .includeSubDomains(true)
+                .maxAgeInSeconds(63072000)
+                .preload(true))
+            .referrerPolicy(referrer -> referrer
+                .policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
+            .permissionsPolicy(pp -> pp
+                .policy("camera=(), microphone=(), geolocation=()"))
+        );
+        return http.build();
+    }
+}
+```
+
+### nginx
+
+```nginx
+# In server {} or location {} block
+add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-Frame-Options "DENY" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+add_header Content-Security-Policy "default-src 'self'; script-src 'self'; frame-ancestors 'none'; upgrade-insecure-requests" always;
+```
+
+---
+
+## Quick Reference Checklist
+
+| Header | Minimum value | Priority |
+|--------|-------------|---------|
+| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains` | Critical |
+| `X-Content-Type-Options` | `nosniff` | Critical |
+| `X-Frame-Options` | `DENY` or `SAMEORIGIN` | Critical |
+| `Content-Security-Policy` | Start with Report-Only; aim for nonce-based | High |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` | High |
+| `Permissions-Policy` | Disable unused features | Medium |
+| `Cross-Origin-Opener-Policy` | `same-origin` if using SharedArrayBuffer | Medium |
+| `Cache-Control` | `no-store` on authenticated/sensitive pages | High |
+
+Missing any of these on a public web app will result in an **F grade** on securityheaders.com. All of them together takes under an hour to configure and dramatically reduces your attack surface.

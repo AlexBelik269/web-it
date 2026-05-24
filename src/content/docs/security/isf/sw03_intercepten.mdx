@@ -1,0 +1,362 @@
+---
+title: "ISF – SW03: Kryptografie, Digitale Signaturen & PKI"
+description: "Informationssicherheit – Grundlagen"
+---
+> **Vorlesung: Zusätzliche Infos – Intercepten | ISF, HSLU Informatik**  
+> Autor: Joshua Drexel
+
+> **Disclaimer:** Diese Folien sind nicht direkt prüfungsrelevant – gewisse Inhalte sind jedoch Teil anderer Vorlesungen, die prüfungsrelevant sind.
+
+---
+
+## Überblick: Was ist Kryptologie?
+
+Kryptologie ist die Wissenschaft, die sich mit der **sicheren Kommunikation** und dem **Schutz von Informationen** befasst. Sie teilt sich in zwei Bereiche:
+
+```mermaid
+graph TD
+    KL[🔬 Kryptologie] --> KG[🔒 Kryptografie]
+    KL --> KA[🔓 Kryptoanalyse]
+
+    KG --> KG1["Verschlüsselung von Informationen\n(Schutz vor unberechtigtem Zugriff)"]
+    KA --> KA1["Informationsgewinn aus verschlüsselten\nInformationen (Brechen von Chiffren)"]
+
+    style KL fill:#003366,color:#fff
+    style KG fill:#27ae60,color:#fff
+    style KA fill:#e74c3c,color:#fff
+```
+
+**Kryptografie** ist dabei die «offensive» Seite – sie entwickelt Methoden, um Informationen zu schützen. **Kryptoanalyse** ist die «analytische» Seite – sie versucht, diese Schutzmechanismen zu überwinden. Beide Disziplinen bedingen einander: Ohne Kryptoanalyse wüsste man nicht, ob eine Verschlüsselung wirklich sicher ist.
+
+---
+
+## Symmetrische vs. Asymmetrische Kryptografie
+
+Innerhalb der Kryptografie gibt es zwei grundlegend verschiedene Ansätze:
+
+```mermaid
+graph TD
+    KG[🔒 Kryptografie] --> SK[Symmetrische Kryptografie]
+    KG --> AK[Asymmetrische Kryptografie]
+
+    SK --> SK1["Derselbe Schlüssel für\nVer- UND Entschlüsselung"]
+    AK --> AK1["Unterschiedliche Schlüssel für\nVer- und Entschlüsselung"]
+
+    SK1 --> SKB["✅ Schnell\n❌ Schlüsselverteilungsproblem"]
+    AK1 --> AKB["✅ Kein Schlüsselverteilungsproblem\n❌ Langsamer"]
+
+    style SK fill:#2980b9,color:#fff
+    style AK fill:#8e44ad,color:#fff
+```
+
+**Warum zwei verschiedene Ansätze?**  
+Die symmetrische Kryptografie hat ein fundamentales Problem: Wenn Alice und Bob denselben Schlüssel verwenden, müssen sie diesen zuerst sicher austauschen – aber wie, wenn noch kein sicherer Kanal existiert? Dieses «Henne-Ei-Problem» löst die asymmetrische Kryptografie elegantly.
+
+### Analogie: Das Vorhängeschloss
+
+Stell dir vor, Bob möchte Alice eine sichere Box schicken:
+
+- **Symmetrisch:** Beide haben denselben Schlüssel – aber wie kommt Alice an den Schlüssel, ohne dass ihn jemand abfängt?
+- **Asymmetrisch:** Bob schickt Alice ein **offenes Schloss** (= öffentlicher Schlüssel). Alice legt ihre Nachricht in die Box und schliesst sie mit Bobs Schloss. Nur Bob kann sie mit seinem **privaten Schlüssel** öffnen.
+
+---
+
+## Asymmetrische Kryptografie (Public-Key-Kryptografie)
+
+### Das Schlüsselpaar
+
+Bei der asymmetrischen Kryptografie hat jede Partei ein **Schlüsselpaar** bestehend aus:
+
+| Schlüssel | Bezeichnung | Verwendung | Verteilung |
+|---|---|---|---|
+| **Privater Schlüssel** | secret key (sk) / private key | Entschlüsselung | Geheim halten! |
+| **Öffentlicher Schlüssel** | public key (pk) | Verschlüsselung | Öffentlich zugänglich |
+
+**Grundregel:**
+- Zum **Verschlüsseln** verwendet man den **öffentlichen Schlüssel** des Empfängers
+- Zum **Entschlüsseln** verwendet man den **eigenen privaten Schlüssel**
+
+### Ablauf eines verschlüsselten Nachrichtenaustauschs
+
+```mermaid
+sequenceDiagram
+    participant A as Alice
+    participant N as 🌐 Netzwerk (unsicher)
+    participant B as Bob
+
+    B->>A: Sendet öffentlichen Schlüssel pkBob (vorab)
+    Note over A: Verschlüsselt Nachricht m mit pkBob
+    Note over A: c = E(m, pkBob)
+    A->>N: Sendet Chiffretext c
+    N->>B: Chiffretext c empfangen
+    Note over B: Entschlüsselt mit eigenem privaten Schlüssel skBob
+    Note over B: m = D(c, skBob)
+    Note over B: Klartext m lesbar ✅
+```
+
+**Was passiert, wenn jemand den Chiffretext c abfängt?**  
+Ohne Bobs privaten Schlüssel ist der Chiffretext wertlos – selbst der öffentliche Schlüssel, der zur Verschlüsselung verwendet wurde, kann die Nachricht nicht entschlüsseln. Das ist der mathematische Kern der asymmetrischen Kryptografie.
+
+**Wichtiger Schritt:** Bob muss seinen öffentlichen Schlüssel **vorab** an Alice senden. Aber hier entsteht ein neues Problem: Woher weiss Alice, dass der empfangene öffentliche Schlüssel wirklich von Bob stammt und nicht von einem Angreifer? → Lösung: **Digitale Zertifikate** (siehe unten).
+
+---
+
+## Digitale Signaturen
+
+### Was ist eine digitale Signatur?
+
+Eine digitale Signatur ist das elektronische Äquivalent einer handschriftlichen Unterschrift – aber mit deutlich stärkeren Sicherheitseigenschaften.
+
+### Die vier Eigenschaften einer (guten) Signatur
+
+```mermaid
+mindmap
+  root((Digitale\nSignatur))
+    Fälschungssicherheit
+      Dokument kann nach\nUnterschrift nicht\nunerkannt verändert werden
+    Authentizität
+      Unterschrift ist eindeutig\neiner Person zuordenbar
+    Unleugbarkeit
+      Unterzeichner kann\nspäter nicht abstreiten
+    Willenserklärend
+      Signatur kann nur\nwillentlich gesetzt werden
+```
+
+### Wie funktioniert das technisch? Das Hash-then-Sign-Verfahren
+
+Das direkte Signieren grosser Dokumente mit asymmetrischen Algorithmen wäre sehr rechenaufwändig. Deshalb verwendet man das **Hash-then-Sign-Verfahren**:
+
+```mermaid
+flowchart LR
+    subgraph SG["📝 Signatur erstellen (Sender)"]
+        M1[Nachricht m] --> H1[Hash-Funktion]
+        H1 --> MD1[Message Digest\nHash-Wert]
+        MD1 --> SGN[Signature Generation]
+        SK[🔑 Private Key] --> SGN
+        SGN --> SIG[Signatur σ]
+    end
+
+    subgraph SV["✅ Signatur prüfen (Empfänger)"]
+        M2[Nachricht m] --> H2[Hash-Funktion]
+        H2 --> MD2[Message Digest\nHash-Wert]
+        SIG2[Signatur σ] --> SVF[Signature Verification]
+        PK[🔓 Public Key] --> SVF
+        MD2 --> SVF
+        SVF --> R["Gültig / Ungültig"]
+    end
+
+    M1 -.->|Nachricht + Signatur übertragen| M2
+    SIG -.->|Signatur übertragen| SIG2
+
+    style SG fill:#e8f4f8
+    style SV fill:#e8f8e8
+    style R fill:#27ae60,color:#fff
+```
+
+**Schritt für Schritt:**
+
+1. **Hashing (Sender):** Die Nachricht wird durch eine Hash-Funktion gejagt → ergibt einen kompakten «Fingerabdruck» der Nachricht (Message Digest)
+2. **Signieren (Sender):** Der Message Digest wird mit dem **privaten Schlüssel** des Senders signiert → ergibt die Signatur σ
+3. **Übertragung:** Nachricht + Signatur werden gemeinsam übertragen
+4. **Hashing (Empfänger):** Der Empfänger berechnet denselben Hash-Wert aus der empfangenen Nachricht
+5. **Verifikation (Empfänger):** Die Signatur wird mit dem **öffentlichen Schlüssel** des Senders verifiziert und mit dem berechneten Hash verglichen
+6. **Ergebnis:** Stimmen die Hashes überein → Signatur gültig. Abweichung → Nachricht wurde verändert oder Signatur ist gefälscht.
+
+**Warum erst hashen, dann signieren?**  
+Hash-Funktionen erzeugen immer einen gleich langen Output (z.B. 256 Bit bei SHA-256) – unabhängig davon, ob die Eingabe 1 Byte oder 1 GB gross ist. Asymmetrische Signaturalgorithmen können nur auf kleinen Datenmengen effizient arbeiten. Der Hash ist also ein cleverer «Stellvertreter» der gesamten Nachricht.
+
+### Algorithmen für Digitale Signaturen
+
+Digitale Signaturen verwenden ähnliche oder identische Algorithmen wie die asymmetrische Verschlüsselung (z.B. **RSA**). Der Unterschied: Bei Signaturen werden die Operationen «umgekehrt»:
+
+| Operation | Verschlüsselung | Signatur |
+|---|---|---|
+| Erstellen | Mit **öffentlichem** Schlüssel verschlüsseln | Mit **privatem** Schlüssel signieren |
+| Prüfen/Entschlüsseln | Mit **privatem** Schlüssel entschlüsseln | Mit **öffentlichem** Schlüssel verifizieren |
+
+> ⚠️ **Wichtig:** Es sollte **nie dasselbe Schlüsselpaar** für die Verschlüsselung und für das Signieren verwendet werden! Getrennte Schlüsselpaare für getrennte Zwecke sind Best Practice.
+
+---
+
+## Digitale Zertifikate und PKI
+
+### Das Kernproblem: Wie vertraut man einem öffentlichen Schlüssel?
+
+Die asymmetrische Kryptografie löst das Schlüsselverteilungsproblem – schafft aber ein neues: Woher weiss Alice, dass ein empfangener öffentlicher Schlüssel **wirklich** von Bob stammt und nicht von einem Angreifer (Man-in-the-Middle)?
+
+```mermaid
+sequenceDiagram
+    participant A as Alice
+    participant E as ⚠️ Eve (Angreifer)
+    participant B as Bob
+
+    B->>E: Schickt pkBob
+    Note over E: Tauscht pkBob gegen pkEve aus!
+    E->>A: Schickt pkEve (als wäre es pkBob)
+    A->>E: Verschlüsselt mit pkEve → Eve kann lesen!
+    E->>B: Leitet weiter (evtl. neu verschlüsselt)
+    Note over A,B: Alice denkt, sie kommuniziert sicher mit Bob\nTatsächlich liest Eve mit → Man-in-the-Middle!
+```
+
+**Lösung:** Digitale Zertifikate binden einen öffentlichen Schlüssel an eine verifizierte Identität – beglaubigt von einer vertrauenswürdigen dritten Partei.
+
+---
+
+### Digitales Zertifikat
+
+Ein digitales Zertifikat beantwortet die Frage: **«Zu wem gehört dieser öffentliche Schlüssel?»**
+
+Es enthält drei Kernelemente:
+
+```mermaid
+graph TD
+    CERT["📜 Digitales Zertifikat (X.509)"]
+    CERT --> ID["👤 Identität\n(Wem gehört der Schlüssel?)"]
+    CERT --> PK["🔓 Öffentlicher Schlüssel\n(Der eigentliche Schlüssel)"]
+    CERT --> SIG["✍️ Signatur der CA\n(Beglaubigung der Echtheit)"]
+
+    ID --> ID1["subject: CN=www.hslu.ch\nO=Hochschule Luzern\nL=Luzern, C=CH"]
+    PK --> PK1["algorithm: rsaEncryption\nsubjectPublicKey: a7:49:1d:..."]
+    SIG --> SIG1["signatureAlgorithm:\nsha256WithRSAEncryption\nSignaturwert: f0:4e:12:..."]
+
+    style CERT fill:#003366,color:#fff
+    style SIG fill:#e74c3c,color:#fff
+```
+
+**Aufbau eines X.509-Zertifikats** (weitverbreiteter Standard):
+
+| Feld | Inhalt | Bedeutung |
+|---|---|---|
+| `version` | 3 | X.509 Version 3 |
+| `serialNumber` | 32:30:32:... | Eindeutige Seriennummer |
+| `signature` | sha256WithRSAEncryption | Verwendeter Signaturalgorithmus |
+| `issuer` | CN=ISF-CA, O=HSLU | Wer hat das Zertifikat ausgestellt? |
+| `validity` | notBefore / notAfter | Gültigkeitszeitraum |
+| `subject` | CN=www.hslu.ch | **Zu wem gehört der Schlüssel?** |
+| `subjectPublicKeyInfo` | Algorithmus + Schlüsselwert | **Der öffentliche Schlüssel selbst** |
+| `signatureAlgorithm` + Wert | sha256WithRSAEncryption + Bytes | **Digitale Signatur der CA** |
+
+**Die entscheidende Frage:** Wer signiert das Zertifikat, und warum kann man dieser Signatur vertrauen?
+
+---
+
+### Certificate Authority (CA) und Chain of Trust
+
+Zertifikate werden von einer **Certificate Authority (CA)** ausgestellt und signiert – einer vertrauenswürdigen Organisation, die die Identität von Antragstellern prüft.
+
+**Damit Alice und Bob gegenseitig Zertifikate prüfen können, müssen sie denselben CAs vertrauen – dem sogenannten «Trust Anchor».**
+
+#### Die Hierarchie: Chain of Trust
+
+```mermaid
+graph TD
+    RCA["🏛️ Root CA\n(Höchste Vertrauensebene,\nselbst-signiert)"]
+    ICA1["🔗 Intermediate CA\n(von Root CA signiert)"]
+    ICA2["🔗 Intermediate CA\n(von Root CA signiert)"]
+    EE1["📜 End-Entity Zertifikat\n(z.B. www.hslu.ch)"]
+    EE2["📜 End-Entity Zertifikat\n(z.B. www.bank.ch)"]
+
+    RCA -->|signiert| ICA1
+    RCA -->|signiert| ICA2
+    ICA1 -->|signiert| EE1
+    ICA2 -->|signiert| EE2
+
+    style RCA fill:#c0392b,color:#fff
+    style ICA1 fill:#e67e22,color:#fff
+    style ICA2 fill:#e67e22,color:#fff
+    style EE1 fill:#27ae60,color:#fff
+    style EE2 fill:#27ae60,color:#fff
+```
+
+**Wie funktioniert die Verifikation?**  
+Um dem Zertifikat von `www.hslu.ch` zu vertrauen, prüft der Browser:
+1. Ist das End-Entity-Zertifikat von einer bekannten Intermediate CA signiert? → Ja ✅
+2. Ist die Intermediate CA von einer bekannten Root CA signiert? → Ja ✅
+3. Ist die Root CA im Betriebssystem/Browser als vertrauenswürdig hinterlegt? → Ja ✅
+4. **Ergebnis:** Dem Zertifikat wird vertraut → 🔒 grünes Schloss im Browser
+
+**Root CAs** sind die «Urvertrauen»-Anker des Systems. Ihr Zertifikat ist **selbst-signiert** – das Vertrauen in sie kommt nicht aus einem weiteren Zertifikat, sondern ist direkt im Betriebssystem oder Browser vorinstalliert (sogenannter «Trust Store»).
+
+---
+
+### Public Key Infrastructure (PKI)
+
+PKI ist das **Gesamtsystem**, das digitale Zertifikate ausstellen, verteilen, verwalten und prüfen kann. Es besteht aus drei Hauptkomponenten:
+
+```mermaid
+graph LR
+    USER["👤 Benutzer\n(beantragt Zertifikat)"]
+    RA["📋 Registration Authority\n(RA)\nIdentitätsprüfung"]
+    CA["🏛️ Certification Authority\n(CA)\nZertifikat ausstellen & signieren"]
+    VA["✅ Validation Authority\n(VA)\nZertifikat prüfen & widerrufen"]
+
+    USER -->|Antrag| RA
+    RA -->|geprüfte Anfrage| CA
+    CA -->|signiertes Zertifikat| USER
+    CA -->|Zertifikatsinformationen| VA
+    USER -->|Zertifikat vorzeigen| RELYING["🌐 Relying Party\n(z.B. Browser)"]
+    RELYING -->|Validierungsanfrage| VA
+    VA -->|Gültig / Ungültig| RELYING
+
+    style CA fill:#003366,color:#fff
+    style RA fill:#2980b9,color:#fff
+    style VA fill:#27ae60,color:#fff
+```
+
+**Die drei Rollen im Detail:**
+
+| Komponente | Rolle | Aufgabe |
+|---|---|---|
+| **CA** (Certification Authority) | Zertifizierungsstelle | Stellt Zertifikate aus und signiert sie |
+| **RA** (Registration Authority) | Registrierungsstelle | Prüft die Identität von Antragstellern (im Auftrag der CA) |
+| **VA** (Validation Authority) | Validierungsstelle | Beantwortet Anfragen, ob ein Zertifikat noch gültig ist (z.B. via OCSP oder CRL) |
+
+**Warum ist PKI wichtig?**  
+Ohne PKI müsste jeder jedem öffentlichen Schlüssel blind vertrauen. PKI schafft eine skalierbare Infrastruktur, die es Millionen von Geräten und Benutzern ermöglicht, sicher miteinander zu kommunizieren – das Fundament von HTTPS, S/MIME, TLS und vielen anderen Sicherheitsprotokollen.
+
+---
+
+## Zusammenfassung: Das grosse Bild
+
+```mermaid
+flowchart TD
+    PROB["❓ Problem:\nSichere Kommunikation\nüber unsichere Kanäle"]
+
+    PROB --> AK["Asymmetrische Kryptografie\nVerschlüsseln mit Public Key\nEntschlüsseln mit Private Key"]
+    PROB --> DS["Digitale Signaturen\nSignieren mit Private Key\nVerifizieren mit Public Key"]
+    PROB --> TRUST["❓ Neues Problem:\nWem gehört welcher\nPublic Key?"]
+
+    AK --> TRUST
+    DS --> TRUST
+
+    TRUST --> CERT["Digitale Zertifikate\nBinden Public Key an Identität\n(X.509 Standard)"]
+    CERT --> CA["Certificate Authority\nBeglaubigt Zertifikate\ndurch digitale Signatur"]
+    CA --> COT["Chain of Trust\nRoot CA → Intermediate CA\n→ End-Entity Zertifikat"]
+    COT --> PKI["Public Key Infrastructure\nGesamtsystem: CA + RA + VA\nFundament des sicheren Internets"]
+
+    style PROB fill:#e74c3c,color:#fff
+    style PKI fill:#27ae60,color:#fff
+```
+
+### Kurze Merkhilfe
+
+| Konzept | Wofür? | Schlüssel |
+|---|---|---|
+| **Verschlüsseln** | Vertraulichkeit | Public Key des Empfängers |
+| **Entschlüsseln** | Vertraulichkeit | Eigener Private Key |
+| **Signieren** | Authentizität + Integrität | Eigener Private Key |
+| **Signatur prüfen** | Authentizität + Integrität | Public Key des Senders |
+| **Zertifikat** | Vertrauen in Public Key | Signatur der CA |
+| **PKI** | Infrastruktur für Zertifikate | Trust Anchors (Root CAs) |
+
+---
+
+## Weiterführende Quellen
+
+- NIST Digital Signature Standard (DSS): [nvlpubs.nist.gov](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf)
+- ITU-T X.509 Standard (Zertifikate): [itu.int](https://www.itu.int/rec/T-REC-X.509-201910-I/en)
+- Wikipedia: Public-Key-Infrastruktur: [de.wikipedia.org](https://de.wikipedia.org/wiki/Public-Key-Infrastruktur)
+
+---
+
+*Zusammenfassung basierend auf den Vorlesungsfolien ISF SW03 «Zusätzliche Infos: Intercepten», HSLU Informatik, Joshua Drexel.*

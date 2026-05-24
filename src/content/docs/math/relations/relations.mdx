@@ -67,7 +67,7 @@ When a relation is from a set to itself (R ⊆ A × A), it can have these proper
 | **Irreflexive** | ∀x: [x,x] ∉ R | No element is related to itself |
 
 **Reflexive examples:** "=" (equality), "≤", "≥", "is a subset of (⊆)"  
-**Irreflexive examples:** "<", ">", "≠", "is a strict subset of (⊊)"
+**Irreflexive examples:** "&lt;", "&gt;", "≠", "is a strict subset of (⊊)"
 
 ```
 "=" on ℤ: [3, 3] ∈ R (3 = 3) → reflexive
@@ -88,7 +88,7 @@ When a relation is from a set to itself (R ⊆ A × A), it can have these proper
 
 **Symmetric examples:** "=" (equality), "is sibling of", "is connected to"  
 **Antisymmetric examples:** "≤", "≥", "divides" (on ℕ), "is subset of"  
-**Asymmetric examples:** "<", ">", "is parent of"
+**Asymmetric examples:** "&lt;", "&gt;", "is parent of"
 
 ```
 "is sibling of" — Alice is sibling of Bob ↔ Bob is sibling of Alice → symmetric
@@ -107,7 +107,7 @@ When a relation is from a set to itself (R ⊆ A × A), it can have these proper
 |---|---|---|
 | **Transitive** | If [x,y] ∈ R and [y,z] ∈ R then [x,z] ∈ R | "Chain inheritance" |
 
-**Transitive examples:** "=", "<", "≤", "is ancestor of", "is reachable from"  
+**Transitive examples:** "=", "&lt;", "≤", "is ancestor of", "is reachable from"  
 **Non-transitive example:** "is parent of" (A is parent of B, B is parent of C, but A is not parent of C)
 
 ```
@@ -252,5 +252,5 @@ Read from bottom to top: 1 divides 2, 1 divides 3, 2 divides 4, 2 divides 6, 3 d
 |---|---|---|
 | Equivalence | re + sy + tr | = (equality), ≡ mod n |
 | Partial order | re + anti + tr | ≤ on ℕ, ⊆ on sets |
-| Strict partial order | irre + asym + tr | < on ℕ |
+| Strict partial order | irre + asym + tr | &lt; on ℕ |
 | Total order | Partial order + every pair comparable | ≤ on ℤ |

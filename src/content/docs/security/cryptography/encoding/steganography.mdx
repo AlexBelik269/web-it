@@ -1,0 +1,231 @@
+---
+title: "Steganography"
+description: "The art of hiding information in plain sight — how messages are concealed inside images, audio, and other media, how to detect them, and how it differs from cryptography."
+---
+
+Steganography is the practice of hiding the existence of a message, not just its contents. Where cryptography makes a message unreadable, steganography makes the message invisible. A steganographically concealed message looks like an ordinary image, audio file, or text document — the secret is that there is a secret.
+
+The name comes from Greek: *steganos* (covered) + *graphein* (writing) = covered writing.
+
+## Steganography vs Cryptography
+
+| Property | Cryptography | Steganography |
+|----------|-------------|---------------|
+| Goal | Hide message contents | Hide message existence |
+| Detection | Ciphertext is visible | Carrier appears normal |
+| If detected | Message is still protected (if encryption is strong) | Message is exposed |
+| Combination | Can be used together | Can encrypt then hide |
+| Historical use | Diplomatic, military | Espionage, covert communication |
+
+These techniques complement each other. A common approach is to **encrypt first, then hide** — the hidden data appears as random noise even if the steganography is discovered.
+
+## Historical Examples
+
+**Ancient Greece:** Herodotus records that Histiaeus shaved a slave's head, tattooed a message on the scalp, waited for the hair to grow back, and sent the slave as a messenger. The message was revealed by shaving again.
+
+**Ancient China:** Messages were written on thin silk, rolled into a ball, covered in wax, and swallowed by a messenger.
+
+**German WWII Microdots:** German spies photographed documents and reduced them to microdots — a period-sized dot containing a full-size photo. The dot was glued over a period in a typed letter. British intelligence discovered this technique in 1941.
+
+**Invisible Ink:** Various chemical inks are invisible under normal light but revealed by heat, UV light, or chemical developer. Lemon juice, milk, and various organic compounds were used historically.
+
+## Digital Steganography
+
+Modern steganography typically hides data inside digital media files. The key insight: digital media files have more precision than human senses can detect.
+
+### Least Significant Bit (LSB) Encoding in Images
+
+A digital image stores each pixel as three numbers: the red, green, and blue components, each 0–255 (one byte = 8 bits).
+
+The **least significant bit** is the last bit. Changing it changes the color value by only 1 — from 200 to 201, for example. The human eye cannot distinguish this change.
+
+```
+Original pixel: R=172, G=94, B=200
+
+In binary:
+R: 1 0 1 0 1 1 0 0
+G: 0 1 0 1 1 1 1 0
+B: 1 1 0 0 1 0 0 0
+             ↑↑↑
+         least significant bits
+
+To hide 3 bits of secret data (e.g., 101):
+Replace last bit of R with 1: 10101101 = 173 (R changes from 172 to 173)
+Replace last bit of G with 0: 01011110 = 94  (G unchanged)
+Replace last bit of B with 1: 11001001 = 201 (B changes from 200 to 201)
+
+Modified pixel: R=173, G=94, B=201
+Difference from original: invisible to human eyes
+```
+
+By hiding 1 bit per color channel, you can embed 3 bits per pixel. A 1-megapixel image can hide approximately 375 KB of data with no visible change.
+
+```python
+from PIL import Image
+import numpy as np
+
+def hide_message(image_path: str, message: str, output_path: str):
+    img = Image.open(image_path)
+    data = np.array(img)
+
+    # Convert message to binary with null terminator
+    binary_message = ''.join(format(ord(c), '08b') for c in message) + '00000000'
+
+    flat = data.flatten()
+    if len(binary_message) > len(flat):
+        raise ValueError("Message too long for this image")
+
+    # Replace LSB of each channel value
+    for i, bit in enumerate(binary_message):
+        flat[i] = (flat[i] & 0xFE) | int(bit)  # Clear LSB, then set it
+
+    result = flat.reshape(data.shape)
+    Image.fromarray(result.astype(np.uint8)).save(output_path)
+    print(f"Message hidden. Modified {len(binary_message)} pixels' LSBs.")
+
+def extract_message(image_path: str) -> str:
+    img = Image.open(image_path)
+    data = np.array(img).flatten()
+
+    bits = [str(byte & 1) for byte in data]  # Extract LSBs
+
+    chars = []
+    for i in range(0, len(bits) - 8, 8):
+        byte = ''.join(bits[i:i+8])
+        char_code = int(byte, 2)
+        if char_code == 0:  # Null terminator
+            break
+        chars.append(chr(char_code))
+
+    return ''.join(chars)
+```
+
+### Other Image Techniques
+
+**Palette-based hiding:** In GIF images with a color palette, the order of palette entries can be rearranged to encode data without changing any visible pixel values.
+
+**DCT coefficient modification (JPEG):** JPEG compression uses discrete cosine transform (DCT) coefficients. Tools like F5 and OutGuess hide data in these coefficients, surviving JPEG recompression better than LSB methods.
+
+**Metadata embedding:** Image files contain EXIF metadata (camera model, GPS coordinates, timestamps). Hidden data can be inserted in unused or custom metadata fields — though this is easily detected.
+
+### Audio Steganography
+
+Audio has similar properties to images: the LSB of audio samples is below human hearing threshold.
+
+**Echo hiding:** Encode data by introducing inaudible echoes at precise positions and delays. The echo is too short for human ears to detect, but detectable algorithmically.
+
+**Phase encoding:** Modify the phase of audio segments. The human ear is not sensitive to absolute phase, so phase changes are inaudible but carry data.
+
+**Spread spectrum:** Distribute the secret data across the frequency spectrum at very low power. The data looks like background noise.
+
+### Text Steganography
+
+Text steganography hides data in the formatting or word choice of ordinary text:
+
+**Whitespace encoding:** Add invisible whitespace characters (spaces, tabs) to the end of lines. A space = 0, a tab = 1.
+
+**Word choice steganography:** Replace words with synonyms according to a code. "quick" = 0, "fast" = 1.
+
+**Format character encoding:** Use homoglyphs — characters that look identical but have different Unicode values. The Latin 'a' (U+0061) looks identical to the Cyrillic 'a' (U+0430).
+
+```python
+# Zero-width character steganography
+# Zero-width space (U+200B) = 0, Zero-width non-joiner (U+200C) = 1
+
+def hide_in_text(cover_text: str, secret: str) -> str:
+    ZERO = '​'  # Zero-width space
+    ONE = '‌'   # Zero-width non-joiner
+
+    binary = ''.join(format(ord(c), '08b') for c in secret)
+    hidden = ''.join(ZERO if b == '0' else ONE for b in binary)
+
+    # Insert hidden characters after the first word
+    words = cover_text.split(' ', 1)
+    return words[0] + hidden + (' ' + words[1] if len(words) > 1 else '')
+
+def extract_from_text(stego_text: str) -> str:
+    ZERO = '​'
+    ONE = '‌'
+
+    bits = ''
+    for char in stego_text:
+        if char == ZERO:
+            bits += '0'
+        elif char == ONE:
+            bits += '1'
+
+    result = ''
+    for i in range(0, len(bits) - 7, 8):
+        result += chr(int(bits[i:i+8], 2))
+    return result
+```
+
+## Steganalysis: Detecting Hidden Data
+
+Steganalysis is the detection of steganography. Law enforcement and intelligence agencies use it to find hidden communications.
+
+### Statistical Methods
+
+**LSB analysis:** Genuine images have smooth statistical distributions of pixel values. LSB steganography disturbs the natural correlation between adjacent bits, creating detectable statistical anomalies.
+
+```
+Normal image:       LSBs show natural variation
+Steganographic img: LSBs follow the pattern of the hidden message
+```
+
+**Chi-squared attack:** In a natural image, the number of pixels with value 2k ≈ number of pixels with value 2k+1 (neighboring pairs should be roughly equal). LSB encoding destroys this balance.
+
+**Sample pair analysis:** Analyzes the correlation between pairs of adjacent sample values. Hidden data disrupts expected correlations.
+
+### Visual Attacks
+
+Some steganography methods create visual artifacts visible under enhancement:
+
+```python
+from PIL import Image
+import numpy as np
+
+def visualize_lsb(image_path: str, output_path: str):
+    img = Image.open(image_path)
+    data = np.array(img)
+
+    # Extract only LSBs and amplify to visible range
+    lsb_layer = (data & 1) * 255
+
+    Image.fromarray(lsb_layer.astype(np.uint8)).save(output_path)
+    # If message is hidden: you'll see structured patterns
+    # If no message: you'll see random noise
+```
+
+### Tool-Based Detection
+
+Tools like **StegExpose** and **Stegdetect** automate statistical analysis. They report probability scores for whether an image has been modified.
+
+| Tool | Method | Use Case |
+|------|--------|----------|
+| StegExpose | Statistical analysis | Batch scanning for LSB steganography |
+| Stegdetect | DCT analysis | JPEG-specific detection |
+| zsteg | LSB and other methods | PNG/BMP analysis |
+| Binwalk | File carving | Find hidden files appended to other files |
+| ExifTool | Metadata inspection | Check for hidden data in metadata |
+
+## Network Steganography
+
+Data can be hidden in network protocol headers or traffic patterns:
+
+- **IP header:** Unused bits in the Type of Service field or IP ID field
+- **TCP header:** Sequence number manipulation, unused flag bits
+- **Timing channels:** Encode data in the time between packets
+- **HTTP headers:** Custom or unusual header values
+
+These techniques are of particular interest in covert channel research and malware that exfiltrates data while evading DLP (data loss prevention) systems.
+
+## Limitations and Detection
+
+**Capacity vs. imperceptibility tradeoff:** The more data you hide, the more likely detection becomes. Hidden data replaces or perturbs carrier data — more perturbation means more detectable anomalies.
+
+**Format conversion destroys data:** If a PNG with LSB-encoded data is re-saved as JPEG (which uses lossy compression), the hidden data is destroyed. Steganography survives only if the file format is preserved.
+
+**File size anomalies:** Stego files are often the same size as originals (LSB methods don't change file size), but some methods append data to the end of files — easily detected by checking file structure.
+
+The fundamental weakness: **any system that hides data by modifying carrier data creates statistical anomalies**, and statistical tests can detect those anomalies even without knowing the steganography key.

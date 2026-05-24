@@ -1,0 +1,685 @@
+---
+title: "ISF – SW02: (Self-)Awareness in der Informationssicherheit"
+description: "Informationssicherheit – Grundlagen"
+---
+**Vorlesung von Prof. Dr. Peter E. Fischer | Hochschule Luzern – Informatik**  
+*Basierend auf den Vorlesungsfolien vom 21. Februar 2022*
+
+---
+
+## Lernziele
+
+Nach dieser Vorlesung solltest du in der Lage sein:
+
+- Malware-Kategorien zu unterscheiden und ihre Funktionsweise zu erklären
+- Die **5 Schritte der Informationssicherheit** zu kennen und anzuwenden
+- Die Folgen von Sorglosigkeit im Umgang mit digitalen Geräten zu verstehen
+- Das Potenzial des **Faktors Mensch** – positiv wie negativ – einzuschätzen
+- Argumente für Awareness-Schulungen zu formulieren
+- Das Grundkonzept für Awareness-Kampagnen zu erkennen und anzuwenden
+
+---
+
+## 1. Die drei Säulen der Informationssicherheit
+
+Bevor wir uns dem Menschen widmen, ist es wichtig zu verstehen, dass Informationssicherheit nie aus einer einzigen Perspektive betrachtet werden kann. Sie basiert auf **drei gleichwertigen Säulen**:
+
+```mermaid
+graph TD
+    IS[Informationssicherheit] --> T[Technik]
+    IS --> P[Prozesse]
+    IS --> M[Mitarbeitende]
+
+    T --> T1[kaufen]
+    T --> T2[konfigurieren]
+
+    P --> P1[definieren]
+    P --> P2[kontrollieren]
+
+    M --> M1[sensibilisieren]
+    M --> M2[ausbilden]
+
+    style IS fill:#003366,color:#fff
+    style T fill:#0055a5,color:#fff
+    style P fill:#0055a5,color:#fff
+    style M fill:#0055a5,color:#fff
+```
+
+**Warum alle drei Säulen?**  
+Technische Massnahmen allein reichen nicht aus – ein Virenschutzprogramm schützt nicht vor einem Mitarbeitenden, der leichtfertig sein Passwort weitergibt. Prozesse ohne Technik sind wirkungslos, und Technik ohne geschulte Menschen ebenfalls. Nur das Zusammenspiel aller drei Bereiche ergibt eine robuste Sicherheitsarchitektur.
+
+---
+
+## 2. Was ist «Awareness»?
+
+Das englische Wort **«awareness»** bedeutet auf Deutsch **Bewusstsein** – im Sinne von: sich einer Sache bewusst sein, informiert sein.
+
+> *"Awareness = Bewusstsein: sich einer Sache bewusst sein, wissen, dass etwas existiert oder passiert."*
+
+Im Kontext der Informationssicherheit bedeutet Awareness:
+- Wissen, **welche Risiken** im digitalen Alltag lauern
+- Verstehen, **warum** bestimmte Verhaltensweisen gefährlich sind
+- Die Fähigkeit, **sicher zu handeln** – auch ohne ständige Anleitung
+
+Awareness ist kein einmaliges Ereignis, sondern ein **kontinuierlicher Prozess** der Sensibilisierung und Schulung.
+
+---
+
+## 3. Der Faktor Mensch
+
+### Daten – Informationen – Wissen
+
+Um zu verstehen, warum Informationssicherheit wichtig ist, hilft folgendes Pyramidenmodell:
+
+```mermaid
+graph BT
+    D["📦 Daten\n(Rohmaterial: Zahlen, Wörter, Fakten)"]
+    I["📊 Informationen\n(Strukturierte, interpretierbare Daten)"]
+    W["🧠 Wissen\n(Vernetzte Informationen mit Bedeutung)"]
+
+    D --> I --> W
+
+    style D fill:#e8f4f8
+    style I fill:#b8d9e8
+    style W fill:#4a90d9,color:#fff
+```
+
+**Information** ist die Verknüpfung von Daten zu interpretierbaren Zusammenhängen. **Wissen** entsteht durch die Vernetzung von Informationen – und ist zunächst personenbezogen.
+
+> *«Wissen ist Macht» – Francis Bacon (1561–1621)*
+
+Wissen ist im 21. Jahrhundert der wichtigste Rohstoff moderner Ökonomien. Deshalb: **Informationen müssen vor Missbrauch geschützt werden!**
+
+---
+
+### Der Mensch: Grösstes Risiko UND grösster Schutz
+
+Ein oft zitierter Satz in der IT-Sicherheit lautet:
+
+> **Das grösste Sicherheitsrisiko sitzt zwischen Bildschirm und Tastatur – der Benutzer.**
+
+Doch das ist nur die halbe Wahrheit. Dieselbe Person, die eine Sicherheitslücke aufreisst, kann – richtig sensibilisiert – auch der beste Schutzwall sein.
+
+```mermaid
+graph LR
+    M[👤 Der Mensch]
+    M -->|unkontrolliert| R["⚠️ Grösstes\nRisiko"]
+    M -->|sensibilisiert| S["🛡️ Grösster\nSchutz"]
+
+    style R fill:#e74c3c,color:#fff
+    style S fill:#27ae60,color:#fff
+```
+
+### Warum ist der Mensch ein Sicherheitsrisiko?
+
+Die Vorlesung nennt acht typische menschliche Verhaltensweisen, die Sicherheitsrisiken erzeugen:
+
+| Verhalten | Erklärung |
+|---|---|
+| **Wissen alles** | Überschätzung des eigenen Wissens führt zu Nachlässigkeit |
+| **Neigen zur Bequemlichkeit** | Einfache Passwörter, kein Backup, keine Updates |
+| **Können nicht alles überblicken** | Komplexe Systeme überfordern normale Benutzer |
+| **Können/Wollen nicht alles verstehen** | Technische Details werden ignoriert |
+| **Hassen Regelungen** | Sicherheitsrichtlinien werden als lästig empfunden |
+| **Wollen immer das Neuste** | Neue, ungetestete Software installieren |
+| **Lernen durch Leiden** | Erst nach einem Schaden werden Massnahmen ergriffen |
+| **Sind Opfer der Technik** | Werden durch irreführende Oberflächen getäuscht |
+
+**Fazit:** Das Potenzial der Mitarbeitenden muss aktiv eingebunden werden – sowohl um Risiken zu minimieren als auch um Schutz zu maximieren.
+
+---
+
+## 4. Malware-Typen
+
+Malware (von englisch *malicious software*) bezeichnet **Computerprogramme mit schädlichen Funktionen**. Es gibt vier Hauptkategorien:
+
+```mermaid
+graph TD
+    MW[🦠 Malware] --> V[Viren]
+    MW --> W[Würmer]
+    MW --> T[Trojaner]
+    MW --> R[Ransomware]
+
+    V --> V1["Benötigen ein Host-Programm\num sich zu verbreiten"]
+    W --> W1["Verbreiten sich selbstständig\nüber Netzwerke"]
+    T --> T1["Tarnen sich als\nnützliche Software"]
+    R --> R1["Verschlüsseln Daten und\nfordern Lösegeld"]
+
+    style MW fill:#8e44ad,color:#fff
+    style V fill:#c0392b,color:#fff
+    style W fill:#e67e22,color:#fff
+    style T fill:#2980b9,color:#fff
+    style R fill:#c0392b,color:#fff
+```
+
+### Viren und Würmer
+
+- **Viren** benötigen eine Host-Software, um sich zu verbreiten – sie hängen sich an bestehende Programme
+- **Würmer** verbreiten sich selbstständig über Netzwerke, ohne Host-Programm
+- Beide können Dateien löschen, Systeme lahmlegen und weltweite Netzwerke beeinträchtigen
+- Häufige Infektionswege: **E-Mail-Anhänge**, infizierte Datenträger, unsichere Downloads
+
+**Warum ist das wichtig zu unterscheiden?**  
+Würmer sind gefährlicher für Netzwerke, weil sie sich exponentiell ausbreiten können. Ein einziger infizierter Computer kann in Minuten Tausende weitere infizieren.
+
+---
+
+### Trojaner (Trojanische Pferde)
+
+Ein Trojaner ist ein **Schadprogramm, das als harmlose Anwendung getarnt** ist. Der Name stammt aus dem griechischen Mythos des Trojanischen Pferdes – es sieht von aussen harmlos oder nützlich aus, birgt aber im Inneren eine Bedrohung.
+
+**Was tun Trojaner im Hintergrund?**
+- Aufzeichnen von Passwörtern (Keylogger)
+- Daten verändern oder löschen
+- Mikrofon oder Webcam aktivieren (Abhören)
+- Fernzugriff für Angreifer ermöglichen (RAT – Remote Access Trojan)
+
+**Warum fallen Menschen darauf herein?**  
+Trojaner werden oft als nützliche Gratissoftware, Spielmodifikationen oder vermeintliche System-Updates verbreitet. Die Benutzer installieren sie freiwillig, weil sie den Schaden nicht erkennen.
+
+---
+
+### Ransomware
+
+Ransomware (von englisch *ransom* = Lösegeld) ist aktuell **eine der grössten Cyberbedrohungen** weltweit.
+
+**Funktionsweise:**
+1. Ransomware gelangt auf das System (meist via Phishing-Mail oder Drive-by-Infektion)
+2. Sie verschlüsselt Daten oder ganze Systeme mit einem starken Schlüssel
+3. Ein Lösegeld wird gefordert – meist in Kryptowährung
+4. Der Schlüssel wird *vielleicht* nach Zahlung herausgegeben
+
+```mermaid
+sequenceDiagram
+    participant A as Angreifer
+    participant O as Opfer
+    A->>O: Phishing-Mail mit Anhang
+    O->>O: Anhang geöffnet
+    O->>O: Ransomware installiert sich
+    O->>O: Dateien werden verschlüsselt
+    A->>O: Lösegeldforderung erscheint
+    Note over O: Keine Garantie auf Schlüssel!
+    Note over O: Nächste Attacke folgt mit höherer Forderung
+```
+
+**Statistik (NTT Security Global Threat Intelligence Report 2017):**
+- 77% der Ransomware in nur vier Branchen entdeckt
+- 73% aller Angriffe begannen mit Phishing-Mails
+- Am meisten angegriffen: Gesundheitswesen, Finanzwesen, Industrie
+
+---
+
+### Drive-by-Infektion
+
+Eine besonders heimtückische Methode: **Infizierung allein durch das Besuchen einer Webseite** – ohne dass der Benutzer aktiv etwas herunterlädt.
+
+**Wie funktioniert das?**
+1. Angreifer kompromittiert eine legitime Webseite
+2. Über aktive Elemente (JavaScript, Flash, etc.) wird Malware eingeschleust
+3. Sicherheitslücken im Browser oder Plugins werden ausgenutzt
+4. Malware installiert sich im Hintergrund
+
+**Wichtig:** Auch offizielle Websites bekannter Organisationen können betroffen sein. Ein bekanntes Beispiel: Der E-Banking-Trojaner «Gozi» wurde über die Nachrichtenwebseite «20 Minuten» verbreitet.
+
+---
+
+## 5. Die 5 Schritte der Informationssicherheit
+
+Dies sind die fünf konkreten Massnahmen, die jeder Benutzer umsetzen sollte:
+
+```mermaid
+graph LR
+    S1["1️⃣ SICHERN\nBackup"] --> S2["2️⃣ SCHÜTZEN\nVirenschutz"]
+    S2 --> S3["3️⃣ ÜBERWACHEN\nFirewall"]
+    S3 --> S4["4️⃣ VORBEUGEN\nSoftware-Updates"]
+    S4 --> S5["5️⃣ AUFPASSEN\nPers. Verhalten"]
+
+    style S1 fill:#e74c3c,color:#fff
+    style S2 fill:#e74c3c,color:#fff
+    style S3 fill:#e74c3c,color:#fff
+    style S4 fill:#e74c3c,color:#fff
+    style S5 fill:#e74c3c,color:#fff
+```
+
+---
+
+### Schritt 1: Sichern (Backup)
+
+> *«Mit Sicherheitsgurt beim Crash gerettet! Mit Datensicherung vor Datenverlust bewahrt!»*
+
+Studien zeigen, dass ein Grossteil der Menschen erst **nach einem Datenverlust** mit der Datensicherung beginnt. Das ist wie erst nach dem Unfall den Sicherheitsgurt anzulegen.
+
+**Was kann verloren gehen?**  
+Fotos, Urlaubserinnerungen, Steuererklärungen, Rechnungen, Arbeitsdokumente, E-Mails, Manuskripte, Notizen – **alles**.
+
+**Warum gehen Daten verloren?**
+- Festplatten können (und werden!) kaputt gehen – sie haben eine begrenzte Lebensdauer
+- Malware kann Dateien verschlüsseln oder löschen
+- Ransomware macht Daten unzugänglich
+
+**Die optimale Backup-Strategie: 3-2-1-Methode**
+
+```mermaid
+graph TD
+    B["🗂️ 3-2-1 Backup-Regel"]
+    B --> R3["3 Kopien\nder Daten"]
+    B --> M2["auf 2 verschiedenen\nMedientypen"]
+    B --> O1["davon 1 Kopie\naußerhalb des Gebäudes"]
+
+    R3 --> E1["Original + 2 Backups"]
+    M2 --> E2["z.B. Festplatte + Cloud"]
+    O1 --> E3["Schutz vor Brand, Diebstahl"]
+
+    style B fill:#2980b9,color:#fff
+```
+
+**Wichtige Hinweise:**
+- **Welche Daten?** Alle persönlichen und sensiblen Dokumente
+- **Welche Medien?** Externe Festplatte, Cloud (Datenschutz beachten!), DVD
+- **Wie oft?** Regelmässig, abhängig von der Häufigkeit der Datenänderung
+- **Achtung:** Backup-Medium nach dem Backup **vom Computer trennen** und sicher aufbewahren! (Schutz vor Ransomware, die auch angeschlossene Laufwerke verschlüsselt)
+
+---
+
+### Schritt 2: Schützen (Virenschutz)
+
+Ein Antivirenprogramm (AV) schützt vor Viren, Würmern, Trojanern und Ransomware, indem es:
+- Dateien auf bekannte Schadsoftware-Signaturen prüft
+- Internet-Kommunikation und E-Mails analysiert
+- Verdächtiges Verhalten von Programmen erkennt (Heuristik)
+
+**Entscheidend:** Antivirensoftware muss **automatisch und regelmässig aktualisiert** werden. Eine veraltete AV-Software ist nahezu wertlos, da täglich neue Malware-Varianten erscheinen.
+
+| Plattform | Kostenlose Lösungen | Kostenpflichtige Lösungen |
+|---|---|---|
+| **Windows 10/11** | Windows Defender (integriert, empfohlen) | Kaspersky, Norton, McAfee |
+| **Windows (älter)** | AVAST, AVG, AVIRA | Kaspersky, Panda |
+| **macOS** | AVAST, AVIRA, ClamXAV | Sophos, Bitdefender |
+| **Android** | AVAST, AVIRA | Kaspersky, Norton |
+| **iOS (iPhone)** | Herstellerseitig gesichert | – |
+
+**Empfehlung für Windows 10/11:** Der integrierte **Windows Defender** ist eine zuverlässige, wartungsarme Lösung, die für die meisten Benutzer ausreicht.
+
+---
+
+### Schritt 3: Überwachen (Firewall)
+
+Eine Firewall ist eine Softwareschicht, die den **ein- und ausgehenden Datenverkehr** kontrolliert und filtert.
+
+**Was macht eine Firewall?**
+- Überprüft, welche Verbindungen erlaubt sind und welche blockiert werden
+- Verbirgt persönliche Daten gegenüber dem Internet
+- Kontrolliert, welche Programme auf das Internet zugreifen dürfen
+
+```mermaid
+graph LR
+    I[🌐 Internet] -->|eingehende Verbindungen| FW["🔒 Firewall\n(Torwächter)"]
+    FW -->|erlaubte Verbindungen| PC[💻 Computer]
+    PC -->|ausgehende Verbindungen| FW
+    FW -->|erlaubte Anfragen| I
+
+    style FW fill:#e74c3c,color:#fff
+```
+
+**Aktivierung:**
+- **Windows** (7/8/10/11): Firewall ist **standardmässig aktiviert** – nicht deaktivieren!
+- **macOS**: Muss **manuell aktiviert** werden unter: *Systemeinstellungen → Sicherheit → Firewall*
+
+---
+
+### Schritt 4: Vorbeugen (Software-Updates)
+
+Jeden Tag werden neue Sicherheitslücken in weit verbreiteten Programmen entdeckt. Kriminelle suchen gezielt nach diesen Lücken, um sie auszunutzen – bevor sie gepatcht werden.
+
+> **Zero-Day-Exploit:** Eine Sicherheitslücke, die ausgenutzt wird, bevor der Hersteller einen Patch veröffentlicht hat – der Hersteller hat «null Tage» Vorsprung.
+
+**Was muss aktualisiert werden?**
+- Betriebssystem (Windows Update, macOS-Updates)
+- Browser (Chrome, Firefox, Safari) und alle installierten Plugins
+- Adobe-Produkte (Reader, Flash – letzteres inzwischen abgekündigt)
+- Office-Software (Microsoft Office, LibreOffice)
+- **Alle** anderen installierten Anwendungen
+
+**Wichtig:** Alte, nicht mehr unterstützte Windows-Versionen (XP, Vista, 7, 8.1) erhalten keine Sicherheits-Updates mehr und sind dauerhaft angreifbar. **Upgrades sind keine Option, sondern eine Pflicht.**
+
+---
+
+### Schritt 5: Aufpassen (Persönliches Verhalten)
+
+Das persönliche Verhalten ist das **wichtigste Sicherheitselement** – und gleichzeitig das schwächste Glied in der Kette. Alle technischen Massnahmen können durch unvorsichtiges Verhalten umgangen werden.
+
+**Kernprinzipien:**
+- Eigenverantwortung wahrnehmen
+- Den «gesunden Menschenverstand» nutzen
+- Sich mit dem Internet und seinen Risiken vertraut machen
+
+---
+
+## 6. Passwörter – Das schwächste Glied
+
+Benutzername und Passwort sind nach wie vor die **gängigsten Schlüssel zur digitalen Identität** – und gleichzeitig einer der grössten Schwachpunkte.
+
+**Warum sind Passwörter problematisch?**
+- Menschen sind schlecht darin, echte Zufälligkeit zu erzeugen
+- Wir neigen zu vorhersehbaren Mustern (Geburtstage, Namen, Tastaturfolgen)
+- Gute Passwörter sind schwer zu merken
+- Wir verwenden dasselbe Passwort für viele Dienste – **ein kompromittierter Dienst kompromittiert alle anderen**
+
+**Die 50 häufigsten Passwörter weltweit:** `123456`, `password`, `qwerty`, `123123`, `abc123` – solche Passwörter werden **in Minuten geknackt**.
+
+### Passwortqualität – Mathematik dahinter
+
+```mermaid
+graph LR
+    P1["Einfaches 6-stelliges Passwort\n36⁶ = ~2 Milliarden Varianten"] -->|Brute Force| C1["⚡ Im Minutenbereich geknackt!"]
+    P2["Komplexes 10-stelliges Passwort\n94¹⁰ = ~54 Trillionen Varianten"] -->|Brute Force| C2["✅ Hunderte von Jahren"]
+
+    style C1 fill:#e74c3c,color:#fff
+    style C2 fill:#27ae60,color:#fff
+```
+
+### Die 7 Regeln für sichere Passwörter
+
+1. **Mindestens 12 Zeichen** (je länger, desto besser)
+2. **Kombination** aus Ziffern, Gross- und Kleinbuchstaben sowie Sonderzeichen
+3. **Keine Tastaturfolgen** (z.B. «asdfgh», «45678», «qwertz»)
+4. **Kein Wort** einer bekannten Sprache – das Passwort soll keinen Sinn ergeben
+5. **Nie dasselbe Passwort** für mehrere Dienste verwenden
+6. Passwort **nicht unverschlüsselt speichern** (kein Post-it am Monitor!)
+7. **Sofort ändern** bei Verdacht auf Kompromittierung
+
+### Passwort-Manager (Tresore)
+
+Da es unmöglich ist, für jeden Dienst ein einzigartiges, komplexes Passwort zu merken, empfiehlt sich ein **Passwort-Manager**:
+
+| Tool | URL | Besonderheit |
+|---|---|---|
+| **1Password** | 1password.com | API zu «Have I Been Pwned» |
+| **KeePass** | keepass.info | Open Source, lokal |
+| **SafeInCloud** | safe-in-cloud.com | Multi-Plattform |
+| **SecureSafe** | securesafe.com | Schweizer Anbieter |
+| **Password Safe** | passwordsafe.de | Einfach und sicher |
+
+### Datenschutzverletzungen prüfen: «Have I Been Pwned?»
+
+Der Dienst [haveibeenpwned.com](https://haveibeenpwned.com) sammelt Daten aus bekannten Datenschutzverletzungen und ermöglicht dir zu prüfen, **ob deine E-Mail-Adresse in einem Datenleck auftaucht**. Wenn ja: Passwort sofort ändern!
+
+---
+
+### Multi-Faktor-Authentisierung (MFA)
+
+Selbst ein starkes Passwort kann kompromittiert werden (z.B. durch Phishing, Datenleck, Keylogger). Die Lösung: **Multi-Faktor-Authentisierung (MFA)**, auch «Zwei-Faktor-Authentisierung (2FA)» genannt.
+
+**Prinzip:** Der Benutzer muss sich durch **zwei oder mehr unabhängige Faktoren** identifizieren:
+
+```mermaid
+graph TD
+    F["🔐 Authentisierungsfaktoren"]
+    F --> K["📝 Wissen\n(Passwort, PIN)"]
+    F --> B["📱 Besitz\n(Smartphone, Token)"]
+    F --> E["👆 Biometrie\n(Fingerabdruck, Gesicht)"]
+
+    K --> MFA["✅ MFA: Kombination\naus mind. zwei Faktoren"]
+    B --> MFA
+    E --> MFA
+
+    style MFA fill:#27ae60,color:#fff
+```
+
+**MFA-Methoden:**
+- **Authenticator-App** (Google Authenticator, Microsoft Authenticator): Generiert zeitbasierte Einmalpasswörter (TOTP)
+- **SMS-TAN / Foto-TAN**: Code wird per SMS gesendet (weniger sicher als App)
+- **Spezifische Banking-App**: Eigener gesicherter Kanal
+
+**Warum ist MFA sicher?**  
+Die Sicherheit kommt aus zwei Prinzipien:
+1. **Unabhängiger Kanal**: Angreifer müsste Passwort UND physisches Gerät kompromittieren
+2. **Einmalige Verwendung**: Jedes OTP (One Time Password) ist nur einmal und nur kurz gültig
+
+---
+
+## 7. Phishing
+
+**Phishing** ist ein Kunstwort aus «password» und «fishing» – wörtlich: nach Passwörtern fischen.
+
+### Klassisches Phishing (E-Mail)
+
+**Ablauf eines typischen Phishing-Angriffs:**
+
+```mermaid
+sequenceDiagram
+    participant A as Angreifer
+    participant O as Opfer
+    participant B as Gefälschte Website
+
+    A->>O: Phishing-Mail (vermeintlich von Bank)
+    Note over O: Mail sieht offiziell aus (Logo, Design)
+    Note over O: «Ihr Konto wird gesperrt!» – Dringlichkeit!
+    O->>B: Klickt auf Link (URL gehört Angreifer)
+    Note over B: Sieht aus wie echte Bank-Website
+    O->>B: Gibt Benutzername + Passwort ein
+    B->>A: Zugangsdaten übermittelt
+    A->>A: Missbraucht Daten für Transaktionen
+```
+
+**Erkennungsmerkmale von Phishing-Mails:**
+- Absender-E-Mail-Adresse passt nicht zur angeblichen Organisation
+- Unpersönliche Anrede («Sehr geehrter Kunde»)
+- Künstliche Dringlichkeit («Ihr Konto wird in 24h gesperrt!»)
+- Link führt zu einer anderen Domain als der Unternehmenswebseite
+- Grammatik- oder Rechtschreibfehler
+
+### Phishing-Varianten
+
+| Variante | Kanal | Beschreibung |
+|---|---|---|
+| **Klassisches Phishing** | E-Mail | Massenweise versendete gefälschte Mails |
+| **Spear Phishing** | E-Mail | Gezielt auf eine Person/Organisation zugeschnitten |
+| **Vishing (Voice Phishing)** | Telefon | Anrufer gibt sich als Support, Bank etc. aus |
+| **Smishing** | SMS | Phishing via SMS/Messenger |
+
+### Sicherer Umgang mit Online-Diensten
+
+**Beim Einloggen:**
+- Adresse des Online-Dienstes **manuell eintippen** oder Lesezeichen verwenden – niemals Links aus E-Mails!
+- Beim Login **keine anderen Tabs** öffnen
+- **HTTPS und korrekten Domainnamen** im Browser prüfen
+
+**Beim Ausloggen:**
+- Dienst über die offizielle **«Abmelden»-Schaltfläche** beenden
+- Browser-**Cache** nach jedem Login leeren
+
+---
+
+## 8. Schutz vor Ransomware
+
+### Prävention
+
+- Aktuelles Antivirenprogramm und aktive Firewall
+- Alle Software aktuell halten (OS, Browser, Plugins)
+- **Korrekter Umgang mit E-Mails**: Keine unbekannten Anhänge öffnen
+- Office-Makros deaktivieren: *Datei → Optionen → Trust Center → «Alle Makros deaktivieren»*
+- **Backup, Backup, Backup** – und das Medium nach dem Backup trennen!
+
+### Im Schadensfall
+
+```mermaid
+flowchart TD
+    R[Ransomware entdeckt!] --> S1[Computer SOFORT hart ausschalten]
+    S1 --> S2[Live-System booten\nz.B. Desinfect von c't]
+    S2 --> S3[System scannen und säubern]
+    S3 --> S4[Daten aus sauberem Backup\nwiederherstellen]
+    S4 --> S5[Anzeige erstatten\nKOBIK + lokale Polizei]
+
+    R --> N["❌ NICHT ZAHLEN!"]
+    N --> N1["Keine Garantie auf Schlüssel"]
+    N1 --> N2["Stärkt kriminelle Infrastruktur"]
+    N2 --> N3["Nächste Attacke folgt mit\nhöherer Forderung"]
+
+    style N fill:#e74c3c,color:#fff
+    style R fill:#e67e22,color:#fff
+```
+
+---
+
+## 9. Aktuelle Themen
+
+### Smartphones
+
+Smartphones sind vollwertige Computer – mit allen damit verbundenen Risiken. Zusätzlich sind sie:
+- Leicht **stehlbar** (physischer Diebstahl + Datenverlust)
+- Häufig **schlechter geschützt** als PCs (schwache PINs, keine Verschlüsselung)
+- Anfällig für **Malware** (besonders Android)
+- Oft mit Apps ausgestattet, die **zu viele Berechtigungen** fordern
+
+**Vorsichtsmassnahmen:**
+- Nie **unbeaufsichtigt** lassen
+- **Starkes Passwort** oder Fingerabdruckscanner verwenden
+- **SIM-PIN** aktivieren, bei Verlust sofort beim Provider sperren lassen
+- Nur **notwendige Apps** aus offiziellen Stores installieren
+- **Berechtigungen** jeder App prüfen – im Zweifel nicht installieren
+- **Niemals** Gesundheits- oder Patientendaten auf dem Smartphone speichern!
+- Regelmässige **Backups** der persönlichen Daten
+- Alte Geräte vor der Entsorgung **Factory Reset** durchführen
+
+---
+
+### Soziale Medien
+
+Soziale Medien haben vielfältige Auswirkungen auf die Informationssicherheit:
+
+```mermaid
+mindmap
+  root((Soziale Medien\n& Sicherheit))
+    Informationssicherheit
+      Profil-Daten als Angriffsvektoren
+      Spear Phishing vorbereiten
+    Datenschutz
+      Fotos mit Metadaten
+      Boarding Pass mit Barcode
+    Objektschutz
+      Ferienankündigungen → Einbruch
+      Veranstaltungen mit Teilnehmerlisten
+    Personenschutz
+      Cybermobbing
+      Stalking
+```
+
+**Wichtige Erkenntnisse:**
+- Jede im Internet eingegebene Information wird – **meist dauerhaft** – gespeichert
+- Die meisten Social-Media-Anbieter befinden sich **ausserhalb Europas** und unterliegen anderen Datenschutzgesetzen
+- Durch Zustimmung zu AGBs können Datenschutzrechte aufgeweicht werden
+- **Nichts eingeben**, was irgendwann verfänglich sein könnte (Reisedaten, politische Meinungen, etc.)
+- **Privatsphäre-Einstellungen** regelmässig prüfen und aktualisieren
+
+---
+
+### Cloud-Speicher
+
+Cloud-Dienste bieten Komfort, bergen aber auch Risiken:
+
+| | Vorteile | Nachteile |
+|---|---|---|
+| **Cloud allgemein** | Überall verfügbar, automatisches Backup, einfaches Teilen | Meist im Ausland, Datenschutzfragen, AGBs |
+| **Dropbox / OneDrive** | ✅ Verschlüsselte Übertragung | ❌ Keine Speicherung in der Schweiz, keine Verschlüsselung at-rest |
+| **iCloud** | ✅ Verschlüsselte Übertragung und Speicherung | ❌ Keine Speicherung in der Schweiz |
+| **SecureSafe / HIN Filebox / Speicherbox** | ✅ Schweizer Anbieter, verschlüsselte Übertragung UND Speicherung | Meist kostenpflichtig |
+
+**Für Gesundheits- und Patientendaten:** Nur **Schweizer Cloud-Anbieter** mit verschlüsselter Speicherung verwenden! Dienste wie Dropbox, OneDrive oder iCloud sind **streng verboten** für medizinische Daten.
+
+---
+
+## 10. Sichere Datenübertragung
+
+Für den sicheren Versand sensibler Daten per E-Mail:
+
+| Methode | Beschreibung |
+|---|---|
+| **S/MIME** | Zertifikatbasierte E-Mail-Verschlüsselung, in Outlook integrierbar |
+| **PGP / GPG** | Open-Source E-Mail-Verschlüsselung, hohe Sicherheit |
+| **7-Zip (AES-256)** | Datei vor dem Versand verschlüsseln, Passwort über anderen Kanal übermitteln |
+
+**Wichtige Regel:** Das Passwort für eine verschlüsselte Datei **immer über einen anderen Kanal** übermitteln (Telefon, SMS, persönlich) – nie in derselben E-Mail!
+
+---
+
+## 11. Awareness: Das Konzept
+
+### Was Awareness erreichen soll
+
+Awareness-Massnahmen verfolgen drei Ziele:
+
+1. **Wichtigkeit verstehen**: Mitarbeitende müssen verstehen, warum Sicherheit relevant ist – für das Unternehmen UND für sie persönlich
+2. **Prozesse kennen**: Wie läuft eine Awareness-Kampagne ab? Wie wird Erfolg gemessen?
+3. **Erfolgsfaktoren anwenden**: Welche Massnahmen funktionieren wirklich, und wie werden sie umgesetzt?
+
+### Der Unterschied zwischen Wissen und Verhalten
+
+Awareness ist mehr als Wissen. Das Ziel ist eine **dauerhafte Verhaltensänderung**:
+
+```mermaid
+graph LR
+    W[Wissen] -->|+Motivation| E[Einstellung]
+    E -->|+Gelegenheit| V[Verhalten]
+    V -->|regelmässige Übung| G[Gewohnheit]
+
+    style G fill:#27ae60,color:#fff
+```
+
+Nur wenn Wissen in Einstellungen übergeht und sich dann im konkreten Verhalten niederschlägt, ist Awareness erfolgreich.
+
+---
+
+## 12. Hilfreiche Ressourcen und Meldestellen
+
+### «eBanking – aber sicher!» (EBAS)
+- **Website:** [www.ebas.ch](https://www.ebas.ch) / [www.ebankingabersicher.ch](https://www.ebankingabersicher.ch)
+- Plattform der HSLU Informatik für persönliche Informationssicherheit
+- Enthält Infosheets, Checklisten (z.B. Facebook-Einstellungen), Kurse und einen **Phishing-Test** unter [www.ebas.ch/phishingtest](http://www.ebas.ch/phishingtest)
+
+### Swiss Internet Security Alliance (SISA)
+- **Website:** [www.ibarry.ch](https://www.ibarry.ch)
+- Hilft bei der Erkennung und Entfernung von Malware-Infektionen
+- Bietet einen **Security Check** für deinen PC
+
+### Nationale Meldestellen
+| Institution | Zweck | URL |
+|---|---|---|
+| **NCSC** | Nationales Zentrum für Cybersicherheit | [ncsc.admin.ch](https://www.ncsc.admin.ch) |
+| **Anti-Phishing** | Phishing-Mails und -Seiten melden | [antiphishing.ch](https://www.antiphishing.ch) |
+| **KOBIK** | Koordinationsstelle zur Bekämpfung der Internetkriminalität | via NCSC |
+
+---
+
+## Zusammenfassung
+
+```mermaid
+graph TD
+    ZIEL["🎯 Ziel: Informationssicherheit"] --> S1
+    ZIEL --> S2
+    ZIEL --> S3
+
+    S1["🔧 Technik\nVirenschutz, Firewall, Updates"] --> H1["Kaufen &\nKonfigurieren"]
+    S2["⚙️ Prozesse\nRichtlinien, Kontrollen"] --> H2["Definieren &\nÜberwachen"]
+    S3["👤 Mensch\nAwareness & Schulung"] --> H3["Sensibilisieren &\nAusbilden"]
+
+    H3 --> A1["1. Sichern – Backup"]
+    H3 --> A2["2. Schützen – Antivirensoftware"]
+    H3 --> A3["3. Überwachen – Firewall"]
+    H3 --> A4["4. Vorbeugen – Software-Updates"]
+    H3 --> A5["5. Aufpassen – Verhalten"]
+
+    style ZIEL fill:#003366,color:#fff
+    style S3 fill:#e74c3c,color:#fff
+    style H3 fill:#c0392b,color:#fff
+```
+
+**Der Mensch ist gleichzeitig das grösste Risiko und der grösste Schutzfaktor in der Informationssicherheit.**  
+Technische Massnahmen sind notwendig, aber nicht ausreichend. Nur durch kontinuierliche Sensibilisierung, Schulung und das Einbinden des menschlichen Potenzials kann ein wirksamer Schutz aufgebaut werden.
+
+> *«Zwei Dinge sind unendlich: das Universum und die menschliche Dummheit. Aber bei dem Universum bin ich mir noch nicht ganz sicher.»*  
+> — Albert Einstein
+
+---
+
+*Zusammenfassung basierend auf den Vorlesungsfolien ISF SW02, HSLU Informatik, Prof. Dr. Peter E. Fischer, 21. Februar 2022.*

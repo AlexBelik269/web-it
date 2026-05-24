@@ -1,0 +1,242 @@
+---
+title: "Binary & ASCII"
+description: "How computers represent text as binary numbers — from the ASCII table to Unicode and UTF-8 — and why every character you type is stored as a sequence of 0s and 1s."
+---
+
+Every character you type — every letter, space, and punctuation mark — is stored in a computer as a number. That number is then stored as a sequence of bits (binary digits: 0 and 1). Understanding this chain of encoding is fundamental to understanding how computers process text, how encoding bugs arise, and how early text-based encoding systems worked.
+
+## Number Systems
+
+Computers work in binary because transistors have two states: on (1) and off (0). All data — text, images, audio, programs — is ultimately a sequence of these 0s and 1s.
+
+### Binary (Base 2)
+
+Binary uses only digits 0 and 1. Each position represents a power of 2:
+
+```
+Binary:  1 0 1 1 0 1
+Powers:  2⁵ 2⁴ 2³ 2² 2¹ 2⁰
+Values:  32  0  8  4  0  1
+Sum:     32 + 8 + 4 + 1 = 45
+
+So binary 101101 = decimal 45
+```
+
+### Decimal to Binary Conversion
+
+Divide by 2 repeatedly, recording remainders:
+
+```
+45 ÷ 2 = 22 remainder 1  ↑ (read remainders bottom to top)
+22 ÷ 2 = 11 remainder 0  |
+11 ÷ 2 =  5 remainder 1  |
+ 5 ÷ 2 =  2 remainder 1  |
+ 2 ÷ 2 =  1 remainder 0  |
+ 1 ÷ 2 =  0 remainder 1  ↓
+
+45 in binary = 101101
+```
+
+```python
+# Python makes this easy
+bin(45)    # '0b101101'
+int('101101', 2)  # 45
+
+# Manual conversion
+def to_binary(n: int) -> str:
+    if n == 0:
+        return '0'
+    bits = []
+    while n > 0:
+        bits.append(str(n % 2))
+        n //= 2
+    return ''.join(reversed(bits))
+```
+
+### Hexadecimal (Base 16)
+
+Hex uses digits 0–9 and letters A–F (representing 10–15). One hex digit represents exactly 4 binary bits — so it's a compact way to write binary.
+
+```
+Binary:  0100 1000 0110 0101 0110 1100 0110 1100 0110 1111
+Hex:      4    8    6    5    6    C    6    C    6    F
+         = 48 65 6C 6C 6F = "Hello" in ASCII
+```
+
+| Decimal | Binary | Hex |
+|---------|--------|-----|
+| 0 | 0000 | 0 |
+| 9 | 1001 | 9 |
+| 10 | 1010 | A |
+| 15 | 1111 | F |
+| 16 | 0001 0000 | 10 |
+| 255 | 1111 1111 | FF |
+
+## ASCII: American Standard Code for Information Interchange
+
+ASCII was published in 1963 as a standard for mapping characters to 7-bit numbers (0–127). It defines 128 characters: 33 control characters (non-printable, like newline and tab) and 95 printable characters.
+
+### The ASCII Table (printable range)
+
+| Decimal | Hex | Character | | Decimal | Hex | Character |
+|---------|-----|-----------|---|---------|-----|-----------|
+| 32 | 20 | (space) | | 80 | 50 | P |
+| 33 | 21 | ! | | 81 | 51 | Q |
+| 48 | 30 | 0 | | 90 | 5A | Z |
+| 57 | 39 | 9 | | 97 | 61 | a |
+| 65 | 41 | A | | 98 | 62 | b |
+| 66 | 42 | B | | 122 | 7A | z |
+| 90 | 5A | Z | | 123 | 7B | curly brace open|
+
+**Key patterns to know:**
+- Uppercase letters: A=65 (0x41) through Z=90 (0x5A)
+- Lowercase letters: a=97 (0x61) through z=122 (0x7A)
+- Digits: '0'=48 (0x30) through '9'=57 (0x39)
+- Difference between uppercase and lowercase: exactly 32 (one bit flip: 0x20)
+
+```python
+# ASCII operations in Python
+ord('A')    # 65
+ord('a')    # 97
+chr(65)     # 'A'
+chr(97)     # 'a'
+
+# Uppercase to lowercase: add 32 (set bit 5)
+ord('A') + 32  # 97 = 'a'
+
+# Check if character is uppercase letter
+def is_uppercase(c: str) -> bool:
+    return 65 <= ord(c) <= 90
+
+# Convert text to ASCII values
+def text_to_ascii(text: str) -> list[int]:
+    return [ord(c) for c in text]
+
+# Convert ASCII values to binary
+def text_to_binary(text: str) -> list[str]:
+    return [format(ord(c), '08b') for c in text]
+
+print(text_to_binary("Hi"))
+# ['01001000', '01101001']
+```
+
+### Converting Text to Binary Step by Step
+
+```
+"Hello" → ASCII → Binary
+
+H → 72  → 01001000
+e → 101 → 01100101
+l → 108 → 01101100
+l → 108 → 01101100
+o → 111 → 01101111
+
+In memory: 01001000 01100101 01101100 01101100 01101111
+```
+
+## Beyond ASCII: Unicode and UTF-8
+
+ASCII only covers 128 characters — fine for English, but useless for Chinese, Arabic, emoji, or mathematical symbols. Unicode solves this.
+
+### Unicode
+
+Unicode assigns a unique **code point** (number) to every character in every writing system. Unicode 15.1 contains over 149,000 characters.
+
+```
+'A'     → U+0041  (same as ASCII)
+'α'     → U+03B1  (Greek small letter alpha)
+'中'    → U+4E2D  (Chinese character)
+'😀'   → U+1F600 (grinning face emoji)
+```
+
+### UTF-8 Encoding
+
+Unicode defines code points, but not how to store them in bytes. **UTF-8** is the dominant encoding — it stores Unicode code points in 1–4 bytes, depending on the character.
+
+| Code point range | Bytes | Binary pattern |
+|-----------------|-------|----------------|
+| U+0000–U+007F | 1 | `0xxxxxxx` |
+| U+0080–U+07FF | 2 | `110xxxxx 10xxxxxx` |
+| U+0800–U+FFFF | 3 | `1110xxxx 10xxxxxx 10xxxxxx` |
+| U+10000–U+10FFFF | 4 | `11110xxx 10xxxxxx 10xxxxxx 10xxxxxx` |
+
+ASCII characters (U+0000–U+007F) are identical in UTF-8 — a one-byte encoding. This backward compatibility is why UTF-8 became the dominant encoding for the web.
+
+```python
+# UTF-8 in Python
+text = "Hello 😀"
+encoded = text.encode('utf-8')
+print(encoded)         # b'Hello \xf0\x9f\x98\x80'
+print(len(text))       # 7 characters
+print(len(encoded))    # 10 bytes (emoji takes 4 bytes)
+
+# Decode back
+print(encoded.decode('utf-8'))  # Hello 😀
+
+# See byte representation
+for char in "α":
+    b = char.encode('utf-8')
+    print(f"'{char}' → {' '.join(f'{x:02X}' for x in b)} → {' '.join(f'{x:08b}' for x in b)}")
+# 'α' → CE B1 → 11001110 10110001
+```
+
+## Base64: Binary as Text
+
+**Base64** encodes arbitrary binary data as printable ASCII text using 64 characters (A–Z, a–z, 0–9, +, /). It is used wherever binary data must travel through a text-only channel — email attachments, data URLs, JSON APIs.
+
+```
+Original: "Man"
+ASCII:    77  97  110
+Binary:   01001101 01100001 01101110
+
+Group into 6-bit chunks:
+010011 010110 000101 101110
+
+Convert to Base64 characters (using Base64 alphabet):
+T      W      F      u
+
+Result: "TWFu"
+```
+
+Every 3 bytes of input produce 4 Base64 characters. Padding `=` is added when input is not a multiple of 3 bytes.
+
+```python
+import base64
+
+# Encode
+data = b"Hello, World!"
+encoded = base64.b64encode(data)
+print(encoded)   # b'SGVsbG8sIFdvcmxkIQ=='
+
+# Decode
+decoded = base64.b64decode(encoded)
+print(decoded)   # b'Hello, World!'
+
+# URL-safe variant (uses - and _ instead of + and /)
+url_safe = base64.urlsafe_b64encode(data)
+```
+
+**Base64 is encoding, not encryption.** Anyone can decode it. Never use Base64 to "protect" sensitive data.
+
+## How It All Connects to Cryptography
+
+Understanding binary and character encoding is foundational to cryptography:
+
+1. **Ciphers operate on numbers** — the Caesar cipher shifts character numbers; AES operates on blocks of bits
+2. **Keys are byte strings** — a 256-bit AES key is 32 bytes of binary data
+3. **Encoding vulnerabilities** — mishandling character encodings can create security bugs (SQL injection, XSS often involve unexpected interpretation of byte sequences)
+4. **Hash output is binary** — SHA-256 produces 32 bytes, usually displayed as 64 hex characters
+
+```python
+import hashlib
+
+# SHA-256 of a string
+text = "Hello"
+digest = hashlib.sha256(text.encode('utf-8')).digest()
+print(len(digest))           # 32 bytes
+print(digest.hex())          # 64 hex characters
+print(len(digest.hex()))     # 64
+
+# The digest in binary
+print(format(int(digest.hex(), 16), '0256b'))  # 256 binary digits
+```

@@ -1,0 +1,73 @@
+---
+title: "Encoding"
+description: "What encoding is, how it differs from encryption, and why the distinction matters — from ancient symbol substitution to modern character sets and data formats."
+---
+
+Encoding and encryption are frequently confused, but they serve fundamentally different purposes. Understanding the difference is essential — both for using them correctly and for evaluating the security claims of any system.
+
+## Encoding vs Encryption
+
+| Property | Encoding | Encryption |
+|----------|----------|------------|
+| **Purpose** | Format conversion for transmission or storage | Hiding information from unauthorized parties |
+| **Key required** | No | Yes |
+| **Reversibility** | Reversible by anyone with the algorithm | Reversible only with the key |
+| **Security goal** | None (by design) | Confidentiality |
+| **Examples** | Base64, ASCII, Morse code | AES-256-GCM, RSA |
+
+**Encoding is not security.** Base64-encoding a password doesn't protect it. Anyone who knows it's Base64 (it always ends in `==`) can decode it immediately. A string of symbols substituted for letters is encoding unless only the key-holder knows the substitution.
+
+The historical blurring of these concepts caused real harm. Mary Queen of Scots used a symbol cipher that looked like an exotic encoding — the substitution table was the key. But because her cipher was **fixed** (the same symbol always meant the same letter), it behaved like encoding: pattern analysis recovered the mapping without the key.
+
+## What Makes Something Encryption?
+
+Encryption requires that **knowing the algorithm but not the key** leaves you with no useful information. This is Kerckhoffs's principle (1883): the security of a system must rest entirely in the key.
+
+```
+Encoding:   decode(encode(data)) = data      [anyone can do this]
+Encryption: decrypt(encrypt(data, key)) = data  [only key-holder can do this]
+```
+
+A Caesar cipher is technically encryption — the shift is the key. But with only 26 possible keys, the key space is trivially small, making it effectively encoding.
+
+## A Brief History of Encoding for Secrecy
+
+Before formal cryptography, **symbol substitution** was the primary method of hiding messages. Instead of a letter alphabet, messages were written in invented symbols, pigpen grids, or illustrated icons. The earliest recorded example is from ancient Egypt (~1900 BC) where a tomb inscription used non-standard hieroglyphs.
+
+**Steganography** — hiding that a message exists at all — is perhaps even older. Herodotus records a Greek general who tattooed a secret message on a shaved slave's head, waited for the hair to grow back, then sent the slave with a visible decoy message. The hidden message was revealed only when the slave's head was shaved again.
+
+Modern digital steganography hides data inside image files, audio files, and other media using the same principle: the carrier looks normal; only the intended recipient knows to look inside.
+
+## Encoding in Computing
+
+Modern computers use encoding extensively — not for security, but to represent data in different formats:
+
+| Encoding | Purpose | Example |
+|----------|---------|---------|
+| **ASCII** | Map characters to numbers | 'A' = 65, 'a' = 97 |
+| **UTF-8** | Encode Unicode characters | 'α' = 0xCE 0xB1 |
+| **Base64** | Represent binary as printable text | `SGVsbG8=` = "Hello" |
+| **Hex** | Represent bytes as readable digits | `48 65 6C 6C 6F` = "Hello" |
+| **URL encoding** | Encode special chars in URLs | `Hello World` → `Hello%20World` |
+
+None of these provide security. They exist purely for compatibility — to move binary data through systems that only handle text, or to ensure characters display correctly across different locales.
+
+## The Encoding Security Trap
+
+Several common encoding schemes are mistakenly used as security measures:
+
+**Base64** is sometimes used to "obscure" passwords or tokens in web apps. It provides zero security — any developer who recognizes the trailing `==` can decode it in seconds.
+
+**ROT13** (Caesar cipher with shift 13) is sometimes used to hide spoilers online. It was never a security measure — it's just encoding that makes text unreadable at a glance.
+
+**Hexadecimal** representation of data is not obscuring. Hex is just another way to write the same bytes.
+
+The rule: **if anyone with the algorithm can reverse the operation, it's encoding, not encryption.**
+
+## Topics in This Section
+
+| Topic | What you'll learn |
+|-------|------------------|
+| [Binary & ASCII](./binary-and-ascii) | How computers represent text as numbers; character sets; base conversion |
+| [Morse Code](./morse-code) | Signal-based encoding for transmission; history; encoding/decoding |
+| [Steganography](./steganography) | Hiding information inside other data; LSB encoding; detection |

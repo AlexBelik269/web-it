@@ -1,47 +1,70 @@
 ---
 title: "Security"
-description: "A comprehensive reference for application security — web vulnerabilities, cryptography, infrastructure hardening, API security, compliance, and incident response."
+description: "A comprehensive reference for application and system security — web vulnerabilities, malware, cryptography, infrastructure hardening, API security, compliance, and incident response."
 ---
 
 import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
 
-This section covers security topics beyond authentication and authorization. Use it alongside the [Auth](/auth) section for full coverage of secure application design.
+This section covers security topics beyond authentication and authorization. Use it alongside the [Auth](/auth) section for complete coverage of secure application design.
 
-## What's Covered
+## Chapters
 
-| Section | Topics |
-|---|---|
-| [Web App Security](/security/web/owasp-top-10) | OWASP Top 10, XSS, SQL Injection, CSRF, CORS |
-| [Cryptography](/security/cryptography/fundamentals) | Symmetric/asymmetric encryption, hashing, key management |
+| Chapter | What you'll find |
+|---------|-----------------|
+| [Web App Security](/security/web/owasp-top-10) | OWASP Top 10, XSS, SQL Injection, CSRF, CORS, HTTP Security Headers |
+| [Malware](/security/malware) | Malware types in depth, attack techniques, detection and defense |
+| [Principals](/security/principals/cyber-warfare) | Cyber warfare, email security, password security, endpoint protection |
+| [Cryptography](/security/cryptography/fundamentals) | Hashing, symmetric/asymmetric encryption, key management, classical ciphers, encoding |
+| [API Security](/security/api/api-security-fundamentals) | Input validation, rate limiting, authentication patterns |
 | [Infrastructure](/security/infrastructure/secrets-management) | Secrets management, container security, cloud hardening |
-| [API Security](/security/api/api-security-fundamentals) | Input validation, rate limiting, API gateway patterns |
-| [Compliance](/security/compliance/security-frameworks) | GDPR, SOC 2, ISO 27001, security frameworks |
-| [Incident Response](/security/incident-response/logging-monitoring) | Logging, monitoring, forensics, playbooks |
+| [Compliance](/security/compliance) | Ethics & law, security frameworks, GDPR |
+| [Incident Response](/security/incident-response/logging-monitoring) | Logging, monitoring, incident playbooks, digital forensics |
 
 ## Security Is Layered
 
-No single control is sufficient. A secure system applies defense in depth — multiple independent layers so that a breach of one does not compromise everything:
+No single control is sufficient. A secure system applies **defense in depth** — multiple independent layers so that a failure in one does not compromise everything:
 
 ```
-User Input → Input Validation → Business Logic → Data Layer
-     ↓              ↓                  ↓              ↓
-Rate Limiting   Sanitization      AuthZ Checks    Encryption
-WAF/CDN         Parameterization  Least Privilege  Audit Log
+Network Layer     → Firewall, IDS/IPS, DDoS protection
+Application Layer → Input validation, WAF, rate limiting, CSP headers
+Identity Layer    → Authentication, MFA, least-privilege authorization
+Data Layer        → Encryption at rest, parameterized queries, secrets management
+Detection Layer   → Logging, monitoring, alerting, EDR
+Response Layer    → Incident playbooks, forensics, backup and recovery
 ```
 
 ## Quick Navigation
 
-**Fixing a specific vulnerability?**  
-→ [OWASP Top 10](/security/web/owasp-top-10) — the ten most critical web application risks
+**Understanding a specific attack or vulnerability?**  
+→ [OWASP Top 10](/security/web/owasp-top-10) — the ten most critical web risks, with attack mechanics and defenses  
+→ [Malware Types](/security/malware/malware-types) — every malware category from ransomware to APTs
 
-**Building an API?**  
-→ [API Security Fundamentals](/security/api/api-security-fundamentals) — input validation, rate limiting, auth patterns
+**How threats actually reach systems?**  
+→ [Attack Techniques](/security/malware/attack-techniques) — phishing, supply chain, zero-days, drive-by downloads
 
-**Handling sensitive data?**  
-→ [Cryptography Fundamentals](/security/cryptography/fundamentals) + [Secrets Management](/security/infrastructure/secrets-management)
+**Building or securing an API?**  
+→ [API Security Fundamentals](/security/api/api-security-fundamentals) — transport, auth, validation, rate limiting  
+→ [Input Validation](/security/api/input-validation) — schema validation, sanitization, file upload handling
 
-**Preparing for a security audit or compliance requirement?**  
-→ [Security Frameworks](/security/compliance/security-frameworks) — SOC 2, ISO 27001, GDPR overview
+**Securing a web frontend?**  
+→ [HTTP Security Headers](/security/web/http-security-headers) — CSP, HSTS, Referrer-Policy, Permissions-Policy  
+→ [XSS](/security/web/xss) — injection types, context-aware encoding, Trusted Types
 
-**Responding to an incident?**  
-→ [Incident Playbooks](/security/incident-response/incident-playbooks) — structured response guides
+**Working with sensitive data or cryptography?**  
+→ [Cryptography Fundamentals](/security/cryptography/fundamentals) — which primitive to use and when  
+→ [Hashing & Salting](/security/cryptography/hashing-and-salting) — password hashing, Argon2id, rainbow tables  
+→ [Secrets Management](/security/infrastructure/secrets-management) — vaults, rotation, secret zero
+
+**Preparing for compliance or a security audit?**  
+→ [Compliance Overview](/security/compliance) — which framework applies to you  
+→ [Security Frameworks](/security/compliance/security-frameworks) — SOC 2, ISO 27001, NIST CSF, CIS Controls  
+→ [GDPR for Engineers](/security/compliance/gdpr) — technical requirements, breach notification, DPIAs
+
+**Responding to an incident or improving detection?**  
+→ [Incident Playbooks](/security/incident-response/incident-playbooks) — ransomware, credential compromise, data breach  
+→ [Logging & Monitoring](/security/incident-response/logging-monitoring) — what to log, alerting patterns  
+→ [Digital Forensics](/security/incident-response/forensics) — memory capture, disk imaging, timeline reconstruction
+
+**Interested in how cryptography and ciphers evolved historically?**  
+→ [Classical Ciphers](/security/cryptography/classical-ciphers) — Caesar, Vigenère, Enigma, substitution ciphers  
+→ [Encoding](/security/cryptography/encoding) — binary, Morse code, steganography
