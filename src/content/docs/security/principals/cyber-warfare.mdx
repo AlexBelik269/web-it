@@ -2,6 +2,8 @@
 title: "Cyber Warfare"
 description: "How nations use cyberattacks as instruments of statecraft — espionage, sabotage, and influence operations — and the major incidents that shaped modern cyber conflict."
 ---
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 
 Cyber warfare is the use of digital attacks by nation-states (or state-sponsored actors) to disrupt, damage, or destroy another nation's infrastructure, steal strategic information, or influence populations. It is now a permanent feature of geopolitical competition — every major military power has dedicated offensive cyber units, and cyberattacks regularly accompany or precede conventional military operations.
 
@@ -10,15 +12,44 @@ Cyber warfare is the use of digital attacks by nation-states (or state-sponsored
 Nation-state cyber operations span a wide range of objectives and intensity:
 
 ```mermaid
-flowchart LR
-    subgraph "Covert / Deniable"
-        A[Espionage\nSteal secrets,\nintelligence collection]
-        B[Influence Operations\nDisinformation,\nelection interference]
+flowchart TB
+
+    %% Styling
+    classDef covert fill:#1e293b,stroke:#64748b,color:#fff,stroke-width:2px;
+    classDef destructive fill:#7f1d1d,stroke:#ef4444,color:#fff,stroke-width:2px;
+    classDef center fill:#6791eb,stroke:#9ca3af,color:#fff,stroke-width:3px;
+
+    %% Core
+    CYBER[Cyber Operations Objectives]
+
+    %% Covert Side
+    subgraph COVERT["Covert / Deniable Operations"]
+        direction TB
+
+        A[🕵️ Espionage<br/>Steal secrets<br/>Intelligence collection]
+
+        B[📢 Influence Operations<br/>Disinformation<br/>Election interference]
     end
-    subgraph "Destructive / Visible"
-        C[Sabotage\nDestroy infrastructure,\ndisrupt operations]
-        D[Coercive Attacks\nDemonstrate capability\nto influence behavior]
+
+    %% Destructive Side
+    subgraph DESTRUCTIVE["Destructive / Visible Operations"]
+        direction TB
+
+        C[💥 Sabotage<br/>Destroy infrastructure<br/>Disrupt operations]
+
+        D[⚠️ Coercive Attacks<br/>Demonstrate capability<br/>Influence behavior]
     end
+
+    %% Relationships
+    CYBER --> A
+    CYBER --> B
+    CYBER --> C
+    CYBER --> D
+
+    %% Classes
+    class CYBER center;
+    class A,B covert;
+    class C,D destructive;
 ```
 
 Unlike conventional military operations, cyber operations are:
@@ -38,111 +69,255 @@ Unlike conventional military operations, cyber operations are:
 | **Iran** | APT33, APT34, MOIS | Saudi Arabia, Israel, US targets; destructive wiper malware |
 | **Israel** | Unit 8200, Shin Bet | Cyber espionage, targeted operations against adversaries |
 
-## Landmark Incidents
 
-### Stuxnet (2010) — The First Known Cyberweapon
 
-**What happened:** A highly sophisticated worm (attributed to the US and Israel, known as "Olympic Games") targeted the Siemens programmable logic controllers (PLCs) that controlled Iran's uranium enrichment centrifuges at Natanz. 
+# Landmark Incidents
 
-**How it worked:**
-1. Spread via infected USB drives (air-gapped networks cannot be reached over the internet)
-2. Scanned for Siemens STEP 7 software
-3. Reprogrammed centrifuge controllers to spin at destructive speeds, then spin too slowly — while reporting normal values to operators
-4. Destroyed approximately 1,000 centrifuges (20% of Iran's enrichment capacity) without any visible cause
+> A timeline of the most influential cyberattacks in modern history — from early nation-state DDoS campaigns to ransomware attacks against critical infrastructure.
 
-**Why it matters:** Stuxnet was the first documented case of a cyberattack causing **physical destruction of industrial equipment**. It demonstrated that cyber operations could achieve strategic military objectives without firing a shot — and that critical infrastructure worldwide is vulnerable to similar attacks.
+<CardGrid stagger>
+  <Card title="Estonia DDoS (2007)" icon="seti:cloud">
+    First nation-scale cyber campaign targeting government, banking, and media infrastructure.
+  </Card>
 
-**Discovery:** Stuxnet accidentally spread outside Natanz (a bug in the worm's propagation logic) and was discovered by Belarusian security firm VirusBlokAda in 2010. Analysis took months; its full sophistication (four zero-day exploits, two stolen digital certificates, rootkit capabilities) shocked the security community.
+  <Card title="Stuxnet (2010)" icon="seti:shield">
+    The first known cyberweapon capable of physical destruction.
+  </Card>
+
+  <Card title="Sony Pictures (2014)" icon="seti:terminal">
+    A destructive retaliatory cyberattack linked to North Korea.
+  </Card>
+
+  <Card title="SolarWinds (2020)" icon="seti:package">
+    One of the most sophisticated supply-chain compromises ever discovered.
+  </Card>
+
+  <Card title="Colonial Pipeline (2021)" icon="seti:database">
+    Ransomware attack demonstrating the national security impact of cybercrime.
+  </Card>
+
+  <Card title="Russia–Ukraine Cyberwar (2022–)" icon="seti:globe">
+    Cyber operations integrated into modern conventional warfare.
+  </Card>
+</CardGrid>
 
 ---
 
-### Estonia DDoS (2007) — The First Nation-State Cyber Campaign
+## Estonia DDoS (2007)
 
-**Context:** After Estonia moved a Soviet war memorial statue, Russia and Russian nationalists launched a campaign of DDoS attacks lasting three weeks.
+<Aside type="caution" title="First Nation-State Cyber Campaign">
+The Estonia attacks are widely considered the first large-scale cyber campaign used as a geopolitical weapon against a nation.
+</Aside>
 
-**Targets:** Estonian parliament, banks (Hansabank, SEB), newspapers, TV stations, government ministries, emergency services.
+After Estonia moved a Soviet war memorial statue, Russia and Russian nationalist groups launched coordinated DDoS attacks lasting nearly three weeks.
 
-**Impact:**
-- Online banking down for days (Estonia at the time was one of the most internet-dependent societies in the world)
+**Targets**
+- Estonian parliament
+- Banks (Hansabank, SEB)
+- Newspapers and broadcasters
+- Government ministries
+- Emergency services
+
+**Impact**
+- Online banking unavailable for days
 - Government communications disrupted
-- Emergency services call centers overloaded
+- Emergency call systems overloaded
 
-**Significance:** First time a sustained cyber campaign was used as a geopolitical instrument against a nation. NATO's designation of Estonia as a cyber defense hub and the creation of the NATO Cooperative Cyber Defence Centre of Excellence (CCDCOE) in Tallinn directly resulted from this attack.
-
----
-
-### Georgia Cyberattacks (2008)
-
-Two days before Russian military forces entered Georgian territory during the 2008 South Ossetia War, cyberattacks began against Georgian government websites, news sites, and communications infrastructure — the first documented case of cyberattacks coordinated with conventional military operations.
-
-Georgian government websites were defaced with images comparing the Georgian president to Hitler. Communications disruption coincided with the physical invasion, reducing the Georgian government's ability to coordinate response and communicate internationally.
+**Why It Matters:** The incident transformed NATO’s approach to cybersecurity and directly led to the creation of the NATO Cooperative Cyber Defence Centre of Excellence (CCDCOE) in Tallinn.
 
 ---
 
-### Sony Pictures Hack (2014)
+## Georgia Cyberattacks (2008)
+
+<Aside type="tip" title="Cyber + Kinetic Warfare">
+This was the first documented case of cyberattacks coordinated alongside conventional military operations.
+</Aside>
+
+Two days before Russian military forces entered Georgian territory during the South Ossetia War, cyberattacks began against Georgian government systems and media infrastructure.
+
+**What Happened**
+- Government websites defaced
+- Communications infrastructure disrupted
+- News and media sites targeted
+- Psychological operations amplified online
+
+**Significance:** The attacks demonstrated how cyber operations could support physical military invasion by disrupting communications and international coordination.
+
+---
+
+## Stuxnet (2010)
+
+<Aside type="danger" title="The First Known Cyberweapon">
+Stuxnet proved malware could cause real-world physical destruction.
+</Aside>
+
+A highly sophisticated worm — attributed to the United States and Israel under *Operation Olympic Games* — targeted Siemens PLC controllers inside Iran’s Natanz uranium enrichment facility.
+
+**How It Worked**
+1. Spread through infected USB drives
+2. Identified Siemens STEP 7 systems
+3. Manipulated centrifuge speeds while displaying fake normal readings
+4. Physically damaged roughly 1,000 centrifuges
+
+**Why It Matters:** Stuxnet fundamentally changed cybersecurity strategy worldwide by proving that industrial systems and critical infrastructure were vulnerable to cyber sabotage.
+
+**Discovery:** The worm accidentally escaped Natanz due to a propagation bug and was discovered in 2010 by Belarusian security firm VirusBlokAda.
+
+---
+
+## Sony Pictures Hack (2014)
+
+<Aside type="note" title="Destructive Retaliation">
+The attack demonstrated how cyberattacks could be used as retaliation for media and political messaging.
+</Aside>
+
+Hackers infiltrated Sony Pictures, exfiltrated massive amounts of data, and deployed destructive wiper malware called **WhiskeyAlfa**.
 
 **Actor:** Lazarus Group (North Korea)
 
-**Why:** In response to the film "The Interview" — a comedy about a CIA plot to assassinate Kim Jong-un.
+**Motivation:** Retaliation against *The Interview*, a comedy depicting the assassination of Kim Jong-un.
 
-**What happened:** North Korean hackers ("Guardians of Peace") breached Sony Pictures' network, exfiltrated 100 terabytes of data, and deployed a wiper malware called WhiskeyAlfa that overwrote the Master Boot Record of every machine on the network, rendering them inoperable.
+**Leaked Data**
+- Unreleased films
+- Executive emails
+- Employee salaries and SSNs
+- Passwords and private celebrity information
 
-**Leaked:** Unreleased films, employee Social Security numbers and salaries, executive email conversations (embarrassing), celebrity private data, passwords.
-
-**Impact:** Estimated $35 million in IT remediation costs. Paralyzed the company for weeks. Demonstrated that destructive malware could cripple a major corporation as a retaliatory measure.
+**Impact**
+- Estimated $35 million in damages
+- Corporate operations disrupted for weeks
+- Public exposure of embarrassing internal communications
 
 ---
 
-### Ukraine Power Grid Attacks (2015, 2016)
+## Ukraine Power Grid Attacks (2015–2016)
+
+<Aside type="danger" title="First Confirmed Cyber-Induced Blackout">
+These attacks marked the first confirmed cyberattacks to successfully disrupt an electrical grid.
+</Aside>
 
 **Actor:** Sandworm (Russian GRU)
 
-In December 2015, malware (BlackEnergy) infected Ukrainian power distribution companies, allowing attackers to remotely operate circuit breakers and cut power to 230,000 customers in western Ukraine for several hours — the first confirmed cyberattack to cause a power outage.
+**2015 Attack:** Attackers used BlackEnergy malware to remotely operate circuit breakers and disconnect power for approximately 230,000 Ukrainians.
 
-In December 2016, a more sophisticated attack (Industroyer/Crashoverride) was used against Kyiv's transmission substation. Industroyer was specifically designed to communicate with industrial control systems — the first ICS-specific malware after Stuxnet.
+**2016 Attack:** A more advanced malware framework called **Industroyer/Crashoverride** specifically targeted industrial control protocols.
 
-These attacks were a preview of the broader cyber operations that accompanied Russia's 2022 full-scale invasion of Ukraine.
-
----
-
-### SolarWinds (2020) — The Gold Standard of Supply Chain Attacks
-
-**Actor:** APT29 (Russian SVR)
-
-See detailed breakdown in [Malware Types — APTs](../malware/malware-types#advanced-persistent-threats-apts).
-
-**Key strategic significance:** Rather than attacking US government agencies directly (heavily defended), the SVR compromised a software supplier trusted by all of them. This approach turned the software supply chain into an attack vector affecting 18,000 organizations simultaneously.
+**Why It Matters:** These attacks previewed the cyber tactics later used during Russia’s broader military campaigns against Ukraine.
 
 ---
 
-### Colonial Pipeline (2021)
+## SolarWinds Supply Chain Attack (2020)
 
-**Actor:** DarkSide (Russian-speaking ransomware-as-a-service group)
+<Aside type="caution" title="Supply Chain Compromise">
+Instead of attacking targets directly, attackers compromised trusted software updates.
+</Aside>
 
-The Colonial Pipeline attack was technically a ransomware attack by a criminal group — not a state-sponsored operation — but it demonstrated the national security implications of attacks on critical infrastructure.
+Attackers inserted malicious code into SolarWinds Orion software updates, distributing backdoors to approximately 18,000 customers.
 
-**Impact:**
-- 5,500-mile pipeline supplying 45% of East Coast fuel shut down for 6 days
-- Fuel shortages and panic buying across the US Southeast
-- State of emergency declared in multiple states
-- Colonial paid $4.4 million in Bitcoin; the US government later seized $2.3 million
+**Actor:** APT29 / Cozy Bear (Russian SVR)
 
-The US government characterized it as a national security threat and began treating ransomware attacks on critical infrastructure as a matter of national security policy.
+**Targets**
+
+- US federal agencies
+- Fortune 500 companies
+- Critical infrastructure providers
+
+**Strategic Importance:** The attack demonstrated that software supply chains had become one of the most dangerous attack vectors in cybersecurity.
+
+---
+
+## Colonial Pipeline (2021)
+
+<Aside type="danger" title="Critical Infrastructure Disruption">
+A criminal ransomware attack triggered national fuel shortages across the United States.
+</Aside>
+
+**Actor:** DarkSide ransomware group
+
+**Impact**
+
+- 5,500-mile fuel pipeline shut down
+- Fuel shortages across the Southeast US
+- Panic buying and emergency declarations
+- $4.4 million ransom payment
+
+**Why It Matters:** The attack pushed ransomware into the realm of national security policy and critical infrastructure defense.
 
 ---
 
-### Russia's Cyber Operations in Ukraine (2022–)
+## Microsoft Exchange Server Hacks (2021)
 
-Russia's full-scale invasion of Ukraine in February 2022 was preceded by and accompanied by extensive cyber operations:
+<Aside type="note" title="Mass Exploitation of Zero-Days">
+Thousands of organizations were compromised within days of vulnerability disclosure.
+</Aside>
 
-- **Wiper attacks:** Multiple wiper malware families (HermeticWiper, IsaacWiper, CaddyWiper) deployed against Ukrainian organizations in the hours before the invasion
-- **Satellite disruption:** Viasat KA-SAT network attacked, knocking out communications for Ukrainian military and civilians across Europe
-- **Sustained infrastructure attacks:** Power grid, water treatment, telecoms targeted throughout the conflict
-- **Psychological operations:** Disinformation campaigns, website defacements
+Attackers exploited multiple Exchange Server zero-days to install web shells and maintain persistent access.
 
-Notably, Ukrainian cyber defenses — supported by NATO partners and commercial security companies — proved more resilient than Russia anticipated. Microsoft, among others, shared threat intelligence in real-time with Ukrainian defenders.
+**Actor:** Hafnium (China-linked state-sponsored group)     
+
+**Impact**
+- Tens of thousands of organizations compromised
+- Governments, universities, hospitals affected
+- Massive emergency patching effort worldwide
 
 ---
+
+## Russia's Cyber Operations in Ukraine (2022–)
+
+<Aside type="tip" title="Modern Integrated Cyber Warfare">
+Cyber operations became deeply integrated into conventional military conflict.
+</Aside>
+
+**Key Operations**
+- Wiper malware deployments
+- Satellite communications disruption
+- Infrastructure attacks
+- Disinformation campaigns
+
+**Notable Event:** The Viasat KA-SAT attack disrupted communications across Europe shortly before the invasion began.
+
+**Strategic Outcome:** Despite expectations, Ukrainian cyber defenses — supported by NATO and private-sector partners — proved resilient.
+
+---
+
+## MGM Resorts Ransomware Attack (2023)
+
+<Aside type="caution" title="Social Engineering Still Works">
+The breach began with help desk social engineering rather than advanced technical exploits.
+</Aside>
+
+Attackers manipulated MGM IT support staff into granting privileged access.
+
+**Actor:** Scattered Spider + ALPHV/BlackCat
+
+**Impact**
+- Casino systems disrupted
+- Hotel check-ins affected
+- Slot machines and digital keys disabled
+- Estimated losses exceeded $100 million
+
+---
+
+## Change Healthcare Ransomware Attack (2024)
+
+<Aside type="danger" title="Healthcare at National Scale">
+One of the largest healthcare cyber incidents in US history.
+</Aside>
+
+Attackers compromised Change Healthcare systems and encrypted critical payment and pharmacy infrastructure.
+
+**Actor:** ALPHV/BlackCat ransomware group
+
+**Impact**
+- Prescription delays nationwide
+- Hospital payment disruptions
+- Sensitive healthcare records exposed
+- Multi-billion-dollar recovery costs
+
+
+
+
+
 
 ## International Law and Cyber Conflict
 

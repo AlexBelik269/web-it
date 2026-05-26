@@ -1,0 +1,22 @@
+:root {
+  --sl-text-5xl: 2.4rem;
+  --sl-text-4xl: 1.8rem;
+  --sl-text-3xl: 1.5rem;
+
+  --sl-text-2xl: 1.65rem;
+  --sl-text-xl: 0.65rem;
+
+  --sl-text-xs: 0.7rem;
+  --sl-text-sm: 0.8rem;
+  --sl-text-base: 0.9rem;
+
+  --sl-sidebar-width: 15vw;
+  --sl-content-width: 70vw;
+}
+.sl-markdown-content {
+  font-size: 1.0rem;
+}
+
+.sidebar-content li {
+  margin-bottom: 0.4rem;
+}
