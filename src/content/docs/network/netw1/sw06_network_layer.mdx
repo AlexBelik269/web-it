@@ -1,0 +1,456 @@
+---
+title: "Network Layer"
+description: "Der Network Layer (OSI-Schicht 3): IP-Eigenschaften, IPv4- und IPv6-Paketstruktur, Host-Routing-Entscheidungen sowie statisches und dynamisches Routing in Router-Routing-Tabellen."
+---
+
+Der Network Layer ist die Schicht, die es ermöglicht, Daten **über mehrere Netzwerke hinweg** zu übertragen – also nicht nur innerhalb eines LANs, sondern quer durch das Internet. Er ist die Grundlage dafür, dass ein Paket von einem Rechner in Zürich einen Server in New York erreichen kann, obwohl die beiden Geräte nie direkt miteinander verbunden sind.
+
+---
+
+## 8.1 Eigenschaften des Network Layers
+
+### Grundfunktionen
+
+Der Network Layer erfüllt vier zentrale Aufgaben:
+
+```mermaid
+flowchart LR
+    A["1. Addressing\nEndgeräte adressieren"] --> B["2. Encapsulation\nTransport-Segment in\nIP-Paket einpacken"]
+    B --> C["3. Routing\nBesten Weg zum\nZiel finden"]
+    C --> D["4. De-encapsulation\nIP-Header entfernen\nbeim Empfänger"]
+    style A fill:#2a9d8f,color:#fff
+    style B fill:#457b9d,color:#fff
+    style C fill:#e76f51,color:#fff
+    style D fill:#264653,color:#fff
+```
+
+Die zwei Hauptprotokolle auf dieser Schicht sind **IPv4** und **IPv6**. Beide sind grundlegend unterschiedlich in der Adresslänge, haben aber dasselbe Ziel: Pakete von Quelle zu Ziel zu routen.
+
+### IP-Kapselung
+
+```
+Transport Layer PDU:    [ Segment Header | Data         ]
+                                 ↓ Encapsulation
+Network Layer PDU:      [ IP Header      | Segment Header | Data ]
+                                    = IP-Paket
+```
+
+Wichtig: Die **IP-Adresse ändert sich nicht** auf dem Weg vom Sender zum Empfänger (Ausnahme: NAT, wird später behandelt). Der IP-Header enthält die unveränderliche Quelle und das unveränderliche Ziel – jeder Router auf dem Weg liest diesen Header, um das Paket weiterzuleiten.
+
+### Die drei Grundeigenschaften von IP
+
+IP wurde bewusst schlank und einfach gehalten. Das hat Vor- und Nachteile:
+
+| Eigenschaft | Bedeutung | Warum so designt? |
+|---|---|---|
+| **Connectionless** | Keine Verbindung wird vor dem Senden aufgebaut | Weniger Overhead – kein Handshake nötig |
+| **Best Effort** | Keine Garantie auf Zustellung | Kein Retransmission-Mechanismus → schneller |
+| **Media Independent** | IP läuft über Kupfer, Glasfaser oder Funk | Flexibilität und Unabhängigkeit vom Medium |
+
+#### Connectionless (verbindungslos)
+
+IP verhält sich wie ein Brief, der in den Briefkasten geworfen wird – es gibt keine Vorab-Ankündigung, kein Bestätigung, keinen "Handshake". Der Empfänger erfährt erst von der Nachricht, wenn das Paket ankommt.
+
+> **Wo kommt die Zuverlässigkeit dann her?** Wenn Anwendungen eine zuverlässige Übertragung brauchen (z. B. eine Webseite oder ein Dateidownload), übernimmt **TCP auf Layer 4** die Aufgabe der Fehlerkorrektur und Reihenfolgegarantie. IP selbst bleibt schlank.
+
+#### Best Effort (bestmögliche Zustellung)
+
+IP **garantiert keine Paketzustellung**. Pakete können verloren gehen, in der falschen Reihenfolge ankommen oder dupliziert werden. IP kümmert sich nicht darum – es "versucht sein Bestes". Das reduziert den Overhead erheblich, da keine Quittungen auf Layer 3 notwendig sind.
+
+#### Media Independent (medienunabhängig)
+
+IP kümmert sich nicht darum, ob die Daten über ein Ethernet-Kabel, eine WLAN-Verbindung oder eine Glasfaserleitung transportiert werden. Es übergibt das Paket einfach an Layer 2 (Data Link) und lässt diesen die medienspezifische Übertragung erledigen.
+
+**MTU (Maximum Transmission Unit):**
+Jedes Medium hat eine maximale Rahmengrösse. Wenn ein IP-Paket grösser ist als die MTU des nächsten Netzwerksegments, muss es **fragmentiert** werden (nur bei IPv4):
+
+- **Fragmentierung** = Aufteilen des IPv4-Pakets in kleinere Einheiten
+- Fragmentierung verursacht **Latenz** und Overhead
+- **IPv6 fragmentiert nicht** – wenn ein Paket zu gross ist, wird es verworfen und der Sender via ICMPv6 informiert, die Paketgrösse zu reduzieren (Path MTU Discovery)
+
+---
+
+## 8.2 IPv4-Paket
+
+### Aufbau des IPv4-Headers
+
+Der IPv4-Header hat eine **Mindestgrösse von 20 Bytes** und wird von links nach rechts, in 4-Byte-Zeilen gelesen:
+
+```
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|Version|  IHL  |    DS / DSCP  |ECN|        Total Length       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|         Identification        |Flags|      Fragment Offset    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Time to Live |    Protocol   |         Header Checksum       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       Source IP Address                       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Destination IP Address                     |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Options (falls vorhanden)                  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+```
+
+### Die wichtigsten Header-Felder im Detail
+
+| Feld | Grösse | Funktion und Bedeutung |
+|---|---|---|
+| **Version** | 4 Bit | Protokollversion: `0100` = IPv4 |
+| **IHL** (Internet Header Length) | 4 Bit | Länge des Headers in 32-Bit-Wörtern (min. 5 = 20 Bytes) |
+| **DS / DSCP** (Differentiated Services) | 8 Bit | QoS-Kennzeichnung: Priorisierung von Traffic (z. B. VoIP vor HTTP) |
+| **Total Length** | 16 Bit | Gesamtlänge des Pakets (Header + Daten) in Bytes |
+| **Identification** | 16 Bit | Identifiziert zusammengehörige Fragmente |
+| **Flags** | 3 Bit | Steuert Fragmentierung (z. B. "Don't Fragment") |
+| **Fragment Offset** | 13 Bit | Position des Fragments im ursprünglichen Paket |
+| **Time to Live (TTL)** | 8 Bit | Maximale Anzahl Hops (Router-Durchgänge); wird bei jedem Router um 1 dekrementiert; bei 0 wird das Paket verworfen |
+| **Protocol** | 8 Bit | Gibt das Protokoll der Nutzlast an: `6` = TCP, `17` = UDP, `1` = ICMP |
+| **Header Checksum** | 16 Bit | Prüfsumme nur für den Header – erkennt Übertragungsfehler im Header |
+| **Source IP Address** | 32 Bit | IPv4-Adresse des Absenders |
+| **Destination IP Address** | 32 Bit | IPv4-Adresse des Empfängers |
+
+> **Warum TTL?** Ohne TTL könnten Pakete endlos im Netzwerk kreisen (Routing-Loops). TTL verhindert das: Nach maximal 255 Hops wird das Paket zwingend verworfen. Standard-TTL-Werte: Windows = 128, Linux/macOS = 64.
+
+---
+
+## 8.3 IPv6-Paket
+
+### Warum IPv6? – Die Grenzen von IPv4
+
+IPv4 war revolutionär, aber es wurde nicht für das Internet von heute entworfen. Es gibt drei fundamentale Probleme:
+
+```mermaid
+graph TD
+    A[Probleme von IPv4] --> B["1. Adresserschöpfung\nNur ~4,3 Mrd. Adressen\n→ faktisch aufgebraucht"]
+    A --> C["2. Fehlende Ende-zu-Ende-Konnektivität\nNAT verbirgt interne Adressen\n→ direkte Kommunikation unmöglich"]
+    A --> D["3. Erhöhte Netzwerkkomplexität\nNAT als 'temporäre Lösung'\nverursacht Latenz und Fehlersuche-Probleme"]
+    style A fill:#e63946,color:#fff
+    style B fill:#e76f51,color:#fff
+    style C fill:#e9c46a,color:#000
+    style D fill:#f4a261,color:#000
+```
+
+**IPv4 Adressraum:** 2³² = ca. 4,3 Milliarden Adressen – längst erschöpft.
+**IPv6 Adressraum:** 2¹²⁸ = **340 Undezillionen** Adressen (340.000.000.000.000.000.000.000.000.000.000.000.000) – praktisch unerschöpflich.
+
+### IPv6-Verbesserungen
+
+- **Riesiger Adressraum:** 128-Bit-Adressen statt 32-Bit
+- **Vereinfachter Header:** Weniger Felder → schnellere Router-Verarbeitung
+- **NAT nicht mehr nötig:** Jedes Gerät kann eine globale, eindeutige Adresse erhalten
+- **Keine Fragmentierung durch Router:** Effizienter, Sender passt Grösse selbst an
+- **Integrierte Sicherheit:** IPsec ist nativ unterstützt
+
+### Aufbau des IPv6-Headers
+
+Der IPv6-Header ist **fest 40 Bytes** gross – grösser als der minimale IPv4-Header (20 Bytes), aber mit weniger Feldern und ohne optionale Felder im Basisheader:
+
+```
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|Version| Traffic Class |           Flow Label                  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|         Payload Length        |  Next Header  |   Hop Limit   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                       Source Address                          +
+|                       (128 Bit)                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                    Destination Address                        +
+|                       (128 Bit)                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+```
+
+### IPv6 Header-Felder
+
+| Feld | Grösse | Funktion |
+|---|---|---|
+| **Version** | 4 Bit | `0110` = IPv6 |
+| **Traffic Class** | 8 Bit | QoS-Priorisierung (entspricht DSCP in IPv4) |
+| **Flow Label** | 20 Bit | Identifiziert zusammengehörige Pakete (z. B. ein Video-Stream) für gleichbehandlung |
+| **Payload Length** | 16 Bit | Länge der Nutzdaten (ohne den 40-Byte-Header) |
+| **Next Header** | 8 Bit | Gibt das nächste Protokoll an: TCP, UDP, ICMPv6, oder ein Extension Header |
+| **Hop Limit** | 8 Bit | Entspricht dem TTL bei IPv4 |
+| **Source Address** | 128 Bit | IPv6-Quelladresse |
+| **Destination Address** | 128 Bit | IPv6-Zieladresse |
+
+### IPv4 vs. IPv6 Header – Vergleich
+
+```mermaid
+graph LR
+    subgraph IPv4["IPv4 Header (20+ Bytes)"]
+        A1[Version] --- A2[IHL] --- A3[DSCP/ECN] --- A4[Total Length]
+        B1[Identification] --- B2[Flags] --- B3[Fragment Offset]
+        C1[TTL] --- C2[Protocol] --- C3[Header Checksum]
+        D1[Source IPv4]
+        E1[Destination IPv4]
+    end
+    subgraph IPv6["IPv6 Header (40 Bytes, fest)"]
+        F1[Version] --- F2[Traffic Class] --- F3[Flow Label]
+        G1[Payload Length] --- G2[Next Header] --- G3[Hop Limit]
+        H1[Source IPv6 - 128 Bit]
+        I1[Destination IPv6 - 128 Bit]
+    end
+```
+
+**Entfernte IPv4-Felder in IPv6:**
+- `IHL` → nicht nötig, Header ist immer 40 Bytes
+- `Identification`, `Flags`, `Fragment Offset` → keine Fragmentierung durch Router
+- `Header Checksum` → wird von Layer 2 und Layer 4 bereits geprüft
+
+### Extension Headers (Erweiterungs-Header)
+
+IPv6 ersetzt die optionalen Felder aus IPv4 durch **optionale Extension Headers**, die zwischen dem Basis-Header und der Nutzlast eingefügt werden:
+
+- Fragmentierung (wird vom Sender, nicht vom Router, durchgeführt)
+- Sicherheit (IPsec AH / ESP)
+- Routing-Informationen
+- Mobilitäts-Unterstützung
+
+> **Vorteil:** Router müssen Extension Headers nur verarbeiten, wenn sie relevant sind – das beschleunigt die normale Paketweiterleitung erheblich.
+
+---
+
+## 8.4 Wie ein Host routet
+
+### Routing-Entscheidung am Endgerät
+
+Viele vergessen: Nicht nur Router treffen Routing-Entscheidungen – **auch jeder Host (PC, Smartphone, Server) entscheidet selbst**, wohin er ein Paket schickt. Jedes Gerät pflegt eine eigene Routing-Tabelle.
+
+```mermaid
+flowchart TD
+    A[Paket soll gesendet werden] --> B{Ziel ist...}
+    B --> C["Ich selbst\n127.0.0.1 (IPv4)\n::1 (IPv6)\n→ Loopback-Interface"]
+    B --> D["Lokaler Host\ngleiches Netzwerk/Subnetz\n→ direkt über Switch/LAN"]
+    B --> E["Remote Host\nanderes Netzwerk\n→ über Default Gateway"]
+    style C fill:#2a9d8f,color:#fff
+    style D fill:#457b9d,color:#fff
+    style E fill:#e76f51,color:#fff
+```
+
+**Wie bestimmt der Host, ob das Ziel lokal oder remote ist?**
+- **IPv4:** Host vergleicht seine eigene IP-Adresse + Subnetzmaske mit der Ziel-IP. Liegen beide im gleichen Netzwerk → lokal, sonst → remote.
+- **IPv6:** Host verwendet das Netzwerk-Präfix, das der lokale Router via Router Advertisement (RA) kommuniziert hat.
+
+### Das Default Gateway
+
+Das **Default Gateway** (DGW) ist die "Tür" aus dem lokalen Netzwerk heraus. Es ist typischerweise der Router, der an das LAN angeschlossen ist.
+
+**Eigenschaften eines Default Gateways:**
+- Hat eine IP-Adresse im **gleichen Subnetz** wie die lokalen Hosts
+- Kann Traffic **ausserhalb des LANs weiterleiten**
+- Kennt Routen zu anderen Netzwerken
+
+**Wie lernt ein Host sein Default Gateway?**
+- **IPv4:** Manuell konfiguriert oder automatisch via **DHCP** (Dynamic Host Configuration Protocol)
+- **IPv6:** Via **Router Solicitation (RS)** – der Host fragt aktiv nach, der Router antwortet mit Router Advertisement (RA)
+
+> **Was passiert ohne Default Gateway?** Der Host kann lokal kommunizieren, aber kein Paket verlässt das LAN. Webseiten, Cloud-Dienste, externe Server – alles unerreichbar.
+
+In der Routing-Tabelle des Hosts erscheint das Default Gateway als **Default Route (0.0.0.0/0)** – die Route mit der niedrigsten Spezifizität, die als "last resort" für alles gilt, was sonst keine Übereinstimmung findet.
+
+### Host-Routing-Tabelle anzeigen (Windows)
+
+```cmd
+C:\> route print
+C:\> netstat -r
+```
+
+Diese Befehle zeigen drei Abschnitte:
+1. **Interface List** – alle Netzwerkinterfaces mit MAC-Adressen
+2. **IPv4 Route Table** – aktive IPv4-Routen
+3. **IPv6 Route Table** – aktive IPv6-Routen
+
+Beispiel einer IPv4-Routing-Tabelle eines Windows-Hosts:
+
+```
+Active Routes:
+Network Destination    Netmask          Gateway       Interface   Metric
+0.0.0.0                0.0.0.0          192.168.10.1  192.168.10.10   25   ← Default Route
+127.0.0.0              255.0.0.0        On-link       127.0.0.1      306   ← Loopback
+192.168.10.0           255.255.255.0    On-link       192.168.10.10  281   ← Lokales Netz
+```
+
+---
+
+## 8.5 Router und Routing-Tabellen
+
+### Wie ein Router ein Paket weiterleitet
+
+Wenn ein Paket beim Router ankommt, läuft folgender Prozess ab:
+
+```mermaid
+sequenceDiagram
+    participant H as Host PC1
+    participant R1 as Router R1
+    participant R2 as Router R2
+    participant PC2 as Ziel PC2
+
+    H->>R1: Ethernet-Frame mit IP-Paket<br/>(Dest. IP: 10.1.1.10)
+    Note over R1: 1. Layer-2-Header entfernen (De-encapsulation)
+    Note over R1: 2. Ziel-IP in Routing-Tabelle suchen<br/>→ Match: 10.1.1.0/24 via R2
+    Note over R1: 3. Neuen Layer-2-Header erstellen (Re-encapsulation)
+    R1->>R2: Neuer Ethernet-Frame (gleiche IP-Adressen!)
+    Note over R2: Gleicher Prozess...
+    R2->>PC2: Frame zugestellt
+```
+
+**Schlüsselprinzip:** Bei jedem Hop werden die **Layer-2-Header neu erstellt**, aber die **Layer-3-IP-Adressen bleiben unverändert**.
+
+### Arten von Routen in der Routing-Tabelle
+
+```mermaid
+mindmap
+  root((Router\nRouting-Tabelle))
+    Directly Connected
+      Automatisch hinzugefügt
+      Wenn Interface aktiv ist
+      und IP-Adresse hat
+    Remote Routes
+      Statisch
+        Manuell konfiguriert
+        Kein automatisches Update
+      Dynamisch
+        Via Routing-Protokoll
+        OSPF, EIGRP, RIP etc.
+        Automatisches Update
+    Default Route
+      0.0.0.0/0
+      Letzter Ausweg
+      Wenn kein anderer Match
+```
+
+### Statisches Routing
+
+Statische Routen werden vom Administrator **manuell** konfiguriert:
+
+```cisco
+R1(config)# ip route 10.1.1.0 255.255.255.0 209.165.200.226
+                      ↑                          ↑
+              Zielnetzwerk               Next-Hop-Router (R2)
+```
+
+**Vorteile:**
+- Einfach und vorhersehbar
+- Kein Routing-Protokoll-Overhead
+- Sicher (kein dynamischer Austausch von Routing-Infos)
+
+**Nachteile:**
+- Muss **manuell angepasst** werden, wenn sich die Topologie ändert
+- Skaliert schlecht bei grossen Netzwerken
+- Kein automatisches Failover
+
+**Geeignet für:** Kleine, stabile Netzwerke; Default Route; Stub-Netzwerke (nur ein Ausgang)
+
+### Dynamisches Routing
+
+Dynamische Routing-Protokolle ermöglichen es Routern, **automatisch** Routen zu entdecken und auszutauschen:
+
+- Routen werden **automatisch gelernt** und aktualisiert
+- Bei Topologieänderungen (z. B. Ausfall einer Leitung) wird **automatisch ein neuer Pfad** berechnet
+- Beispiel-Protokolle: **OSPF**, **EIGRP**, **RIP**, **BGP**
+
+```mermaid
+sequenceDiagram
+    participant R1
+    participant R2
+    R1->>R2: "Ich kenne Netzwerk 192.168.10.0/24" (OSPF)
+    R2->>R1: "Ich kenne Netzwerk 10.1.1.0/24" (OSPF)
+    Note over R1,R2: Beide aktualisieren ihre Routing-Tabellen
+    Note over R1: Fällt Verbindung zu R2 aus →
+    Note over R1: OSPF findet automatisch\nneuen Weg via R3
+```
+
+### Die Router-Routing-Tabelle lesen (`show ip route`)
+
+```cisco
+R1# show ip route
+
+Codes: L - local, C - connected, S - static, O - OSPF, D - EIGRP, ...
+
+Gateway of last resort is 209.165.200.226 to network 0.0.0.0
+
+S*   0.0.0.0/0 [1/0] via 209.165.200.226          ← Default Route (statisch)
+O    10.1.1.0/24 [110/2] via 209.165.200.226       ← Remote Route (OSPF gelernt)
+C    192.168.10.0/24 is directly connected, G0/0/0 ← Direkt verbunden
+L    192.168.10.1/32 is directly connected, G0/0/0 ← Lokale Interface-Adresse
+C    209.165.200.224/30 is directly connected, G0/0/1
+L    209.165.200.225/32 is directly connected, G0/0/1
+```
+
+**Bedeutung der Kürzel:**
+
+| Kürzel | Bedeutung |
+|---|---|
+| `C` | Connected – direkt verbundenes Netzwerk |
+| `L` | Local – IP-Adresse des Interfaces selbst |
+| `S` | Static – manuell konfigurierte Route |
+| `S*` | Static Default Route |
+| `O` | OSPF – dynamisch via OSPF gelernt |
+| `D` | EIGRP – dynamisch via EIGRP gelernt |
+
+**Routing-Tabellen-Einträge verstehen:**
+
+```
+O    10.1.1.0/24 [110/2] via 209.165.200.226, GigabitEthernet0/0/1
+     ↑    ↑       ↑  ↑       ↑                 ↑
+  Quelle Netz   AD  Metric  Next-Hop          Ausgangs-Interface
+```
+
+- **AD (Administrative Distance):** Vertrauenswürdigkeit der Routenquelle (niedriger = vertrauenswürdiger; Connected = 0, Static = 1, OSPF = 110, EIGRP = 90)
+- **Metric:** Kosten des Pfades (je nach Protokoll: Hopcount, Bandbreite, Verzögerung etc.)
+- **Longest Prefix Match:** Bei mehreren Übereinstimmungen gewinnt die **spezifischste Route** (grösste Subnetzmaske)
+
+---
+
+## Zusammenfassung
+
+```mermaid
+mindmap
+  root((Network Layer\nOSI-Schicht 3))
+    IP-Eigenschaften
+      Connectionless
+      Best Effort
+      Media Independent
+      MTU und Fragmentierung
+    IPv4-Paket
+      Header 20+ Bytes
+      TTL, Protocol, Checksum
+      Source + Destination 32 Bit
+    IPv6-Paket
+      Adresserschöpfung bei IPv4
+      Header fix 40 Bytes
+      128-Bit-Adressen
+      Keine Fragmentierung durch Router
+      Extension Headers
+    Host-Routing
+      Loopback, Lokal, Remote
+      Default Gateway
+      Routing-Tabelle
+      route print / netstat -r
+    Router-Routing
+      Directly Connected
+      Static Routes
+      Dynamic Routes OSPF EIGRP
+      show ip route
+      Longest Prefix Match
+```
+
+### Schlüsselbegriffe
+
+| Begriff | Bedeutung |
+|---|---|
+| **Connectionless** | Keine Verbindung vor dem Senden – IP schickt Pakete ohne Vorab-Handshake |
+| **Best Effort** | Keine Zustellgarantie – Pakete können verloren gehen |
+| **MTU** | Maximum Transmission Unit – maximale Paketgrösse eines Mediums |
+| **Fragmentierung** | Aufteilen eines zu grossen IPv4-Pakets (IPv6 fragmentiert nicht) |
+| **TTL / Hop Limit** | Schutzmechanismus gegen endlose Routing-Loops |
+| **Default Gateway** | Router als "Ausgangstor" aus dem lokalen Netzwerk |
+| **Default Route** | Route 0.0.0.0/0 – gilt für alle Ziele ohne spezifischeren Eintrag |
+| **Administrative Distance** | Vertrauenswürdigkeit einer Route-Quelle (niedriger = besser) |
+| **Longest Prefix Match** | Routing-Entscheidung: die spezifischste Route gewinnt |
+| **OSPF / EIGRP** | Dynamische Routing-Protokolle zum automatischen Routenaustausch |

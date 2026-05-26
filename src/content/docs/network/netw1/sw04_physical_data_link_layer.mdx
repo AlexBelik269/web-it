@@ -1,0 +1,530 @@
+---
+title: "Physical Layer & Data Link Layer"
+description: "Überblick über OSI-Schicht 1 (Physical Layer) und OSI-Schicht 2 (Data Link Layer): Medientypen, Signalisierung, Rahmenstruktur, Topologien und Medienzugriffsverfahren."
+---
+
+Diese Woche behandeln wir zwei fundamentale Schichten des OSI-Modells: die **Physical Layer (Schicht 1)** und die **Data Link Layer (Schicht 2)**. Zusammen bilden sie die Grundlage jeder Netzwerkkommunikation – sie definieren, *wie* Bits physisch übertragen werden und *wie* benachbarte Geräte miteinander kommunizieren.
+
+---
+
+## 1. Physical Layer (OSI-Schicht 1)
+
+### 1.1 Zweck und Aufgabe
+
+Die Physical Layer ist die unterste Schicht des OSI-Modells. Ihre zentrale Aufgabe ist es, Bits als physische Signale über ein Medium zu transportieren. Sie empfängt vollständige **Frames** von der darüberliegenden Data Link Layer und kodiert diese als Signalfolge, die dann auf das physische Medium übertragen wird.
+
+> **Wichtig:** Die Physical Layer "versteht" keine Adressen oder Protokolle – sie kümmert sich ausschließlich um die rohe Bitübertragung von Punkt zu Punkt.
+
+Bevor irgendeine Netzwerkkommunikation stattfinden kann, muss eine physische Verbindung zum lokalen Netzwerk bestehen – entweder kabelgebunden oder drahtlos. Diese Verbindung wird durch eine **Network Interface Card (NIC)** hergestellt.
+
+```mermaid
+graph TD
+    A[Applikation / höhere Schichten] --> B[Data Link Layer - Frame]
+    B --> C[Physical Layer]
+    C --> D{Medium}
+    D -->|Elektrische Signale| E[Kupferkabel]
+    D -->|Lichtimpulse| F[Glasfaser]
+    D -->|Mikrowellen| G[Wireless]
+```
+
+### 1.2 Physical Layer Standards
+
+Die Physical Layer Standards werden in **Hardware** implementiert und von verschiedenen Organisationen definiert:
+
+- **ISO** – International Standards Organization
+- **EIA/TIA** – Electronic/Telecommunications Industry Association
+- **ITU-T** – International Telecommunication Union
+- **ANSI** – American National Standards Institute
+- **IEEE** – Institute of Electrical and Electronics Engineers
+
+Zum Vergleich: TCP/IP-Standards (höhere Schichten) werden in Software implementiert und vom IETF verwaltet.
+
+### 1.3 Die drei funktionalen Bereiche der Physical Layer
+
+#### 1.3.1 Physische Komponenten
+
+Dazu gehören alle Hardware-Elemente, die Signale übertragen:
+- NICs (Netzwerkkarten)
+- Interfaces und Anschlüsse
+- Kabelmaterialien und Kabeldesigns
+- Stecker und Buchsen
+
+#### 1.3.2 Encoding (Kodierung)
+
+Encoding ist der Prozess, bei dem ein Bitstrom in ein Format umgewandelt wird, das vom nächsten Gerät im Netzwerkpfad erkannt werden kann. Die Kodierung erzeugt vorhersehbare Muster.
+
+Ein bekanntes Beispiel ist die **Manchester-Kodierung**: Hier wird ein Bit nicht durch einen statischen Pegel dargestellt, sondern durch einen Spannungsübergang (Flanke). Ein Übergang von niedrig nach hoch = 1, von hoch nach niedrig = 0. Dies ermöglicht die Synchronisation zwischen Sender und Empfänger, da bei jedem Bit mindestens ein Übergang auftritt.
+
+#### 1.3.3 Signalisierung
+
+Die Signalisierung beschreibt, *wie* die Bitwerte „1" und „0" auf dem physischen Medium repräsentiert werden. Dies hängt vom verwendeten Medium ab:
+
+| Medium | Signaltyp |
+|---|---|
+| Kupferkabel | Elektrische Signale (Spannungsänderungen) |
+| Glasfaser | Lichtimpulse (Laser oder LED) |
+| Wireless | Mikrowellensignale (AM, FM, PM) |
+
+### 1.4 Bandbreite und verwandte Begriffe
+
+**Bandbreite** bezeichnet die Kapazität eines Mediums, Daten zu transportieren – also wie viele Bits pro Sekunde übertragen werden können. Sie wird von physikalischen Eigenschaften des Mediums, der Technologie und den Gesetzen der Physik beeinflusst.
+
+| Einheit | Abkürzung | Entsprechung |
+|---|---|---|
+| Bits pro Sekunde | bps | Grundeinheit |
+| Kilobits/s | Kbps | 10³ bps |
+| Megabits/s | Mbps | 10⁶ bps |
+| Gigabits/s | Gbps | 10⁹ bps |
+| Terabits/s | Tbps | 10¹² bps |
+
+Verwandte Begriffe, die oft verwechselt werden:
+
+- **Latenz**: Die Zeit (inkl. Verzögerungen), die Daten benötigen, um von A nach B zu gelangen.
+- **Throughput (Durchsatz)**: Die tatsächliche Menge an Bits, die über ein Medium in einem bestimmten Zeitraum übertragen wird.
+- **Goodput**: Der *nutzbare* Datendurchsatz – also Throughput minus Overhead (z.B. Protokoll-Header, Steuerpakete). Formel: `Goodput = Throughput - Traffic Overhead`
+
+> **Warum ist der Unterschied wichtig?** Ein Netzwerk kann eine hohe Bandbreite haben, aber wenn die Latenz hoch oder der Overhead groß ist, ist die effektive Nutzleistung (Goodput) viel geringer.
+
+---
+
+## 2. Kupferkabel (Copper Cabling)
+
+### 2.1 Eigenschaften und Einschränkungen
+
+Kupferkabel ist das am weitesten verbreitete Netzwerkmedium. Es ist günstig, einfach zu installieren und hat einen niedrigen elektrischen Widerstand. Es gibt jedoch wichtige Einschränkungen:
+
+**Dämpfung (Attenuation):** Je länger das Kabel, desto schwächer wird das elektrische Signal. Lösung: Einhaltung von Kabellängenlimits.
+
+**Interferenz:** Elektrische Signale sind anfällig für:
+- **EMI (Elektromagnetische Interferenz)** – z.B. durch Motoren
+- **RFI (Hochfrequenzinterferenz)** – z.B. durch Funkgeräte
+- **Crosstalk** – Übersprechen zwischen benachbarten Leitern im gleichen Kabel
+
+**Gegenmaßnahmen:**
+- Metallische Abschirmung und Erdung gegen EMI/RFI
+- Verdrillte Leitungspaare gegen Crosstalk
+
+### 2.2 Typen von Kupferkabeln
+
+```mermaid
+graph LR
+    A[Kupferkabel] --> B[UTP - Unshielded Twisted Pair]
+    A --> C[STP - Shielded Twisted Pair]
+    A --> D[Koaxialkabel]
+```
+
+#### 2.2.1 UTP – Unshielded Twisted Pair
+
+UTP ist das am häufigsten verwendete Netzwerkmedium. Es besteht aus:
+1. **Außenmantel** – Schutz vor physischen Beschädigungen
+2. **Verdrillte Paare** – Schützen das Signal vor Interferenz durch Auslöschung (Cancellation)
+3. **Farbkodierte Kunststoffisolierung** – Elektrische Isolierung und Identifikation der Paare
+
+**Wie funktioniert die Auslöschung?** Jedes Drahtpaar verwendet entgegengesetzte Polarität (ein Draht positiv, einer negativ). Die Magnetfelder heben sich gegenseitig auf und eliminieren externe EMI/RFI. Zusätzlich wird die Anzahl der Verdrillungen pro Meter variiert, um Crosstalk zwischen den Paaren zu reduzieren.
+
+UTP wird mit **RJ-45-Steckern** abgeschlossen und verbindet Hosts mit intermediären Netzwerkgeräten (Switches, Router).
+
+**UTP-Kategorien (IEEE-Standards):**
+
+| Kategorie | Typische Verwendung |
+|---|---|
+| Cat 3 | Ältere Telefonie, 10 Mbps Ethernet |
+| Cat 5 / Cat 5e | Fast Ethernet / Gigabit Ethernet |
+| Cat 6 | 10 Gigabit Ethernet (kurze Distanzen) |
+| Cat 7 | 10 Gigabit+ mit besserer Abschirmung |
+
+Die Standards für UTP werden durch **TIA/EIA-568** festgelegt, welche Kabeltypen, Längen, Stecker, Terminierung und Testmethoden definiert.
+
+**UTP-Kabeltypen nach Verdrahtungsstandard:**
+
+| Kabeltyp | Standard | Anwendung |
+|---|---|---|
+| Ethernet Straight-through | Beide Enden T568A oder T568B | Host zu Netzwerkgerät (z.B. PC zu Switch) |
+| Ethernet Crossover | Ein Ende T568A, anderes T568B | Gleichartige Geräte (PC zu PC, Switch zu Switch) |
+| Rollover (Cisco) | Cisco proprietär | Host-Serienport zu Konsolen-Port |
+
+> **Hinweis:** Crossover-Kabel gelten heute als veraltet, da moderne NICs **Auto-MDIX** verwenden und den Kabeltyp automatisch erkennen.
+
+#### 2.2.2 STP – Shielded Twisted Pair
+
+STP bietet besseren Schutz gegen Rauschen als UTP, ist aber teurer und schwieriger zu installieren. Zusätzliche Eigenschaften:
+- **Geflecht- oder Folienschirm** um alle Paare → Schutz gegen EMI/RFI
+- **Einzelne Folienschirme** für jedes Drahtpaar → zusätzlicher Schutz
+
+Ebenfalls mit RJ-45-Steckern terminiert.
+
+#### 2.2.3 Koaxialkabel
+
+Koaxialkabel besteht aus vier Schichten (von innen nach außen):
+1. **Kupferleiter** – überträgt das elektrische Signal
+2. **Flexible Kunststoffisolierung**
+3. **Geflochtener Kupferschirm oder Metallfolie** – zweiter Leiter im Stromkreis und Abschirmung
+4. **Außenmantel** – Schutz vor physischen Beschädigungen
+
+Koaxialkabel wird heute hauptsächlich verwendet für:
+- Wireless-Installationen (Antennenkabel)
+- Kabel-Internet-Installationen (Hausverkabelung)
+
+Typische Steckertypen: BNC, N-Typ, F-Typ.
+
+---
+
+## 3. Glasfaserkabel (Fiber-Optic Cabling)
+
+### 3.1 Eigenschaften
+
+Glasfaserkabel überträgt Daten als **Lichtimpulse** und bietet gegenüber Kupfer deutliche Vorteile:
+
+- Höhere Bandbreite über größere Distanzen
+- Kaum Dämpfung (Attenuation)
+- **Vollständig immun gegen EMI/RFI** (kein elektrisches Signal)
+- Besteht aus extrem dünnen, flexiblen Glasfäden
+- Verwendet Laser oder LED zur Lichterzeugung
+
+Das Kabel fungiert als **Wellenleiter**: Das Licht wird im Glasfaserkern durch die Cladding-Schicht reflektiert und mit minimalen Verlusten übertragen.
+
+### 3.2 Aufbau eines Glasfaserkabels
+
+```mermaid
+graph TD
+    subgraph Glasfaserkabel von außen nach innen
+    A[Außenmantel / Jacket] --> B[Verstärkungsmaterial]
+    B --> C[Buffer]
+    C --> D[Cladding]
+    D --> E[Core - Lichtkern]
+    end
+```
+
+| Schicht | Funktion |
+|---|---|
+| **Jacket** | Schutz gegen Abrieb, Feuchtigkeit und Verunreinigungen |
+| **Verstärkungsmaterial** | Verhindert Dehnung beim Verlegen (oft Kevlar, wie in kugelsicheren Westen) |
+| **Buffer** | Schützt Core und Cladding vor Beschädigungen |
+| **Cladding** | Wirkt wie ein Spiegel: Reflektiert Licht zurück in den Kern |
+| **Core** | Lichtwellenleiter aus Silizium oder Glas |
+
+### 3.3 Typen von Glasfaserkabeln
+
+| Eigenschaft | Singlemode (SMF) | Multimode (MMF) |
+|---|---|---|
+| Kerngröße | Sehr klein (9 µm) | Größer (50/62.5 µm) |
+| Lichtquelle | Teurer Laser | Günstigere LEDs |
+| Lichtpfade | Einzelner gerader Pfad | Mehrere Pfade (verschiedene Winkel) |
+| Distanz | Lange Distanzen | Bis ~550 m bei 10 Gbps |
+| Anwendung | WAN, Langstrecke | LAN, Gebäudeverkabelung |
+
+**Farbkodierung der Kabelmäntel:**
+- **Gelb** = Singlemode
+- **Orange oder Aqua** = Multimode
+
+### 3.4 Glasfaser-Steckverbinder
+
+- **ST (Straight-Tip)** – Bajonett-Verriegelung
+- **SC (Subscriber Connector)** – Push-Pull-Verriegelung
+- **LC (Lucent Connector) Simplex** – Kleiner Formfaktor
+- **LC Duplex Multimode** – Zwei LC-Stecker für Sende- und Empfangsleitung
+
+### 3.5 Einsatzgebiete von Glasfaser
+
+- **Enterprise Networks** – Backbone-Verkabelung, Verbindung zwischen Gebäuden
+- **FTTH (Fiber-to-the-Home)** – Breitbandanbindung für Privathaushalte
+- **Long-Haul Networks** – Verbindung von Städten und Ländern
+- **Unterseekabel** – Interkontinentale Verbindungen
+
+### 3.6 Glasfaser vs. Kupfer im Vergleich
+
+| Kriterium | UTP | Glasfaser |
+|---|---|---|
+| Bandbreite | 10 Mbps – 10 Gbps | 10 Mbps – 100 Gbps |
+| Distanz | 1 – 100 m | 1 – 100.000 m |
+| EMI/RFI-Immunität | Niedrig | Vollständig immun |
+| Kosten (Medien/Stecker) | Gering | Hoch |
+| Installationsaufwand | Gering | Hoch |
+
+---
+
+## 4. Wireless Media
+
+### 4.1 Eigenschaften
+
+Wireless-Medien übertragen elektromagnetische Signale, die Binärdaten als Radio- oder Mikrowellenfrequenzen darstellen. Sie bieten maximale Mobilität, haben aber spezifische Einschränkungen:
+
+- **Reichweite (Coverage Area)**: Physikalische Gegebenheiten beeinflussen die effektive Abdeckung stark.
+- **Interferenz**: Viele Alltagsgeräte (Mikrowellen, Bluetooth etc.) können stören.
+- **Sicherheit**: Da keine physische Verbindung nötig ist, kann theoretisch jeder das Signal empfangen.
+- **Geteiltes Medium**: WLANs arbeiten im **Half-Duplex-Modus** – nur ein Gerät kann gleichzeitig senden oder empfangen. Bei vielen Nutzern sinkt die effektive Bandbreite pro Nutzer.
+
+### 4.2 Wireless Standards
+
+| Standard | Technologie | Beschreibung |
+|---|---|---|
+| IEEE 802.11 | Wi-Fi | WLAN-Technologie |
+| IEEE 802.15 | Bluetooth | Wireless Personal Area Network (WPAN) |
+| IEEE 802.16 | WiMAX | Breitband-Wireless, Point-to-Multipoint |
+| IEEE 802.15.4 | Zigbee | Niedrige Datenrate, geringer Stromverbrauch (IoT) |
+
+### 4.3 WLAN-Infrastruktur
+
+Für ein Wireless LAN (WLAN) werden benötigt:
+- **Wireless Access Point (AP)**: Bündelt Wireless-Signale der Clients und verbindet sie mit der kabelgebundenen Netzwerkinfrastruktur.
+- **Wireless NIC Adapter**: Ermöglicht Wireless-Kommunikation für Hosts.
+
+---
+
+## 5. Data Link Layer (OSI-Schicht 2)
+
+### 5.1 Zweck und Aufgabe
+
+Die Data Link Layer ist für die Kommunikation zwischen **benachbarten Netzwerkgeräten** (NIC zu NIC) zuständig. Sie:
+
+- Ermöglicht höheren Schichten den Zugriff auf das physische Medium
+- **Kapselt** Layer-3-Pakete (IPv4/IPv6) in Layer-2-**Frames** ein
+- Führt **Fehlererkennung** durch und verwirft fehlerhafte Frames
+
+> **Warum ist diese Trennung sinnvoll?** Netzwerkpakete müssen auf dem Weg von Quelle zu Ziel durch viele verschiedene physische Medien (Ethernet, WLAN, Glasfaser etc.). Jede dieser Verbindungen hat unterschiedliche Eigenschaften. Die Data Link Layer abstrahiert diese Unterschiede für die höheren Schichten – ein IP-Paket muss nicht "wissen", ob es gerade über Kupfer oder Glasfaser reist.
+
+An jedem Hop führt ein Router vier grundlegende Layer-2-Operationen durch:
+1. Frame vom Medium empfangen
+2. Frame dekapsulieren → Paket extrahieren
+3. Paket in neuen Frame einkapseln
+4. Neuen Frame auf das nächste Medium senden
+
+```mermaid
+sequenceDiagram
+    participant PC as PC (Quelle)
+    participant R1 as Router R1
+    participant R2 as Router R2
+    participant WS as Web Server (Ziel)
+
+    PC->>R1: Frame 1 (L2: PC→R1, L3: PC→WS)
+    Note over R1: De-/Re-Encapsulation
+    R1->>R2: Frame 2 (L2: R1→R2, L3: PC→WS)
+    Note over R2: De-/Re-Encapsulation
+    R2->>WS: Frame 3 (L2: R2→WS, L3: PC→WS)
+```
+
+**Wichtige Beobachtung:** Die Layer-3-Adressen (IP) bleiben über den gesamten Pfad gleich. Die Layer-2-Adressen (MAC) ändern sich an jedem Hop.
+
+### 5.2 IEEE 802 Sublayers
+
+Die Data Link Layer besteht gemäß IEEE 802 aus zwei Unterschichten:
+
+```mermaid
+graph TD
+    subgraph Data Link Layer
+    LLC["LLC - Logical Link Control (IEEE 802.2)"]
+    MAC["MAC - Media Access Control"]
+    end
+    LLC --> MAC
+    MAC --> Physical[Physical Layer]
+```
+
+- **LLC (Logical Link Control)**: Kommunikationsschnittstelle zwischen Netzwerk-Software der höheren Schichten und der Hardware der unteren Schichten. Protokollunabhängig.
+- **MAC (Media Access Control)**: Zuständig für Daten-Enkapsulation und Medienzugriffssteuerung. Protokollspezifisch (Ethernet, WLAN, etc.)
+
+### 5.3 Data Link Layer Standards
+
+Definiert durch: IEEE, ITU, ISO, ANSI
+
+---
+
+## 6. Netzwerktopologien
+
+### 6.1 Physische vs. Logische Topologie
+
+- **Physische Topologie**: Zeigt die physischen Verbindungen und wie Geräte miteinander verbunden sind (Kabel, Standorte).
+- **Logische Topologie**: Zeigt die virtuellen Verbindungen zwischen Geräten anhand von Interfaces und IP-Adressierungsschemata.
+
+### 6.2 WAN-Topologien
+
+```mermaid
+graph LR
+    subgraph Point-to-Point
+    A1[Router A] --- B1[Router B]
+    end
+
+    subgraph Hub and Spoke
+    H[Hub/Zentrale] --- S1[Branch 1]
+    H --- S2[Branch 2]
+    H --- S3[Branch 3]
+    end
+
+    subgraph Mesh
+    M1[Node 1] --- M2[Node 2]
+    M1 --- M3[Node 3]
+    M2 --- M3[Node 3]
+    M1 --- M4[Node 4]
+    M2 --- M4
+    M3 --- M4
+    end
+```
+
+| Topologie | Beschreibung | Vorteil | Nachteil |
+|---|---|---|---|
+| **Point-to-Point** | Direkte Verbindung zwischen zwei Endpunkten | Einfach, geringe Protokollkomplexität | Skaliert nicht |
+| **Hub and Spoke** | Zentrale Site verbindet Branches über P2P-Links | Kostengünstig | Branches können nicht direkt kommunizieren |
+| **Mesh** | Jeder Node mit jedem anderen verbunden | Hohe Verfügbarkeit | Sehr hohe Kosten |
+
+### 6.3 LAN-Topologien
+
+Moderne LANs verwenden typischerweise:
+- **Stern-Topologie (Star)**: Alle Geräte verbunden mit einem zentralen Switch. Einfach zu installieren, skalierbar und einfach troubleshootbar.
+- **Erweiterte Stern-Topologie (Extended Star)**: Mehrere Sterne miteinander verbunden.
+
+Ältere LAN-Topologien:
+- **Bus**: Alle Geräte an einem gemeinsamen Kabel – veraltet
+- **Ring**: Jedes Gerät mit seinen Nachbarn verbunden – verwendet in Legacy Token Ring
+
+### 6.4 Half-Duplex vs. Full-Duplex
+
+| Modus | Beschreibung | Beispiel |
+|---|---|---|
+| **Half-Duplex** | Nur ein Gerät kann gleichzeitig senden oder empfangen | WLANs, Legacy Ethernet Hubs |
+| **Full-Duplex** | Beide Geräte können gleichzeitig senden und empfangen | Ethernet Switches |
+
+> **Warum ist Full-Duplex effizienter?** Bei Half-Duplex muss ein Gerät warten, bis das Medium frei ist. Bei Full-Duplex gibt es separate Sende- und Empfangswege, sodass keine Wartezeiten entstehen.
+
+---
+
+## 7. Medienzugriffsverfahren (Media Access Control)
+
+Da in vielen Netzwerken mehrere Geräte ein gemeinsames Medium teilen, muss geregelt werden, wer wann senden darf.
+
+### 7.1 Contention-Based Access (Wettbewerbsbasierter Zugriff)
+
+Alle Knoten im Half-Duplex konkurrieren um das Medium. Kein Gerät hat "reservierte" Sendezeit.
+
+#### CSMA/CD – Carrier Sense Multiple Access with Collision Detection
+
+Verwendet von: Legacy Ethernet LANs (Bus-Topologie)
+
+**Ablauf:**
+1. Gerät prüft, ob das Medium frei ist (Carrier Sense)
+2. Wenn frei: Gerät sendet
+3. Wenn zwei Geräte gleichzeitig senden → **Kollision**
+4. Kollision wird erkannt
+5. Beide Geräte warten eine **zufällige** Zeitspanne und senden erneut
+
+```mermaid
+flowchart TD
+    A[Möchte senden] --> B{Medium frei?}
+    B -- Ja --> C[Sende Daten]
+    B -- Nein --> D[Warte]
+    D --> A
+    C --> E{Kollision erkannt?}
+    E -- Nein --> F[Übertragung erfolgreich]
+    E -- Ja --> G[Sende Jam-Signal]
+    G --> H[Warte zufällige Zeit]
+    H --> A
+```
+
+#### CSMA/CA – Carrier Sense Multiple Access with Collision Avoidance
+
+Verwendet von: IEEE 802.11 WLANs
+
+**Unterschied zu CSMA/CD:** CSMA/CD *erkennt* Kollisionen nach dem Auftreten. CSMA/CA *vermeidet* Kollisionen präventiv, weil Kollisionserkennung im Wireless-Bereich schwieriger ist.
+
+**Ablauf:**
+1. Gerät prüft, ob das Medium frei ist
+2. Beim Senden wird auch die **Dauer der Übertragung** im Frame mitgesendet
+3. Andere Geräte lesen diese Dauer und wissen, wie lange das Medium belegt ist
+4. Alle anderen Geräte warten diese Zeit ab, bevor sie selbst senden
+
+### 7.2 Controlled Access (Gesteuerter Zugriff)
+
+Deterministisches Verfahren: Jeder Knoten erhält eine definierte Zeit auf dem Medium. Kein Wettbewerb, keine Kollisionen. Beispiele: Token Ring, ARCNET (heute veraltet).
+
+---
+
+## 8. Der Data Link Frame
+
+### 8.1 Struktur eines Frames
+
+Ein Frame besteht aus drei Teilen:
+
+```
+┌──────────┬──────────────────────────────┬──────────┐
+│  HEADER  │         DATA (Payload)       │ TRAILER  │
+└──────────┴──────────────────────────────┴──────────┘
+```
+
+**Frame-Felder:**
+
+| Feld | Beschreibung |
+|---|---|
+| **Frame Start/Stop** | Markiert Beginn und Ende des Frames |
+| **Addressing** | Quell- und Ziel-MAC-Adressen |
+| **Type** | Identifiziert das Layer-3-Protokoll (z.B. IPv4, IPv6) |
+| **Control** | Flow-Control-Informationen |
+| **Data** | Der eigentliche Inhalt (das eingekapselte Paket) |
+| **Error Detection** | Fehlererkennung (z.B. CRC – Cyclic Redundancy Check) |
+
+### 8.2 Layer-2-Adressen (MAC-Adressen)
+
+Layer-2-Adressen werden auch als **physische Adressen** bezeichnet. Sie sind:
+- Im Frame-Header enthalten
+- **Nur für die lokale Zustellung** eines Frames auf dem aktuellen Netzwerksegment gültig
+- An jedem Router-Hop werden sie durch neue Adressen ersetzt
+
+**Visualisierung der Adressänderung über mehrere Hops:**
+
+```mermaid
+graph LR
+    PC["PC1 (192.168.1.110)"]
+    R1["Router R1"]
+    R2["Router R2"]
+    WS["Web Server (172.16.1.99)"]
+
+    PC -->|"L2: PC1→R1 | L3: PC1→WS"| R1
+    R1 -->|"L2: R1→R2 | L3: PC1→WS"| R2
+    R2 -->|"L2: R2→WS | L3: PC1→WS"| WS
+```
+
+Die **IP-Adressen (Layer 3)** bleiben konstant. Die **MAC-Adressen (Layer 2)** ändern sich an jedem Hop.
+
+### 8.3 Protokolle für LAN und WAN Frames
+
+Das verwendete Data-Link-Protokoll hängt von der logischen Topologie und dem physischen Medium ab:
+
+- **Ethernet** – Standard-LAN
+- **802.11 Wireless** – WLAN
+- **PPP (Point-to-Point Protocol)** – WAN
+- **HDLC (High-Level Data Link Control)** – Legacy WAN
+- **Frame Relay** – Legacy WAN
+
+---
+
+## 9. Zusammenfassung & Zusammenhang
+
+```mermaid
+graph TD
+    subgraph OSI Schicht 2 - Data Link Layer
+    DLL[Data Link Layer]
+    DLL --> LLC[LLC Sublayer]
+    DLL --> MAC[MAC Sublayer]
+    end
+
+    subgraph OSI Schicht 1 - Physical Layer
+    PL[Physical Layer]
+    PL --> PC[Physical Components]
+    PL --> ENC[Encoding]
+    PL --> SIG[Signaling]
+    end
+
+    subgraph Medien
+    CU[Kupfer UTP/STP/Koax]
+    FO[Glasfaser SMF/MMF]
+    WL[Wireless 802.11 etc]
+    end
+
+    MAC --> PL
+    PL --> CU
+    PL --> FO
+    PL --> WL
+```
+
+Die **Physical Layer** stellt sicher, dass Bits als physische Signale übertragen werden – unabhängig davon, ob es sich um elektrische Impulse, Licht oder Funkwellen handelt. Die **Data Link Layer** baut darauf auf und sorgt dafür, dass benachbarte Geräte fehlerfrei miteinander kommunizieren können, den Medienzugriff regeln und Frames korrekt adressieren. Zusammen bilden sie das Fundament, auf dem alle höheren Netzwerkprotokolle (IP, TCP, HTTP etc.) aufbauen.
+
+---
+
+*Quellen: Cisco Networking Academy – Introduction to Networks v7.0 (ITN), Module 4 & 6*

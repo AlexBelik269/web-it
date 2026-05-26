@@ -1,0 +1,574 @@
+---
+title: "Protokolle und Modelle"
+description: "Grundlagen der Netzwerkkommunikation: Protokolle, Protokoll-Suiten, Referenzmodelle (OSI & TCP/IP), Datenkapselung und Datenzugriff."
+---
+
+## Lernziele
+
+Nach diesem Modul kannst du erklären:
+- Welche Regeln für eine erfolgreiche Kommunikation notwendig sind
+- Warum Protokolle in der Netzwerkkommunikation unverzichtbar sind
+- Den Zweck einer Protokoll-Suite
+- Die Rolle von Standardisierungsorganisationen
+- Wie das TCP/IP- und das OSI-Modell zur Standardisierung beitragen
+- Wie Datenkapselung den Datentransport über Netzwerke ermöglicht
+- Wie lokale Hosts auf lokale Ressourcen zugreifen
+
+---
+
+## 3.1 Die Regeln (The Rules)
+
+### Grundlagen der Kommunikation
+
+Kommunikation – ob zwischen Menschen oder Computern – folgt immer demselben Grundprinzip. Es reicht nicht, einfach eine Verbindung herzustellen. Die beteiligten Parteien müssen sich auch darüber einigen, **wie** sie kommunizieren wollen.
+
+Jede Kommunikation besteht aus drei Elementen:
+- **Quelle (Sender):** Wer schickt die Nachricht?
+- **Ziel (Empfänger):** Wer empfängt die Nachricht?
+- **Kanal (Medium):** Über welchen Weg wird die Nachricht übertragen?
+
+### Kommunikationsprotokoll
+
+Ein **Protokoll** ist eine Menge von Regeln, die festlegen, wie die Kommunikation ablaufen soll. Ohne gemeinsame Protokolle würde die Kommunikation scheitern – ähnlich wie wenn zwei Menschen versuchen, sich zu unterhalten, aber verschiedene Sprachen sprechen und keine gemeinsamen Konventionen haben.
+
+> **Analogie:** Stell dir vor, du bekommst einen Brief auf Portugiesisch, der ohne Absender, ohne Anrede und mit komplett durcheinander gewürfelten Sätzen geschrieben ist. Obwohl Buchstaben und Wörter vorhanden sind, ist die Nachricht kaum verständlich. Protokolle sorgen dafür, dass Nachrichten korrekt formatiert, adressiert und verständlich sind.
+
+### Regelanforderungen
+
+Damit eine Kommunikation gelingt, müssen Protokolle folgende Punkte berücksichtigen:
+
+| Anforderung | Beschreibung |
+|---|---|
+| Identifizierter Sender und Empfänger | Wer schickt, wer empfängt |
+| Gemeinsame Sprache und Grammatik | Ein gemeinsames Format |
+| Geschwindigkeit und Timing | Wann und wie schnell wird gesendet |
+| Bestätigung / Quittierung | Wurde die Nachricht empfangen? |
+
+### Netzwerkprotokoll-Anforderungen
+
+Für Computer-Netzwerke müssen Protokolle zusätzlich folgende Punkte definieren:
+
+- **Message Encoding:** Wie wird die Information in übertragbare Signale umgewandelt?
+- **Message Formatting & Encapsulation:** Welche Struktur hat die Nachricht?
+- **Message Size:** Wie groß darf eine Nachricht sein?
+- **Message Timing:** Wann und wie schnell darf gesendet werden?
+- **Message Delivery Options:** Wie wird die Nachricht zugestellt?
+
+### Message Encoding
+
+**Encoding** (Kodierung) ist der Prozess, bei dem Information in eine für die Übertragung geeignete Form umgewandelt wird. Am Ziel wird dieser Prozess rückgängig gemacht (**Decoding / Dekodierung**).
+
+```
+Nachrichtenquelle → Encoder → Transmitter → Übertragungsmedium → Receiver → Decoder → Ziel
+```
+
+Beispiel: Ein Text wird in Binärdaten (Bits) umgewandelt, die dann als elektrische, optische oder Funksignale übertragen werden.
+
+### Message Formatting und Kapselung (Encapsulation)
+
+Jede Nachricht muss in einem bestimmten **Format** oder einer bestimmten **Struktur** gesendet werden. Das Format hängt vom Nachrichtentyp und dem verwendeten Kanal ab.
+
+Beispiel: Ein Brief in einem Umschlag hat eine klare Struktur (Absender, Empfänger, Inhalt). Ein IP-Paket hat ebenfalls eine definierte Struktur mit Feldern für Versionsnummer, Quell-IP, Ziel-IP usw.
+
+### Message Size
+
+Nachrichten, die über ein Netzwerk gesendet werden, müssen in **Bits** umgewandelt werden. Diese Bits werden in Muster aus Licht, Ton oder elektrischen Impulsen kodiert. Das Zielsystem muss diese Signale dekodieren, um die ursprüngliche Nachricht zu rekonstruieren. Lange Nachrichten werden dazu in kleinere Pakete aufgeteilt.
+
+### Message Timing
+
+Das Timing von Nachrichten umfasst drei wichtige Aspekte:
+
+- **Flow Control (Flusskontrolle):** Steuert die Datenübertragungsrate. Zu viele Daten auf einmal können einen Empfänger überlasten.
+- **Response Timeout:** Definiert, wie lange ein Gerät auf eine Antwort wartet, bevor es erneut sendet oder abbricht.
+- **Access Method (Zugriffsverfahren):** Regelt, wer wann senden darf – besonders wichtig bei gemeinsam genutzten Medien. Manche Protokolle verhindern Kollisionen proaktiv, andere lösen sie reaktiv nach dem Auftreten.
+
+### Message Delivery Options
+
+Es gibt drei grundlegende Zustellungsarten:
+
+```mermaid
+graph LR
+    A[Quelle] -->|Unicast| B[1 Empfänger]
+    A -->|Multicast| C[Mehrere Empfänger]
+    A -->|Broadcast| D[Alle Empfänger im Netzwerk]
+```
+
+| Methode | Beschreibung | Einsatz |
+|---|---|---|
+| **Unicast** | Eins-zu-Eins | Normale Kommunikation zwischen zwei Geräten |
+| **Multicast** | Eins-zu-Viele (nicht alle) | Streaming, Gruppenadressierung |
+| **Broadcast** | Eins-zu-Alle | Nur in IPv4; z.B. ARP-Anfragen |
+
+> **Hinweis:** In IPv6 gibt es keine Broadcasts mehr. Stattdessen wird **Anycast** verwendet, bei dem eine Nachricht an den nächstgelegenen von mehreren Empfängern zugestellt wird.
+
+---
+
+## 3.2 Protokolle
+
+### Überblick über Netzwerkprotokolle
+
+Netzwerkprotokolle definieren einen gemeinsamen Satz von Regeln. Sie können in Software, Hardware oder beidem implementiert werden. Jedes Protokoll hat seine eigene:
+- **Funktion** (was es tut)
+- **Format** (wie die Daten strukturiert sind)
+- **Regeln** (wie es sich verhält)
+
+| Protokolltyp | Beschreibung |
+|---|---|
+| **Netzwerkkommunikation** | Ermöglicht Kommunikation zwischen zwei oder mehr Geräten |
+| **Netzwerksicherheit** | Authentifizierung, Integrität, Verschlüsselung |
+| **Routing** | Routen austauschen, vergleichen, besten Weg wählen |
+| **Service Discovery** | Automatische Erkennung von Geräten und Diensten |
+
+### Protokoll-Interaktion
+
+In der Realität arbeiten **mehrere Protokolle zusammen**, um eine Kommunikation zu ermöglichen. Beim Aufrufen einer Webseite sind z.B. gleichzeitig folgende Protokolle aktiv:
+
+```mermaid
+graph TD
+    HTTP["HTTP (Application Layer)"]
+    TCP["TCP (Transport Layer)"]
+    IP["IP (Internet Layer)"]
+    Ethernet["Ethernet (Network Access Layer)"]
+    HTTP --> TCP --> IP --> Ethernet
+```
+
+### Funktionen von Netzwerkprotokollen
+
+| Funktion | Beschreibung |
+|---|---|
+| **Adressierung** | Identifiziert Sender und Empfänger |
+| **Zuverlässigkeit** | Garantiert die Zustellung |
+| **Flusskontrolle** | Sichert effizienten Datenfluss |
+| **Sequenzierung** | Nummeriert übertragene Datensegmente |
+| **Fehlererkennung** | Prüft auf Datenverfälschung |
+| **Application Interface** | Prozess-zu-Prozess-Kommunikation |
+
+#### Beispiel: HTTP-Anfrage mit TCP/IP
+
+| Protokoll | Funktion |
+|---|---|
+| **HTTP** | Regelt die Interaktion zwischen Webclient und Webserver; definiert Inhalt und Format |
+| **TCP** | Verwaltet einzelne Konversationen, garantiert Zustellung, steuert Fluss |
+| **IP** | Transportiert Nachrichten global vom Sender zum Empfänger |
+| **Ethernet** | Transportiert Nachrichten von NIC zu NIC im lokalen Netzwerk |
+
+---
+
+## 3.3 Protokoll-Suiten
+
+### Was ist eine Protokoll-Suite?
+
+Eine **Protokoll-Suite** (Protokollstapel) ist eine Gruppe miteinander verbundener Protokolle, die zusammenarbeiten, um eine Kommunikationsfunktion zu erfüllen. Die Protokolle sind in Schichten organisiert:
+
+- **Obere Schichten:** Anwendungsnahe Protokolle (was wird kommuniziert?)
+- **Untere Schichten:** Transportieren die Daten und stellen Dienste für obere Schichten bereit
+
+```mermaid
+graph TD
+    Content["Content Layer (Was wird gesagt?)"]
+    Rules["Rules Layer (Wie wird es gesagt?)"]
+    Physical["Physical Layer (Über welches Medium?)"]
+    Content --> Rules --> Physical
+```
+
+### Evolution der Protokoll-Suiten
+
+Es gibt mehrere bekannte Protokoll-Suiten:
+
+| Suite | Entwickler | Status |
+|---|---|---|
+| **TCP/IP** | IETF | Offen, weltweiter Standard, dominant |
+| **OSI** | ISO / ITU | Referenzmodell, nicht vollständig implementiert |
+| **AppleTalk** | Apple Inc. | Proprietär, veraltet |
+| **Novell NetWare** | Novell Inc. | Proprietär, veraltet |
+
+### TCP/IP – Die dominante Protokoll-Suite
+
+TCP/IP ist **der** Standard des Internets. Er ist:
+- **Offen:** Frei verfügbar, kann von jedem Hersteller verwendet werden
+- **Standardbasiert:** Von Standardisierungsorganisationen anerkannt und für Interoperabilität zertifiziert
+
+#### TCP/IP-Schichten und ihre Protokolle
+
+```mermaid
+graph TD
+    subgraph Application["Anwendungsschicht (Application Layer)"]
+        A1[DNS] 
+        A2[DHCP / DHCPv6 / SLAAC]
+        A3[SMTP / POP3 / IMAP]
+        A4[FTP / SFTP / TFTP]
+        A5[HTTP / HTTPS / REST]
+    end
+    subgraph Transport["Transportschicht (Transport Layer)"]
+        T1[TCP - verbindungsorientiert]
+        T2[UDP - verbindungslos]
+    end
+    subgraph Internet["Internetschicht (Internet Layer)"]
+        I1[IPv4 / IPv6]
+        I2[ICMPv4 / ICMPv6]
+        I3[OSPF / EIGRP / BGP]
+        I4[NAT]
+    end
+    subgraph Network["Netzwerkzugangsschicht (Network Access Layer)"]
+        N1[ARP]
+        N2[Ethernet]
+        N3[WLAN]
+    end
+    Application --> Transport --> Internet --> Network
+```
+
+### TCP/IP Kommunikationsprozess
+
+Wenn ein Webserver eine Seite sendet, durchläuft die Nachricht alle Schichten von oben nach unten (**Kapselung**). Beim Empfänger erfolgt der umgekehrte Prozess (**De-Kapselung**).
+
+**Senderseite (Webserver):**
+```
+Anwendungsdaten → TCP Segment → IP Paket → Ethernet Frame → Bits
+```
+
+**Empfängerseite (Client):**
+```
+Bits → Ethernet Frame → IP Paket → TCP Segment → Anwendungsdaten
+```
+
+---
+
+## 3.4 Standardisierungsorganisationen
+
+### Warum offene Standards?
+
+Offene Standards fördern:
+- **Interoperabilität:** Produkte verschiedener Hersteller arbeiten zusammen
+- **Wettbewerb:** Kein Hersteller hat ein Monopol
+- **Innovation:** Alle können auf gemeinsamen Standards aufbauen
+
+Standardisierungsorganisationen sind:
+- Herstellerneutral
+- Non-Profit-Organisationen
+- Mit dem Ziel, offene Standards zu entwickeln und zu fördern
+
+### Internetbezogene Organisationen
+
+```mermaid
+graph TD
+    ISOC["Internet Society (ISOC)\nFördert offene Entwicklung des Internets"]
+    IAB["Internet Architecture Board (IAB)\nVerwaltet Internet-Standards"]
+    IETF["Internet Engineering Task Force (IETF)\nEntwickelt & pflegt TCP/IP-Technologien"]
+    IRTF["Internet Research Task Force (IRTF)\nLangzeitforschung zu Internet-Protokollen"]
+    ISOC --> IAB --> IETF
+    IAB --> IRTF
+```
+
+| Organisation | Aufgabe |
+|---|---|
+| **ISOC** | Fördert die offene Entwicklung und Evolution des Internets |
+| **IAB** | Verantwortlich für Management und Entwicklung von Internetstandards |
+| **IETF** | Entwickelt, aktualisiert und pflegt Internet- und TCP/IP-Technologien |
+| **IRTF** | Langzeitforschung zu Internet- und TCP/IP-Protokollen |
+| **ICANN** | Koordiniert IP-Adressvergabe und Domänennamen-Management |
+| **IANA** | Überwacht und verwaltet IP-Adressen, Domänennamen und Protokoll-Identifikatoren für ICANN |
+
+### Elektronik- und Kommunikationsstandards
+
+| Organisation | Bereich |
+|---|---|
+| **IEEE** (I-triple-E) | Energie, Gesundheitswesen, Telekommunikation, **Netzwerke** (z.B. 802.3 Ethernet, 802.11 WLAN) |
+| **EIA** | Elektrische Verkabelung, Steckverbinder, 19-Zoll-Racks |
+| **TIA** | Funkkommunikation, Mobilfunkantennen, VoIP, Satellitenkommunikation |
+| **ITU-T** | Videokompression, IPTV, DSL |
+
+---
+
+## 3.5 Referenzmodelle
+
+### Warum Schichtmodelle?
+
+Netzwerke sind komplex. Ein **Schichtmodell** hilft dabei:
+- Komplexe Konzepte verständlich zu erklären
+- Protokolldesign zu strukturieren (jede Schicht hat klare Aufgaben)
+- Wettbewerb zu fördern (Produkte verschiedener Hersteller arbeiten zusammen)
+- Technologieänderungen in einer Schicht von anderen Schichten zu isolieren
+- Eine gemeinsame Sprache für Netzwerkfunktionen bereitzustellen
+
+Es gibt zwei wichtige Referenzmodelle:
+
+### OSI-Referenzmodell (Open Systems Interconnection)
+
+Das OSI-Modell hat **7 Schichten** und dient primär als **konzeptuelles Referenzmodell**:
+
+```mermaid
+graph TD
+    L7["7 - Anwendungsschicht (Application)\n→ Protokolle für Prozess-zu-Prozess-Kommunikation (HTTP, FTP, DNS)"]
+    L6["6 - Darstellungsschicht (Presentation)\n→ Gemeinsame Datendarstellung, Verschlüsselung, Kompression"]
+    L5["5 - Sitzungsschicht (Session)\n→ Verwaltung des Datenaustausches zwischen Anwendungen"]
+    L4["4 - Transportschicht (Transport)\n→ Segmentierung, Übertragung, Reassemblierung (TCP, UDP)"]
+    L3["3 - Netzwerkschicht (Network)\n→ Logische Adressierung, Routing (IP)"]
+    L2["2 - Sicherungsschicht (Data Link)\n→ Datenaustausch über gemeinsames Medium (Ethernet, WLAN)"]
+    L1["1 - Bitübertragungsschicht (Physical)\n→ Physische Verbindung, Signalübertragung"]
+    L7 --> L6 --> L5 --> L4 --> L3 --> L2 --> L1
+```
+
+### TCP/IP-Referenzmodell
+
+Das TCP/IP-Modell hat **4 Schichten** und ist das **praktische Implementierungsmodell** des Internets:
+
+| Schicht | Beschreibung |
+|---|---|
+| **Anwendung (Application)** | Datendarstellung, Encoding, Dialogsteuerung |
+| **Transport** | Kommunikation über diverse Netzwerke hinweg |
+| **Internet** | Bestmöglichen Pfad durch das Netzwerk finden |
+| **Netzwerkzugang (Network Access)** | Steuerung von Hardware und physischen Medien |
+
+### Vergleich: OSI vs. TCP/IP
+
+```mermaid
+graph LR
+    subgraph OSI["OSI-Modell (7 Schichten)"]
+        O7[7 - Application]
+        O6[6 - Presentation]
+        O5[5 - Session]
+        O4[4 - Transport]
+        O3[3 - Network]
+        O2[2 - Data Link]
+        O1[1 - Physical]
+    end
+    subgraph TCPIP["TCP/IP-Modell (4 Schichten)"]
+        T4[Application]
+        T3[Transport]
+        T2[Internet]
+        T1[Network Access]
+    end
+    O7 -.-> T4
+    O6 -.-> T4
+    O5 -.-> T4
+    O4 -.-> T3
+    O3 -.-> T2
+    O2 -.-> T1
+    O1 -.-> T1
+```
+
+**Wichtige Unterschiede:**
+- Das OSI-Modell unterteilt die Anwendungsschicht des TCP/IP-Modells in 3 Schichten (Application, Presentation, Session)
+- Das OSI-Modell unterteilt die Netzwerkzugangsschicht in 2 Schichten (Data Link, Physical)
+- TCP/IP definiert keine spezifischen Protokolle für die physische Übertragung (überlässt dies dem jeweiligen Medium)
+- OSI Schichten 1 und 2 beschreiben die notwendigen Verfahren für den Medienzugriff und die physische Datenübertragung
+
+---
+
+## 3.6 Datenkapselung (Data Encapsulation)
+
+### Segmentierung von Nachrichten
+
+Große Datenmengen werden vor der Übertragung in kleinere **Segmente** aufgeteilt. Dies hat zwei Hauptvorteile:
+
+1. **Erhöhte Geschwindigkeit:** Große Datenmenge können übertragen werden, ohne die Leitung vollständig zu blockieren. Andere Kommunikation kann dazwischen übertragen werden (**Multiplexing**).
+2. **Erhöhte Effizienz:** Falls ein Segment verloren geht, muss nur dieses neu übertragen werden, nicht die gesamten Daten.
+
+**Multiplexing** = das Verschachteln mehrerer Datenströme von Segmenten auf einem gemeinsamen Übertragungskanal.
+
+### Sequenzierung
+
+**Sequenzierung** ist der Prozess der Nummerierung von Segmenten, damit die Nachricht am Ziel in der richtigen Reihenfolge wieder zusammengesetzt werden kann. Dies wird vom **TCP-Protokoll** übernommen.
+
+> Warum wichtig? Segmente können über unterschiedliche Routen zum Ziel gelangen und in der falschen Reihenfolge ankommen. TCP sorgt dafür, dass sie korrekt zusammengesetzt werden.
+
+### Protocol Data Units (PDU)
+
+**Kapselung** ist der Prozess, bei dem jede Protokollschicht eigene Steuerinformationen (Header/Trailer) zu den Daten hinzufügt.
+
+Auf jeder Ebene des TCP/IP-Stapels erhält die Dateneinheit einen anderen Namen (**PDU – Protocol Data Unit**):
+
+```mermaid
+graph TD
+    Data["Daten (Data)\n→ Application Layer"]
+    Segment["Segment\n→ Transport Layer (TCP fügt Header hinzu)"]
+    Packet["Paket (Packet)\n→ Internet Layer (IP fügt Header hinzu)"]
+    Frame["Frame\n→ Network Access Layer (Ethernet fügt Header + Trailer hinzu)"]
+    Bits["Bits (Bit Stream)\n→ Physische Übertragung"]
+    Data --> Segment --> Packet --> Frame --> Bits
+```
+
+| PDU | Schicht | Enthält |
+|---|---|---|
+| **Daten** | Anwendung | Originaldaten der Anwendung |
+| **Segment** | Transport | TCP/UDP Header + Daten |
+| **Paket** | Internet | IP Header + Segment |
+| **Frame** | Netzwerkzugang | Ethernet Header + Paket + Trailer |
+| **Bits** | Physisch | Binäre Signale |
+
+### Kapselungsprozess (Encapsulation)
+
+Die Kapselung ist ein **Top-Down-Prozess**: Jede Schicht verarbeitet die Daten und gibt sie an die nächste tiefere Schicht weiter.
+
+```
+Anwendung:     [          Daten          ]
+Transport:     [ TCP Hdr |     Daten     ]    → Segment
+Internet:      [ IP Hdr | TCP Hdr | Dat ]    → Paket
+Netzwerkzugang: [Eth Hdr | IP Hdr | TCP Hdr | Dat | Eth Trl] → Frame
+Physisch:      10110101010010110...             → Bits
+```
+
+### De-Kapselungsprozess (De-encapsulation)
+
+Am Empfänger läuft der Prozess umgekehrt ab (**Bottom-Up**): Jede Schicht entfernt ihren Header und gibt die Daten an die nächsthöhere Schicht weiter.
+
+```
+Empfangen:     10110101010010110...             ← Bits
+Netzwerkzugang: [Eth Hdr | Paket | Eth Trl]    ← Frame (Ethernet-Header wird entfernt)
+Internet:      [ IP Hdr | Segment ]             ← Paket (IP-Header wird entfernt)
+Transport:     [ TCP Hdr | Daten ]              ← Segment (TCP-Header wird entfernt)
+Anwendung:     [         Daten   ]              ← Originaldaten
+```
+
+---
+
+## 3.7 Datenzugriff (Data Access)
+
+### Adressen im Netzwerk
+
+Für die Zustellung von Daten vom Sender zum Empfänger werden **zwei Arten von Adressen** verwendet:
+
+| Schicht | Adresstyp | Zweck |
+|---|---|---|
+| **Netzwerkschicht (Layer 3)** | IP-Adresse (logisch) | Zustellung vom ursprünglichen Sender zum endgültigen Empfänger (global) |
+| **Sicherungsschicht (Layer 2)** | MAC-Adresse (physisch) | Zustellung von einer NIC zur nächsten NIC **im selben Netzwerk** (lokal) |
+
+### Layer 3 – Logische IP-Adresse
+
+Ein IP-Paket enthält:
+- **Quell-IP-Adresse:** IP des sendenden Geräts
+- **Ziel-IP-Adresse:** IP des empfangenden Geräts (Endziel)
+
+Diese Adressen bleiben auf dem gesamten Weg vom Sender zum Empfänger **unverändert** – egal wie viele Router dazwischen liegen.
+
+Eine IP-Adresse besteht aus zwei Teilen:
+
+```
+IPv4-Beispiel: 192.168.1.110
+               └──────────┘└──┘
+               Netzwerkteil   Hostteil
+
+IPv6-Beispiel: 2001:db8:acad::1
+               └────────────┘└─┘
+               Präfix           Interface ID
+```
+
+- **Netzwerkteil / Präfix:** Identifiziert das Netzwerk (gleich für alle Geräte im selben LAN/WAN)
+- **Hostteil / Interface ID:** Identifiziert das spezifische Gerät (eindeutig pro Gerät)
+
+### Kommunikation im selben Netzwerk
+
+Wenn Quelle und Ziel **im selben Netzwerk** sind, haben beide die gleiche Netzwerkadresse:
+
+```
+PC1:        192.168.1.110  →  Netzwerk: 192.168.1
+FTP-Server: 192.168.1.9    →  Netzwerk: 192.168.1
+```
+
+In diesem Fall sendet PC1 den Ethernet-Frame direkt mit der **MAC-Adresse des FTP-Servers** als Ziel.
+
+### Kommunikation über verschiedene Netzwerke
+
+Wenn Quelle und Ziel **in verschiedenen Netzwerken** sind:
+
+```
+PC1:         192.168.1.110  →  Netzwerk: 192.168.1
+Web-Server:  172.16.1.99   →  Netzwerk: 172.16.1
+```
+
+Hier kann PC1 den Frame nicht direkt an den Webserver senden. Er muss die Nachricht an das **Default Gateway** (Standardgateway / Router) weiterleiten.
+
+### Die Rolle des Default Gateway
+
+Das **Default Gateway** ist die Router-Schnittstelle, die Teil des lokalen LANs ist und als "Tor" zu allen anderen (entfernten) Netzwerken fungiert. Alle Geräte im LAN müssen die Adresse des Default Gateways kennen.
+
+```mermaid
+graph LR
+    PC1["PC1\n192.168.1.110\nMAC: AA-AA-AA-AA-AA-AA"]
+    R1["Router R1\nLAN: 192.168.1.1\nMAC: 11-11-11-11-11-11\nWAN: 172.16.1.1\nMAC: 22-22-22-22-22-22"]
+    WS["Web Server\n172.16.1.99\nMAC: AB-CD-EF-12-34-56"]
+    PC1 -->|"L2: AA→11\nL3: .110→.99"| R1
+    R1 -->|"L2: 22→AB\nL3: .110→.99"| WS
+```
+
+### MAC-Adressen ändern sich, IP-Adressen nicht
+
+Dies ist ein zentrales Konzept: Auf dem Weg vom Sender zum Empfänger über mehrere Router hinweg:
+
+- **L3 IP-Adresse:** Bleibt **konstant** – Quelle und Ziel sind immer PC1 und Webserver
+- **L2 MAC-Adresse:** Ändert sich bei **jedem Hop** (Sprung) – immer lokal auf den nächsten Router oder das Ziel
+
+```mermaid
+sequenceDiagram
+    participant PC1 as PC1 (192.168.1.110)
+    participant R1 as Router R1
+    participant R2 as Router R2
+    participant WS as Web Server (172.16.1.99)
+
+    Note over PC1,WS: L3 IP: Src=192.168.1.110, Dst=172.16.1.99 (unveränderlich)
+    
+    PC1->>R1: L2 Frame: Src=AA-AA, Dst=11-11
+    Note over R1: R1 entfernt alten Frame, erstellt neuen
+    R1->>R2: L2 Frame: Src=22-22, Dst=33-33
+    Note over R2: R2 entfernt alten Frame, erstellt neuen
+    R2->>WS: L2 Frame: Src=44-44, Dst=AB-CD-EF
+```
+
+**Zusammenfassung:** L2-Adressierung ist **lokal** (hop-by-hop), L3-Adressierung ist **global** (end-to-end).
+
+---
+
+## Zusammenfassung
+
+```mermaid
+mindmap
+  root((Protokolle & Modelle))
+    Regeln
+      Sender, Empfänger, Kanal
+      Encoding, Timing, Size
+      Unicast, Multicast, Broadcast
+    Protokolle
+      Netzwerk, Sicherheit, Routing
+      HTTP, TCP, IP, Ethernet
+    Protokoll-Suiten
+      TCP/IP - der Internetstandard
+      OSI - Referenzmodell
+    Standards-Organisationen
+      IETF, ISOC, IAB, IRTF
+      ICANN, IANA, IEEE, TIA
+    Referenzmodelle
+      OSI: 7 Schichten
+      TCP/IP: 4 Schichten
+    Kapselung
+      Top-Down: Daten → Segment → Paket → Frame → Bits
+      PDUs pro Schicht
+    Datenzugriff
+      L3 IP-Adresse (global, unveränderlich)
+      L2 MAC-Adresse (lokal, ändert sich pro Hop)
+      Default Gateway
+```
+
+---
+
+## Neue Begriffe
+
+| Begriff | Erklärung |
+|---|---|
+| **Encoding** | Umwandlung von Information in übertragbare Form |
+| **Protokoll** | Regeln für die Kommunikation |
+| **Flow Control** | Steuerung der Datenübertragungsrate |
+| **Unicast / Multicast / Broadcast** | Zustellungsoptionen für Nachrichten |
+| **Protokoll-Suite** | Gruppe zusammenarbeitender Protokolle |
+| **Segmentierung** | Aufteilen von Nachrichten in kleinere Einheiten |
+| **PDU** | Protocol Data Unit – Datenenheit pro Schicht |
+| **Kapselung** | Hinzufügen von Header-Informationen pro Schicht |
+| **De-Kapselung** | Entfernen von Header-Informationen beim Empfänger |
+| **Default Gateway** | Router-Schnittstelle als Tor zu anderen Netzwerken |
+| **MAC-Adresse** | Physische Adresse der Netzwerkkarte (Layer 2) |
+| **IP-Adresse** | Logische Netzwerkadresse (Layer 3) |
+| **HTTP** | Hypertext Transfer Protocol |
+| **TCP** | Transmission Control Protocol |
+| **UDP** | User Datagram Protocol |
+| **ARP** | Address Resolution Protocol |
+| **DHCP** | Dynamic Host Configuration Protocol |
+| **DNS** | Domain Name System |

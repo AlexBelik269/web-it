@@ -1,0 +1,513 @@
+---
+title: "IPv4 Adressierung"
+description: "Strukturierung von IPv4-Adressen, Subnetzmasken, Adresstypen (Unicast, Broadcast, Multicast), private und öffentliche Adressen sowie IPv4-Subnetting und VLSM"
+---
+
+# IPv4 Adressierung
+
+IPv4-Adressen sind das Fundament der Netzwerkkommunikation im Internet. Dieses Modul erklärt, wie IPv4-Adressen aufgebaut sind, wie man sie in Subnetze aufteilt und warum diese Aufteilung für effiziente Netzwerke unerlässlich ist.
+
+---
+
+## 1. Aufbau einer IPv4-Adresse
+
+### Netzwerk- und Hostanteil
+
+Eine IPv4-Adresse ist **32 Bits** lang und hierarchisch aufgebaut. Sie besteht aus zwei Teilen:
+
+- **Netzwerkanteil**: Identifiziert das Netzwerk, zu dem ein Gerät gehört
+- **Hostanteil**: Identifiziert das spezifische Gerät innerhalb dieses Netzwerks
+
+```
+Beispiel: 192.168.10.10 /24
+
+Netzwerkanteil         | Hostanteil
+192  .  168  .  10     |    10
+11000000 10101000 00001010 | 00001010
+```
+
+Die **Subnetzmaske** legt fest, welche Bits zum Netzwerk- und welche zum Hostanteil gehören. Überall, wo die Subnetzmaske eine `1` hat, gehört das entsprechende Bit zum Netzwerkanteil – überall dort, wo eine `0` steht, zum Hostanteil.
+
+### Die Subnetzmaske
+
+Die Subnetzmaske wird **bitweise von links nach rechts** mit der IPv4-Adresse verglichen. Der eigentliche Prozess zur Bestimmung des Netzwerkanteils heisst **ANDing**.
+
+```
+IPv4-Adresse:  192  .  168  .  10  .  10
+Subnetzmaske:  255  .  255  .  255 .   0
+               11111111 11111111 11111111 00000000
+                                         ↑
+                               Host-Oktett = alles 0 → Netzwerkanteil
+```
+
+### Präfixlänge (Slash-Notation)
+
+Statt die Subnetzmaske vollständig auszuschreiben, verwendet man die **Präfixlänge** (Slash-Notation). Sie gibt an, wie viele Bits der Subnetzmaske auf `1` gesetzt sind:
+
+| Subnetzmaske     | Binär                                   | Präfixlänge |
+|------------------|-----------------------------------------|-------------|
+| 255.0.0.0        | 11111111.00000000.00000000.00000000     | /8          |
+| 255.255.0.0      | 11111111.11111111.00000000.00000000     | /16         |
+| 255.255.255.0    | 11111111.11111111.11111111.00000000     | /24         |
+| 255.255.255.128  | 11111111.11111111.11111111.10000000     | /25         |
+| 255.255.255.192  | 11111111.11111111.11111111.11000000     | /26         |
+| 255.255.255.224  | 11111111.11111111.11111111.11100000     | /27         |
+| 255.255.255.240  | 11111111.11111111.11111111.11110000     | /28         |
+| 255.255.255.248  | 11111111.11111111.11111111.11111000     | /29         |
+| 255.255.255.252  | 11111111.11111111.11111111.11111100     | /30         |
+
+### Logisches AND – Netzwerkadresse ermitteln
+
+Um die Netzwerkadresse aus einer Host-IP-Adresse zu berechnen, wird das **logische AND** (boolesche UND-Verknüpfung) angewendet. Die Regel ist einfach:
+
+- `1 AND 1 = 1`
+- `1 AND 0 = 0`
+- `0 AND 1 = 0`
+- `0 AND 0 = 0`
+
+```
+Host-IP:       192.168.10.10  →  11000000 10100000 00001010 00001010
+Subnetzmaske:  255.255.255.0  →  11111111 11111111 11111111 00000000
+                                 ──────────────────────────────────
+Netzwerkadresse: 192.168.10.0 →  11000000 10100000 00001010 00000000
+```
+
+Warum? Weil überall, wo die Maske eine `0` hat, das Ergebnis automatisch `0` ist – unabhängig vom Host-Bit. So werden die Host-Bits „ausgeblendet", und die Netzwerkadresse bleibt übrig.
+
+### Netzwerk-, Host- und Broadcast-Adressen
+
+Innerhalb jedes Subnetzes gibt es drei spezielle Adressen:
+
+| Adresstyp          | Host-Bits         | Beispiel (/24)    |
+|--------------------|-------------------|-------------------|
+| Netzwerkadresse    | alle 0            | 192.168.10.0      |
+| Erste Host-Adresse | alle 0 + eine 1   | 192.168.10.1      |
+| Letzte Host-Adresse| alle 1 + eine 0   | 192.168.10.254    |
+| Broadcast-Adresse  | alle 1            | 192.168.10.255    |
+
+> **Warum diese Einschränkung?** Die Netzwerkadresse identifiziert das Netz selbst (sie gehört keinem Gerät). Die Broadcast-Adresse wird verwendet, um alle Geräte im Netz gleichzeitig anzusprechen. Beide können also **nicht** an einzelne Hosts vergeben werden – daher: 2^n – 2 nutzbare Hostadressen.
+
+```mermaid
+graph TD
+    A["192.168.10.0/24<br/>Netzwerkadresse<br/>(Host-Bits = 00000000)"] --> B["192.168.10.1<br/>Erste Host-Adresse"]
+    B --> C["192.168.10.2 bis 192.168.10.253<br/>Weitere Hosts"]
+    C --> D["192.168.10.254<br/>Letzte Host-Adresse"]
+    D --> E["192.168.10.255<br/>Broadcast-Adresse<br/>(Host-Bits = 11111111)"]
+```
+
+---
+
+## 2. IPv4-Übertragungsarten: Unicast, Broadcast, Multicast
+
+IPv4-Pakete können auf drei verschiedene Arten übertragen werden, je nachdem, wie viele Empfänger angesprochen werden sollen:
+
+### Unicast
+
+**Unicast** = Ein Paket wird an **genau einen** Empfänger gesendet.
+
+- Die häufigste Übertragungsart
+- Beispiel: PC `172.16.4.1` sendet ein Paket an Drucker `172.16.4.253`
+- Quelle und Ziel sind klar definiert
+
+```mermaid
+graph LR
+    PC1["PC1\n172.16.4.1"] -->|"Paket an 172.16.4.253"| Drucker["Drucker\n172.16.4.253"]
+```
+
+### Broadcast
+
+**Broadcast** = Ein Paket wird an **alle Geräte** im Netzwerk gesendet.
+
+- Zieladresse: `255.255.255.255` (Limited Broadcast) oder die Netzwerk-Broadcast-Adresse
+- Switches leiten Broadcasts an **alle Ports** weiter (ausser den Eingangsport)
+- **Router stoppen Broadcasts** – sie leiten sie nicht an andere Netzwerke weiter
+
+> **Warum sind Broadcasts problematisch?** In grossen Netzwerken können übermässige Broadcasts die Bandbreite stark belasten. Jedes Gerät im Netzwerk muss jeden Broadcast verarbeiten, auch wenn das Paket nicht für es bestimmt ist.
+
+### Multicast
+
+**Multicast** = Ein Paket wird an eine **Gruppe** von Empfängern gesendet, die sich für diesen Traffic angemeldet haben.
+
+- Zieladresse liegt im Bereich `224.0.0.0` bis `239.255.255.255`
+- Nur Geräte, die der Multicast-Gruppe beigetreten sind, empfangen die Pakete
+- Effizienter als Broadcast, da nicht alle Geräte das Paket verarbeiten müssen
+- Typische Anwendung: Videostreaming, Routing-Protokolle (z. B. OSPF nutzt `224.0.0.5`)
+
+```mermaid
+graph LR
+    Server["Server\n172.16.4.1"] -->|"Multicast an 224.10.10.5"| G1["Gerät A\n(Mitglied)"]
+    Server -->|"Multicast an 224.10.10.5"| G2["Gerät C\n(Mitglied)"]
+    Server -.->|"kein Empfang"| G3["Gerät B\n(kein Mitglied)"]
+```
+
+---
+
+## 3. IPv4-Adresstypen
+
+### Öffentliche und private Adressen
+
+IPv4-Adressen werden grundsätzlich in **öffentliche** (globale) und **private** Adressen unterteilt:
+
+- **Öffentliche Adressen** sind weltweit eindeutig und im Internet routbar (werden von ISPs verwaltet)
+- **Private Adressen** sind **nicht** im Internet routbar und können in beliebig vielen internen Netzen verwendet werden – sie sind also **nicht global eindeutig**
+
+Die privaten Adressbereiche sind in **RFC 1918** definiert:
+
+| Netzwerk          | Präfix | Bereich                           |
+|-------------------|--------|-----------------------------------|
+| 10.0.0.0          | /8     | 10.0.0.0 – 10.255.255.255         |
+| 172.16.0.0        | /12    | 172.16.0.0 – 172.31.255.255       |
+| 192.168.0.0       | /16    | 192.168.0.0 – 192.168.255.255     |
+
+> **Warum private Adressen?** Der IPv4-Adressraum ist begrenzt (nur ~4,3 Milliarden Adressen). Private Adressen ermöglichen es Organisationen, intern beliebig viele Geräte zu adressieren, ohne öffentliche Adressen zu verbrauchen.
+
+### Network Address Translation (NAT)
+
+Da private Adressen nicht im Internet geroutet werden, benötigen Geräte mit privaten Adressen **NAT** (Network Address Translation), um auf das Internet zuzugreifen.
+
+- NAT läuft typischerweise auf dem **Edge-Router** (dem Router, der das interne Netz mit dem Internet verbindet)
+- NAT übersetzt die private interne Adresse in eine öffentliche globale Adresse (und zurück)
+
+```mermaid
+sequenceDiagram
+    participant Host as Host (10.0.0.5)
+    participant Router as Edge-Router (NAT)
+    participant Internet
+
+    Host->>Router: Paket von 10.0.0.5
+    Router->>Internet: Paket von 203.0.113.1 (öffentlich)
+    Internet->>Router: Antwort an 203.0.113.1
+    Router->>Host: Antwort an 10.0.0.5
+```
+
+### Spezielle IPv4-Adressen
+
+**Loopback-Adressen** (`127.0.0.0/8`, typisch `127.0.0.1`):
+- Werden verwendet, um zu testen, ob der TCP/IP-Stack auf einem Gerät korrekt funktioniert
+- Pakete an diese Adresse verlassen den Host nie
+
+**Link-Local-Adressen (APIPA)** (`169.254.0.0/16`):
+- Werden automatisch von Windows-Clients vergeben, wenn kein DHCP-Server erreichbar ist
+- Auch bekannt als APIPA (Automatic Private IP Addressing)
+- Nur innerhalb des lokalen Netzwerksegments kommunikationsfähig
+
+### Legacy-Klassenadressen (Classful Addressing)
+
+Früher (RFC 790, 1981) wurden IPv4-Adressen in feste Klassen eingeteilt – **Classful Addressing**:
+
+| Klasse | Bereich                   | Netzwerke     | Hosts/Netz    |
+|--------|---------------------------|---------------|---------------|
+| A      | 0.0.0.0 – 127.0.0.0/8    | 128           | 16.777.214    |
+| B      | 128.0.0.0 – 191.255.0.0/16| 16.384        | 65.534        |
+| C      | 192.0.0.0 – 223.255.255.0/24| 2.097.152   | 254           |
+| D      | 224.0.0.0 – 239.0.0.0     | (Multicast)   | –             |
+| E      | 240.0.0.0 – 255.0.0.0     | (Reserviert)  | –             |
+
+> **Problem:** Diese feste Einteilung führte zu enormer Adressverschwendung. Wer z. B. 300 Hosts brauchte, musste eine Klasse B mit 65.534 möglichen Hosts nehmen. Deshalb wurde Classful Addressing durch **Classless Addressing (CIDR)** ersetzt, das beliebige Präfixlängen erlaubt.
+
+### Adressvergabe durch IANA und RIRs
+
+Die globale Verwaltung der IPv4-Adressen erfolgt hierarchisch:
+
+```mermaid
+graph TD
+    IANA["IANA\n(Internet Assigned Numbers Authority)"] --> ARIN["ARIN\n(Nordamerika)"]
+    IANA --> RIPE["RIPE NCC\n(Europa/Nahost)"]
+    IANA --> APNIC["APNIC\n(Asien-Pazifik)"]
+    IANA --> LACNIC["LACNIC\n(Latein-Amerika)"]
+    IANA --> AfriNIC["AfriNIC\n(Afrika)"]
+    ARIN --> ISP1["ISPs"]
+    ISP1 --> Org["Organisationen"]
+```
+
+---
+
+## 4. Netzwerksegmentierung (Subnetting)
+
+### Warum Segmentierung?
+
+In einem grossen, flachen Netzwerk (einem einzigen Broadcast-Domain) entstehen Probleme:
+
+- **Übermässige Broadcasts**: Jedes Gerät muss jeden Broadcast verarbeiten → hohe CPU-Last, verschwendete Bandbreite
+- **Sicherheit**: Kein Isolation zwischen Abteilungen
+- **Performance**: Schwierige Fehlersuche, hohe Kollisionswahrscheinlichkeit
+
+Die Lösung ist **Subnetting**: Das Aufteilen eines grossen Netzes in kleinere **Broadcast-Domains**.
+
+> **Wichtig:** Nur **Router** stoppen Broadcasts. Switches leiten sie innerhalb eines Segments weiter. Jede Router-Schnittstelle grenzt eine eigene Broadcast-Domain ab.
+
+### Gründe für Segmentierung
+
+Subnetze werden typischerweise nach folgenden Kriterien gebildet:
+
+- **Standort** (z. B. Stockwerk, Gebäude, Stadt)
+- **Funktion/Abteilung** (z. B. HR, Buchhaltung, IT)
+- **Gerätetyp** (z. B. alle Drucker, alle Server, alle Clients)
+
+### Vorteile der Segmentierung
+
+- Reduktion des Broadcast-Traffics
+- Verbesserung der Netzwerk-Performance
+- Implementierung von Sicherheitsrichtlinien zwischen Segmenten
+- Weniger betroffene Geräte bei Broadcast-Stürmen
+
+---
+
+## 5. IPv4-Subnetting berechnen
+
+### Grundformeln
+
+Das Subnetting basiert auf zwei zentralen Formeln:
+
+**Anzahl der Subnetze:**
+$$2^n$$
+wobei `n` = Anzahl der geliehenen Host-Bits (Bits, die vom Host-Anteil in den Netzwerkanteil übertragen werden)
+
+**Anzahl der nutzbaren Hosts pro Subnetz:**
+$$2^h - 2$$
+wobei `h` = Anzahl der verbleibenden Host-Bits (`-2` für Netzwerk- und Broadcast-Adresse)
+
+### Subnetting an Oktett-Grenzen
+
+Am einfachsten ist das Subnetting an den Oktett-Grenzen `/8`, `/16` und `/24`:
+
+| Präfix | Subnetzmaske  | Nutzbare Hosts |
+|--------|---------------|----------------|
+| /8     | 255.0.0.0     | 16.777.214     |
+| /16    | 255.255.0.0   | 65.534         |
+| /24    | 255.255.255.0 | 254            |
+
+### Subnetting innerhalb einer Oktett-Grenze (/24-Netz)
+
+Ein `/24`-Netz lässt sich durch Ausleihen von Bits aus dem letzten Oktett weiter unterteilen:
+
+| Präfix | Subnetzmaske      | Subnetze | Hosts/Subnetz |
+|--------|-------------------|----------|---------------|
+| /25    | 255.255.255.128   | 2        | 126           |
+| /26    | 255.255.255.192   | 4        | 62            |
+| /27    | 255.255.255.224   | 8        | 30            |
+| /28    | 255.255.255.240   | 16       | 14            |
+| /29    | 255.255.255.248   | 32       | 6             |
+| /30    | 255.255.255.252   | 64       | 2             |
+
+### Die „Magic Number"-Methode
+
+Eine praktische Schnellmethode: Die **Magic Number** ist der Stellenwert des letzten gesetzten Bits in der Subnetzmaske. Sie gibt den **Abstand zwischen den Subnetzen** an.
+
+```
+/25 → 11111111.11111111.11111111.10000000 → Magic Number = 128
+/26 → 11111111.11111111.11111111.11000000 → Magic Number = 64
+/27 → 11111111.11111111.11111111.11100000 → Magic Number = 32
+```
+
+**Beispiel: /26 – 4 Subnetze aus 192.168.1.0/24**
+
+- Maske: `11111111.11111111.11111111.11000000`
+- Magic Number = **64**
+- Subnetze (immer 64 addieren):
+
+| Subnetz            | Erste Host    | Letzte Host    | Broadcast      |
+|--------------------|---------------|----------------|----------------|
+| 192.168.1.0/26     | 192.168.1.1   | 192.168.1.62   | 192.168.1.63   |
+| 192.168.1.64/26    | 192.168.1.65  | 192.168.1.126  | 192.168.1.127  |
+| 192.168.1.128/26   | 192.168.1.129 | 192.168.1.190  | 192.168.1.191  |
+| 192.168.1.192/26   | 192.168.1.193 | 192.168.1.254  | 192.168.1.255  |
+
+**Beispiel: /27 – 8 Subnetze aus 192.168.1.0/24**
+
+- Magic Number = **32**
+- Subnetze: `192.168.1.0`, `192.168.1.32`, `192.168.1.64`, `192.168.1.96`, `192.168.1.128`, `192.168.1.160`, `192.168.1.192`, `192.168.1.224`
+
+---
+
+## 6. Subnetting von /16- und /8-Netzen
+
+### /16-Netz subnetten
+
+Ein `/16`-Netz hat 16 Host-Bits. Man kann daraus bis zu `/30`-Subnetze bilden. Beispiel für das Netz `172.16.0.0/16`:
+
+| Präfix | Subnetze | Hosts/Subnetz |
+|--------|----------|---------------|
+| /17    | 2        | 32.766        |
+| /18    | 4        | 16.382        |
+| /19    | 8        | 8.190         |
+| /20    | 16       | 4.094         |
+| /21    | 32       | 2.046         |
+| /22    | 64       | 1.022         |
+| /23    | 128      | 510           |
+| /24    | 256      | 254           |
+
+**Praxisbeispiel:** Eine grosse Organisation braucht mindestens 100 Subnetze aus `172.16.0.0/16`.
+- `2^7 = 128 ≥ 100` → 7 Bits leihen → Präfix wird `/16 + 7 = /23`
+- Resultat: 128 Subnetze mit je 510 nutzbaren Hosts
+
+### /8-Netz subnetten
+
+Ein `/8`-Netz hat 24 Host-Bits. Ein ISP braucht 1000 Subnetze aus `10.0.0.0/8`:
+- `2^10 = 1024 ≥ 1000` → 10 Bits leihen → Präfix `/18`
+- Resultat: 1024 Subnetze
+
+---
+
+## 7. VLSM – Variable Length Subnet Mask
+
+### Das Problem mit klassischem Subnetting
+
+Beim klassischen Subnetting hat jedes Subnetz **dieselbe Grösse**, was zu Adressverschwendung führt. Typisches Beispiel:
+
+- 4 LANs benötigen je ~25 Hosts → /27 (30 Hosts pro Subnetz, 4 Subnetze) passt
+- 3 WAN-Links zwischen Routern benötigen nur je **2 Hosts** (eine IP pro Router-Interface)
+- Mit /27 werden für jeden WAN-Link 28 Adressen **verschwendet** (30 – 2 = 28 × 3 = **84 verschwendete Adressen**)
+
+### VLSM als Lösung
+
+**VLSM (Variable Length Subnet Mask)** erlaubt es, ein Subnetz weiter zu unterteilen – also ein **Subnetz eines Subnetzes** zu erstellen. Verschiedene Teile des Netzes können unterschiedliche Masken haben.
+
+> **Prinzip:** Beginne immer mit dem **grössten** Subnetz-Bedarf und arbeite dich hinunter zum kleinsten.
+
+**Vorgehensweise am Beispiel (192.168.20.0/24):**
+
+Anforderungen:
+- Building A: 25 Hosts
+- Building B: 20 Hosts
+- Building C: 15 Hosts
+- Building D: 28 Hosts
+- R1–R2, R2–R3, R3–R4: je 2 Hosts (WAN-Links)
+
+**Schritt 1:** Grösstes Subnetz zuerst (Building D: 28 Hosts → /27, 30 Hosts)
+
+| Subnetz          | Verwendung      | Hosts |
+|------------------|-----------------|-------|
+| 192.168.20.0/27  | Building A      | 25    |
+| 192.168.20.32/27 | Building B      | 20    |
+| 192.168.20.64/27 | Building C      | 15    |
+| 192.168.20.96/27 | Building D      | 28    |
+
+**Schritt 2:** WAN-Links aus dem nächsten freien Subnetz (192.168.20.128/27) weiter aufteilen mit /30 (2 Hosts):
+
+| Subnetz             | Verwendung | Hosts |
+|---------------------|------------|-------|
+| 192.168.20.224/30   | R1–R2 WAN  | 2     |
+| 192.168.20.228/30   | R2–R3 WAN  | 2     |
+| 192.168.20.232/30   | R3–R4 WAN  | 2     |
+
+```mermaid
+graph TD
+    A["192.168.20.0/24<br/>Gesamtnetz"] --> B["192.168.20.0/27<br/>Building A (25 Hosts)"]
+    A --> C["192.168.20.32/27<br/>Building B (20 Hosts)"]
+    A --> D["192.168.20.64/27<br/>Building C (15 Hosts)"]
+    A --> E["192.168.20.96/27<br/>Building D (28 Hosts)"]
+    A --> F["192.168.20.128/27<br/>(Reserve / WAN-Pool)"]
+    F --> G["192.168.20.224/30<br/>R1–R2 (2 Hosts)"]
+    F --> H["192.168.20.228/30<br/>R2–R3 (2 Hosts)"]
+    F --> I["192.168.20.232/30<br/>R3–R4 (2 Hosts)"]
+```
+
+### Classless vs. Classful Subnet Masks
+
+VLSM setzt **klassenloses Adressieren (CIDR)** voraus:
+
+| Typ       | Beispiel              | Präfix |
+|-----------|-----------------------|--------|
+| Classful  | 255.255.255.0 (Kl. C) | /24    |
+| Classful  | 255.255.0.0 (Kl. B)   | /16    |
+| Classless | 255.255.255.128       | /25    |
+| Classless | 255.255.192.0         | /18    |
+| Classless | 255.240.0.0           | /12    |
+
+---
+
+## 8. Strukturiertes Netzwerkdesign
+
+### Planung eines IPv4-Adressierungsschemas
+
+Gute Netzwerkplanung ist entscheidend für Skalierbarkeit. Man muss vorab klären:
+
+- Wie viele Subnetze werden benötigt?
+- Wie viele Hosts braucht jedes Subnetz?
+- Welche Geräte gehören zu welchem Subnetz?
+- Was soll mit privaten, was mit öffentlichen Adressen adressiert werden?
+
+### Intranet, DMZ und Internet
+
+Unternehmensnetze haben typischerweise drei Zonen:
+
+```mermaid
+graph LR
+    Internet -->|"Öffentliche IPs"| DMZ["DMZ\n(Webserver, Mail, DNS)"]
+    DMZ -->|"Firewall / NAT"| Intranet["Intranet\n(Private IPs)"]
+```
+
+- **Intranet**: Interne Netzwerke mit privaten IPv4-Adressen (z. B. `10.0.0.0/8`)
+- **DMZ (Demilitarisierte Zone)**: Internet-seitige Server mit **öffentlichen** IPv4-Adressen
+- **Internet-Verbindung**: Über NAT vom Intranet erreichbar
+
+### Adressvergabe nach Gerätetyp
+
+| Gerätetyp                   | Zuweisung             |
+|-----------------------------|-----------------------|
+| Endgeräte (Clients)         | DHCP (dynamisch)      |
+| Server & Peripherie         | Statisch (vorhersehbar)|
+| Öffentlich erreichbare Server| Öffentliche IP via NAT|
+| Netzwerkgeräte (Router, Switch)| Statisch (Management)|
+| Gateways (Router, Firewall) | Statisch              |
+
+---
+
+## Zusammenfassung
+
+```mermaid
+mindmap
+  root((IPv4 Adressierung))
+    Aufbau
+      32-Bit hierarchisch
+      Netzwerk- + Hostanteil
+      Subnetzmaske
+      Präfixlänge Slash-Notation
+      Logisches AND
+    Adresstypen
+      Netzwerkadresse alle 0
+      Broadcast alle 1
+      Host erster bis letzter
+    Übertragung
+      Unicast 1 zu 1
+      Broadcast 1 zu alle
+      Multicast 1 zu Gruppe
+    IPv4-Typen
+      Öffentlich global routbar
+      Privat RFC 1918
+      NAT Übersetzung
+      Loopback 127.0.0.1
+      APIPA 169.254.x.x
+      Legacy Klassen A B C D E
+    Subnetting
+      Bits leihen
+      Formel 2 hoch n Subnetze
+      Formel 2 hoch h minus 2 Hosts
+      Magic Number Methode
+      VLSM variabel
+    Design
+      Intranet privat
+      DMZ öffentlich
+      DHCP vs statisch
+```
+
+### Wichtigste Formeln auf einen Blick
+
+| Formel               | Bedeutung                                     |
+|----------------------|-----------------------------------------------|
+| `2^n`                | Anzahl Subnetze (n = geliehene Bits)          |
+| `2^h – 2`            | Nutzbare Hosts (h = verbleibende Host-Bits)   |
+| Magic Number         | Stellenwert des letzten 1-Bits in der Maske   |
+| Subnetz-Abstand      | = Magic Number (addieren für nächstes Subnetz)|
+
+### Wichtige Begriffe
+
+- **Präfixlänge**: Anzahl der Netzwerk-Bits in Slash-Notation (z. B. /24)
+- **ANDing**: Bitweise UND-Operation zur Ermittlung der Netzwerkadresse
+- **Broadcast Domain**: Bereich, in dem Broadcasts weitergeleitet werden
+- **Subnetting**: Aufteilen eines Netzes in kleinere Subnetze
+- **VLSM**: Subnetting mit unterschiedlich grossen Subnetzen
+- **NAT**: Übersetzung privater in öffentliche Adressen
+- **APIPA**: Automatische Selbstzuweisung einer Link-Local-Adresse
+- **IANA / RIR**: Globale und regionale Verwaltung von IP-Adressen
