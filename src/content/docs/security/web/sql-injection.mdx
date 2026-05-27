@@ -2,6 +2,9 @@
 title: "SQL Injection"
 description: "How SQL injection works, all major variants, and why parameterized queries are the only reliable fix."
 ---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import Callout from '../../../../components/Callout.astro';
+
 
 SQL injection (SQLi) is consistently one of the most impactful vulnerabilities in web applications. A successful attack can read all data in the database, modify or delete data, bypass authentication, and in some configurations execute OS commands.
 
@@ -22,9 +25,9 @@ SELECT * FROM users WHERE email = 'admin@example.com' --'
 ---
 
 ## Major Variants
-
+<Callout type="tip"> 
 ### Classic (In-Band) SQLi
-
+</Callout>
 The result is returned directly in the HTTP response. The easiest to exploit.
 
 ```sql
@@ -37,8 +40,9 @@ SELECT name, email FROM products WHERE id = '' UNION SELECT username, password F
 -- Appends admin credentials to the result
 ```
 
+<Callout type="tip"> 
 ### Blind Boolean-Based SQLi
-
+</Callout>
 No data is returned directly, but the application behaves differently based on whether a condition is true or false. Used to extract data one bit at a time.
 
 ```sql
@@ -51,9 +55,9 @@ id=1 AND 1=2
 -- Extract data character by character:
 id=1 AND SUBSTRING(password,1,1)='a'  -- try each char until page loads
 ```
-
+<Callout type="tip"> 
 ### Blind Time-Based SQLi
-
+</Callout>
 When there is no behavioral difference between true/false, attackers use time delays to exfiltrate data.
 
 ```sql
@@ -66,9 +70,9 @@ id=1; SELECT pg_sleep(5)
 -- Exfiltrate one bit:
 id=1 AND IF(SUBSTRING(password,1,1)='a', SLEEP(3), 0)
 ```
-
+<Callout type="tip"> 
 ### Error-Based SQLi
-
+</Callout>
 Deliberately triggers database errors that contain data values in the error message.
 
 ```sql
@@ -76,9 +80,9 @@ Deliberately triggers database errors that contain data values in the error mess
 ' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT version()))) --
 -- Error: XPATH syntax error: '~8.0.32'
 ```
-
+<Callout type="tip"> 
 ### Second-Order SQLi
-
+</Callout>
 Payload is stored in the database safely (correctly escaped at insert time), then retrieved and used unsafely in a later query.
 
 ```
@@ -87,7 +91,9 @@ Password change: UPDATE users SET pass=? WHERE username='admin'--'
                                                        ↑ injected at retrieval
 ```
 
+<Callout type="tip"> 
 ### Out-of-Band SQLi
+</Callout>
 
 Data is exfiltrated via a separate channel (DNS lookup, HTTP request). Used when in-band and blind techniques are blocked.
 
@@ -102,25 +108,103 @@ Data is exfiltrated via a separate channel (DNS lookup, HTTP request). Used when
 
 Parameterized queries (prepared statements) separate code from data. The database compiles the query template first, then binds the user input as a typed value — it cannot be interpreted as SQL syntax.
 
+<Tabs syncKey="constellations">
+
+<TabItem label="Javascript">
+
 ```javascript
-// Node.js + pg (PostgreSQL)
+// PostgreSQL (pg)
 const result = await db.query(
   'SELECT * FROM users WHERE email = $1 AND password_hash = $2',
   [email, passwordHash]
 );
 
-// Node.js + mysql2
+// MySQL (mysql2)
 const [rows] = await db.execute(
   'SELECT * FROM users WHERE email = ? AND active = ?',
   [email, true]
 );
-
-// Python + psycopg2
-cursor.execute(
-  'SELECT * FROM users WHERE email = %s',
-  (email,)  // note the comma — must be a tuple
-);
 ```
+
+</TabItem>
+
+<TabItem label="Python">
+
+```python
+# PostgreSQL (psycopg2)
+cursor.execute(
+    'SELECT * FROM users WHERE email = %s AND password_hash = %s',
+    (email, password_hash)
+)
+
+# MySQL (mysql-connector)
+cursor.execute(
+    'SELECT * FROM users WHERE email = %s AND active = %s',
+    (email, True)
+)
+```
+
+</TabItem>
+
+<TabItem label="C#">
+
+```csharp
+// PostgreSQL (Npgsql)
+await using var cmd = new NpgsqlCommand(
+    "SELECT * FROM users WHERE email = @email AND password_hash = @hash",
+    connection
+);
+
+cmd.Parameters.AddWithValue("email", email);
+cmd.Parameters.AddWithValue("hash", passwordHash);
+
+await using var reader = await cmd.ExecuteReaderAsync();
+
+
+// MySQL (MySqlConnector)
+await using var cmd2 = new MySqlCommand(
+    "SELECT * FROM users WHERE email = @email AND active = @active",
+    connection
+);
+
+cmd2.Parameters.AddWithValue("@email", email);
+cmd2.Parameters.AddWithValue("@active", true);
+
+await using var reader2 = await cmd2.ExecuteReaderAsync();
+```
+
+</TabItem>
+
+<TabItem label="Java">
+
+```java
+// PostgreSQL / MySQL (PreparedStatement)
+PreparedStatement stmt = connection.prepareStatement(
+    "SELECT * FROM users WHERE email = ? AND password_hash = ?"
+);
+
+stmt.setString(1, email);
+stmt.setString(2, passwordHash);
+
+ResultSet rs = stmt.executeQuery();
+
+
+// Example with boolean parameter
+PreparedStatement stmt2 = connection.prepareStatement(
+    "SELECT * FROM users WHERE email = ? AND active = ?"
+);
+
+stmt2.setString(1, email);
+stmt2.setBoolean(2, true);
+
+ResultSet rs2 = stmt2.executeQuery();
+```
+
+</TabItem>
+
+</Tabs>
+
+
 
 **Key point:** The placeholder syntax varies by driver (`$1`, `?`, `%s`) but the mechanism is the same. The user input is never concatenated into the SQL string.
 

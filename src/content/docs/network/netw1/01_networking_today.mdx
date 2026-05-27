@@ -2,6 +2,7 @@
 title: "Networking"
 description: "Einführung in moderne Netzwerke: Komponenten, Topologien, Netzwerktypen, Internetverbindungen, Zuverlässigkeit, Trends und Sicherheit."
 ---
+import Callout from '../../../../components/Callout.astro';
 
 Kommunikation ist für den Menschen fast so grundlegend wie Nahrung, Wasser oder Unterkunft. In der heutigen Welt verbinden uns Netzwerke auf eine Art und Weise, die zuvor nie möglich war. Advancements in der Netzwerktechnologie schaffen eine Welt ohne Grenzen: Die Unmittelbarkeit der Internetkommunikation fördert globale Gemeinschaften und ermöglicht es, dass Menschen und Organisationen weltweit zusammenarbeiten.
 
@@ -11,7 +12,7 @@ Cisco bezeichnet den Einfluss des Internets und von Netzwerken auf Menschen als 
 
 ## 2. Netzwerkkomponenten
 
-### 2.1 Host-Rollen: Server und Clients
+### Host-Rollen: Server und Clients
 
 Jeder Computer in einem Netzwerk wird als **Host** oder **Endgerät** bezeichnet. Hosts können zwei Rollen einnehmen:
 
@@ -26,7 +27,7 @@ Jeder Computer in einem Netzwerk wird als **Host** oder **Endgerät** bezeichnet
 
 > **Warum diese Trennung?** Server sind optimiert für hohe Verfügbarkeit, Datensicherheit und die gleichzeitige Bedienung vieler Clients. Clients sind optimiert für die Benutzerschnittstelle. Diese Arbeitsteilung macht Netzwerke effizient und skalierbar.
 
-### 2.2 Peer-to-Peer-Netzwerke
+### Peer-to-Peer-Netzwerke
 
 In einem **Peer-to-Peer (P2P) Netzwerk** kann ein Gerät gleichzeitig Client und Server sein. Dies eignet sich nur für sehr kleine Netzwerke.
 
@@ -37,13 +38,13 @@ In einem **Peer-to-Peer (P2P) Netzwerk** kann ein Gerät gleichzeitig Client und
 | Geringere Kosten | Nicht skalierbar |
 | Geeignet für einfache Aufgaben (Datei- und Druckerfreigabe) | Langsamere Performance |
 
-> **Warum kein P2P in großen Netzwerken?** Ohne zentrale Verwaltung ist es schwierig, Sicherheitsrichtlinien durchzusetzen, Backups zu koordinieren und die Leistung zu überwachen. Bei hunderten von Geräten wäre der Verwaltungsaufwand enorm.
+> **Warum kein P2P in grossen Netzwerken?** Ohne zentrale Verwaltung ist es schwierig, Sicherheitsrichtlinien durchzusetzen, Backups zu koordinieren und die Leistung zu überwachen. Bei hunderten von Geräten wäre der Verwaltungsaufwand enorm.
 
-### 2.3 Endgeräte (End Devices)
+### Endgeräte (End Devices)
 
-Ein **Endgerät** ist der Ursprung oder das Ziel einer Nachricht. Daten entstehen auf einem Endgerät, fließen durch das Netzwerk und kommen an einem anderen Endgerät an. Beispiele: PCs, Laptops, Smartphones, Drucker, IP-Telefone.
+Ein **Endgerät** ist der Ursprung oder das Ziel einer Nachricht. Daten entstehen auf einem Endgerät, fliessen durch das Netzwerk und kommen an einem anderen Endgerät an. Beispiele: PCs, Laptops, Smartphones, Drucker, IP-Telefone.
 
-### 2.4 Intermediäre Netzwerkgeräte
+### Intermediäre Netzwerkgeräte
 
 **Intermediäre Geräte** verbinden Endgeräte miteinander und übernehmen die Datenverwaltung im Netzwerk:
 
@@ -58,7 +59,7 @@ Aufgaben intermediärer Geräte:
 - Informationen über vorhandene Netzwerkpfade verwalten
 - Andere Geräte über Fehler und Kommunikationsausfälle informieren
 
-### 2.5 Netzwerkmedien (Network Media)
+### Netzwerkmedien (Network Media)
 
 Kommunikation in einem Netzwerk wird durch ein **Medium** übertragen:
 
@@ -68,13 +69,13 @@ Kommunikation in einem Netzwerk wird durch ein **Medium** übertragen:
 | Glasfaser-/Plastikfaserkabel | Lichtimpulse |
 | Drahtlose Übertragung | Modulation elektromagnetischer Wellen |
 
-> **Warum verschiedene Medien?** Kupferkabel sind günstig und einfach zu installieren, aber anfällig für elektromagnetische Störungen und haben begrenzte Reichweite. Glasfaser überträgt Daten mit Lichtgeschwindigkeit über große Distanzen und ist immun gegen elektrische Störungen. Wireless ermöglicht Mobilität, ist aber störanfälliger und hat begrenzte Bandbreite.
+> **Warum verschiedene Medien?** Kupferkabel sind günstig und einfach zu installieren, aber anfällig für elektromagnetische Störungen und haben begrenzte Reichweite. Glasfaser überträgt Daten mit Lichtgeschwindigkeit über grosse Distanzen und ist immun gegen elektrische Störungen. Wireless ermöglicht Mobilität, ist aber störanfälliger und hat begrenzte Bandbreite.
 
 ---
 
 ## 3. Netzwerkdarstellungen und Topologien
 
-### 3.1 Netzwerkdarstellungen (Network Representations)
+### Netzwerkdarstellungen (Network Representations)
 
 Netzwerkdiagramme – auch **Topologiediagramme** genannt – verwenden standardisierte Symbole, um Geräte und Verbindungen darzustellen.
 
@@ -83,7 +84,7 @@ Wichtige Begriffe:
 - **Physical Port**: Der physische Anschluss am Gerät (z. B. RJ-45-Buchse)
 - **Interface**: Kann sich auf einen physischen Port oder eine logische Schnittstelle beziehen; die Begriffe werden oft synonym verwendet
 
-### 3.2 Topologiediagramme
+### Topologiediagramme
 
 Es gibt zwei Arten:
 
@@ -113,7 +114,7 @@ graph TD
 
 ## 4. Netzwerktypen
 
-### 4.1 Netzwerke nach Größe
+### Netzwerke nach Grösse
 
 | Typ | Beschreibung |
 |---|---|
@@ -122,7 +123,7 @@ graph TD
 | **Medium to Large Network** | Viele Standorte mit hunderten oder tausenden vernetzten Computern |
 | **World Wide Network** | Verbindet hunderte Millionen Computer weltweit (Internet) |
 
-### 4.2 LAN vs. WAN
+### LAN vs. WAN
 
 Die zwei häufigsten Netzwerktypen:
 
@@ -149,13 +150,13 @@ graph LR
 - Bietet hohe Bandbreite für Endgeräte und intermediäre Geräte
 
 **WAN (Wide Area Network):**
-- Verbindet LANs über große geografische Entfernungen (Städte, Länder)
+- Verbindet LANs über grosse geografische Entfernungen (Städte, Länder)
 - Wird typischerweise von mehreren Dienstanbietern verwaltet
 - Bietet langsamere Verbindungsgeschwindigkeiten zwischen LANs
 
 > **Warum ist die Unterscheidung wichtig?** LAN und WAN haben unterschiedliche Technologien, Kosten und Verwaltungsstrukturen. Ein Unternehmen mit mehreren Standorten muss WAN-Technologien einsetzen, um seine LANs zu verbinden – das ist teurer und komplexer als ein einzelnes LAN.
 
-### 4.3 Das Internet
+### Das Internet
 
 Das **Internet** ist eine weltweite Sammlung miteinander verbundener LANs und WANs. Es gehört niemandem – verschiedene Organisationen helfen, Struktur und Standards zu erhalten:
 
@@ -163,7 +164,7 @@ Das **Internet** ist eine weltweite Sammlung miteinander verbundener LANs und WA
 - **ICANN** (Internet Corporation for Assigned Names and Numbers): Verwaltet Domainnamen und IP-Adressen
 - **IAB** (Internet Architecture Board): Überwacht die technische und strategische Entwicklung
 
-### 4.4 Intranet und Extranet
+### Intranet und Extranet
 
 - **Intranet**: Privates Netzwerk (LANs und WANs) innerhalb einer Organisation, nur für autorisierte Mitglieder zugänglich
 - **Extranet**: Ermöglicht externen Partnern (Lieferanten, Kunden) sicheren, kontrollierten Zugriff auf Teile des Unternehmensnetzwerks
@@ -181,7 +182,7 @@ graph TD
 
 ## 5. Internetverbindungen
 
-### 5.1 Heimanwender und kleine Büros (SOHO)
+### Heimanwender und kleine Büros (SOHO)
 
 | Verbindungstyp | Beschreibung |
 |---|---|
@@ -191,7 +192,7 @@ graph TD
 | **Satellite** | Ideal für ländliche Gebiete ohne andere Anbieter |
 | **Dial-up Telephone** | Günstig, aber sehr geringe Bandbreite, über Telefonmodem |
 
-### 5.2 Geschäftliche Internetverbindungen
+### Geschäftliche Internetverbindungen
 
 Unternehmen benötigen höhere Bandbreiten, dedizierte Verbindungen und verwaltete Dienste:
 
@@ -202,7 +203,7 @@ Unternehmen benötigen höhere Bandbreiten, dedizierte Verbindungen und verwalte
 | **Business DSL (z. B. SDSL)** | Symmetrische DSL für Unternehmen |
 | **Satellite** | Wenn keine kabelgebundene Lösung verfügbar ist |
 
-### 5.3 Konvergierte Netzwerke
+### Konvergierte Netzwerke
 
 **Vor der Konvergenz** hatte eine Organisation getrennte Leitungsnetze für:
 - Computerdaten
@@ -215,13 +216,13 @@ Jedes Netz hatte eigene Technologien, Regeln und Standards.
 - Daten, Sprache und Video über dasselbe Netz
 - Eine einheitliche Regel- und Standardbasis
 
-> **Warum Konvergenz?** Es ist wesentlich kostengünstiger, eine einzige Netzwerkinfrastruktur zu betreiben als drei separate. Außerdem vereinfacht es die Administration und ermöglicht neue integrierte Dienste (z. B. Unified Communications).
+> **Warum Konvergenz?** Es ist wesentlich kostengünstiger, eine einzige Netzwerkinfrastruktur zu betreiben als drei separate. Ausserdem vereinfacht es die Administration und ermöglicht neue integrierte Dienste (z. B. Unified Communications).
 
 ---
 
 ## 6. Zuverlässige Netzwerke (Reliable Networks)
 
-### 6.1 Netzwerkarchitektur
+### Netzwerkarchitektur
 
 **Netzwerkarchitektur** bezeichnet die Technologien, die die Infrastruktur unterstützen, die Daten über das Netzwerk bewegt. Vier grundlegende Eigenschaften müssen erfüllt sein:
 
@@ -233,7 +234,7 @@ graph TD
     RN --> SE[Security\nSicherheit]
 ```
 
-### 6.2 Fehlertoleranz (Fault Tolerance)
+### Fehlertoleranz (Fault Tolerance)
 
 Ein fehlertolerantes Netzwerk **begrenzt die Auswirkungen eines Ausfalls**, indem es die Anzahl der betroffenen Geräte minimiert. Dies wird durch **Redundanz** erreicht:
 
@@ -244,13 +245,13 @@ Im Gegensatz dazu steht die **Leitungsvermittlung (Circuit Switching)**, bei der
 
 > **Warum Paketvermittlung?** Das Internet wurde ursprünglich für militärische Anwendungen entwickelt, bei denen das Netzwerk auch nach Teilausfällen funktionieren musste. Paketvermittlung ermöglicht genau das.
 
-### 6.3 Skalierbarkeit (Scalability)
+### Skalierbarkeit (Scalability)
 
 Ein **skalierbares Netzwerk** kann schnell und einfach wachsen, um neue Benutzer und Anwendungen zu unterstützen, **ohne die Leistung für bestehende Nutzer zu beeinträchtigen**.
 
 Netzwerkdesigner folgen akzeptierten Standards und Protokollen, um Skalierbarkeit zu gewährleisten. Das bedeutet: Neue Geräte und Netzwerke können hinzugefügt werden, ohne das bestehende System zu destabilisieren.
 
-### 6.4 Dienstgüte (Quality of Service – QoS)
+### Dienstgüte (Quality of Service – QoS)
 
 **QoS** ist der primäre Mechanismus, der die zuverlässige Bereitstellung von Inhalten sicherstellt. Nicht alle Datenpakete sind gleich wichtig:
 
@@ -262,9 +263,9 @@ Mit einer QoS-Richtlinie kann ein Router den Datenfluss priorisieren:
 - Sprachpakete erhalten höhere Priorität
 - Webdaten erhalten niedrigere Priorität
 
-> **Warum QoS?** Ohne QoS behandelt das Netzwerk alle Pakete gleich. In Stoßzeiten können zeitkritische Anwendungen wie VoIP unterbrochen werden, während unkritische Downloads dieselbe Bandbreite beanspruchen.
+> **Warum QoS?** Ohne QoS behandelt das Netzwerk alle Pakete gleich. In Stosszeiten können zeitkritische Anwendungen wie VoIP unterbrochen werden, während unkritische Downloads dieselbe Bandbreite beanspruchen.
 
-### 6.5 Netzwerksicherheit (Network Security)
+### Netzwerksicherheit (Network Security)
 
 Zwei Hauptbereiche der Netzwerksicherheit:
 
@@ -284,7 +285,7 @@ Zwei Hauptbereiche der Netzwerksicherheit:
 
 ## 7. Netzwerktrends
 
-### 7.1 BYOD (Bring Your Own Device)
+### BYOD (Bring Your Own Device)
 
 **BYOD** erlaubt es Benutzern, ihre eigenen Geräte zu verwenden und gibt ihnen mehr Flexibilität. BYOD bedeutet: **jedes Gerät, jeder Eigentümer, überall**.
 
@@ -292,7 +293,7 @@ Unterstützte Geräte: Laptops, Netbooks, Tablets, Smartphones, E-Reader
 
 > **Herausforderungen durch BYOD:** IT-Abteilungen müssen heterogene Geräte verwalten und sichern, ohne die vollständige Kontrolle über die Hardware zu haben. Dies erfordert neue Sicherheitskonzepte wie Mobile Device Management (MDM).
 
-### 7.2 Online-Zusammenarbeit
+### Online-Zusammenarbeit
 
 Kollaborationstools ermöglichen das gemeinsame Arbeiten über Netzwerke hinweg:
 - **Cisco WebEx**: Videokonferenzen, Bildschirmfreigabe
@@ -300,13 +301,13 @@ Kollaborationstools ermöglichen das gemeinsame Arbeiten über Netzwerke hinweg:
 
 Kollaboration hat höchste Priorität für Unternehmen und Bildungseinrichtungen.
 
-### 7.3 Videokommunikation
+### Videokommunikation
 
 - Videoanrufe sind ortsunabhängig möglich
 - Video wird zur kritischen Anforderung für effektive Zusammenarbeit
 - **Cisco TelePresence**: Hochwertige Videokonferenzlösung für Unternehmen
 
-### 7.4 Cloud Computing
+### Cloud Computing
 
 **Cloud Computing** ermöglicht die Speicherung von Dateien und das Ausführen von Anwendungen auf Servern im Internet.
 
@@ -319,27 +320,27 @@ Kollaboration hat höchste Priorität für Unternehmen und Bildungseinrichtungen
 | **Hybrid Cloud** | Kombination aus Public und Private Cloud |
 | **Custom Cloud** | Für spezifische Branchen (z. B. Gesundheitswesen, Medien) |
 
-> **Warum Cloud?** Kleine Unternehmen können teure Infrastruktur meiden und trotzdem auf Enterprise-Dienste zugreifen. Große Unternehmen können ihre IT-Kapazitäten dynamisch skalieren.
+> **Warum Cloud?** Kleine Unternehmen können teure Infrastruktur meiden und trotzdem auf Enterprise-Dienste zugreifen. Grosse Unternehmen können ihre IT-Kapazitäten dynamisch skalieren.
 
-### 7.5 Smart Home Technology
+### Smart Home Technology
 
-Technologie wird in Alltagsgeräte integriert, die dann miteinander kommunizieren können (Internet of Things – IoT). Beispiel: Ein Ofen kommuniziert mit dem Kalender und weiß, wann er mit dem Kochen beginnen soll.
+Technologie wird in Alltagsgeräte integriert, die dann miteinander kommunizieren können (Internet of Things – IoT). Beispiel: Ein Ofen kommuniziert mit dem Kalender und weiss, wann er mit dem Kochen beginnen soll.
 
-### 7.6 Powerline Networking
+### Powerline Networking
 
 **Powerline Networking** ermöglicht Netzwerkverbindungen über das Stromnetz – nützlich, wenn Netzwerkkabel oder WLAN nicht überall verfügbar sind. Ein Standard-Powerline-Adapter sendet Daten auf bestimmten Frequenzen über Steckdosen.
 
-### 7.7 Wireless Broadband
+### Wireless Broadband
 
 Neben DSL und Kabel gibt es drahtlose Optionen:
 - **WISP (Wireless Internet Service Provider)**: Verbindet Abonnenten mit Access Points/Hotspots, häufig in ländlichen Gebieten
-- **Wireless Broadband**: Nutzt Mobilfunktechnologie; eine Außenantenne versorgt das Heimnetzwerk
+- **Wireless Broadband**: Nutzt Mobilfunktechnologie; eine Aussenantenne versorgt das Heimnetzwerk
 
 ---
 
 ## 8. Netzwerksicherheit (Bedrohungen & Lösungen)
 
-### 8.1 Externe Bedrohungen
+### Externe Bedrohungen
 
 - Viren, Würmer, Trojanische Pferde
 - Spyware und Adware
@@ -348,7 +349,7 @@ Neben DSL und Kabel gibt es drahtlose Optionen:
 - Datenabfangung und -diebstahl
 - Identitätsdiebstahl
 
-### 8.2 Interne Bedrohungen
+### Interne Bedrohungen
 
 - Verlorene oder gestohlene Geräte
 - Versehentlicher Missbrauch durch Mitarbeiter
@@ -356,13 +357,13 @@ Neben DSL und Kabel gibt es drahtlose Optionen:
 
 > **Wichtig:** Interne Nutzer verursachen die meisten Sicherheitsverletzungen! Oft nicht durch bösen Willen, sondern durch Unwissenheit oder Fahrlässigkeit.
 
-### 8.3 Sicherheitslösungen
+### Sicherheitslösungen
 
 **Für Heimnetzwerke / kleine Büros:**
 - Antiviren- und Antispyware-Software auf Endgeräten
 - Firewall-Filterung zur Blockierung unautorisierten Zugriffs
 
-**Für größere Netzwerke zusätzlich:**
+**Für grössere Netzwerke zusätzlich:**
 
 ```mermaid
 graph LR
@@ -385,7 +386,7 @@ graph LR
 ---
 
 ## 9. Zusammenfassung
-
+<div style={{ overflowX: 'auto', width: '70%'}}>
 ```mermaid
 mindmap
   root((Networking Today))
@@ -419,5 +420,105 @@ mindmap
       Interne Bedrohungen
       Firewall, ACL, IPS, VPN
 ```
-
+</div >
 Die moderne Vernetzung ist weit mehr als das Verbinden von Kabeln. Es geht um den Aufbau zuverlässiger, sicherer und skalierbarer Infrastrukturen, die Kommunikation, Zusammenarbeit und Innovation ermöglichen. Von kleinen Heimnetzwerken bis hin zu weltweiten Internetverbindungen gelten dieselben Grundprinzipien: Daten müssen zuverlässig, sicher und effizient übertragen werden.
+
+
+
+<Callout type="danger"> 
+## Summary Module 1: Networking Today
+</Callout>
+
+**End Devices** — Where a message originates from or where it is received. Data originates with an end device, flows through the network, and arrives at an end device.
+
+**Intermediary Network Devices** — Interconnects end devices. Examples include switches, wireless access points, routers, and firewalls.
+
+**Host Roles** — Every computer on a network is called a host or end device.
+- **Servers** are computers that provide information to end devices.
+- **Clients** are computers that send requests to the servers to retrieve information.
+
+**Peer-to-Peer** — It is possible to have a device be a client and a server in a Peer-to-Peer Network (only recommended for very small networks).
+- `+` Easy to set up, less complex, lower cost, used for simple tasks: transferring files and sharing printers.
+- `−` No centralized administration, not as secure, not scalable, slower performance.
+
+**Network Media Types** — Communication across a network is carried through a medium which allows a message to travel from source to destination.
+- Metal wires within cables: Uses electrical impulses.
+- Glass or plastic fibers within cables (fiber-optic cable): Uses pulses of light.
+- Wireless transmission: Uses modulation of specific frequencies of electromagnetic waves.
+
+### Network Types
+
+| Type | Description |
+|------|-------------|
+| Small Home Networks | Connect a few computers to each other and the Internet |
+| Small Office/Home Office | Enables computers within a home or remote office to connect to a corporate network |
+| Medium to Large Networks | Many locations with hundreds or thousands of interconnected computers |
+| Worldwide Networks | Connects hundreds of millions of computers worldwide – such as the internet |
+
+**LAN (Local Area Network)**
+- Spans a small geographic area such as a home, school, office building, or campus.
+- Usually administered by a single organization or individual.
+- Provides high speed bandwidth to end and intermediary devices within the network.
+
+**WAN (Wide Area Network)**
+- Interconnects LANs over wide geographical areas, such as between cities, states, or countries.
+- Usually administered by multiple service providers.
+- Typically provides slower speed links between LANs.
+
+**Internet** — A worldwide collection of interconnected LANs and WANs. LANs are connected to each other using WANs. Not owned by any individual or group. Maintained by: **IETF**, **ICANN**, **IAB**.
+
+**Intranet** — A private collection of LANs and WANs internal to an organization, accessible only to the organization's members or others with authorization.
+
+**Extranet** — Used to provide secure access to their network for individuals who work for a different organization that need access to their data on their network.
+
+### Internet Access Technologies
+
+**Home and Small Office**
+- **Cable** — High bandwidth, always on, offered by cable television service providers.
+- **DSL** — High bandwidth, always on, runs over a telephone line.
+- **Cellular**
+- **Satellite** — Benefit to rural areas without Internet Providers.
+- **Dial-up telephone** — Inexpensive, low bandwidth, using a modem.
+
+**Businesses**
+- **Dedicated Leased Line** — Reserved circuits within the service provider's network, connect distant offices with private voice and/or data networking.
+- **Ethernet WAN** — Extends LAN access into the WAN.
+- **Business DSL** — Various formats including SDSL (Symmetric Digital Subscriber Lines).
+- **Satellite** — Provides connection when a wired solution is not available.
+
+**Converging Network** — Carries multiple services on one link including data, voice and video.
+
+### Reliable Networks
+
+Four basic characteristics the underlying architectures need to address:
+
+- **Fault Tolerance** — Multiple paths are required; packet switching splits traffic into packets, each packet could take a different path to destination.
+- **Scalability** — A scalable network can expand quickly to support new users and applications without impacting performance of the existing.
+- **Quality of Service (QoS)** — Voice and live video require higher expectations for delivery; with policy the router can more easily manage the flow of data and voice traffic.
+- **Security** — Network infrastructure security (physical, unauthorized access), information security / goals regarding CIA.
+
+### Additional Concepts
+
+**BYOD** — Allows users to use their own devices, giving them more opportunities and greater flexibility.
+
+**Cloud Computing**
+- Public Clouds (general public)
+- Private Clouds (organization, government)
+- Hybrid Clouds (two or more cloud types connected but distinct)
+- Custom Clouds (specific industry like healthcare or media, private or public)
+
+**Powerline Networking** — Enables devices to connect to a LAN through electrical outlets, making it a reliable option when cables or wireless communication isn't feasible. Ideal for reaching devices that are out of the range of wireless access points.
+
+**Wireless Broadband** — An alternative to DSL and cable, often used in rural areas. A Wireless Internet Service Provider (WISP) connects users to access points or hotspots. Utilizes cellular technology, with an outdoor antenna for home and small business connectivity.
+
+### Network Security
+
+**External Threats** — Viruses, worms, and Trojan horses, spyware and adware, zero-day attacks, threat actor attacks, DDoS attacks, data interception and theft, identity theft.
+
+**Internal Threats** — Lost or stolen devices, accidental misuse by employees, malicious employees. Internal users of the network cause the most security breaches.
+
+**Solutions** — Must be established on multiple layers.
+- Smaller networks: Antivirus, firewall.
+- Larger networks: Dedicated firewall, access control lists (ACL), intrusion prevention systems (IPS) for fast-spreading threats such as zero-day attacks, virtual private networks (VPN).
+
+**Cisco IOS** — Cisco's Operating System is named Internetwork Operating System (IOS).

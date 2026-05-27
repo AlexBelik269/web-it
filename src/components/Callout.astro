@@ -1,0 +1,86 @@
+---
+interface Props {
+  type?: 'note' | 'tip' | 'caution' | 'danger';
+  title?: string;
+}
+
+const {
+  type = 'note',
+  title,
+} = Astro.props;
+---
+
+<div class={`callout callout-${type}`}>
+  {title && <div class="callout-title">{title}</div>}
+
+  <div class="callout-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .callout {
+    border-left: 4px solid;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    border-radius: 0.5rem;
+  }
+
+  .callout-content :global(h1),
+  .callout-content :global(h2),
+  .callout-content :global(h3),
+  .callout-content :global(h4),
+  .callout-content :global(h5),
+  .callout-content :global(h6) {
+    margin-top: 0;
+    font-weight: 600;
+  }
+
+  /* NOTE */
+  .callout-note {
+    background: #e0e7ff;
+    border-color: #4f46e5;
+  }
+
+  .callout-note .callout-content :global(h1),
+  .callout-note .callout-content :global(h2),
+  .callout-note .callout-content :global(h3) {
+    color: #3730a3;
+  }
+
+  /* TIP */
+  .callout-tip {
+    background: #f3e8ff;
+    border-color: #a855f7;
+  }
+
+  .callout-tip .callout-content :global(h1),
+  .callout-tip .callout-content :global(h2),
+  .callout-tip .callout-content :global(h3) {
+    color: #7e22ce;
+  }
+
+  /* CAUTION */
+  .callout-caution {
+    background: #fef3c7;
+    border-color: #f59e0b;
+  }
+
+  .callout-caution .callout-content :global(h1),
+  .callout-caution .callout-content :global(h2),
+  .callout-caution .callout-content :global(h3) {
+    color: #92400e;
+  }
+
+  /* DANGER */
+  .callout-danger {
+    background: #fce7f3;
+    border-color: #e11d48;
+  }
+
+  .callout-danger .callout-content :global(h1),
+  .callout-danger .callout-content :global(h2),
+  .callout-danger .callout-content :global(h3) {
+    color: #000000;
+  }
+</style>

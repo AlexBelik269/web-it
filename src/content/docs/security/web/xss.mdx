@@ -2,13 +2,15 @@
 title: "Cross-Site Scripting (XSS)"
 description: "How reflected, stored, and DOM-based XSS attacks work, and the layered defenses that stop them."
 ---
+import Callout from '../../../../components/Callout.astro';
+
 
 XSS allows attackers to inject malicious scripts into pages viewed by other users. Exploited scripts run in the victim's browser with the trust level of the hosting site — they can steal cookies, capture keystrokes, redirect users, or make authenticated requests.
 
-## The Three Types
-
+## The Three Types of XSS
+<Callout type="tip"> 
 ### Reflected XSS
-
+</Callout>
 Malicious script is embedded in the URL. The server reflects it back in the response without sanitization. Requires the victim to click a crafted link.
 
 ```
@@ -19,9 +21,9 @@ Browser executes the script.
 ```
 
 **Impact:** Session hijacking, credential theft, phishing. Scope is limited to users who click the crafted link.
-
+<Callout type="tip"> 
 ### Stored XSS
-
+</Callout>
 Malicious payload is saved in the database and rendered to all users who view the affected page. No link required — just visiting the page triggers it.
 
 ```mermaid
@@ -47,9 +49,9 @@ Every visitor to the page has their cookie exfiltrated.
 ```
 
 **Impact:** Highest severity — affects all users at once, self-spreading ("XSS worm"), persistent.
-
+<Callout type="tip"> 
 ### DOM-Based XSS
-
+</Callout>
 The vulnerability lives entirely in client-side JavaScript. The server response is safe, but JavaScript reads attacker-controlled input (URL hash, `document.referrer`, `postMessage`) and writes it to the DOM unsafely.
 
 ```javascript
@@ -69,23 +71,41 @@ document.getElementById('greeting').innerHTML = 'Hello, ' + name;
 
 No single defense is sufficient. Combine all layers.
 
+<div style={{ overflowX: 'auto', width: '25%'}}>
 ```mermaid
 flowchart TD
-    UI[User Input] --> OE[1. Output Encoding\nhtmlspecialchars / textContent]
-    OE --> CSP[2. Content Security Policy\nblocks injected scripts without nonce]
-    CSP --> HC[3. HttpOnly Cookies\nscripts cannot read session token]
-    HC --> IV[4. Input Validation\nreject unexpected characters early]
-    IV --> TT[5. Trusted Types\nbrowser API enforces safe DOM writes]
 
-    style OE fill:#d4edda,stroke:#28a745
-    style CSP fill:#d4edda,stroke:#28a745
-    style HC fill:#d4edda,stroke:#28a745
-    style IV fill:#d4edda,stroke:#28a745
-    style TT fill:#d4edda,stroke:#28a745
+    %% Flow
+    UI([👤 User Input])
+
+    UI --> OE["1️⃣ Output Encoding<br/><code>htmlspecialchars()</code> / <code>textContent</code>"]
+
+    OE --> CSP["2️⃣ Content Security Policy (CSP)<br/>Blocks injected scripts without valid nonce"]
+
+    CSP --> HC["3️⃣ HttpOnly Cookies<br/>JavaScript cannot access session tokens"]
+
+    HC --> IV["4️⃣ Input Validation<br/>Reject malformed or unexpected input early"]
+
+    IV --> TT["5️⃣ Trusted Types<br/>Enforces safe DOM injection APIs"]
+
+    TT --> SAFE([🛡️ XSS Attack Prevented])
+
+    %% Styling
+    classDef start fill:#1e293b,stroke:#60a5fa,color:#ffffff,stroke-width:2px;
+    classDef defense fill:#163d2a,stroke:#3ddc97,color:#ffffff,stroke-width:2px;
+    classDef eend fill:#0f172a,stroke:#22c55e,color:#ffffff,stroke-width:3px;
+
+    class UI start;
+    class OE,CSP,HC,IV,TT defense;
+    class SAFE eend;
+
+    %% Link Styling
+    linkStyle default stroke:#94a3b8,stroke-width:2px;
 ```
-
+</div>
+<Callout type="note"> 
 ### 1. Output Encoding (Primary Defense)
-
+</Callout>
 Encode all untrusted data before inserting it into an HTML context. Different contexts need different encoding:
 
 | Context | Encoding | Example |
@@ -105,9 +125,9 @@ const safe = he.encode(userInput);
 // ✓ Safe:  <p>{userInput}</p>
 // ✗ Unsafe: <p dangerouslySetInnerHTML={{ __html: userInput }} />
 ```
-
+<Callout type="note"> 
 ### 2. Content Security Policy (CSP)
-
+</Callout>
 CSP is a response header that tells the browser which scripts are allowed to execute. A strict CSP eliminates most XSS impact even if a payload is injected.
 
 ```
@@ -131,16 +151,18 @@ Content-Security-Policy:
 - `'unsafe-inline'` and `'unsafe-eval'` defeat the purpose — avoid both
 - Use [CSP Evaluator](https://csp-evaluator.withgoogle.com) to validate your policy
 
+<Callout type="note"> 
 ### 3. HttpOnly Cookies
+</Callout>
 
 If session tokens are in `HttpOnly` cookies, JavaScript cannot read them — XSS can still make authenticated requests but cannot exfiltrate the token itself.
 
 ```
 Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Lax
 ```
-
+<Callout type="note"> 
 ### 4. Input Validation
-
+</Callout>
 Reject input that doesn't match expected patterns at the boundary. This is a supplement, not a replacement for output encoding.
 
 ```javascript
@@ -149,9 +171,9 @@ if (/[<>"'&]/.test(req.body.name)) {
   return res.status(400).json({ error: 'Invalid characters in name' });
 }
 ```
-
+<Callout type="note"> 
 ### 5. Trusted Types (Browser API)
-
+</Callout>
 Trusted Types is a browser API that prevents DOM XSS by requiring all DOM sink writes to go through a typed object created by a policy. Enforced via CSP header.
 
 ```

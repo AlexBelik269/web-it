@@ -1,208 +1,597 @@
 ---
 title: "CORS & Same-Origin Policy"
-description: "How the browser's Same-Origin Policy works, what CORS does, and how to configure it without creating security holes."
+description: "How the browser's Same-Origin Policy works, what CORS does, and how to configure it correctly in Python, JavaScript, C#, and Java — without creating security holes."
 ---
 
-## Same-Origin Policy (SOP)
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-The Same-Origin Policy is the browser's primary security boundary between web origins.
+## Why the Same-Origin Policy Exists
 
-```mermaid
-flowchart LR
-    subgraph Origin["Origin = scheme + host + port"]
-        A["https://example.com:443"]
-    end
-    subgraph Same["Same Origin ✓"]
-        B["https://example.com/page2"]
-        C["https://example.com/api/data"]
-    end
-    subgraph Cross["Cross Origin ✗"]
-        D["http://example.com (different scheme)"]
-        E["https://api.example.com (different host)"]
-        F["https://example.com:8443 (different port)"]
-    end
-    A -->|allowed| Same
-    A -->|blocked by SOP| Cross
+Before CORS, the browser had one blunt rule: a script from `https://bank.com` must never
+silently read data from `https://mail.com`. Without this, any malicious page you visit
+could use your browser — and your logged-in session cookies — as a weapon, making
+authenticated requests to other sites and leaking the responses back to an attacker.
 
-    style Same fill:#d4edda,stroke:#28a745
-    style Cross fill:#f8d7da,stroke:#dc3545
-``` 
-It prevents a script from one origin from reading data returned by another origin.
+The critical insight is that **the browser is the enforcer, not the server.** The request
+still goes out over the wire. The browser simply refuses to hand the response body to
+JavaScript unless the origins match (or the server explicitly opts in via CORS headers).
 
-**An origin is:** `scheme + host + port`
+**An origin is:** `scheme + host + port` — all three must match.
 
 | URL | Same origin as `https://example.com`? |
 |---|---|
-| `https://example.com/other-page` | ✓ Yes |
+| `https://example.com/other-page` | ✓ Yes (only path differs) |
 | `http://example.com` | ✗ No (different scheme) |
-| `https://api.example.com` | ✗ No (different host) |
+| `https://api.example.com` | ✗ No (different subdomain) |
 | `https://example.com:8443` | ✗ No (different port) |
 
 **What SOP restricts:**
-- JavaScript reading responses from cross-origin `fetch` / `XMLHttpRequest`
-- JavaScript reading `iframe` content from a different origin
-- JavaScript accessing `localStorage` or cookies from a different origin
+- JS reading responses from cross-origin `fetch` / `XMLHttpRequest`
+- JS reading content inside a cross-origin `<iframe>`
+- JS accessing `localStorage` or cookies belonging to a different origin
 
 **What SOP does NOT restrict:**
-- Simple cross-origin requests being *sent* (the request goes through, the browser just blocks the JS from *reading* the response)
-- `<img>`, `<script>`, `<link>`, `<form>` tags loading cross-origin resources (different mechanisms)
+- The request being *sent* — CORS only gates whether JS can *read* the response
+- `<img>`, `<script>`, `<link>`, `<form>` — these predate SOP and have separate rules
 
 ---
 
-## CORS: How Cross-Origin Requests Work
+## How CORS Works
 
-CORS (Cross-Origin Resource Sharing) is a mechanism that allows a server to explicitly permit cross-origin reads. It works via HTTP headers.
+CORS (Cross-Origin Resource Sharing) is the opt-in mechanism. When a server wants to
+allow cross-origin JavaScript reads, it includes `Access-Control-Allow-Origin` in its
+response. The browser checks this header before exposing the response to JS.
 
-### Simple Requests
+### Simple vs. Preflight Requests
 
-Simple requests (GET/POST with standard headers and content types) are sent immediately. The browser checks the response headers to decide whether to expose the result to JS.
+The browser treats two categories differently:
 
-```
-Browser → GET https://api.example.com/data
-          Origin: https://app.example.com
+**Simple requests** — GET, or POST with a standard content type like `text/plain` or
+`application/x-www-form-urlencoded` — are sent immediately. The browser checks the
+response headers after the fact and either allows or blocks the JS from reading the result.
 
-Server  → 200 OK
-          Access-Control-Allow-Origin: https://app.example.com
-
-Browser: Origin matches → JS can read the response ✓
-```
-
-If `Access-Control-Allow-Origin` is missing or doesn't match, the browser blocks the JS from reading the response. The *request was still sent and processed* — CORS only controls reading.
-
-### Preflight Requests
-
-For non-simple requests (PUT, DELETE, custom headers, JSON body), the browser sends an `OPTIONS` preflight request first to ask permission.
-
-```mermaid
-sequenceDiagram
-    participant B as Browser
-    participant S as api.example.com
-
-    Note over B,S: Non-simple request (DELETE + custom header)
-    B->>S: OPTIONS /resource<br/>Origin: app.example.com<br/>Access-Control-Request-Method: DELETE
-    S->>B: 204 No Content<br/>Access-Control-Allow-Origin: app.example.com<br/>Access-Control-Allow-Methods: DELETE
-    Note over B: Preflight approved ✓
-    B->>S: DELETE /resource<br/>Origin: app.example.com
-    S->>B: 200 OK<br/>Access-Control-Allow-Origin: app.example.com
-    Note over B: JS can read response ✓
-```
+**Non-simple requests** — PUT, DELETE, custom headers, or a JSON body — first trigger an
+`OPTIONS` preflight request. The browser asks the server: "Are you willing to accept this
+kind of request from this origin?" Only if the server approves does the actual request go
+out. This protects older servers that might not be CORS-aware from receiving unexpected
+mutation requests via browser JS.
 
 ```
-Browser → OPTIONS https://api.example.com/users/123
+# Preflight exchange for DELETE with a custom header
+
+Browser → OPTIONS /resource
           Origin: https://app.example.com
           Access-Control-Request-Method: DELETE
-          Access-Control-Request-Headers: Authorization, Content-Type
+          Access-Control-Request-Headers: Authorization
 
 Server  → 204 No Content
           Access-Control-Allow-Origin: https://app.example.com
           Access-Control-Allow-Methods: GET, POST, PUT, DELETE
           Access-Control-Allow-Headers: Authorization, Content-Type
-          Access-Control-Max-Age: 86400  (cache preflight for 24h)
+          Access-Control-Max-Age: 86400   ← cache this for 24 h
 
-Browser: Preflight approved → sends actual DELETE request
+Browser: preflight approved → sends actual DELETE
+Server  → 200 OK
+          Access-Control-Allow-Origin: https://app.example.com
+
+Browser: JS can now read the response ✓
 ```
+
+`Access-Control-Max-Age` caches the preflight result so the browser skips the OPTIONS
+roundtrip on subsequent requests to the same endpoint.
 
 ### Credentialed Requests (Cookies)
 
-By default, cross-origin requests do not include credentials (cookies, HTTP auth). To send cookies cross-origin:
+By default, cross-origin requests carry no credentials. To include cookies, both sides
+must opt in — and wildcards are forbidden.
 
-**Client must set:**
+The client must request credentials explicitly:
+
 ```javascript
 fetch('https://api.example.com/data', {
-  credentials: 'include',  // send cookies
+  credentials: 'include',
 });
 ```
 
-**Server must respond with:**
+And the server must echo the exact origin (never `*`) alongside `Allow-Credentials`:
+
 ```
-Access-Control-Allow-Origin: https://app.example.com  (cannot be *)
+Access-Control-Allow-Origin: https://app.example.com
 Access-Control-Allow-Credentials: true
 ```
 
-When `credentials: 'include'` is used, `Access-Control-Allow-Origin: *` is explicitly prohibited by the CORS spec — the server must echo back the exact requesting origin.
+Using `credentials: 'include'` with `Access-Control-Allow-Origin: *` is explicitly
+prohibited by the CORS spec. The browser will refuse it.
 
 ---
 
 ## Secure CORS Configuration
 
-### ✓ Correct Pattern: Allowlist with Echo
+The safest pattern is an **allowlist with echo**: maintain a set of trusted origins, check
+the incoming `Origin` header against it, and if it matches, reflect that exact origin back.
+Always include `Vary: Origin` so CDNs and browser caches don't serve a stale
+`Access-Control-Allow-Origin` header from one origin to a completely different origin.
 
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
 ```javascript
-// Express.js
+// express-cors-middleware.js
 const ALLOWED_ORIGINS = new Set([
   'https://app.example.com',
   'https://admin.example.com',
 ]);
 
-app.use((req, res, next) => {
+function corsMiddleware(req, res, next) {
   const origin = req.headers.origin;
-  if (ALLOWED_ORIGINS.has(origin)) {
+
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    // Echo back the matched origin — never just set '*'
     res.setHeader('Access-Control-Allow-Origin', origin);
-    res.setHeader('Vary', 'Origin');  // required for caching correctness
+    // Required: tells caches this response varies per origin
+    res.setHeader('Vary', 'Origin');
   }
 
+  // Handle the OPTIONS preflight before anything else touches the request
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Max-Age', '86400');
+    if (origin && ALLOWED_ORIGINS.has(origin)) {
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      res.setHeader('Access-Control-Max-Age', '86400');
+    }
     return res.sendStatus(204);
   }
 
   next();
-});
+}
+
+module.exports = { corsMiddleware };
 ```
 
-### ✗ Dangerous Patterns
-
 ```javascript
-// ✗ Wildcard with credentials — browsers reject this
-res.setHeader('Access-Control-Allow-Origin', '*');
-res.setHeader('Access-Control-Allow-Credentials', 'true');
+// server.js
+const express = require('express');
+const { corsMiddleware } = require('./express-cors-middleware');
 
-// ✗ Reflecting origin without validation — allows any origin
-const origin = req.headers.origin;
-res.setHeader('Access-Control-Allow-Origin', origin);  // no allowlist check
+const app = express();
 
-// ✗ Regex that can be bypassed
-const trusted = /example\.com$/;
-if (trusted.test(origin)) { ... }
-// Bypassed by: https://evil-example.com
-//              https://example.com.evil.com
+// Apply CORS before any route handlers so preflight is caught first
+app.use(corsMiddleware);
+app.use(express.json());
 
-// ✗ null origin allowed — attackers use sandboxed iframes to send null
-if (origin === null || origin === 'null') {
-  res.setHeader('Access-Control-Allow-Origin', 'null');  // dangerous
+app.get('/api/data', (req, res) => {
+  res.json({ message: 'Hello from the API' });
+});
+
+app.listen(3000);
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# Flask.py
+from flask import Flask, request, make_response
+from typing import Optional
+
+app = Flask(__name__)
+
+ALLOWED_ORIGINS = {
+    "https://app.example.com",
+    "https://admin.example.com",
+}
+
+def apply_cors_headers(response, origin: Optional[str]):
+    """Echo back the origin only if it's on the allowlist."""
+    if origin and origin in ALLOWED_ORIGINS:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        # Vary: Origin tells caches that this response varies by origin,
+        # preventing a cached Allow header for origin A being served to origin B.
+        response.headers["Vary"] = "Origin"
+    return response
+
+@app.after_request
+def cors_middleware(response):
+    origin = request.headers.get("Origin")
+    return apply_cors_headers(response, origin)
+
+@app.route("/api/data", methods=["OPTIONS"])
+def preflight():
+    """Handle the OPTIONS preflight explicitly."""
+    origin = request.headers.get("Origin")
+    response = make_response("", 204)
+    if origin and origin in ALLOWED_ORIGINS:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        response.headers["Access-Control-Max-Age"] = "86400"
+        response.headers["Vary"] = "Origin"
+    return response
+
+@app.route("/api/data", methods=["GET"])
+def get_data():
+    return {"message": "Hello from the API"}
+```
+
+```python
+# express-cors-middleware.py
+# FastAPI — CORSMiddleware handles allowlist validation,
+# Vary: Origin, and OPTIONS preflight responses automatically.
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+ALLOWED_ORIGINS = [
+    "https://app.example.com",
+    "https://admin.example.com",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,   # never use ["*"] with credentials
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Authorization", "Content-Type"],
+    max_age=86400,
+)
+
+@app.get("/api/data")
+def get_data():
+    return {"message": "Hello from the API"}
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// Program.cs
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    // Define a named policy. Naming it lets you apply it selectively
+    // to specific controllers or globally as shown below.
+    options.AddPolicy("AllowedOrigins", policy =>
+    {
+        policy
+            // SetIsOriginAllowed gives you full control over origin validation.
+            // A simple lambda checking a HashSet is safer than WithOrigins()
+            // because it avoids subtle substring matching edge cases.
+            .SetIsOriginAllowed(origin =>
+            {
+                var allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+                {
+                    "https://app.example.com",
+                    "https://admin.example.com"
+                };
+                return allowed.Contains(origin);
+            })
+            .AllowAnyMethod()
+            .WithHeaders("Content-Type", "Authorization")
+            .AllowCredentials(); // Requires a non-wildcard origin — handled above
+    });
+});
+
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+// UseCors must come before UseRouting / UseAuthorization
+app.UseCors("AllowedOrigins");
+app.UseRouting();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
+```
+
+```csharp
+// Controllers/DataController.cs
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class DataController : ControllerBase
+{
+    [HttpGet]
+    public IActionResult GetData()
+    {
+        return Ok(new { message = "Hello from the API" });
+    }
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// CorsConfig.java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.List;
+
+@Configuration
+public class CorsConfig {
+
+    private static final List<String> ALLOWED_ORIGINS = List.of(
+        "https://app.example.com",
+        "https://admin.example.com"
+    );
+
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+
+        // setAllowedOrigins performs exact-match validation — safe.
+        // Never use setAllowedOriginPatterns("*") with allowCredentials(true).
+        config.setAllowedOrigins(ALLOWED_ORIGINS);
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Content-Type", "Authorization"));
+        config.setAllowCredentials(true);   // requires non-wildcard origins
+        config.setMaxAge(86400L);           // cache preflight for 24 h
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // Apply to all routes; narrow to "/api/**" if needed
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsFilter(source);
+    }
 }
 ```
 
-### The `Vary: Origin` Header
+```java
+// DataController.java
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-Always include `Vary: Origin` when your CORS response depends on the `Origin` header. Without it, a CDN or browser cache might serve a cached response with the wrong `Access-Control-Allow-Origin` header to a different origin.
+import java.util.Map;
 
+@RestController
+@RequestMapping("/api")
+public class DataController {
+
+    @GetMapping("/data")
+    public Map<String, String> getData() {
+        return Map.of("message", "Hello from the API");
+    }
+}
 ```
-Vary: Origin
-```
+</TabItem>
+</Tabs>
 
 ---
 
-## CORS Is Not a Security Defense Against All Attacks
+## Dangerous Patterns to Avoid
 
-**CORS does not prevent:**
-- CSRF — forms and `<img>` tags bypass CORS; use [CSRF tokens or SameSite cookies](/security/web/csrf-clickjacking)
-- Server-side attacks — the malicious request is still sent; CORS only controls whether JS can read the response
-- Attacks from the same origin — same-origin scripts have full access
+Each of these looks reasonable at first glance but introduces real vulnerabilities.
+
+### Reflecting the origin without validation
+
+Any origin in the world can read your API responses if you echo back whatever header
+arrives without first checking it against an allowlist.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+```javascript
+// DANGEROUS
+const origin = req.headers.origin;
+res.setHeader('Access-Control-Allow-Origin', origin); // no allowlist check!
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# DANGEROUS
+origin = request.headers.get("Origin")
+response.headers["Access-Control-Allow-Origin"] = origin  # no allowlist check!
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// DANGEROUS
+var origin = Request.Headers["Origin"].ToString();
+Response.Headers["Access-Control-Allow-Origin"] = origin; // no validation
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// DANGEROUS
+String origin = request.getHeader("Origin");
+response.setHeader("Access-Control-Allow-Origin", origin); // reflects blindly
+```
+</TabItem>
+</Tabs>
+
+### Bypass-prone regex matching
+
+The following regex intends to allow only `example.com` subdomains but accepts
+`https://evil-example.com` because `$` matches end-of-string, not end-of-origin.
+Use exact-string lookup in a Set/HashSet instead — it's faster and immune to this.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+```javascript
+// DANGEROUS
+const trusted = /example\.com$/;
+if (trusted.test(origin)) { /* grants access to evil-example.com */ }
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# DANGEROUS
+import re
+trusted = re.compile(r"example\.com$")
+if trusted.search(origin):   # .search matches anywhere in the string
+    pass
+# Bypassed by: https://evil-example.com  ← ends with "example.com"
+#              https://example.com.evil.com ← also matches
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// DANGEROUS
+if (origin != null && origin.EndsWith("example.com"))
+{
+    // Bypassed by https://evil-example.com
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// DANGEROUS
+if (origin != null && origin.endsWith("example.com")) {
+    // Bypassed by https://evil-example.com
+}
+```
+</TabItem>
+</Tabs>
+
+### Wildcard with credentials
+
+Pairing `*` with `Allow-Credentials: true` is prohibited by the CORS spec. Browsers
+reject it, and modern frameworks throw at startup to prevent the misconfiguration.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+```javascript
+// DANGEROUS — browsers reject this combination
+res.setHeader('Access-Control-Allow-Origin', '*');
+res.setHeader('Access-Control-Allow-Credentials', 'true');
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# DANGEROUS — browsers will reject this combination
+response.headers["Access-Control-Allow-Origin"] = "*"
+response.headers["Access-Control-Allow-Credentials"] = "true"
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// DANGEROUS — ASP.NET Core throws at startup to prevent this
+policy.AllowAnyOrigin().AllowCredentials();
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// DANGEROUS — Spring throws InvalidCorsConfigurationException on startup
+config.addAllowedOrigin("*");
+config.setAllowCredentials(true);
+```
+</TabItem>
+</Tabs>
+
+### Trusting the `null` origin
+
+Sandboxed iframes and local `file://` documents send `Origin: null`. Attackers can
+deliberately generate this header using a sandboxed iframe — never treat it as trusted.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+```javascript
+// DANGEROUS
+if (origin === 'null') {
+  res.setHeader('Access-Control-Allow-Origin', 'null');
+}
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# DANGEROUS
+if origin == "null":
+    response.headers["Access-Control-Allow-Origin"] = "null"
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// DANGEROUS
+if (origin == "null")
+{
+    Response.Headers["Access-Control-Allow-Origin"] = "null";
+}
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// DANGEROUS
+if ("null".equals(origin)) {
+    response.setHeader("Access-Control-Allow-Origin", "null");
+}
+```
+</TabItem>
+</Tabs>
+
+---
+
+## The `Vary: Origin` Header
+
+When your CORS logic echoes back different `Access-Control-Allow-Origin` values
+depending on the request, caches need to know the response is not the same for all
+callers. Without `Vary: Origin`, a CDN or browser cache might serve a response
+cached for `app.example.com` — with that origin in the header — to a request from
+a different origin that isn't on your allowlist.
+
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
+```javascript
+// Set manually alongside the Allow-Origin header
+res.setHeader('Vary', 'Origin');
+```
+</TabItem>
+<TabItem label="Python">
+```python
+# Set manually alongside the Allow-Origin header
+response.headers["Vary"] = "Origin"
+```
+</TabItem>
+<TabItem label="C#">
+```csharp
+// ASP.NET Core's CorsMiddleware adds Vary: Origin automatically
+// when using SetIsOriginAllowed or WithOrigins — no manual step needed.
+```
+</TabItem>
+<TabItem label="Java">
+```java
+// Spring's CorsFilter adds Vary: Origin automatically
+// when origins are not set to "*".
+```
+</TabItem>
+</Tabs>
+
+---
+
+## CORS Is Not a Complete Security Defense
+
+Understanding what CORS protects against — and what it doesn't — prevents a dangerous
+false sense of security.
 
 **CORS does prevent:**
-- Cross-origin JavaScript reading API responses (the common attack scenario for API data theft via compromised third-party scripts)
+- Cross-origin JavaScript reading API responses. This is the primary scenario CORS
+  addresses: a compromised third-party script trying to exfiltrate your API data using
+  a victim's session.
+
+**CORS does NOT prevent:**
+
+- **CSRF**: Forms and `<img>` tags bypass CORS entirely. A malicious page can submit a
+  `<form>` POST to your server using the user's cookies without any CORS negotiation
+  happening. Use CSRF tokens or `SameSite=Strict` cookies for this threat.
+- **Server-side damage**: The request is still sent and processed before the browser
+  blocks the JS from reading the response. A state-changing endpoint hit by a simple
+  POST is already done its work.
+- **Same-origin attacks**: Scripts loaded from the same origin have full unrestricted
+  access — CORS plays no role at all.
 
 ---
 
-## Common Debugging Reference
+## Debugging Reference
 
-| Problem | Check |
-|---|---|
-| "No 'Access-Control-Allow-Origin' header" | Server didn't return CORS header; check allowlist logic and whether request triggered OPTIONS preflight |
-| CORS works in dev, fails in prod | Different `Origin` values; check your allowlist for the prod domain |
-| Preflight returns 404 or 405 | Server doesn't handle `OPTIONS` method; add an OPTIONS route/middleware |
-| Cookie not sent cross-origin | Client needs `credentials: 'include'`; server needs `Allow-Credentials: true` and non-wildcard origin |
-| CDN serving wrong origin header | Missing `Vary: Origin`; cached response has stale header |
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| "No 'Access-Control-Allow-Origin' header" | Server didn't return the header | Check your allowlist logic; verify the incoming `Origin` matches exactly |
+| CORS works in dev, fails in prod | Different origin values between environments | Add the production domain to your allowlist |
+| Preflight returns 404 or 405 | Server doesn't handle `OPTIONS` | Add an OPTIONS route or middleware that responds before other handlers |
+| Cookie not sent cross-origin | Missing credentials config | Client needs `credentials: 'include'`; server needs `Allow-Credentials: true` and a non-wildcard origin |
+| CDN serving wrong `Allow-Origin` header | Missing `Vary: Origin` | Add `Vary: Origin` to all CORS responses |
+| `InvalidCorsConfigurationException` (Spring) | Wildcard + credentials | Use explicit origins instead of `"*"` |
+| ASP.NET throws at startup | `AllowAnyOrigin().AllowCredentials()` | Use `SetIsOriginAllowed` with a real validation function |

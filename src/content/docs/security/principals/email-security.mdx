@@ -2,19 +2,21 @@
 title: "Email Security"
 description: "How email authentication protocols (SPF, DKIM, DMARC) work, how to recognize and defend against phishing, and how to configure email infrastructure securely."
 ---
+import Callout from '../../../../components/Callout.astro';
 
-Email is the single most exploited attack vector in cybersecurity — over 90% of cyberattacks begin with a phishing email. Understanding email security means understanding both the technical authentication protocols that prevent spoofing and the human factors that make phishing effective despite those controls.
 
-## Why Email Is Inherently Insecure
+Email is the single most exploited attack vector in cybersecurity — **over 90% of cyberattacks begin with a phishing email**. Understanding email security means understanding both the technical authentication protocols that prevent spoofing and the human factors that make phishing effective despite those controls.
+
+### Why Email Is Inherently Insecure
 
 SMTP (Simple Mail Transfer Protocol), the protocol email runs on, was designed in 1982 for a small, trusted academic network. It has no built-in authentication — anyone can claim to be anyone. Sending an email that appears to come from `ceo@yourcompany.com` requires no special access.
 
 Modern email security is a set of **optional** authentication mechanisms layered on top of SMTP to partially address this — but they only work when correctly configured.
 
 ## Email Authentication Protocols
-
-### SPF (Sender Policy Framework)
-
+<Callout type="tip"> 
+### **SPF** (Sender Policy Framework)
+</Callout>
 SPF allows a domain owner to specify which mail servers are authorized to send email on behalf of their domain, published as a DNS TXT record.
 
 **How it works:**
@@ -40,9 +42,9 @@ SPF allows a domain owner to specify which mail servers are authorized to send e
 **SPF alone is insufficient.** SPF checks the `MAIL FROM` (envelope sender) — not the `From:` header that users see. Attackers can pass SPF by using a domain they control in the envelope while displaying a spoofed address in the `From:` header.
 
 **DNS lookup limit:** SPF allows maximum 10 DNS lookups. Complex SPF records with many `include:` directives commonly exceed this limit, causing legitimate emails to fail.
-
-### DKIM (DomainKeys Identified Mail)
-
+<Callout type="tip"> 
+### **DKIM** (DomainKeys Identified Mail)
+</Callout>
 DKIM adds a cryptographic signature to outgoing emails, allowing receivers to verify the email was sent (and not modified) by an authorized sender.
 
 **How it works:**
@@ -65,7 +67,9 @@ DKIM adds a cryptographic signature to outgoing emails, allowing receivers to ve
 v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC...
 ```
 
-### DMARC (Domain-based Message Authentication, Reporting & Conformance)
+<Callout type="tip"> 
+### **DMARC** (Domain-based Message Authentication, Reporting & Conformance)
+</Callout>
 
 DMARC ties SPF and DKIM together and adds a **policy** specifying what receivers should do with emails that fail authentication. It also requires alignment between the authenticated domain and the visible `From:` header.
 
@@ -83,7 +87,7 @@ p=reject    → Failed emails are rejected outright (strongest protection)
 
 **DMARC record example:**
 ```dns
-_dmarc.company.com TXT "v=DMARC1; p=reject; rua=mailto:dmarc-reports@company.com; ruf=mailto:forensics@company.com; pct=100"
+_dmarc.company.com TXT "v=DMARC1; p=reject; rua=mailto:dmarc-aaa@company.com; ruf=mailto:bbb@company.com; pct=100"
 ```
 
 | Tag | Meaning |
@@ -97,23 +101,51 @@ _dmarc.company.com TXT "v=DMARC1; p=reject; rua=mailto:dmarc-reports@company.com
 
 **The email spoofing protection chain:**
 
+
+<div style={{ overflowX: 'auto', width: '50%'}}>
 ```mermaid
 flowchart TD
-    E[Incoming email From: ceo@company.com] --> SPF{SPF check\nIs sending IP authorized?}
-    SPF -- Pass --> D{DKIM check\nIs signature valid?}
-    SPF -- Fail --> DM1{DMARC\nalignment?}
-    D -- Pass --> DM2{DMARC\nalignment?}
-    D -- Fail / absent --> DM1
-    DM1 -- Aligned --> OK[Email passes DMARC]
-    DM2 -- Aligned --> OK
-    DM1 -- Not aligned --> DMARC{DMARC policy?}
-    DMARC -- p=none --> OK2[Deliver, report only]
-    DMARC -- p=quarantine --> SPAM[Deliver to spam]
-    DMARC -- p=reject --> REJECT[Reject email]
+    %% Entry
+    A([Incoming Email<br/>From: ceo@company.com])
+
+    %% SPF
+    A --> SPF{SPF Check<br/>Is sender IP authorized?}
+
+    SPF -->|Pass| DKIM{DKIM Check<br/>Valid cryptographic signature?}
+    SPF -->|Fail| DMARC1{DMARC Alignment<br/>Does domain align?}
+
+    %% DKIM
+    DKIM -->|Pass| DMARC2{DMARC Alignment<br/>Does domain align?}
+    DKIM -->|Fail / Missing| DMARC1
+
+    %% DMARC
+    DMARC1 -->|Aligned| PASS([DMARC Pass])
+    DMARC2 -->|Aligned| PASS
+
+    DMARC1 -->|Not aligned| POLICY{DMARC Policy}
+
+    %% Outcomes
+    POLICY -->|"p=none"| NONE[Deliver Email<br/>Generate Reports Only]
+
+    POLICY -->|"p=quarantine"| QUAR[Send to Spam / Quarantine]
+
+    POLICY -->|"p=reject"| REJECT([Reject Message])
+
+    %% Styling
+    classDef success fill:#163d2a,stroke:#3ddc97,color:#ffffff,stroke-width:2px;
+    classDef warning fill:#4a3410,stroke:#ffb020,color:#ffffff,stroke-width:2px;
+    classDef danger fill:#4b1d1d,stroke:#ff5c5c,color:#ffffff,stroke-width:2px;
+    classDef neutral fill:#1e293b,stroke:#60a5fa,color:#ffffff,stroke-width:2px;
+
+    class PASS success;
+    class NONE neutral;
+    class QUAR warning;
+    class REJECT danger;
 ```
-
-### BIMI (Brand Indicators for Message Identification)
-
+</div>
+<Callout type="tip"> 
+### **BIMI** (Brand Indicators for Message Identification)
+</Callout>
 BIMI is a newer standard that lets organizations display their brand logo next to their emails in supporting email clients (Gmail, Apple Mail). It requires a valid DMARC record at `p=quarantine` or `p=reject`. Primarily a brand initiative, but it provides some additional phishing resistance (users visually identify authenticated emails).
 
 ---

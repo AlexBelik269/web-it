@@ -2,12 +2,14 @@
 title: "Network Layer"
 description: "Der Network Layer (OSI-Schicht 3): IP-Eigenschaften, IPv4- und IPv6-Paketstruktur, Host-Routing-Entscheidungen sowie statisches und dynamisches Routing in Router-Routing-Tabellen."
 ---
+import Callout from '../../../../components/Callout.astro';
+
 
 Der Network Layer ist die Schicht, die es ermöglicht, Daten **über mehrere Netzwerke hinweg** zu übertragen – also nicht nur innerhalb eines LANs, sondern quer durch das Internet. Er ist die Grundlage dafür, dass ein Paket von einem Rechner in Zürich einen Server in New York erreichen kann, obwohl die beiden Geräte nie direkt miteinander verbunden sind.
 
 ---
 
-## 8.1 Eigenschaften des Network Layers
+## 1. Eigenschaften des Network Layers
 
 ### Grundfunktionen
 
@@ -70,7 +72,7 @@ Jedes Medium hat eine maximale Rahmengrösse. Wenn ein IP-Paket grösser ist als
 
 ---
 
-## 8.2 IPv4-Paket
+## 2. IPv4-Paket
 
 ### Aufbau des IPv4-Headers
 
@@ -115,7 +117,7 @@ Der IPv4-Header hat eine **Mindestgrösse von 20 Bytes** und wird von links nach
 
 ---
 
-## 8.3 IPv6-Paket
+## 3. IPv6-Paket
 
 ### Warum IPv6? – Die Grenzen von IPv4
 
@@ -215,7 +217,7 @@ IPv6 ersetzt die optionalen Felder aus IPv4 durch **optionale Extension Headers*
 
 ---
 
-## 8.4 Wie ein Host routet
+## 4. Wie ein Host routet
 
 ### Routing-Entscheidung am Endgerät
 
@@ -277,7 +279,7 @@ Network Destination    Netmask          Gateway       Interface   Metric
 
 ---
 
-## 8.5 Router und Routing-Tabellen
+## 5. Router und Routing-Tabellen
 
 ### Wie ein Router ein Paket weiterleitet
 
@@ -454,3 +456,81 @@ mindmap
 | **Administrative Distance** | Vertrauenswürdigkeit einer Route-Quelle (niedriger = besser) |
 | **Longest Prefix Match** | Routing-Entscheidung: die spezifischste Route gewinnt |
 | **OSPF / EIGRP** | Dynamische Routing-Protokolle zum automatischen Routenaustausch |
+
+
+<Callout type="danger"> 
+## Summary Module 8: Network Layer
+</Callout>
+
+**Network Layer Characteristics** — Provides services to allow devices to exchange data. IPv4 and IPv6 are the most principal protocols. Performs 4 basic operations: Addressing end devices, Encapsulation, Routing, De-encapsulation.
+
+**IP Encapsulation** — Encapsulates transport layer segment. IP packet examined by all Layer 3 devices. IP addressing won't change from source to destination.
+
+**Characteristics of IP** — Low overhead, connectionless (other protocols handle reliability e.g. TCP), best effort (no guarantee of delivery), media independent (copper, fibre, wireless). MTU received from data link layer; network layer establishes MTU size. Fragmentation (IPv4 only, IPv6 does not fragment) → causes latency e.g. when router goes from Ethernet to slow WAN with smaller MTU.
+
+### IPv4 Packet
+
+**IPv4 Packet Header** — Primary communication protocol; header information used by all Layer 3 devices. Formatted in binary, 4 rows × 20 columns of information in bytes. Most important fields are source and destination.
+
+| Field | Description |
+|-------|-------------|
+| Version | 4-bit field = `0100`, value set to 4 |
+| Differentiated Services | Used for QoS: DiffServ / DS field, or older IntServ / ToS (Type of Service) |
+| Header Checksum | Detect corruption in IPv4 header |
+| Time to Live (TTL) | Layer 3 hop count (= 0 → router discards packet) |
+| Protocol | Identifies next level protocol: ICMP, TCP, UDP etc. |
+| Source IPv4 Address | 32-bit source address |
+| Destination IPv4 Address | 32-bit destination address |
+
+**Limitations of IPv4** — Address depletion, lack of end-to-end connectivity (NAT maps private to public addresses as a temporary solution), NAT causes latency and troubleshooting issues → complex.
+
+### IPv6 Packet
+
+Developed by IETF to overcome IPv4 limitations. Increased address space, improved packet handling (simpler, fewer header fields), no need for NAT. Header is 40 bytes long. IPv4 fields removed: Flag, Fragment Offset, Header Checksum.
+
+| Field | Description |
+|-------|-------------|
+| Version | 4-bit field = `0110`, value set to 6 |
+| Traffic Class | Used for QoS: same as DiffServ / DS field |
+| Flow Label | 20-bit field, informs device to handle identical flow labels the same way |
+| Payload Length | 16-bit field, indicates length of data portion (payload) |
+| Next Header | Identifies next level protocol: ICMP, TCP, UDP etc. |
+| Hop Limit | Replaces TTL field, Layer 3 hop count |
+| Source IPv6 Address | 128-bit source address |
+| Destination IPv6 Address | 128-bit destination address |
+
+**IPv6 Extension Headers (EH)** — Optional network layer information, placed between IPv6 header and payload. May be used for fragmentation, security, mobility support etc. Unlike IPv4, routers do not fragment IPv6 packets.
+
+### How a Host Routes
+
+**Host Forwarding Decision** — Packets always created at source; each host creates its own routing table. Host can send to itself (`127.0.0.1` IPv4, `::1` IPv6), local hosts (same LAN), or remote hosts (different LAN). Source determines if destination is local or remote: IPv4 uses own IP + subnet mask with destination IP; IPv6 uses network address and prefix provided by local router. Remote traffic forwarded to default gateway.
+
+**Default Gateway** — Router or Layer 3 switch; must have an IP address in the same range as the LAN; accepts data from LAN and forwards it out. A device with no (or bad) default gateway cannot send traffic outside the LAN.
+
+**Host Routes to Default Gateway** — Known statically or via DHCP (IPv4) or router solicitation (IPv6). Default gateway is the last resort in the routing table.
+
+**Host Routing Tables** — `route print` or `netstat -r` (Windows) displays: Interface List + MAC addressing, IPv4 routing table, IPv6 routing table.
+
+### Introduction to Routing
+
+**Router Packet Forwarding Decision**
+1. Packet arrives at interface X on router Y → router de-encapsulates the Layer 2 Ethernet header and trailer.
+2. Router Y examines destination IPv4 address, searches for best match in its IPv4 routing table (e.g. Router Z).
+3. Router Y encapsulates the packet into a new Ethernet header and trailer, forwards it to next hop Router Z.
+
+**IP Router Routing Table**
+- **Directly connected** — Added automatically by router.
+- **Remote** — No direct connection; learned manually (static route) or dynamically (routing protocol).
+- **Default route** — Forwards all traffic in a specific direction when there is no match in routing table.
+
+**Static Routing** — Configured and adjusted manually when topology changes. Good for small non-redundant networks, often used in conjunction with a dynamic routing protocol.
+
+**Dynamic Routing** — Discovers remote networks, configured and adjusted automatically, chooses best path to destination, automatically finds new paths when topology changes, can share static default routes with other routers.
+
+**IPv4 Routing Table** — `show ip route` → displays route sources.
+- `L` — Directly connected local interface IP address.
+- `C` — Directly connected network.
+- `S` — Static route.
+- `O` — OSPF.
+- `D` — EIGRP.
+- `S*` — Default route.

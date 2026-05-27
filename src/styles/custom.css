@@ -1,14 +1,14 @@
 :root {
-  --sl-text-5xl: 2.4rem;
-  --sl-text-4xl: 1.8rem;
-  --sl-text-3xl: 1.5rem;
+  --sl-text-5xl: 2.3rem;  /* #       h1 */
+  --sl-text-4xl: 1.9rem;  /* ##      h2 */
+  --sl-text-3xl: 1.5rem;  /* ###     h3 */
+  --sl-text-2xl: 1.3rem; /* ####4   h4  & Title: IT Knowledge Base*/
+  --sl-text-lg:  0.95rem; /* #####   h5 */
 
-  --sl-text-2xl: 1.65rem;
-  --sl-text-xl: 0.65rem;
 
-  --sl-text-xs: 0.7rem;
-  --sl-text-sm: 0.8rem;
   --sl-text-base: 0.9rem;
+  --sl-text-sm: 0.8rem;
+  --sl-text-xs: 0.7rem;
 
   --sl-sidebar-width: 15vw;
   --sl-content-width: 70vw;
@@ -19,4 +19,17 @@
 
 .sidebar-content li {
   margin-bottom: 0.4rem;
+}
+
+code {
+  background: #f3f4f6;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.35rem;
+  font-family:
+    "JetBrains Mono",
+    "Fira Code",
+    monospace;
+  font-size: 0.95em;
+  font-weight: 550;
+  color: #0026ff;
 }

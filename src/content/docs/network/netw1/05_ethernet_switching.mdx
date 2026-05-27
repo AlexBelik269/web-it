@@ -2,12 +2,14 @@
 title: "Ethernet Switching"
 description: "Grundlagen des Ethernet-Switchings: Ethernet-Frames, MAC-Adressen, MAC-Adresstabelle sowie Weiterleitungsmethoden und Porteinstellungen von Layer-2-Switches."
 ---
+import Callout from '../../../../components/Callout.astro';
+
 
 Ethernet ist die dominante Technologie in heutigen lokalen Netzwerken (LANs). Dieses Modul behandelt, wie Ethernet im Kern funktioniert – von der Struktur eines Frames über die Adressierung bis hin zur intelligenten Weiterleitung durch Switches.
 
 ---
 
-## 7.1 Ethernet-Frames
+## 1. Ethernet-Frames
 
 ### Einordnung im OSI-Modell
 
@@ -83,7 +85,7 @@ Ein Ethernet-Frame hat eine definierte Struktur:
 
 ---
 
-## 7.2 Ethernet-MAC-Adressen
+## 2. Ethernet-MAC-Adressen
 
 ### Hexadezimal und MAC-Adressformat
 
@@ -156,7 +158,7 @@ graph TD
 
 ---
 
-## 7.3 Die MAC-Adresstabelle
+## 3. Die MAC-Adresstabelle
 
 ### Grundprinzip des Switches
 
@@ -201,7 +203,7 @@ flowchart TD
 
 ---
 
-## 7.4 Switch-Geschwindigkeiten und Weiterleitungsmethoden
+## 4. Switch-Geschwindigkeiten und Weiterleitungsmethoden
 
 ### Store-and-Forward Switching
 
@@ -345,3 +347,64 @@ mindmap
 | **Auto-MDIX** | Automatische Kabelerkennung am Switch-Port |
 | **Unknown Unicast** | Frame mit unbekannter Ziel-MAC → wird geflutet |
 | **Duplex-Mismatch** | Fehlkonfiguration: eine Seite Full-, andere Half-Duplex |
+
+
+---
+---
+---
+<Callout type="danger"> 
+## Summary Module 7: Ethernet Switching
+</Callout>
+
+**Ethernet Frames** — Operates at the data link layer and physical layer, defined in IEEE 802.2 and 802.3 standards.
+
+**Data Link Sublayers**
+- **LLC (IEEE 802.2)** — Places information in frame to identify the network layer protocol used.
+- **MAC (IEEE 802.3, 802.11, 802.15)** — Data encapsulation, media access control, provides data link layer addressing.
+
+**MAC Sublayer**
+- **Data Encapsulation** — Ethernet frame (defines internal structure), Ethernet Addressing (source + destination MAC), Ethernet Error Detection (FCS trailer).
+- **Media Access** — Specifications for different Ethernet communications standards and various types of media.
+
+**Ethernet Frame Fields** — Size of 64–1518 bytes. `<64` bytes = collision fragment, discarded. `>1518` bytes = jumbo or baby giant frames, also discarded.
+
+### Ethernet MAC Address
+
+48 bits / 12 hex values = 6 hex (OUI) + 6 hex (vendor-assigned). Must be unique; vendors must register with IEEE to obtain an OUI. Different MAC addresses are used for Layer 2 unicast, broadcast, and multicast.
+
+**Frame Processing** — Receiver examines destination MAC address and checks it against the stored one in ROM. If no match → frame discarded. If match (or broadcast/multicast) → passed up the OSI layers via de-encapsulation.
+
+**Unicast MAC Address** — One to one.
+- **ARP** — Used by source host to determine destination MAC address associated with an IPv4 address.
+- **ND (Neighbor Discovery)** — Used by source host to determine destination MAC address associated with an IPv6 address.
+
+**Broadcast MAC Address** — One to many. Destination MAC `FF-FF-FF-FF-FF-FF`. Flooded out all switch ports except incoming port. Not forwarded by a router.
+
+**Multicast MAC Address** — Processed by a group of devices belonging to the same multicast group. Destination MAC `01-00-5E` (IPv4), `33-33` (IPv6). Flooded out all switch ports except incoming. Not forwarded by router unless configured to route multicast. Source will always be a unicast address. Multicast IP address requires a corresponding multicast MAC address.
+
+### The MAC Address Table
+
+**Switch Fundamentals** — Layer 2 Ethernet switch uses Layer 2 MAC addresses to make forwarding decisions, completely unaware of the data protocol carried in the frame. When a switch is turned on, the MAC address table is empty.
+
+**Switch Learning and Forwarding**
+
+- **Source MAC Address** — Every incoming frame is checked; entry kept in table for 5 minutes (default).
+  - Source MAC does not exist ➜ Added with incoming port number.
+  - Source MAC exists ➜ Refresh timer updated.
+  - Source MAC exists but on different port ➜ Entry replaced with new port number.
+- **Destination MAC Address** — If unicast, switch checks table; if not found, sent out all ports except incoming (unknown unicast).
+
+**Switch Forwarding Methods**
+
+| Method | Description |
+|--------|-------------|
+| **Store-and-forward** | Receives entire frame, computes CRC, discards if error found. Required for QoS. |
+| **Cut-through** | Forwards before entire frame received (min. destination address). No error checking. |
+| **Fast-forward** | Lowest latency, immediately forwards after reading destination address. Most common cut-through method. Faulty packets discarded by destination NIC. |
+| **Fragment-free** | Checks first 64 bytes before forwarding (most errors and collisions occur in first 64 bytes). Compromise between store-and-forward and fast-forward. |
+
+**Memory Buffering** — Switch may buffer frames before forwarding or when destination port is busy (congestion). Shared memory deposits all frames into a common buffer shared by all ports; buffer memory dynamically allocated per port; frames dynamically linked to destination port.
+
+**Duplex and Speed Settings** — Bandwidth and duplex must match between switch port and connected device. Autonegotiation enables two devices to automatically negotiate best speed and duplex capabilities; should be either on or off on both devices.
+
+**Auto-MDIX** — Switch automatically detects type of cable attached to port and configures interfaces accordingly. Use correct cable type (do not rely on this feature). `mdix auto` — re-enable Auto-MDIX via interface configuration.

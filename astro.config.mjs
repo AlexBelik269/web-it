@@ -6,7 +6,9 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import expressiveCode from 'astro-expressive-code'; 
+import expressiveCode from 'astro-expressive-code';
+
+import react from '@astrojs/react';
 
 export default defineConfig({
     markdown: {
@@ -14,8 +16,8 @@ export default defineConfig({
         rehypePlugins: [rehypeKatex],
     },
     base: '/it',
-	site: 'https://alex-belik.cz',
-    integrations: [mermaid({ theme: 'neutral', autoTheme: true }),[expressiveCode()], [mdx()], starlight({
+    site: 'https://alex-belik.cz',
+    integrations: [mermaid({ theme: 'neutral', autoTheme: true }), [expressiveCode()], [mdx()], starlight({
         title: 'IT Knowledge Base',
         social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/AlexBelik269/web-it' }],
         customCss: ['katex/dist/katex.min.css', './src/styles/custom.css'],
@@ -31,17 +33,17 @@ export default defineConfig({
                 ],
             },
             {
-			/*
-			---------------------------------------------------------- SECURITY ----------------------------------------------------------
-			 - Chapters: Principals, Web App Security, Malware, Cryptography, Infrastructure, Compliance, Incident Response, INTROL, ISF
-			------------------------------------------------------------------------------------------------------------------------------
-			*/
+            /*
+            ---------------------------------------------------------- SECURITY ----------------------------------------------------------
+             - Chapters: Principals, Web App Security, Malware, Cryptography, Infrastructure, Compliance, Incident Response, INTROL, ISF
+            ------------------------------------------------------------------------------------------------------------------------------
+            */
                 label: 'Security',
                 collapsed: true,
                 items: [
                     { label: 'Overview', slug: 'security' },
                     {
-					label: 'Principals',
+                    label: 'Principals',
                         collapsed: true,
                         items: [
                             { label: 'Cyber Warfare', slug: 'security/principals/cyber-warfare' },
@@ -50,7 +52,7 @@ export default defineConfig({
                             { label: 'Endpoint Protection', slug: 'security/principals/endpoint-protection' },
                         ],
                     },
-					{
+                    {
                     label: 'Web App Security',
                         collapsed: true,
                         items: [
@@ -66,7 +68,7 @@ export default defineConfig({
                         label: 'Malware',
                         collapsed: true,
                         items: [
-                            { label: 'Overview', slug: 'security/malware' },
+                            { label: 'Malware', slug: 'security/malware' },
                             { label: 'Malware Types', slug: 'security/malware/malware-types' },
                             { label: 'Attack Techniques', slug: 'security/malware/attack-techniques' },
                             { label: 'Detection & Defense', slug: 'security/malware/detection-and-defense' },
@@ -172,11 +174,11 @@ export default defineConfig({
                     },
                 ],
             },
-			/*
-			------------------------------------------- NETWORKING -------------------------------------------
-			 - Chapters: Fundamentals, Addressing, Protocols, Traffic & Switching, Wireless, Security, NETW1
-			--------------------------------------------------------------------------------------------------
-			*/
+            /*
+            ------------------------------------------- NETWORKING -------------------------------------------
+             - Chapters: Fundamentals, Addressing, Protocols, Traffic & Switching, Wireless, Security, NETW1
+            --------------------------------------------------------------------------------------------------
+            */
             {
                 label: 'Networking',
                 collapsed: true,
@@ -239,16 +241,19 @@ export default defineConfig({
                         label: 'NETW1',
                         collapsed: true,
                         items: [
-                            { label: 'SW01: Networking Today', slug: 'network/netw1/sw01_networking_today' },
-                            { label: 'SW02: Grundkonfiguration & Zahlensysteme', slug: 'network/netw1/sw02_grundkonfiguration_und_zahlensysteme' },
-                            { label: 'SW03: Protokolle und Modelle', slug: 'network/netw1/sw03_protokolle_und_modelle' },
-                            { label: 'SW04: Physical & Data Link Layer', slug: 'network/netw1/sw04_physical_data_link_layer' },
-                            { label: 'SW05: Ethernet Switching', slug: 'network/netw1/sw05_ethernet_switching' },
-                            { label: 'SW06: Network Layer', slug: 'network/netw1/sw06_network_layer' },
-                            { label: 'SW07: Adressauflösung & Router-Konfiguration', slug: 'network/netw1/sw07_adressaufloesung_router_konfiguration' },
-                            { label: 'SW08: IPv4 Adressierung', slug: 'network/netw1/sw08_ipv4_adressierung' },
-                            { label: 'SW09: Subnetting & IP-Adressen', slug: 'network/netw1/sw09_subnetting_und_ip_adressen' },
-                            { label: 'SW10: ICMP & Transportschicht', slug: 'network/netw1/sw10_icmp_und_transportschicht' },
+                            { label: '1. Networking Today', slug: 'network/netw1/01_networking_today' },
+                            { label: '2. Grundkonfiguration & Zahlensysteme', slug: 'network/netw1/02_grundkonfiguration_und_zahlensysteme' },
+                            { label: '3. Protokolle und Modelle', slug: 'network/netw1/03_protokolle_und_modelle' },
+                            { label: '4. Physical & Data Link Layer', slug: 'network/netw1/04_physical_data_link_layer' },
+                            { label: '5. Ethernet Switching', slug: 'network/netw1/05_ethernet_switching' },
+                            { label: '6. Network Layer', slug: 'network/netw1/06_network_layer' },
+                            { label: '7. Adressauflösung & Router-Konfiguration', slug: 'network/netw1/07_adressaufloesung_router_konfiguration' },
+                            { label: '8. IPv4 Adressierung', slug: 'network/netw1/08_ipv4_adressierung' },
+                            { label: '9. IPv6 Grundlagen', slug: 'network/netw1/09_ipv6_grundlagen' },
+                            { label: '10. Subnetting & IP-Adressen', slug: 'network/netw1/10_subnetting_und_ip_adressen' },
+                            { label: '11. ICMP & Transportschicht', slug: 'network/netw1/11_icmp_und_transportschicht' },
+                            { label: '12. Applikationsschicht & Netzwerksicherheit', slug: 'network/netw1/12_applikationsschicht_und_netzwerksicherheit' },
+                            { label: '13. Aufbau eines kleinen Netzwerks', slug: 'network/netw1/13_build_a_small_network' },
                         ],
                     },
                 ],
@@ -700,7 +705,7 @@ export default defineConfig({
                             { label: 'Performance', slug: 'web/frontend/performance' },
                         ],
                     },
-					{
+                    {
                         label: 'API',
                         collapsed: true,
                         items: [
@@ -743,5 +748,5 @@ export default defineConfig({
                 
             }
         ],
-		}), sitemap()],
+        }), sitemap(), react()],
 });

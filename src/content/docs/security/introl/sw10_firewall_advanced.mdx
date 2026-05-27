@@ -55,7 +55,7 @@ Bevor das Labor beginnen kann, müssen eventuell vorhandene **Proxy-Einstellunge
 Die meisten modernen Webverbindungen sind über **HTTPS/TLS verschlüsselt**. Eine klassische Firewall sieht bei verschlüsseltem Traffic nur:
 - Quell- und Ziel-IP-Adresse
 - Port (443 für HTTPS)
-- Paketgröße und Zeitstempel
+- Paketgrösse und Zeitstempel
 
 Der **Inhalt** (welche URL, welche Datei, welches Protokoll auf Applikationsebene) bleibt verborgen. Ohne Entschlüsselung sind Funktionen wie Antivirus-Scanning, URL-Filtering oder Application-Identification **nicht möglich**.
 
@@ -155,7 +155,7 @@ flowchart LR
     DB -->|unbekannt / sauber| ALLOW[Datei durchlassen]
 ```
 
-Die Firewall vergleicht den Datenstrom mit einer **Datenbank bekannter Viren-Signaturen**. Diese Datenbank muss regelmäßig aktualisiert werden – analog zu Antivirensoftware auf dem PC.
+Die Firewall vergleicht den Datenstrom mit einer **Datenbank bekannter Viren-Signaturen**. Diese Datenbank muss regelmässig aktualisiert werden – analog zu Antivirensoftware auf dem PC.
 
 #### EICAR-Testdatei
 
@@ -180,12 +180,12 @@ X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STDARD-ANTIVIRUS-TEST-FILE!$H+H*
 
 | Richtung | Scannen? | Begründung |
 |---|---|---|
-| Inside → Outside | ✓ Ja | Verhindert Upload von Malware nach außen; Inside-Clients könnten infiziert sein |
+| Inside → Outside | ✓ Ja | Verhindert Upload von Malware nach aussen; Inside-Clients könnten infiziert sein |
 | Outside → DMZ | ✓ Ja | Externe Angreifer könnten Malware in die DMZ einschleusen |
 | DMZ → Outside | ✓ Ja | Kompromittierte DMZ-Server könnten Malware versenden |
 | Outside → Inside | ⚠️ Bedingt | Bei stateful Firewall: Rückverkehr bereits erlaubter Sessions wird implizit behandelt |
 
-> **Grundsatz:** Generell sollte **jeder Verkehr gescannt** werden. Das einzige Gegenargument sind mögliche Leistungseinbußen durch die erhöhte Verarbeitungszeit.
+> **Grundsatz:** Generell sollte **jeder Verkehr gescannt** werden. Das einzige Gegenargument sind mögliche Leistungseinbussen durch die erhöhte Verarbeitungszeit.
 
 #### Technischer Hintergrund: TCP RST als Abwehrmechanismus
 
@@ -282,7 +282,7 @@ graph TD
 
 #### 1. Benutzer anlegen
 
-Unter `Device → Local User Database → Users` wird ein lokaler Benutzer mit Passwort angelegt. Die Groß-/Kleinschreibung des Benutzernamens ist relevant.
+Unter `Device → Local User Database → Users` wird ein lokaler Benutzer mit Passwort angelegt. Die Gross-/Kleinschreibung des Benutzernamens ist relevant.
 
 > **Warum lokale Benutzerverwaltung suboptimal ist:** In einem Unternehmen mit 200 Mitarbeitern wäre es unpraktikabel, jeden Nutzer manuell auf der Firewall zu verwalten. Besser: Integration mit **Active Directory (AD)** oder einem **LDAP-Verzeichnisserver**. So werden Konten zentral verwaltet und Änderungen (Mitarbeiter tritt aus) greifen sofort.
 
@@ -506,7 +506,7 @@ Dies ist mit reinem URL-Blocking **nicht möglich**, da beides über dieselbe Do
 
 ### Facebook Tracking-Methoden
 
-Facebook (Meta) nutzt verschiedene Technologien um Nutzerverhalten auch **außerhalb** der Facebook-Plattform zu verfolgen:
+Facebook (Meta) nutzt verschiedene Technologien um Nutzerverhalten auch **ausserhalb** der Facebook-Plattform zu verfolgen:
 
 | Technologie | Funktionsprinzip |
 |---|---|

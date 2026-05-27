@@ -2,8 +2,7 @@
 title: "IPv4 Adressierung"
 description: "Strukturierung von IPv4-Adressen, Subnetzmasken, Adresstypen (Unicast, Broadcast, Multicast), private und öffentliche Adressen sowie IPv4-Subnetting und VLSM"
 ---
-
-# IPv4 Adressierung
+import Callout from '../../../../components/Callout.astro';
 
 IPv4-Adressen sind das Fundament der Netzwerkkommunikation im Internet. Dieses Modul erklärt, wie IPv4-Adressen aufgebaut sind, wie man sie in Subnetze aufteilt und warum diese Aufteilung für effiziente Netzwerke unerlässlich ist.
 
@@ -21,9 +20,9 @@ Eine IPv4-Adresse ist **32 Bits** lang und hierarchisch aufgebaut. Sie besteht a
 ```
 Beispiel: 192.168.10.10 /24
 
-Netzwerkanteil         | Hostanteil
-192  .  168  .  10     |    10
-11000000 10101000 00001010 | 00001010
+Netzwerkanteil              | Hostanteil
+192      .  168   .  10     |    10
+11000000 10101000 00001010  | 00001010
 ```
 
 Die **Subnetzmaske** legt fest, welche Bits zum Netzwerk- und welche zum Hostanteil gehören. Überall, wo die Subnetzmaske eine `1` hat, gehört das entsprechende Bit zum Netzwerkanteil – überall dort, wo eine `0` steht, zum Hostanteil.
@@ -511,3 +510,95 @@ mindmap
 - **NAT**: Übersetzung privater in öffentliche Adressen
 - **APIPA**: Automatische Selbstzuweisung einer Link-Local-Adresse
 - **IANA / RIR**: Globale und regionale Verwaltung von IP-Adressen
+
+
+<Callout type="danger"> 
+## Summary Module 11: IPv4 Addressing
+</Callout>
+
+**IPv4 Address Structure** — 32-bit, divided into network and host portions. Subnet mask used to determine each portion.
+
+**The Subnet Mask** — Compared to the IPv4 address bit by bit, left to right. The process of identifying network and host portions is called AND-ing.
+
+**Prefix Length** — Number of bits set to 1 in the subnet mask, written in slash notation (e.g. `/24`).
+
+**Determining the Network** — Logical AND: `1 AND 1 = 1`, `0 AND 1 = 0`, `1 AND 0 = 0`, `0 AND 0 = 0`. IPv4 address AND Subnet Mask = Network address.
+
+**Network, Host and Broadcast Addresses** — Every network has 3 types of IP addresses.
+
+| Type | Host Portion | Example (x.x.x.?) |
+|------|-------------|-------------------|
+| Network Address | All 0s | `.00000000` |
+| First Host Address | All 0s, ends with 1 | `.00000001` |
+| Last Host Address | All 1s, ends with 0 | `.11111110` |
+| Broadcast Address | All 1s | `.11111111` |
+
+### IPv4 Unicast, Broadcast, and Multicast
+
+- **Unicast** — One to one. e.g. PC at `172.16.4.1` to printer at `172.16.4.253`.
+- **Broadcast** — One to all on network. e.g. PC at `172.16.4.1` sends broadcast to all IPv4 hosts.
+- **Multicast** — One to many. e.g. PC at `172.16.4.1` sends to multicast group address `224.10.10.5`.
+
+### Types of IPv4 Addresses
+
+**Public and Private IPv4 Addresses** — Public addresses are globally routed (RFC 1918). Private addresses are not unique, used internally, and not globally routable.
+
+| Range | Block |
+|-------|-------|
+| `10.0.0.0` – `10.255.255.255` | `10.0.0.0/8` |
+| `172.16.0.0` – `172.31.255.255` | `172.16.0.0/12` |
+| `192.168.0.0` – `192.168.255.255` | `192.168.0.0/16` |
+
+**Routing to the Internet** — NAT translates private IPv4 addresses to public IPv4 addresses, typically enabled on the edge router connecting to the internet.
+
+**Special Use IPv4 Addresses**
+- **Loopback** — `127.0.0.0/8` (`127.0.0.1` to `127.255.255.254`), commonly `127.0.0.1`. Used on host to test if TCP/IP is operational.
+- **Link-Local (APIPA)** — `169.254.0.0/16` (`169.254.0.1` to `169.254.255.254`). Used by Windows DHCP clients to self-configure when no DHCP server is available.
+
+**Legacy Classful Addressing** — RFC 790 (1981), replaced with classless addressing.
+
+| Class | Range |
+|-------|-------|
+| A | `0.0.0.0/8` – `127.0.0.0/8` |
+| B | `128.0.0.0/16` – `191.255.0.0/16` |
+| C | `192.0.0.0/24` – `223.255.255.0/24` |
+| D | `224.0.0.0` – `239.0.0.0` |
+| E | `240.0.0.0` – `255.0.0.0` |
+
+**Assignment of IP Addresses** — IANA manages and allocates blocks to five Regional Internet Registries (RIRs). RIRs allocate to ISPs, who provide blocks to smaller ISPs and organizations.
+
+### Network Segmentation
+
+**Broadcast Domains and Segmentation** — Protocols like ARP use broadcasts to locate devices; hosts send DHCP discover broadcasts. Switches propagate broadcasts out all interfaces (except receiving). Routers stop broadcasts → each router interface connects to a broadcast domain.
+
+**Problems with Large Broadcast Domains** — Excessive broadcasts negatively affect the network. Solution: create smaller broadcast domains via subnetting. e.g. `172.16.0.0/16` split into `172.16.0.0/24` and `172.16.1.0/24`.
+
+**Reasons for Segmenting Networks** — Reduces traffic and improves performance, implement security policies between subnets, segment by location, group, function, or device type.
+
+### Subnet an IPv4 Network
+
+Most easily subnetted at octet boundaries `/8`, `/16`, `/24`. Longer prefix lengths decrease number of hosts per subnet.
+
+- **Number of Subnets** — `2ⁿ` (n = bits borrowed)
+- **Number of Hosts** — `2ⁿ − 2` (n = remaining bits in host field)
+
+**VLSM** — Traditional subnetting can be inefficient; VLSM was invented to solve this. Always satisfy the biggest subnet requirement first.
+
+### Structured Design
+
+**IPv4 Network Address Planning** — Key questions:
+- How many subnets are needed (and hosts per subnet)?
+- How many hosts does a particular subnet require?
+- What devices are part of the subnet?
+- Which parts use private vs. public addresses?
+- What are the DHCP address pools and Layer 2 VLAN pools?
+
+**Device Address Assignment**
+
+| Device Type | Assignment Method |
+|-------------|------------------|
+| End user clients | DHCP (IPv4); DHCPv6 or SLAAC (IPv6) |
+| Servers and peripherals | Predictable static IP address |
+| Internet-accessible servers | Public IPv4 address, most often via NAT |
+| Intermediary devices | Static address for management, monitoring, security |
+| Gateways (routers, firewalls) | Static address as gateway for hosts in network |

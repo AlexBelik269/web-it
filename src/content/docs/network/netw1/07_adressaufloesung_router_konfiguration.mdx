@@ -2,14 +2,16 @@
 title: "Adressauflösung & Grundlegende Router-Konfiguration"
 description: "ARP, IPv6 Neighbor Discovery und die grundlegende Konfiguration eines Cisco IOS Routers – wie Geräte MAC-Adressen auflösen und wie ein Router in Betrieb genommen wird."
 ---
+import Callout from '../../../../components/Callout.astro';
+
 
 Diese Woche kombiniert zwei eng verwandte Themen: Erstens, wie Netzwerkgeräte herausfinden, welche MAC-Adresse zu einer bekannten IP-Adresse gehört (Adressauflösung), und zweitens, wie ein Cisco-Router grundlegend konfiguriert wird, damit er Pakete zwischen Netzwerken weiterleiten kann.
 
 ---
 
-## Modul 9 – Adressauflösung
+## 1. Adressauflösung
 
-### 9.1 MAC-Adresse vs. IP-Adresse
+### MAC-Adresse vs. IP-Adresse
 
 Auf einem Ethernet-LAN hat jedes Gerät zwei zentrale Adressen:
 
@@ -61,7 +63,7 @@ sequenceDiagram
 
 ---
 
-### 9.2 ARP – Address Resolution Protocol
+### ARP – Address Resolution Protocol
 
 #### Was ist ARP und warum brauchen wir es?
 
@@ -146,7 +148,7 @@ ARP-Einträge sind **nicht permanent**. Sie werden gelöscht, wenn:
 
 **Problem 1: ARP-Broadcasting**
 
-ARP-Requests werden als Broadcasts gesendet und von **jedem Gerät im lokalen Netz** empfangen und verarbeitet. In großen Netzwerken oder wenn viele Geräte gleichzeitig hochfahren, kann dies zu einer erheblichen Netzlast führen – man spricht von einem **Broadcast-Sturm**.
+ARP-Requests werden als Broadcasts gesendet und von **jedem Gerät im lokalen Netz** empfangen und verarbeitet. In grossen Netzwerken oder wenn viele Geräte gleichzeitig hochfahren, kann dies zu einer erheblichen Netzlast führen – man spricht von einem **Broadcast-Sturm**.
 
 **Problem 2: ARP-Spoofing (ARP-Poisoning)**
 
@@ -167,11 +169,11 @@ sequenceDiagram
     A->>C: Alle Pakete → C (Man-in-the-Middle!)
 ```
 
-**Gegenmaßnahmen:** Enterprise-Switches können **Dynamic ARP Inspection (DAI)** einsetzen, das ARP-Pakete gegen eine DHCP-Snooping-Binding-Tabelle prüft.
+**Gegenmassnahmen:** Enterprise-Switches können **Dynamic ARP Inspection (DAI)** einsetzen, das ARP-Pakete gegen eine DHCP-Snooping-Binding-Tabelle prüft.
 
 ---
 
-### 9.3 IPv6 Neighbor Discovery (ND)
+### IPv6 Neighbor Discovery (ND)
 
 IPv6 verwendet **kein ARP**. Stattdessen übernimmt das **Neighbor Discovery Protocol (ND)**, das auf ICMPv6 basiert, diese und weitere Aufgaben.
 
@@ -213,9 +215,9 @@ sequenceDiagram
 
 ---
 
-## Modul 10 – Grundlegende Router-Konfiguration
+## 2. Grundlegende Router-Konfiguration
 
-### 10.1 Initiale Router-Konfiguration
+### Initiale Router-Konfiguration
 
 Ein frisch ausgepackter Cisco-Router hat keine Konfiguration. Bevor er produktiv eingesetzt werden kann, müssen grundlegende Sicherheits- und Betriebseinstellungen vorgenommen werden.
 
@@ -271,7 +273,7 @@ R1# copy running-config startup-config
 
 ---
 
-### 10.2 Interfaces konfigurieren
+### Interfaces konfigurieren
 
 Router verbinden mehrere Netzwerke. Jedes Netzwerk wird über ein eigenes Interface (Schnittstelle) angebunden, das mit einer IP-Adresse konfiguriert werden muss.
 
@@ -285,7 +287,7 @@ Router(config-if)# ipv6 address ipv6-adresse/präfixlänge
 Router(config-if)# no shutdown
 ```
 
-**Wichtig:** Interfaces sind auf Cisco-Routern standardmäßig **administrativ deaktiviert** (shutdown). Der Befehl `no shutdown` aktiviert das Interface. Zusätzlich muss das Interface physisch verbunden sein (Kabel eingesteckt), damit auch der physische Layer aktiv wird.
+**Wichtig:** Interfaces sind auf Cisco-Routern standardmässig **administrativ deaktiviert** (shutdown). Der Befehl `no shutdown` aktiviert das Interface. Zusätzlich muss das Interface physisch verbunden sein (Kabel eingesteckt), damit auch der physische Layer aktiv wird.
 
 #### Konfigurationsbeispiel: R1 mit zwei Interfaces
 
@@ -385,11 +387,11 @@ R1# show ipv6 interface g0/0/0
 
 ---
 
-### 10.3 Default Gateway konfigurieren
+### Default Gateway konfigurieren
 
 #### Default Gateway auf einem Host
 
-Ein **Default Gateway** (Standardgateway) ist die IP-Adresse des Router-Interfaces, das mit dem lokalen Netzwerk verbunden ist. Wenn ein Host Pakete an ein Ziel außerhalb seines eigenen Subnetzes senden möchte, schickt er das Paket an diesen Router – er kennt ja keinen besseren Weg.
+Ein **Default Gateway** (Standardgateway) ist die IP-Adresse des Router-Interfaces, das mit dem lokalen Netzwerk verbunden ist. Wenn ein Host Pakete an ein Ziel ausserhalb seines eigenen Subnetzes senden möchte, schickt er das Paket an diesen Router – er kennt ja keinen besseren Weg.
 
 ```mermaid
 flowchart TD
@@ -418,7 +420,7 @@ S1(config-if)# exit
 S1(config)# ip default-gateway 192.168.10.1
 ```
 
-**Warum braucht ein Switch ein Gateway?** Wenn ein Administrator von einem anderen Netz aus per SSH auf den Switch zugreift, muss der Switch die Antwortpakete zurückschicken können. Ohne Default Gateway weiß er nicht, wohin Pakete für Ziele außerhalb seines lokalen Netzes gesendet werden sollen.
+**Warum braucht ein Switch ein Gateway?** Wenn ein Administrator von einem anderen Netz aus per SSH auf den Switch zugreift, muss der Switch die Antwortpakete zurückschicken können. Ohne Default Gateway weiss er nicht, wohin Pakete für Ziele ausserhalb seines lokalen Netzes gesendet werden sollen.
 
 ---
 
@@ -461,14 +463,14 @@ mindmap
 - **ARP** löst bei IPv4 die Frage: „Ich kenne die IP – aber welche MAC-Adresse hat dieses Gerät?"
 - **ND (ICMPv6)** übernimmt bei IPv6 dieselbe Aufgabe, aber effizienter durch Multicast statt Broadcast.
 - Der **Default Gateway** ist immer der Router, dessen Interface im **gleichen Subnetz** wie der Host liegt.
-- Router-Interfaces sind standardmäßig **deaktiviert** – `no shutdown` ist Pflicht.
+- Router-Interfaces sind standardmässig **deaktiviert** – `no shutdown` ist Pflicht.
 - Konfigurationsänderungen gehen verloren, wenn nicht mit `copy running-config startup-config` gespeichert wird.
 
 ---
 
-## Neue Befehle und Konzepte dieser Woche
+### Neue Befehle und Konzepte
 
-### Modul 9
+#### Modul 9
 - `show ip arp` – ARP-Tabelle auf einem Cisco-Router anzeigen
 - `arp -a` – ARP-Tabelle auf einem Windows-PC anzeigen
 - ARP (Address Resolution Protocol)
@@ -477,7 +479,7 @@ mindmap
 - ICMPv6 Router Solicitation (RS) / Router Advertisement (RA)
 - ICMPv6 Redirect Message
 
-### Modul 10
+#### Modul 10
 - `hostname`, `enable secret`, `service password-encryption`, `banner motd`
 - `line console 0`, `line vty 0 4`, `transport input ssh telnet`
 - `interface`, `ip address`, `ipv6 address`, `no shutdown`, `description`
@@ -486,3 +488,85 @@ mindmap
 - `show ip route` / `show ipv6 route`
 - `show interfaces`, `show ip interface`, `show ipv6 interface`
 - `ip default-gateway`
+
+
+
+<Callout type="danger"> 
+## Summary Module 9: Address Resolution
+</Callout>
+
+**Destination on Same Network** — Layer 2 physical address (MAC) for NIC to NIC communication on same network. Layer 3 logical address (IP) sends packet from source to destination device.
+
+**Destination on Remote Network** — When destination IP is on a remote network, the destination MAC address is that of the default gateway.
+- **ARP** (IPv4) — Associates IPv4 address of a device with MAC address of device NIC.
+- **ICMPv6** (IPv6) — Associates IPv6 address of a device with MAC address of device NIC.
+
+### ARP
+
+Resolves IPv4 addresses to MAC addresses, maintains an ARP table of IPv4 to MAC address mappings.
+
+**ARP Functions** — To send a frame, device searches own ARP table for destination IPv4 address and corresponding MAC address.
+- Same network → searches ARP table for destination IPv4 address.
+- Different network → searches ARP table for IPv4 address of default gateway.
+- If found → corresponding MAC address used as destination MAC in the frame.
+- If not found → device sends an ARP request.
+
+**Removing ARP Entries** — Not permanent; removed when ARP cache timer expires (OS dependent) or manually.
+
+**ARP Table Commands** — `show ip arp` or `arp -a` (Windows) displays the ARP table.
+
+**ARP Issues**
+- **ARP Broadcasting** — Excessive ARP broadcasts can cause performance reduction.
+- **ARP Spoofing** — Threat actor performs ARP poisoning attack; enterprise level switches include mitigation techniques.
+
+### IPv6 Neighbor Discovery
+
+ND provides address resolution, router discovery, and redirection services.
+- **NS / NA (Neighbor Solicitation / Advertisement)** — Device-to-device messaging, e.g. address resolution (similar to IPv4 ARP).
+- **RS / RA (Router Solicitation / Advertisement)** — Messaging between devices and routers for router discovery.
+- **ICMPv6 Redirect** — Used by routers for better next-hop selection.
+
+
+<Callout type="danger"> 
+## Summary Module 10: Basic Router Configuration
+</Callout>
+
+### Configure Initial Router Settings
+
+| Task | Command |
+|------|---------|
+| Configure device name | `Router(config)# hostname <hostname>` |
+| Secure privileged EXEC mode | `Router(config)# enable secret <password>` |
+| Secure user EXEC mode | `Router(config)# line console 0` → `password <password>` → `login` |
+| Secure remote Telnet / SSH access | `Router(config)# line vty 0 4` → `password <password>` → `login` → `transport input {ssh \| telnet}` |
+| Encrypt all plaintext passwords | `Router(config)# service password-encryption` |
+| Banner + save config | `Router(config)# banner motd # message #` → `end` → `Router# copy running-config startup-config` |
+
+### Configure Interfaces
+
+**Configure Router Interfaces** — `description` adds a user description to the interface, `no shutdown` activates the interface.
+
+```
+Router(config)# interface type-and-number
+Router(config-if)# description description-text
+Router(config-if)# ip address ipv4-address subnet-mask
+Router(config-if)# ipv6 address ipv6-address/prefix-length
+Router(config-if)# no shutdown
+```
+
+**Verification Commands**
+
+| Command | Description |
+|---------|-------------|
+| `show ip interface brief` / `show ipv6 interface brief` | Displays all interfaces, their IP addresses, and current status. |
+| `show ip route` / `show ipv6 route` | Displays contents of IP routing tables stored in RAM. |
+| `show interfaces` | Displays statistics for all interfaces; only displays IPv4 addressing information. |
+| `show ip interfaces` | Displays IPv4 statistics for all interfaces on a router. |
+| `show ipv6 interfaces` | Displays IPv6 statistics for all interfaces on a router. |
+
+### Configure the Default Gateway
+
+**Default Gateway on a Host** — Used when host sends packet to a device on another network. Default gateway address is generally the router interface address attached to the local network of the host. IP address of host and router interface must be in the same network.
+
+**Default Gateway on a Switch** — Must have a default gateway configured to remotely manage the switch from another network.
+- `ip default-gateway <ip-address>` (global configuration) — Configure IPv4 default gateway on a switch.

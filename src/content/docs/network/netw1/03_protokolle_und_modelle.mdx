@@ -2,21 +2,10 @@
 title: "Protokolle und Modelle"
 description: "Grundlagen der Netzwerkkommunikation: Protokolle, Protokoll-Suiten, Referenzmodelle (OSI & TCP/IP), Datenkapselung und Datenzugriff."
 ---
+import Callout from '../../../../components/Callout.astro';
 
-## Lernziele
 
-Nach diesem Modul kannst du erklären:
-- Welche Regeln für eine erfolgreiche Kommunikation notwendig sind
-- Warum Protokolle in der Netzwerkkommunikation unverzichtbar sind
-- Den Zweck einer Protokoll-Suite
-- Die Rolle von Standardisierungsorganisationen
-- Wie das TCP/IP- und das OSI-Modell zur Standardisierung beitragen
-- Wie Datenkapselung den Datentransport über Netzwerke ermöglicht
-- Wie lokale Hosts auf lokale Ressourcen zugreifen
-
----
-
-## 3.1 Die Regeln (The Rules)
+## 1. Die Regeln
 
 ### Grundlagen der Kommunikation
 
@@ -50,7 +39,7 @@ Für Computer-Netzwerke müssen Protokolle zusätzlich folgende Punkte definiere
 
 - **Message Encoding:** Wie wird die Information in übertragbare Signale umgewandelt?
 - **Message Formatting & Encapsulation:** Welche Struktur hat die Nachricht?
-- **Message Size:** Wie groß darf eine Nachricht sein?
+- **Message Size:** Wie gross darf eine Nachricht sein?
 - **Message Timing:** Wann und wie schnell darf gesendet werden?
 - **Message Delivery Options:** Wie wird die Nachricht zugestellt?
 
@@ -103,7 +92,7 @@ graph LR
 
 ---
 
-## 3.2 Protokolle
+## 2. Protokolle
 
 ### Überblick über Netzwerkprotokolle
 
@@ -154,7 +143,7 @@ graph TD
 
 ---
 
-## 3.3 Protokoll-Suiten
+## 3. Protokoll-Suiten
 
 ### Was ist eine Protokoll-Suite?
 
@@ -233,7 +222,7 @@ Bits → Ethernet Frame → IP Paket → TCP Segment → Anwendungsdaten
 
 ---
 
-## 3.4 Standardisierungsorganisationen
+## 4. Standardisierungsorganisationen
 
 ### Warum offene Standards?
 
@@ -279,7 +268,7 @@ graph TD
 
 ---
 
-## 3.5 Referenzmodelle
+## 5. Referenzmodelle
 
 ### Warum Schichtmodelle?
 
@@ -296,17 +285,8 @@ Es gibt zwei wichtige Referenzmodelle:
 
 Das OSI-Modell hat **7 Schichten** und dient primär als **konzeptuelles Referenzmodell**:
 
-```mermaid
-graph TD
-    L7["7 - Anwendungsschicht (Application)\n→ Protokolle für Prozess-zu-Prozess-Kommunikation (HTTP, FTP, DNS)"]
-    L6["6 - Darstellungsschicht (Presentation)\n→ Gemeinsame Datendarstellung, Verschlüsselung, Kompression"]
-    L5["5 - Sitzungsschicht (Session)\n→ Verwaltung des Datenaustausches zwischen Anwendungen"]
-    L4["4 - Transportschicht (Transport)\n→ Segmentierung, Übertragung, Reassemblierung (TCP, UDP)"]
-    L3["3 - Netzwerkschicht (Network)\n→ Logische Adressierung, Routing (IP)"]
-    L2["2 - Sicherungsschicht (Data Link)\n→ Datenaustausch über gemeinsames Medium (Ethernet, WLAN)"]
-    L1["1 - Bitübertragungsschicht (Physical)\n→ Physische Verbindung, Signalübertragung"]
-    L7 --> L6 --> L5 --> L4 --> L3 --> L2 --> L1
-```
+![OSI Modell](./osi.png)
+
 
 ### TCP/IP-Referenzmodell
 
@@ -355,13 +335,13 @@ graph LR
 
 ---
 
-## 3.6 Datenkapselung (Data Encapsulation)
+## 6. Datenkapselung (Data Encapsulation)
 
 ### Segmentierung von Nachrichten
 
-Große Datenmengen werden vor der Übertragung in kleinere **Segmente** aufgeteilt. Dies hat zwei Hauptvorteile:
+Grosse Datenmengen werden vor der Übertragung in kleinere **Segmente** aufgeteilt. Dies hat zwei Hauptvorteile:
 
-1. **Erhöhte Geschwindigkeit:** Große Datenmenge können übertragen werden, ohne die Leitung vollständig zu blockieren. Andere Kommunikation kann dazwischen übertragen werden (**Multiplexing**).
+1. **Erhöhte Geschwindigkeit:** Grosse Datenmenge können übertragen werden, ohne die Leitung vollständig zu blockieren. Andere Kommunikation kann dazwischen übertragen werden (**Multiplexing**).
 2. **Erhöhte Effizienz:** Falls ein Segment verloren geht, muss nur dieses neu übertragen werden, nicht die gesamten Daten.
 
 **Multiplexing** = das Verschachteln mehrerer Datenströme von Segmenten auf einem gemeinsamen Übertragungskanal.
@@ -422,7 +402,7 @@ Anwendung:     [         Daten   ]              ← Originaldaten
 
 ---
 
-## 3.7 Datenzugriff (Data Access)
+## 7. Datenzugriff (Data Access)
 
 ### Adressen im Netzwerk
 
@@ -550,7 +530,7 @@ mindmap
 
 ---
 
-## Neue Begriffe
+### Neue Begriffe
 
 | Begriff | Erklärung |
 |---|---|
@@ -572,3 +552,98 @@ mindmap
 | **ARP** | Address Resolution Protocol |
 | **DHCP** | Dynamic Host Configuration Protocol |
 | **DNS** | Domain Name System |
+
+
+
+<Callout type="danger"> 
+## Summary Module 3: Protocols and Models
+</Callout>
+
+**The Rules** — Participants (sender, receiver, media) must agree on how to communicate. Protocols must account for identified sender and receiver, language and grammar, speed and timing of delivery, confirmation requirements.
+
+- **Network Protocol Requirements** — Agree on message encoding, message formatting and encapsulation, message size, message timing, message delivery options.
+- **Message Encoding** — Converting information into another acceptable form for transmission.
+- **Message Formatting and Encapsulation** — When sent, must use a specific format or structure.
+- **Message Timing** — Flow Control (rate of data transmission and speed), Response Timeout (time a device waits when it does not hear a reply), Access method (interval of message sending).
+- **Message Delivery Options** — Unicast (one to one), Multicast (one to many), Broadcast (one to all, IPv4).
+
+**Protocols** — Define a common set of rules, at hardware and/or software level. Types:
+
+- **Network Communications** — ≥2 devices to communicate over ≥1 networks.
+- **Network Security** — Data authentication, data integrity, data encryption.
+- **Routing** — Routers exchange route information, compare path information, select best path.
+- **Service Discovery** — Automatic detection of devices and services.
+
+**Protocol Interaction** — Networks require the use of several protocols; each protocol has its own function and format.
+- `HTTP` — Governs the way a web server and web client interact; defines content and format.
+- `TCP` — Manages individual conversations, guaranteed delivery, flow control.
+- `IP` — Delivers messages globally.
+- `Ethernet` — Delivers messages from NIC to another NIC on the same LAN.
+
+**Network Protocol Functions** — Addressing (identifies sender and receiver), Reliability (guaranteed delivery), Flow Control (ensures data flows at efficient rate), Sequencing (uniquely labels each transmitted segment), Error Detection (checks data for corruption), Application Interface (process-to-process communications between network applications).
+
+**Protocol Suites** — Group of inter-related protocols necessary to perform a communication function.
+- **TCP/IP** — Most common, open standard, maintained by IETF. Operates at application, transport, and internet layers (excluding Network Access).
+- **OSI** — Maintained by ISO and ITU.
+- **AppleTalk** — Apple.
+- **Novell NetWare** — Novell.
+
+### Standards Organisations
+
+**Internet Standards**
+- **ISOC** — Promotes the open development and evolution of the internet.
+- **IAB** — Responsible for management and development of internet standards.
+- **IETF** — Develops, updates, and maintains internet and TCP/IP technologies.
+- **IRTF** — Focused on long-term research related to internet and TCP/IP protocols.
+- **ICANN** — Coordinates IP address allocation, management of domain names, assignment of other information.
+- **IANA** — Oversees and manages IP address allocation, domain name management, protocol identifiers for ICANN.
+
+**Electronic and Communications Standards**
+- **IEEE** — Creates standards for power, energy, healthcare, telecommunications, networking.
+- **EIA** — Develops standards for electrical wiring, connectors, 19-inch racks.
+- **TIA** — Radio equipment, cellular towers, VoIP, satellite communications.
+- **ITU-T** — Defines standards for video compression, IPTV, broadband communications (e.g. DSL).
+
+### Reference Models
+
+| Layer | OSI Model | TCP/IP |
+|-------|-----------|--------|
+| 7 | Application | Application |
+| 6 | Presentation | Application |
+| 5 | Session | Application |
+| 4 | Transport | Transport |
+| 3 | Network | Internet |
+| 2 | Data Link | Network Access |
+| 1 | Physical | Network Access |
+
+**Protocol to Layer Mapping**
+- Ethernet, WLAN, SONET, SDH → Physical + Data Link / Network Access
+- IPv4, IPv6, ICMPv4, ICMPv6 → Network / Internet
+- TCP, UDP → Transport / Transport
+- HTTP, DNS, DHCP, FTP → Session + Presentation + Application / Application
+
+### Data Encapsulation
+
+**Segmenting Messages** — Breaking messages into smaller units for speed and efficiency.  
+**Multiplexing** — Interleaving multiple streams of segmented data.  
+**Sequencing** — Numbering data segments to reassemble them later (TCP).  
+**Encapsulation** — Protocols add their information to data; top-down process.
+
+PDUs passing **down** the stack:
+1. Data (Data Stream)
+2. Segment
+3. Packet
+4. Frame
+5. Bits (Bit Stream)
+
+**De-Encapsulation** — Data is de-encapsulated as it moves **up** the stack.
+
+### Data Access
+
+Data link and network layers use addressing to deliver data from source to destination.
+- **Network Layer** — Source and destination IP addresses responsible for delivering the IP packet.
+- **Data Link Layer** — Source and destination addresses responsible for delivering a data link frame from one NIC to another NIC on the same network.
+
+**Layer 3 Logical Address** — IP packet contains source and destination IP address (same link or remote). Packet and frame are not changed during transmission (global).
+
+**Data Link Layer Address** — When devices are on the same Ethernet network, the data link frame uses the MAC address (physically embedded) of the destination NIC. If remote, Layer 3 provides Layer 2 with the local default gateway IP address (router address). First segment is `[Destination NIC, Source NIC]`. Packet is not modified when routing, but the frame is changed from endpoint to endpoint.

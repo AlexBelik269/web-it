@@ -2,6 +2,9 @@
 title: "Grundkonfiguration von Netzwerkgeräten & Zahlensysteme"
 description: "Cisco IOS Zugang, Navigation, Grundkonfiguration von Switches und Endgeräten, sowie Binär- und Hexadezimalsysteme für IPv4/IPv6-Adressen."
 ---
+import Callout from '../../../../components/Callout.astro';
+import BaseConverter from '../../../../components/BaseConverter.jsx';
+
 
 ## 1. Betriebssysteme in Netzwerkgeräten
 
@@ -154,7 +157,7 @@ Switch> show                   ip protocols
 
 ## 5. Grundkonfiguration von Geräten
 
-### 5.1 Gerätename (Hostname)
+### Gerätename (Hostname)
 
 Der erste Schritt nach dem Einschalten eines neuen Geräts: **Hostname setzen**. Damit ist das Gerät eindeutig identifizierbar.
 
@@ -173,13 +176,13 @@ Sw-Floor-1(config)#
 
 Rückgängig machen: `no hostname`
 
-### 5.2 Passwörter konfigurieren
+### Passwörter konfigurieren
 
 Passwörter sind der erste Verteidigungswall. Alle Zugangswege müssen abgesichert werden.
 
 **Passwort-Richtlinien:**
 - Mindestens 8 Zeichen
-- Kombination aus Groß-/Kleinbuchstaben, Zahlen und Sonderzeichen
+- Kombination aus Gross-/Kleinbuchstaben, Zahlen und Sonderzeichen
 - Nicht dasselbe Passwort für alle Geräte
 - Keine Wörterbuchwörter
 
@@ -206,9 +209,9 @@ Sw-Floor-1(config-line)# end
 ```
 VTY-Leitungen (Virtual TeleType) ermöglichen Remote-Zugriff. Cisco Switches unterstützen bis zu 16 VTY-Leitungen (0–15).
 
-### 5.3 Passwörter verschlüsseln
+### Passwörter verschlüsseln
 
-Standardmäßig sind viele Passwörter in der Konfigurationsdatei im **Klartext** gespeichert. Mit einem einzigen Befehl werden alle Klartextpasswörter verschlüsselt:
+Standardmässig sind viele Passwörter in der Konfigurationsdatei im **Klartext** gespeichert. Mit einem einzigen Befehl werden alle Klartextpasswörter verschlüsselt:
 
 ```
 Sw-Floor-1(config)# service password-encryption
@@ -216,7 +219,7 @@ Sw-Floor-1(config)# service password-encryption
 
 Überprüfung mit `show running-config` – Passwörter erscheinen nun als verschlüsselte Zeichenketten (z.B. `password 7 094F471A1A0A`).
 
-### 5.4 Banner-Meldungen
+### Banner-Meldungen
 
 Bannermeldungen warnen unbefugte Personen vor einem Zugriff. Sie sind auch rechtlich wichtig – ohne Warnung kann ein unbefugter Zugriff schwerer geahndet werden.
 
@@ -271,7 +274,7 @@ IPv4-Adressen sind **32-Bit-Werte**, dargestellt in **Dotted Decimal Notation** 
 Für die Kommunikation benötigt ein Gerät:
 - **IP-Adresse**: Eindeutige Identifikation im Netzwerk (z.B. `192.168.1.10`)
 - **Subnetzmaske**: Trennt Netzwerk- und Hostteil (z.B. `255.255.255.0`)
-- **Default Gateway**: IP-Adresse des Routers für Verbindungen außerhalb des lokalen Netzes
+- **Default Gateway**: IP-Adresse des Routers für Verbindungen ausserhalb des lokalen Netzes
 
 ### IPv6
 
@@ -285,13 +288,13 @@ IPv6-Adressen sind **128-Bit-Werte**, dargestellt in **Hexadezimalnotation** (ac
 - Systemsteuerung → Netzwerk → Adaptereinstellungen → Rechtsklick → Eigenschaften → TCP/IPv4
 
 ### DHCP (Automatische Konfiguration)
-Geräte können ihre IP-Adresse automatisch von einem **DHCP-Server** beziehen (Dynamic Host Configuration Protocol). Standardmäßig sind die meisten Endgeräte auf DHCP eingestellt.
+Geräte können ihre IP-Adresse automatisch von einem **DHCP-Server** beziehen (Dynamic Host Configuration Protocol). Standardmässig sind die meisten Endgeräte auf DHCP eingestellt.
 
 Für IPv6 gibt es **DHCPv6** und **SLAAC** (Stateless Address Autoconfiguration).
 
 ### Switch Virtual Interface (SVI)
 
-Ein Layer-2-Switch hat keine physische Ethernet-Schnittstelle, der man eine IP-Adresse geben kann. Um einen Switch remote verwalten zu können, wird ein **Switch Virtual Interface (SVI)** konfiguriert – standardmäßig VLAN 1.
+Ein Layer-2-Switch hat keine physische Ethernet-Schnittstelle, der man eine IP-Adresse geben kann. Um einen Switch remote verwalten zu können, wird ein **Switch Virtual Interface (SVI)** konfiguriert – standardmässig VLAN 1.
 
 ```
 Switch# configure terminal
@@ -308,7 +311,7 @@ Switch(config-if)# no shutdown
 
 Netzwerktechniker müssen mit **drei Zahlensystemen** umgehen können: Dezimal (für Menschen), Binär (für Maschinen) und Hexadezimal (für IPv6 und MAC-Adressen).
 
-### 8.1 Binärsystem (Basis 2)
+### Binärsystem (Basis 2)
 
 Computer und Netzwerkgeräte arbeiten intern nur mit **Bits** (0 und 1). IPv4-Adressen sind im Kern 32-Bit-Binärzahlen.
 
@@ -341,7 +344,7 @@ Jedes Bit mit seinem Stellenwert multiplizieren und addieren:
 
 #### Dezimal → Binär
 
-Algorithmus: Beginne beim größten Stellenwert (128).
+Algorithmus: Beginne beim grössten Stellenwert (128).
 - Ist die Zahl ≥ Stellenwert? → schreibe **1**, subtrahiere den Stellenwert
 - Ist die Zahl < Stellenwert? → schreibe **0**, gehe weiter
 
@@ -360,7 +363,7 @@ Algorithmus: Beginne beim größten Stellenwert (128).
 Ergebnis: 10101000
 ```
 
-### 8.2 Hexadezimalsystem (Basis 16)
+### Hexadezimalsystem (Basis 16)
 
 Hexadezimal (Hex) verwendet 16 Symbole: **0–9** und **A–F**.
 
@@ -412,7 +415,7 @@ D = 1101, 2 = 0010
 → 128+64+16+2 = 210
 ```
 
-### 8.3 Zusammenfassung: Umrechnungswege
+### Zusammenfassung: Umrechnungswege
 
 ```mermaid
 flowchart LR
@@ -426,7 +429,7 @@ flowchart LR
 
 ---
 
-## 9. Vollständige Erstkonfiguration eines Switches (Zusammenfassung)
+## 9. Vollständige Erstkonfiguration eines Switches
 
 ```
 Switch> enable
@@ -469,3 +472,167 @@ Sw-Floor-1# copy running-config startup-config
 | Oktet | 8-Bit-Gruppe in einer IPv4-Adresse |
 | Hextet | 16-Bit-Gruppe (4 Hex-Zeichen) in einer IPv6-Adresse |
 | Positionale Notation | Stellenwert-basiertes Zahlensystem |
+
+
+
+<Callout type="danger"> 
+## Summary Module 2: Basic Switch and End Device Configuration
+</Callout>
+
+**IOS Access Methods**
+- **Console** — Used for initial configurations and maintenance via a physical management port.
+- **SSH (Secure Shell)** — Secure remote CLI connection through a virtual interface over a network (recommended).
+- **Telnet** — Insecure remote CLI connection over the network (not recommended, transmits data in plaintext).
+
+**IOS Primary Command Modes** — Hierarchical command structure where each mode has a distinctive prompt and is used to accomplish particular tasks.
+- **User EXEC Mode** — Allows access to only a limited number of basic monitoring commands. Identified by the CLI prompt that ends with the `>` symbol.
+- **Privileged EXEC Mode** — Allows access to all commands and features. Identified by the CLI prompt that ends with the `#` symbol.
+
+**Configuration Mode and Subconfiguration Modes**
+- **Global Configuration Mode** — `Switch(config)#` — Access configuration options on the device. Sub configuration modes can be accessed from here.
+- **Line Configuration Mode** — `Switch(config-line)#` — Configure console, SSH, Telnet or AUX access.
+- **Interface Configuration Mode** — `Switch(config-if)#` — Configure a switch port or router interface.
+
+**Navigation Between IOS Modes**
+- `enable` — Move from user EXEC mode to privileged EXEC mode.
+- `configure terminal` — Move into global configuration mode / `exit` — Return to privileged EXEC mode.
+- `line <line type>` — Move into line configuration mode / `exit` — Return to global configuration mode.
+- `exit` — Get back to global configuration mode / `end` (or `Ctrl+Z`) — Return to privileged EXEC mode.
+- To move directly from one subconfiguration mode to another, type in the desired subconfiguration mode command.
+  - Example: `Switch(config-line)# interface FastEthernet 0/1` ➜ `Switch(config-if)#`
+
+### The Command Structure
+
+Prompt ➜ Command ➜ Space ➜ Keyword/Argument, e.g. `Switch> ping 192.168.10.5`
+
+**Syntax Check**
+- **bold** — commands and keywords entered literally as shown.
+- *italic* — arguments to supply values.
+- `[x]` — optional keyword or argument.
+- `{x}` — required keyword or argument.
+- `[x {y | z}]` — required choice within an optional element.
+- Spaces are used to delineate parts of the command.
+
+**Help Features** — `?` accesses context-sensitive help / Command syntax check verifies that a valid command was entered.
+
+**Hot Keys**
+- Keywords can be shortened to the minimum number of characters that identify unique selection, e.g. `configure` ➜ `conf`
+- `Tab` — Completes a partial command name entry.
+- `Backspace` — Erases character left of the cursor.
+- `Left Arrow` or `Ctrl+B` — Moves cursor one character to the left.
+- `Right Arrow` or `Ctrl+F` — Moves cursor one character to the right.
+- `Up Arrow` or `Ctrl+P` — Recall commands in history buffer.
+- `Ctrl+C` or `Ctrl+Z` — End configuration mode and return to privileged EXEC mode.
+- `Ctrl+Shift+6` — All-purpose break sequence to abort DNS lookups, traceroutes, pings etc.
+
+**`--More--` (Space on Terminal)**
+- `Enter Key` — Display the next line.
+- `Down Arrow` — Allows scrolling through command history.
+- `Ctrl+A` — Go to the beginning of the line.
+- `Ctrl+E` — Go to the end of the line.
+- `Ctrl+R` — Redisplays a line.
+- `Space Bar` — Display the next screen.
+- Any other key — Ends the display string, return to privileged EXEC mode.
+
+### Basic Device Configuration
+
+**Hostname** — `no hostname` returns the switch to the default prompt.
+- Naming Convention: Start with letter, no spaces, end with letter or digit, use only letters digits and dashes, less than 64 characters in length.
+
+**Passwords** — Encrypted; all networking devices should limit administrative access by securing privileged EXEC, user EXEC, remote Telnet access with passwords. >8 characters, upper- and lowercase letters, numbers, special characters, not same password for multiple devices, no common words.
+
+**Configure Passwords**
+- Securing **user EXEC** mode: `line console 0` ➜ `password <password>` ➜ `login`
+- Securing **privileged EXEC** mode: (in global config) `enable secret <password>`
+- Securing **VTY** access: `line vty 0 15` ➜ `password <password>` ➜ `login`
+- Encrypt passwords: `service password-encryption` — encrypts all passwords / `show running-config` — verify passwords are now encrypted.
+
+**Banner Messages** — `banner motd # the message of the day #` — displayed on all attempts to access the device.
+
+**Save Configurations**
+- `startup-config` — Stored in NVRAM; used by device upon startup or reboot; persists when powered off.
+- `running-config` — Stored in RAM (volatile); reflects current configuration; not saved on shutdown or reboot.
+- `copy running-config startup-config` (privileged EXEC) — Save running config to startup config.
+
+**Alter Running Configurations** (privileged EXEC mode)
+- Running config **not saved**: `reload` — reloads device (brief downtime).
+- Running config **was saved**: `erase startup-config` ➜ `reload` — clears all configurations.
+
+### Ports and Addresses
+
+**IPv4** — Dotted decimal notation, decimal numbers between 0–255. IPv4 subnet mask is a 32-bit value that differentiates the network portion from the host portion. Default gateway is the IP address of the router that the host uses to access remote networks.
+
+**IPv6** — 128 bits in length, multiple strings of hex values, four bits represented by one hex digit, total 32 hex values, groups of four hex digits separated by a colon `:`, not case-sensitive.
+
+**Interfaces and Ports** — Network communications depend on end user device interfaces, networking device interfaces, and the cables connecting them. Twisted-pair copper cables, fiber-optic cables, coaxial cables, or wireless.
+
+### Configure IP Addressing
+
+**Switch Virtual Interface (SVI)** — To remotely manage a switch, must be configured with IP configuration. A switch does not have a physical Ethernet interface; must configure the VLAN 1 SVI (IP address, subnet mask, `no shutdown` to enable it).
+
+**Configure an SVI on a Switch:**
+```
+configure terminal
+interface vlan 1
+ip address <ip-address> <subnet-mask>
+no shutdown
+```
+
+**Interfaces and Ports on Switch** — Cisco IOS Layer 2 switches have physical ports for devices to connect (ports do not support Layer 3 IP addresses). To remotely connect and manage a Layer 2 switch, must be configured with one or more SVIs. Each switch has a default VLAN 1 SVI. A Layer 2 switch does not need an IP address to operate; the SVI IP address is for remote management only.
+
+
+---
+---
+---
+<Callout type="danger"> 
+## Summary Module 5: Number Systems
+</Callout>
+
+**Converting Binary to Decimal** — `(11000000.10101000.00001011.00001010)2` ➜ `(192.168.11.10)10`
+- 255 is max dec value (subnet) ➜ Positions are 128 (27), 64 (26), 32 (25), 16 (24), 8 (23), 4 (22), 2 (21), 1 (20).
+- `1 1 0 0 0 0 0 0` ➜ 1x128, 1x64, 0x32, 0x16, 0x8, 0x4, 0x2, 0x1 ➜ 128 + 64 + 0 + 0 + 0 + 0 + 0 + 0 ➜ **192**
+- `1 0 1 0 1 0 0 0` ➜ 1x128, 0x64, 1x32, 0x16, 1x8, 0x4, 0x2, 0x1 ➜ 128 + 0 + 32 + 0 + 8 + 0 + 0 + 0 ➜ **168**
+- `0 0 0 0 1 0 1 1` ➜ 0x128, 0x64, 0x32, 0x16, 1x8, 0x4, 1x2, 1x1 ➜ 0 + 0 + 0 + 0 + 8 + 0 + 2 + 1 ➜ **11**
+- `0 0 0 0 1 0 1 0` ➜ 0x128, 0x64, 0x32, 0x16, 1x8, 0x4, 1x2, 0x1 ➜ 0 + 0 + 0 + 0 + 8 + 0 + 2 + 0 ➜ **10**
+
+**Converting Decimal to Binary** — `(168)10` ➜ `(10101000)2`
+- 168 > 128? ➜ Yes, enter 1 in 128 position and subtract 128 (168−128=40)
+- 40 > 64? ➜ No, enter 0 in 64 position and move on
+- 40 > 32? ➜ Yes, enter 1 in 32 position and subtract 32 (40−32=8)
+- 8 > 16? ➜ No, enter 0 in 16 position and move on
+- 8 > 8? ➜ Equal. Enter 1 in 8 position and subtract 8 (8−8=0)
+- No values left ➜ Enter 0 in remaining binary positions
+
+**Hexadecimal and IPv6** — Range: Digits 0–9, Letters A–F, 128 bits in length, 4 bits = single hex digit, total of 32 hex values, four hex characters = hextet.
+
+**Converting Decimal to Hex** — `(168)10` ➜ `(A8)16`
+- 168 in binary is `10101000`.
+- `10101000` ➜ split into `1010` and `1000`.
+- `(1010)2` ➜ `(A)16`
+- `(1000)2` ➜ `(8)16`
+
+**Converting Hexadecimal to Decimal** — `(D2)16` ➜ `(210)10`
+- D2 in 4-bit binary strings is `1110` and `0010`.
+- `1101` and `0010` is `11010010` in an 8-bit grouping.
+
+### Reference Table
+| 1 | 2 | 3 | 4 | 5  | 6  | 7  | 8   | 9   | 10  | 11   | 12   | 13   | 14   | 15    | 16    | 17    |
+|---|---|---|---|----|----|----|-----|-----|-----|------|------|------|------|-------|-------|-------|
+| 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | 32768 | 65536 | 
+
+
+| Decimal | Hex | Binary || Decimal | Hex | Binary |
+|---------|-----|-----------|---|---------|-----|-----------| 
+| 0 | 00 | 0000 0000 |  | 10 | 0A | 0000 1010 |
+| 1 | 01 | 0000 0001 |  | 11 | 0B | 0000 1011 |
+| 2 | 02 | 0000 0010 |  | 12 | 0C | 0000 1100 |
+| 3 | 03 | 0000 0011 |  | 13 | 0D | 0000 1101 |
+| 4 | 04 | 0000 0100 |  | 14 | 0E | 0000 1110 |
+| 5 | 05 | 0000 0101 |  | 15 | 0F | 0000 1111 |
+| 6 | 06 | 0000 0110 |  | 16 | 10 | 0001 0000 |
+| 7 | 07 | 0000 0111 |  | 17 | 11 | 0001 0001 |
+| 8 | 08 | 0000 1000 |  | 18 | 12 | 0001 0010 |
+| 9 | 09 | 0000 1001 |
+
+
+<BaseConverter client:load />

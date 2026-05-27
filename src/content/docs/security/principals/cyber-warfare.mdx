@@ -4,6 +4,7 @@ description: "How nations use cyberattacks as instruments of statecraft — espi
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import { Aside } from '@astrojs/starlight/components';
+import Callout from '../../../../components/Callout.astro';
 
 Cyber warfare is the use of digital attacks by nation-states (or state-sponsored actors) to disrupt, damage, or destroy another nation's infrastructure, steal strategic information, or influence populations. It is now a permanent feature of geopolitical competition — every major military power has dedicated offensive cyber units, and cyberattacks regularly accompany or precede conventional military operations.
 
@@ -71,7 +72,7 @@ Unlike conventional military operations, cyber operations are:
 
 
 
-# Landmark Incidents
+## Landmark Incidents
 
 > A timeline of the most influential cyberattacks in modern history — from early nation-state DDoS campaigns to ransomware attacks against critical infrastructure.
 
@@ -102,12 +103,11 @@ Unlike conventional military operations, cyber operations are:
 </CardGrid>
 
 ---
-
-## Estonia DDoS (2007)
-
-<Aside type="caution" title="First Nation-State Cyber Campaign">
+<Callout type="danger"> 
+### Estonia DDoS (2007)
+</Callout>
+**First Nation-State Cyber Campaign.**
 The Estonia attacks are widely considered the first large-scale cyber campaign used as a geopolitical weapon against a nation.
-</Aside>
 
 After Estonia moved a Soviet war memorial statue, Russia and Russian nationalist groups launched coordinated DDoS attacks lasting nearly three weeks.
 
@@ -126,13 +126,10 @@ After Estonia moved a Soviet war memorial statue, Russia and Russian nationalist
 **Why It Matters:** The incident transformed NATO’s approach to cybersecurity and directly led to the creation of the NATO Cooperative Cyber Defence Centre of Excellence (CCDCOE) in Tallinn.
 
 ---
-
-## Georgia Cyberattacks (2008)
-
-<Aside type="tip" title="Cyber + Kinetic Warfare">
-This was the first documented case of cyberattacks coordinated alongside conventional military operations.
-</Aside>
-
+<Callout type="danger"> 
+### Georgia Cyberattacks (2008)
+</Callout>
+*This was the first documented case of cyberattacks coordinated alongside conventional military operations.*
 Two days before Russian military forces entered Georgian territory during the South Ossetia War, cyberattacks began against Georgian government systems and media infrastructure.
 
 **What Happened**
@@ -144,12 +141,11 @@ Two days before Russian military forces entered Georgian territory during the So
 **Significance:** The attacks demonstrated how cyber operations could support physical military invasion by disrupting communications and international coordination.
 
 ---
+<Callout type="danger"> 
+### Stuxnet (2010)
+</Callout>
+**The First Known Cyberweapon,** Stuxnet proved malware could cause real-world physical destruction.
 
-## Stuxnet (2010)
-
-<Aside type="danger" title="The First Known Cyberweapon">
-Stuxnet proved malware could cause real-world physical destruction.
-</Aside>
 
 A highly sophisticated worm — attributed to the United States and Israel under *Operation Olympic Games* — targeted Siemens PLC controllers inside Iran’s Natanz uranium enrichment facility.
 
@@ -164,12 +160,11 @@ A highly sophisticated worm — attributed to the United States and Israel under
 **Discovery:** The worm accidentally escaped Natanz due to a propagation bug and was discovered in 2010 by Belarusian security firm VirusBlokAda.
 
 ---
+<Callout type="danger"> 
+### Sony Pictures Hack (2014)
+</Callout>
+**Destructive Retaliation:** The attack demonstrated how cyberattacks could be used as retaliation for media and political messaging.
 
-## Sony Pictures Hack (2014)
-
-<Aside type="note" title="Destructive Retaliation">
-The attack demonstrated how cyberattacks could be used as retaliation for media and political messaging.
-</Aside>
 
 Hackers infiltrated Sony Pictures, exfiltrated massive amounts of data, and deployed destructive wiper malware called **WhiskeyAlfa**.
 
@@ -190,11 +185,12 @@ Hackers infiltrated Sony Pictures, exfiltrated massive amounts of data, and depl
 
 ---
 
-## Ukraine Power Grid Attacks (2015–2016)
+<Callout type="danger"> 
+### Ukraine Power Grid Attacks (2015–2016)
+</Callout>
 
-<Aside type="danger" title="First Confirmed Cyber-Induced Blackout">
-These attacks marked the first confirmed cyberattacks to successfully disrupt an electrical grid.
-</Aside>
+**First Confirmed Cyber-Induced Blackout.** These attacks marked the first confirmed cyberattacks to successfully disrupt an electrical grid.
+
 
 **Actor:** Sandworm (Russian GRU)
 
@@ -205,12 +201,12 @@ These attacks marked the first confirmed cyberattacks to successfully disrupt an
 **Why It Matters:** These attacks previewed the cyber tactics later used during Russia’s broader military campaigns against Ukraine.
 
 ---
+<Callout type="danger"> 
+### SolarWinds Supply Chain Attack (2020)
+</Callout>
 
-## SolarWinds Supply Chain Attack (2020)
+**Supply Chain Compromise:** Instead of attacking targets directly, attackers compromised trusted software updates.
 
-<Aside type="caution" title="Supply Chain Compromise">
-Instead of attacking targets directly, attackers compromised trusted software updates.
-</Aside>
 
 Attackers inserted malicious code into SolarWinds Orion software updates, distributing backdoors to approximately 18,000 customers.
 
@@ -226,11 +222,11 @@ Attackers inserted malicious code into SolarWinds Orion software updates, distri
 
 ---
 
-## Colonial Pipeline (2021)
+<Callout type="danger"> 
+### Colonial Pipeline (2021)
+</Callout>
 
-<Aside type="danger" title="Critical Infrastructure Disruption">
-A criminal ransomware attack triggered national fuel shortages across the United States.
-</Aside>
+**Critical Infrastructure Disruption:** A criminal ransomware attack triggered national fuel shortages across the United States.
 
 **Actor:** DarkSide ransomware group
 
@@ -244,12 +240,10 @@ A criminal ransomware attack triggered national fuel shortages across the United
 **Why It Matters:** The attack pushed ransomware into the realm of national security policy and critical infrastructure defense.
 
 ---
-
-## Microsoft Exchange Server Hacks (2021)
-
-<Aside type="note" title="Mass Exploitation of Zero-Days">
-Thousands of organizations were compromised within days of vulnerability disclosure.
-</Aside>
+<Callout type="danger"> 
+### Microsoft Exchange Server Hacks (2021)
+</Callout>
+**Mass Exploitation of Zero-Days:** Thousands of organizations were compromised within days of vulnerability disclosure.
 
 Attackers exploited multiple Exchange Server zero-days to install web shells and maintain persistent access.
 
@@ -262,11 +256,10 @@ Attackers exploited multiple Exchange Server zero-days to install web shells and
 
 ---
 
-## Russia's Cyber Operations in Ukraine (2022–)
-
-<Aside type="tip" title="Modern Integrated Cyber Warfare">
-Cyber operations became deeply integrated into conventional military conflict.
-</Aside>
+<Callout type="danger"> 
+### Russia's Cyber Operations in Ukraine (2022–)
+</Callout>
+**Modern Integrated Cyber Warfare:** Cyber operations became deeply integrated into conventional military conflict.
 
 **Key Operations**
 - Wiper malware deployments
@@ -279,12 +272,10 @@ Cyber operations became deeply integrated into conventional military conflict.
 **Strategic Outcome:** Despite expectations, Ukrainian cyber defenses — supported by NATO and private-sector partners — proved resilient.
 
 ---
-
-## MGM Resorts Ransomware Attack (2023)
-
-<Aside type="caution" title="Social Engineering Still Works">
-The breach began with help desk social engineering rather than advanced technical exploits.
-</Aside>
+<Callout type="danger"> 
+### MGM Resorts Ransomware Attack (2023)
+</Callout>
+**Social Engineering Still Works:** The breach began with help desk social engineering rather than advanced technical exploits.
 
 Attackers manipulated MGM IT support staff into granting privileged access.
 
@@ -297,12 +288,10 @@ Attackers manipulated MGM IT support staff into granting privileged access.
 - Estimated losses exceeded $100 million
 
 ---
-
-## Change Healthcare Ransomware Attack (2024)
-
-<Aside type="danger" title="Healthcare at National Scale">
-One of the largest healthcare cyber incidents in US history.
-</Aside>
+<Callout type="danger"> 
+### Change Healthcare Ransomware Attack (2024)
+</Callout>
+**Healthcare at National Scale:** One of the largest healthcare cyber incidents in US history.
 
 Attackers compromised Change Healthcare systems and encrypted critical payment and pharmacy infrastructure.
 

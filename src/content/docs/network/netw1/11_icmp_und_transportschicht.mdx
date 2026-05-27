@@ -2,9 +2,10 @@
 title: "ICMP & Transportschicht (TCP/UDP)"
 description: "Umfassende Zusammenfassung zu ICMP-Nachrichten, Ping, Traceroute sowie den Transportprotokollen TCP und UDP inklusive Ports, Verbindungsaufbau und Flusskontrolle."
 ---
+import Callout from '../../../../components/Callout.astro';
 
-### Was ist ICMP und warum brauchen wir es?
-
+## 1. ICMP
+**Was ist ICMP und warum brauchen wir es?**
 IP ist ein verbindungsloses Protokoll – es liefert Pakete nach bestem Bemühen, garantiert aber weder Zustellung noch gibt es Feedback bei Problemen. Genau hier kommt **ICMP (Internet Control Message Protocol)** ins Spiel: Es ist ein Hilfsprotokoll auf Schicht 3, das Rückmeldungen über Probleme bei der IP-Paketverarbeitung liefert.
 
 Ohne ICMP wäre ein Netzwerkadministrator blind – er könnte nicht wissen, ob ein Paket verlorenging, ein Zielhost nicht erreichbar ist oder ein Router überlastet ist. ICMP macht Netzwerke diagnostizierbar.
@@ -17,11 +18,11 @@ Es gibt zwei Versionen:
 
 ---
 
-### 1. ICMP-Nachrichten
+### ICMP-Nachrichten
 
 Die drei wichtigsten ICMP-Nachrichtentypen, die sowohl in ICMPv4 als auch ICMPv6 existieren:
 
-#### 1.1 Host Reachability (Erreichbarkeit eines Hosts)
+#### Host Reachability (Erreichbarkeit eines Hosts)
 
 Mit der **ICMP Echo Request / Echo Reply**-Nachricht kann geprüft werden, ob ein Host im Netzwerk erreichbar ist:
 
@@ -35,7 +36,7 @@ Host A  --[Echo Request]--->  Host B
 Host A  <--[Echo Reply]----   Host B
 ```
 
-#### 1.2 Destination or Service Unreachable (Ziel nicht erreichbar)
+#### Destination or Service Unreachable (Ziel nicht erreichbar)
 
 Wenn ein Paket sein Ziel nicht erreichen kann, sendet ein Router oder der Zielhost eine **ICMP Destination Unreachable**-Nachricht zurück. Diese enthält einen **Code**, der den Grund beschreibt:
 
@@ -616,3 +617,145 @@ graph TD
 | **Well-Known Ports** | Ports 0–1023, reserviert für Standarddienste |
 | **Ephemeral Ports** | Dynamisch vom OS zugewiesene Ports für Client-Verbindungen (49152–65535) |
 | **netstat** | Netzwerk-Diagnosetool zum Anzeigen aktiver Verbindungen und Ports |
+
+
+
+<Callout type="danger"> 
+## Summary Module 13: ICMP
+</Callout>
+
+**ICMP** — The Internet Control Message Protocol is a supporting protocol in the internet protocol suite. Used by network devices to send error messages and operational information indicating success or failure when communicating with another IP address.
+
+**ICMPv4 and ICMPv6 Messages** — Provide feedback about issues related to the processing of IP packets. Include host reachability, destination or service unreachable, and time exceeded. ICMPv4 messages are not required and often not allowed for security reasons.
+
+**Host Reachability** — ICMP echo message tests reachability of a host. Source sends echo request; if available, destination responds with echo reply.
+
+**Destination or Service Unreachable** — Notifies source that destination or service is unreachable; includes code indicating why packet could not be delivered.
+
+| Code | ICMPv4 | ICMPv6 |
+|------|--------|--------|
+| 0 | Net unreachable | No route to destination |
+| 1 | Host unreachable | Communication administratively prohibited (e.g. firewall) |
+| 2 | Protocol unreachable | Beyond scope of source address |
+| 3 | Port unreachable | Address unreachable |
+| 4 | — | Port unreachable |
+
+**Time Exceeded** — TTL field reaches 0 → ICMPv4 Time Exceeded message sent to source. ICMPv6 uses the Hop Limit field. Used by `traceroute` command on Cisco routers.
+
+### ICMPv6 Messages (NDP)
+
+Four new protocols as part of Neighbor Discovery Protocol (ND/NDP).
+
+| Message Pair | Used Between | Purpose |
+|-------------|-------------|---------|
+| RS / RA | IPv6 device ↔ IPv6 router | Dynamic address allocation, router discovery |
+| NS / NA | IPv6 device ↔ IPv6 device | Duplicate Address Detection (DAD), address resolution |
+
+**RA Messages** — Sent every 200 sec by IPv6-enabled router. Can include prefix length, DNS address, domain name. Hosts using SLAAC set default gateway to link-local address of router that sent RA.
+
+**DAD (Duplicate Address Detection)** — Device sends NS with own IPv6 address as target → if another device responds with NA, address is already in use.
+
+**Address Resolution** — Device sends NS to solicited node address with known (targeted) IPv6 address → Device with that address responds with NA containing its Ethernet MAC address.
+
+### Ping and Traceroute
+
+- **`ping`** — Tests IPv4/IPv6 connectivity using ICMP echo request and reply. First ping commonly returns a timeout (ARP or ND must be performed first).
+- **Ping loopback** (`127.0.0.1` / `::1`) — On error → TCP/IP is not operational.
+- **Ping default gateway** — On success → Host and router interface are both operational.
+- **Ping remote host** — On success → Local host can communicate across the internetwork. Many admins restrict ICMP for security.
+- **`tracert`** (Windows) — Tests the path between two hosts, provides list of hops. `*` indicates a lost or unreplied packet; may indicate a problematic or restricted router.
+
+
+<Callout type="danger"> 
+## Summary Module 14: Transport Layer
+</Callout>
+
+**Transport Layer** — Responsible for logical communications between applications on different hosts. Link between application layer and lower layers responsible for network transmission. Tracks individual conversations, segments and reassembles data, adds header information, uses segmentation and multiplexing to enable interleaved communication.
+
+**Transport Layer Protocols** — IP is not responsible for delivery specification → transport layer protocols specify type of transfer: TCP or UDP.
+
+### TCP — Transmission Control Protocol
+
+Connection/session-oriented, ensures reliable and same-order delivery, supports flow control. Responsible for numbering and tracking data segments, acknowledging received data, retransmitting unacknowledged data. Used by databases, web browsers, email clients.
+
+**TCP Header Fields**
+
+| Field | Size | Description |
+|-------|------|-------------|
+| Source Port | 16-bit | Identifies source application by port number |
+| Destination Port | 16-bit | Identifies destination application by port number |
+| Sequence Number | 32-bit | Used for data reassembly |
+| Acknowledgment Number | 32-bit | Indicates data received; next byte expected from source |
+| Header Length | 4-bit | "Data offset"; length of TCP segment header |
+| Reserved | 6-bit | Reserved for future use |
+| Control Bits | 6-bit | Bit codes/flags indicating purpose and function of TCP segment |
+| Window Size | 16-bit | Number of bytes that can be accepted per time |
+| Checksum | 16-bit | Error checking of segment header and data |
+| Urgent | 16-bit | Indicates if contained data is urgent |
+
+**TCP Control Bits (Flags)**
+- `URG` — Urgent pointer field significant.
+- `ACK` — Acknowledgment; used in connection establishment and session termination.
+- `PSH` — Push function.
+- `RST` — Reset the connection (error or timeout).
+- `SYN` — Synchronize sequence numbers; used in connection establishment.
+- `FIN` — No more data from sender; used in session termination.
+
+**Three-Way Handshake (Connection Establishment)**
+1. Client → Server: Client sends `SYN`.
+2. Client ← Server: Server sends `SYN, ACK`.
+3. Client → Server: Client sends `ACK`.
+
+**TCP Session Termination**
+1. Client → Server: Client sends `FIN` (no more data).
+2. Client ← Server: Server sends `ACK`.
+3. Client ← Server: Server sends `FIN`.
+4. Client → Server: Client sends `ACK`.
+
+**Reliability and Flow Control** — All data must be received and reassembled in original order (via sequence numbers). SACK (Selective Acknowledgment) allows receiver to explicitly acknowledge which segments were received. MSS (Maximum Segment Size) — max amount of data the destination device can receive.
+
+### UDP — User Datagram Protocol
+
+Data reconstructed in the order received, no retransmission, no session establishment, sender not informed about resource availability. Reduces delays. Used for video streams, simple request/reply apps (DNS, DHCP), and apps that handle reliability themselves (SNMP, TFTP).
+
+**UDP Header Fields**
+
+| Field | Size | Description |
+|-------|------|-------------|
+| Source Port | 16-bit | Identifies source application by port number |
+| Destination Port | 16-bit | Identifies destination application by port number |
+| Length | 16-bit | Length of UDP datagram header |
+| Checksum | 16-bit | Error checking of datagram header and data |
+
+**UDP Communication** — No connection establishment, low overhead, no sequence number tracking → no way to reorder datagrams.
+
+### Port Numbers
+
+16-bit. TCP and UDP use port numbers to manage multiple simultaneous conversations. Socket = combination of source and destination port number.
+
+| Group | Range | Description |
+|-------|-------|-------------|
+| Well-known | 0 – 1023 | Reserved for common applications |
+| Registered | 1024 – 49151 | Registered ports |
+| Private / Dynamic | 49152 – 65535 | Private or dynamic use |
+
+**Common Port Numbers**
+
+| Port | Protocol | Application |
+|------|----------|-------------|
+| 20 | TCP | FTP (data) |
+| 21 | TCP | FTP (control) |
+| 22 | TCP | SSH |
+| 23 | TCP | Telnet |
+| 25 | TCP | SMTP |
+| 53 | UDP & TCP | DNS |
+| 67 | UDP | DHCP (server) |
+| 68 | UDP | DHCP (client) |
+| 69 | UDP | TFTP |
+| 80 | TCP | HTTP |
+| 110 | TCP | POP3 |
+| 143 | TCP | IMAP |
+| 161 | UDP | SNMP |
+| 443 | TCP | HTTPS |
+
+**`netstat`** (Windows) — Verifies active connections. Default resolves IPs to domain names and ports to well-known apps. `-n` option displays IPs and ports in numerical form.

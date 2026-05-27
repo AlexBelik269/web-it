@@ -2,6 +2,8 @@
 title: "HTTP Security Headers"
 description: "The complete guide to HTTP security headers — what each one does, how to configure it correctly, and how to set them across major frameworks."
 ---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import Callout from '../../../../components/Callout.astro';
 
 HTTP security headers are directives sent from your server to the browser that instruct it how to behave when handling your content. They are the fastest, highest-ROI security controls available — a one-time configuration change that mitigates entire classes of attacks. Yet they are routinely missing or misconfigured.
 
@@ -220,8 +222,9 @@ Cross-Origin-Opener-Policy: same-origin
 | `same-origin-allow-popups` | Isolates from cross-origin openers, but popups are allowed |
 | `same-origin` | Full isolation — your page gets its own process, enabling `SharedArrayBuffer` |
 
+<Callout type="tip">
 ### Cross-Origin-Embedder-Policy (COEP)
-
+</Callout>
 Requires all cross-origin resources to explicitly opt in to being loaded.
 
 ```
@@ -230,7 +233,14 @@ Cross-Origin-Embedder-Policy: require-corp
 
 Combined with `COOP: same-origin`, this enables **cross-origin isolation** — required for `SharedArrayBuffer` and high-precision timers (`performance.measureUserAgentSpecificMemory()`).
 
-### Cross-Origin-Resource-Policy (CORP)
+<Callout type="tip">
+#### Cross-Origin-Resource-Policy (CORP)
+</Callout>
+
+<Callout type="tip">
+##### Cross-Origin-Resource-Policy (CORP)
+</Callout>
+
 
 Set on resources (images, scripts, fonts) to specify which origins can include them.
 
@@ -262,8 +272,8 @@ Cache-Control: public, max-age=31536000, immutable
 
 ## Setting Headers in Frameworks
 
-### Express.js (Helmet)
-
+<Tabs syncKey="lang">
+<TabItem label="JavaScript">
 ```javascript
 import helmet from 'helmet';
 
@@ -286,11 +296,9 @@ app.use(helmet({
   referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
 }));
 ```
-
-### Django (django-csp + SecurityMiddleware)
-
+</TabItem>
+<TabItem label="Python">
 ```python
-# settings.py
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'csp.middleware.CSPMiddleware',
@@ -309,9 +317,8 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_FRAME_ANCESTORS = ("'none'",)
 ```
-
-### Spring Boot
-
+</TabItem>
+<TabItem label="Java">
 ```java
 @Configuration
 public class SecurityConfig {
@@ -334,9 +341,8 @@ public class SecurityConfig {
     }
 }
 ```
-
-### nginx
-
+</TabItem>
+<TabItem label="nginx">
 ```nginx
 # In server {} or location {} block
 add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
@@ -346,7 +352,8 @@ add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
 add_header Content-Security-Policy "default-src 'self'; script-src 'self'; frame-ancestors 'none'; upgrade-insecure-requests" always;
 ```
-
+</TabItem>
+</Tabs>
 ---
 
 ## Quick Reference Checklist
