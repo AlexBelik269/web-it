@@ -1,11 +1,12 @@
 ---
-title: "ISF – SW08: Informations-Sicherheits-Management-Systeme (ISMS) & Standards"
+title: "Informations-Sicherheits-Management-Systeme"
 description: "Überblick über Management-Systeme, ISMS-Typen (ISO 27001, BSI, ISIS12, VDS 10000), Normungsorganisationen (ISO, IEC, BSI), das NIST Cybersecurity Framework sowie den Schweizer IKT-Minimalstandard."
 ---
+import Callout from '../../../../components/Callout.astro';
 
-
+<Callout type="green"> 
 ## 1. Was ist ein Management-System?
-
+</Callout>
 Ein **Management-System** ist ein systematisches, gezieltes und geplantes Vorgehen zur Umsetzung der Unternehmenspolitik und von Unternehmenszielen. Es steuert betriebliche Prozesse, initiiert eine Prozessstrukturierung und optimiert bestehende Abläufe.
 
 Gemäss **DIN EN ISO/IEC 27000:2017-10, Kap. 3.2.5** umfasst ein Managementsystem:
@@ -36,9 +37,9 @@ graph LR
 Der PDCA-Zyklus ist der Kern jedes modernen Management-Systems – egal ob ISO 9001 (Qualität), ISO 14001 (Umwelt) oder ISO 27001 (Informationssicherheit). Er verhindert, dass Sicherheitsmassnahmen einmalig eingeführt und dann vergessen werden.
 
 ---
-
+<Callout type="green"> 
 ## 2. Was ist Informationssicherheit?
-
+</Callout>
 Die **Kernziele der Informationssicherheit** sind:
 
 | Ziel | Beschreibung |
@@ -57,8 +58,9 @@ Diese drei Schutzziele werden auch als **CIA-Triade** (Confidentiality, Integrit
 
 ---
 
+<Callout type="green">
 ## 3. Das Information Security Management System (ISMS)
-
+</Callout>
 Ein **ISMS** ist kein einmaliges Projekt, sondern ein lebendiger, dauerhafter Prozess. Es beschreibt das systematische Vorgehen einer Organisation zum Schutz ihrer Informationen.
 
 ### Vorgehensmodell
@@ -88,11 +90,13 @@ Das Management trägt letztlich die Risiken und entscheidet über die eingesetzt
 
 ---
 
+<Callout type="green">
 ## 4. Verschiedene ISMS-Typen im Überblick
+</Callout>
 
 Es gibt keine „eine richtige" Lösung. Je nach Grösse, Branche und Anforderungsprofil einer Organisation eignen sich unterschiedliche Frameworks.
 
-### 4.1 ISIS12 – Informations-Sicherheitsmanagement in 12 Schritten
+### ISIS12 – Informations-Sicherheitsmanagement in 12 Schritten
 
 ISIS12 ist ein **pragmatisches, schrittweises ISMS** für kleine und mittlere Organisationen, insbesondere kommunale Verwaltungen. Es reduziert die Komplexität auf 12 klar definierte Schritte:
 
@@ -111,7 +115,7 @@ ISIS12 ist ein **pragmatisches, schrittweises ISMS** für kleine und mittlere Or
 
 > **Schutzbedarf** beschreibt, welcher Schutz für die Geschäftsprozesse, die dabei verarbeiteten Informationen und die eingesetzte IT ausreichend und angemessen ist (BSI Grundschutz Kompendium).
 
-### 4.2 VDS 10000 – ISMS für KMU
+### VDS 10000 – ISMS für KMU
 
 VDS 10000 ist ein Regelwerk des VdS (Verband der Sachversicherer), einer renommierten Institution für Unternehmenssicherheit. Es definiert **Mindestanforderungen an die Informationssicherheit** für kleine und mittlere Unternehmen und deckt folgende Bereiche ab:
 
@@ -122,7 +126,7 @@ VDS 10000 ist ein Regelwerk des VdS (Verband der Sachversicherer), einer renommi
 - Zugänge, Datensicherung, Risikoanalyse
 - Störungen, Ausfälle, Sicherheitsvorfälle
 
-### 4.3 BSI 200-1 – ISMS nach IT-Grundschutz
+### BSI 200-1 – ISMS nach IT-Grundschutz
 
 Das **Bundesamt für Sicherheit in der Informationstechnik (BSI)** entwickelte mit dem Standard **BSI 200-1** ein ISMS-Framework, das sich besonders für deutsche Behörden eignet, aber auch für andere Organisationen verwendbar ist.
 
@@ -149,7 +153,7 @@ graph TB
 
 Das ISMS nach BSI 200-1 umfasst die Bereiche: Sicherheitsprozess, Ressourcen, Mitarbeiter und Managementprinzipien – visualisiert als Rad, in dessen Mitte das ISMS steht.
 
-### 4.4 ISO/IEC 27001 – Das internationale ISMS
+### ISO/IEC 27001 – Das internationale ISMS
 
 **ISO 27001** ist der weltweit anerkannte Standard für ISMS. Die Vorgehensweise lässt sich vereinfacht so beschreiben:
 
@@ -173,9 +177,9 @@ flowchart LR
 ```
 
 ---
-
+<Callout type="green">
 ## 5. ISMS im Vergleich
-
+</Callout>
 | ISMS | Pro | Contra |
 |------|-----|--------|
 | **ISIS12** | Einfach, sehr konkret | Gegen Gebühr, nicht international anerkannt, skaliert nicht gut |
@@ -186,9 +190,9 @@ flowchart LR
 **Wahl des richtigen ISMS:** Für eine Schweizer KMU ohne internationale Geschäftsbeziehungen kann ISIS12 oder VDS 10000 ausreichen. Für international tätige Unternehmen oder solche mit hohem Sicherheitsbedarf ist ISO 27001 die richtige Wahl. Schweizer Bundesstellen orientieren sich zunehmend am IKT-Minimalstandard (siehe Abschnitt 9).
 
 ---
-
+<Callout type="green">
 ## 6. Standards und Normen – Grundlagen
-
+</Callout>
 ### Was ist der Unterschied zwischen Norm, Standard und Framework?
 
 | Begriff | Beschreibung |
@@ -218,9 +222,9 @@ graph TB
 ```
 
 ---
-
+<Callout type="green">
 ## 7. ISO – Die internationale Normungsorganisation
-
+</Callout>
 Die **International Organization for Standardization (ISO)** ist die weltweit wichtigste Normungsorganisation:
 
 - Gegründet **1947**, Sitz in **Genf**
@@ -253,8 +257,9 @@ Ein ISO-Standard durchläuft folgende Phasen, bevor er veröffentlicht wird:
 Die **International Electrotechnical Commission (IEC)** normiert im Bereich Elektrotechnik und Elektronik. Wird eine Norm gemeinsam von ISO und IEC entwickelt, erhält sie den Doppelnamen **ISO/IEC** (z.B. ISO/IEC 27001). In Deutschland wird diese dann als **DIN EN ISO/IEC** bezeichnet – „Deutsche Norm auf Grundlage einer Europäischen Norm, die auf einer Internationalen Norm der ISO/IEC beruht."
 
 ---
-
+<Callout type="green">
 ## 8. Die ISO 27000-Familie
+</Callout>
 
 Die ISO 27000-Reihe ist eine umfangreiche Familie von Standards speziell für Informationssicherheit. An ihrer Spitze steht **ISO/IEC 27000** als Begriffsdefinitionsstandard.
 
@@ -315,9 +320,9 @@ Leitfaden für die Umsetzung eines Managementsystems zur Erkennung und Behandlun
 - Kontinuierliche Verbesserung
 
 ---
-
+<Callout type="green">
 ## 9. BSI-Standards und IT-Grundschutz-Kompendium
-
+</Callout>
 Das **Bundesamt für Sicherheit in der Informationstechnik (BSI)** ist die nationale Behörde für IT-Sicherheit in Deutschland (gegründet 1991, Sitz Bonn, >600 Mitarbeiter).
 
 ### Die BSI-Standardreihe
@@ -362,9 +367,9 @@ Der IT-Grundschutz ist **konkreter** als ISO 27001: Wo ISO 27001 im Anhang A sag
 Die IT-Grundschutz-Anforderungen entsprechen aber weitgehend den Umsetzungshinweisen der ISO 27002.
 
 ---
-
+<Callout type="green">
 ## 10. NIST Cybersecurity Framework (NIST-CSF)
-
+</Callout>
 ### Was ist NIST?
 
 Das **National Institute of Standards and Technology (NIST)** ist ein US-amerikanisches physikalisches Wissenschaftslabor und eine Bundesbehörde. Ursprünglich für Gewichte und Masse zuständig, entwickelt es heute Standards und technische Empfehlungen zur Förderung von Innovation und industrieller Wettbewerbsfähigkeit.
@@ -432,9 +437,9 @@ Profile richten die Core-Funktionen an den **Geschäftsanforderungen, der Risiko
 Es gibt branchenspezifische Profile (z.B. für Elektrofahrzeug-Ladeinfrastruktur, Wahlen, Smart Grid etc.).
 
 ---
-
+<Callout type="green">
 ## 11. Weitere relevante Standards
-
+</Callout>
 ### ITIL (Information Technology Infrastructure Library)
 Framework für **Organisation und Prozesse des IT Service Managements**. Fokus auf die Bereitstellung von IT-Services, nicht primär auf Sicherheit.
 
@@ -455,9 +460,9 @@ Branchenstandard zur Sicherung von **Karteninhaberdaten** bei Zahlungskartentran
 Internationaler Standard zur **Prüfung und Bewertung der Sicherheitseigenschaften von IT-Produkten**. Ermöglicht die Zertifizierung von Hardware und Software auf definierten Evaluationsstufen (EAL 1-7).
 
 ---
-
+<Callout type="green">
 ## 12. IKT-Minimalstandard (Schweiz)
-
+</Callout>
 Der **IKT-Minimalstandard** ist das Schweizer Pendant zum NIST-CSF, entwickelt vom Bundesamt für wirtschaftliche Landesversorgung (BWL).
 
 ### Ziel und Zweck
@@ -486,9 +491,9 @@ graph LR
 Das Assessment-Tool ermöglicht eine Selbstbewertung des aktuellen Reifegrades (Present State) und die Definition eines Zielzustands (Target State) – visualisiert als Spinnendiagramm über die fünf Funktionsbereiche.
 
 ---
-
+<Callout type="green">
 ## 13. Managementsystem-Overkill?
-
+</Callout>
 Eine häufig gestellte Frage: Wie verhält sich ISO 27001 zu ISO 9000, 14001, 20000 etc.? Gibt es Überschneidungen?
 
 **Antwort: Ja, und das ist gewollt.** Die ISO-Normen sind nach dem **High Level Structure (HLS)**-Prinzip aufgebaut, d.h. sie teilen eine gemeinsame Kapitelstruktur (Kapitel 4-10). Das erleichtert die **integrierte Einführung** mehrerer Management-Systeme erheblich.
@@ -505,9 +510,9 @@ Eine häufig gestellte Frage: Wie verhält sich ISO 27001 zu ISO 9000, 14001, 20
 Für die Risikoanalyse im IS-Kontext gilt: ISO 27005 > ISO 31000, weil sie IS-spezifisch ist. In der Praxis implementieren viele grössere Organisationen ein **integriertes Management-System**, das mehrere ISO-Normen gleichzeitig erfüllt.
 
 ---
-
+<Callout type="danger">
 ## Zusammenfassung
-
+</Callout>
 ```mermaid
 mindmap
   root((ISMS & Standards))

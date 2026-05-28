@@ -1,10 +1,12 @@
 ---
-title: "ISF – SW05: Zugangskontrolle – Authentisierung, Autorisierung & Token"
+title: "Zugangskontrolle – Authentisierung, Autorisierung & Token"
 description: "Grundprinzipien der Zugangskontrolle, Login-Protokolle, Authentisierungsfaktoren, Token-basierte 2FA, Angriffe auf e-Banking sowie Autorisierungskonzepte und Logging."
 ---
+import Callout from '../../../../components/Callout.astro';
 
+<Callout type="green">
 ## 1. Grundprinzipien der Zugangskontrolle
-
+</Callout>
 Zugangskontrolle (engl. *Access Control*) ist eines der zentralsten Konzepte in der IT-Sicherheit. Sie beantwortet die Frage: **Wer darf was tun?** Das übergeordnete Grundprinzip lautet **Least Privilege** (auch: *Need-to-know*): Ein Benutzer erhält nur genau die Rechte, die er für seine Aufgabe benötigt – nicht mehr.
 
 ### Die vier Säulen der Zugangskontrolle
@@ -29,13 +31,15 @@ Ein weiteres Grundprinzip ist **Defense-in-depth** (Schichtensicherheit): Sicher
 
 ---
 
+<Callout type="green">
 ## 2. Login-Protokolle
+</Callout>
 
 Ein Login-Protokoll besteht immer aus zwei Phasen:
 1. **Setup**: Gemeinsames Einrichten der Credentials (z. B. Passwort wählen, Schlüsselpaar erstellen)
 2. **Login**: Der eigentliche Anmeldevorgang
 
-### 2.1 Passwort-Login
+### Passwort-Login
 
 Das einfachste Verfahren: Alice sendet ihren Benutzernamen und ihr Passwort an den Server. Der Server vergleicht das empfangene Passwort mit dem gespeicherten Hash.
 
@@ -43,7 +47,7 @@ Das einfachste Verfahren: Alice sendet ihren Benutzernamen und ihr Passwort an d
 
 **Problem:** Das Passwort wird im Klartext über das Netz übertragen (nur durch TLS geschützt). Wird die Verbindung abgehört, ist das Passwort kompromittiert.
 
-### 2.2 Challenge-Response mit symmetrischer Kryptographie
+### Challenge-Response mit symmetrischer Kryptographie
 
 Hier wird das Passwort/der Schlüssel **nie** übertragen. Stattdessen:
 
@@ -61,7 +65,7 @@ Der **HMAC** (Hash-based Message Authentication Code) berechnet einen Authentisi
 
 **Warum eine Challenge?** Die Challenge muss zufällig und einmalig sein (*Nonce*). So kann ein Angreifer, der eine frühere Response aufgezeichnet hat (*Replay-Angriff*), diese nicht erneut verwenden – die nächste Challenge ist eine andere.
 
-### 2.3 Challenge-Response mit asymmetrischer Kryptographie
+### Challenge-Response mit asymmetrischer Kryptographie
 
 Zwei Varianten:
 
@@ -83,7 +87,7 @@ response  = DEC(privateKey, challenge) → R
 
 **Vorteil beider Varianten:** Der private Schlüssel verlässt nie Alices Gerät. Selbst wenn der Server kompromittiert wird (er kennt nur den öffentlichen Schlüssel), kann sich ein Angreifer nicht als Alice ausgeben.
 
-### 2.4 Authentisierung mit Zertifikat
+### Authentisierung mit Zertifikat
 
 Erweiterung der asymmetrischen Variante: Alice übermittelt zusätzlich ihr **Zertifikat** (ausgestellt von einer vertrauenswürdigen CA). Der Server prüft zuerst das Zertifikat und danach die Signatur. So wird sichergestellt, dass der öffentliche Schlüssel wirklich zu Alice gehört.
 
@@ -98,9 +102,9 @@ Erweiterung der asymmetrischen Variante: Alice übermittelt zusätzlich ihr **Ze
 Kombination: Alice entsperrt ein Schlüsselfile auf ihrem Computer durch ein Passwort – die Maschine übernimmt dann die kryptographischen Berechnungen.
 
 ---
-
+<Callout type="green">
 ## 3. Angriffe auf Login-Protokolle
-
+</Callout>
 ### Angriffsarten
 
 ```mermaid
@@ -116,7 +120,9 @@ flowchart TD
 
 ---
 
+<Callout type="green">
 ## 4. Authentisierungsfaktoren
+</Callout>
 
 ### Die vier Faktoren
 
@@ -138,9 +144,9 @@ Es existieren verschiedene Definitionen:
 **Wichtig für Banken:** Häufig wird zusätzlich gefordert, dass die Authentisierung auf **zwei getrennten Geräten** stattfindet (nicht nur 2 Faktoren auf demselben Gerät). Warum? Wenn Malware das Gerät infiziert, sind alle Faktoren auf diesem Gerät kompromittiert.
 
 ---
-
+<Callout type="green">
 ## 5. Token für 2FA
-
+</Callout>
 Token sind physische oder softwarebasierte Geräte, die einen zweiten Authentisierungsfaktor liefern.
 
 ### Übersicht der Token-Typen
@@ -163,7 +169,7 @@ flowchart LR
 | **C/R halbautom.** | Challenge wird automatisch eingelesen (QR-Code/NFC), Antwort manuell eingegeben | Einmalpasswort = f(Schlüssel, Challenge) |
 | **C/R vollautom.** | Challenge und Response vollständig automatisch | Einmalpasswort = f(Schlüssel, Challenge) |
 
-### 5.1 Login mit mTAN (SMS)
+### Login mit mTAN (SMS)
 
 ```mermaid
 sequenceDiagram
@@ -182,13 +188,13 @@ sequenceDiagram
 
 **Was schützt das?** Ein Angreifer, der nur das Passwort kennt, kann sich nicht einloggen – er bräuchte auch die SIM-Karte/das Smartphone.
 
-### 5.2 Login mit TOTP (zeitbasierter OTP)
+### Login mit TOTP (zeitbasierter OTP)
 
 Das Token-Gerät (z. B. RSA SecurID) berechnet alle 30–60 Sekunden einen neuen Code: `OTP = f(Schlüssel, aktuelle Zeit)`. Server und Gerät sind zeitsynchronisiert und kennen denselben geheimen Schlüssel.
 
 **Vorteil:** Keine Netzwerkverbindung nötig. **Nachteil:** Anfällig für Phishing-Live-Angriffe, da der Code in einem kurzen Zeitfenster abgefangen und sofort verwendet werden kann.
 
-### 5.3 Login mit Challenge-Response (manuell)
+### Login mit Challenge-Response (manuell)
 
 ```mermaid
 sequenceDiagram
@@ -207,17 +213,17 @@ sequenceDiagram
     Bank-->>Browser: 4. Kontoinformationen
 ```
 
-### 5.4 Login mit Challenge-Response (vollautomatisch)
+### Login mit Challenge-Response (vollautomatisch)
 
 Beim automatischen Verfahren kommuniziert die Banking-App direkt mit dem Token (via QR-Code, NFC o. ä.). Der Benutzer muss nur bestätigen.
 
 **Kritischer Punkt:** Das automatische C/R-Login hat **keine Bindung an die Session**! Das Token bestätigt nur "Login ja/nein", aber nicht *welche* Session gerade bestätigt wird. Dies ist ein wichtiger Angriffspunkt.
 
 ---
-
+<Callout type="green">
 ## 6. Angriffe auf e-Banking
-
-### 6.1 Überblick der Angriffsarten
+</Callout>
+### Überblick der Angriffsarten
 
 ```mermaid
 flowchart TD
@@ -238,7 +244,7 @@ flowchart TD
 | **Man-in-the-Middle** | Angreifer schaltet sich zwischen PC und Bank | Im Netzwerk |
 | **Session Hijacking** | Gestohlenes Session-Cookie wird verwendet | Im Netzwerk |
 
-### 6.2 Retefe – Ein reales Angriffsszenario
+### Retefe – Ein reales Angriffsszenario
 
 Retefe ist eine in der Schweiz verbreitete Malware, die gezielt auf e-Banking abzielt. Die Funktionsweise ist besonders raffiniert:
 
@@ -273,34 +279,34 @@ sequenceDiagram
 
 **Warum funktioniert das?** Das installierte Root-CA-Zertifikat sorgt dafür, dass der Browser keine HTTPS-Warnung anzeigt – der Benutzer sieht ein gültiges Schloss. Der Angreifer verwendet zudem oft einen geographisch nahen kompromittierten Computer als Proxy, um geografische Sicherheitsprüfungen der Bank zu umgehen.
 
-### 6.3 Vorsicht: Credential-Verteilung
+### Vorsicht: Credential-Verteilung
 
 **Problem:** Wenn Bank, Passwort und Token im selben Brief verschickt werden, genügt ein einziger Postdiebstahl.
 
 **Lösung:** Passwort und Token in **zwei separaten Briefen mit zeitlichem Abstand** verschicken.
 
-### 6.4 Vorsicht: Credential Recovery
+### Vorsicht: Credential Recovery
 
 Credentials, die per Telefon zurückgesetzt werden können, sind **phishbar**: Ein Angreifer ruft die Bank an, gibt sich als der Kunde aus, beantwortet Sicherheitsfragen (die er über Social Engineering kennt) und erhält neue Credentials.
 
 **Lösung:** Der Telefonanruf sollte nur den Recovery-Prozess *initiieren* – das eigentliche neue Credential muss über einen sicheren Kanal (z. B. Brief an registrierte Adresse) zugestellt werden.
 
 ---
-
+<Callout type="green">
 ## 7. Vergleich der Token: Authentisierung vs. Autorisierung
-
-### 7.1 Authentisierung (Login) vs. Autorisierung (Transaktion)
+</Callout>
+### Authentisierung (Login) vs. Autorisierung (Transaktion)
 
 - **Authentisierung** schützt die *Vertraulichkeit* der Bankkundendaten (Confidentiality): Nur der echte Kunde darf seine Kontodaten sehen.
 - **Autorisierung** (Transaktionsbestätigung) schützt die *Integrität* der Transaktion (Integrity): Die Zahlung geht wirklich an den richtigen Empfänger.
 
-### 7.2 Schwachstelle: mTAN-Login – keine Transaktionsbindung
+### Schwachstelle: mTAN-Login – keine Transaktionsbindung
 
 Beim mTAN-Login sendet die Bank einen Code mit dem Kontext "Code for login: XK83L4". Der Code ist **nur für das Login** – er enthält keine Information über die Transaktion.
 
 Beim vollautomatischen C/R-Login gibt es sogar eine **Schwachstelle**: Das Token hat **keine Bindung an die Session**. Das bedeutet: Ein Angreifer könnte eine parallele Session öffnen und den Benutzer dazu bringen, versehentlich diese fremde Session zu autorisieren.
 
-### 7.3 Transaktionssignierung: mTAN (richtig)
+### Transaktionssignierung: mTAN (richtig)
 
 Beim Bezahlen sollte die SMS die **Transaktionsdetails** enthalten:
 ```
@@ -309,11 +315,11 @@ Code: XK83L4
 ```
 Der Benutzer kann so prüfen, ob die Zahlung korrekt ist, bevor er den Code eingibt.
 
-### 7.4 Transaktionssignierung: C/R manuell – Blind Signing
+### Transaktionssignierung: C/R manuell – Blind Signing
 
 **Kritisches Problem:** Beim manuellen C/R-Token gibt der Benutzer nur die Challenge ein – er sieht **nicht**, welche Transaktion er bestätigt. Der Angreifer (z. B. ein Man-in-the-Browser) könnte die angezeigte Transaktion von "CHF 100 an Freund" zu "CHF 10'000 an Angreifer" umschreiben – der Token-Code wäre dennoch gültig.
 
-### 7.5 Vergleichsmatrix: Schutz gegen Angriffsarten
+### Vergleichsmatrix: Schutz gegen Angriffsarten
 
 | Angriff | Streichliste | mTAN | TOTP | C/R manuell | C/R halbautom. | C/R vollautom. |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -329,10 +335,10 @@ Der Benutzer kann so prüfen, ob die Zahlung korrekt ist, bevor er den Code eing
 **Kernaussage:** Session Hijacking lässt sich durch Token allein nicht verhindern – dafür braucht es sicheres Session-Management. Man-in-the-Browser ist nur durch vollautomatische C/R-Token abwehrbar, die die Transaktionsdetails direkt anzeigen (z. B. auf dem Smartphone).
 
 ---
-
+<Callout type="green">
 ## 8. Autorisierungskonzepte
-
-### 8.1 Autorisierungsmodelle
+</Callout>
+### Autorisierungsmodelle
 
 **Discretionary Access Control (DAC):**
 Jede Ressource hat einen Besitzer, der Zugriffsrechte selbst vergeben kann.
@@ -344,7 +350,7 @@ Zugriffsrechte werden zentral durch eine Sicherheitspolitik vergeben, der einzel
 - Beispiel: Mitarbeiter-Badges, Sicherheitszertifikate
 - Starrer, aber sicherer
 
-### 8.2 Rollenbasierte Autorisierung (RBAC)
+### Rollenbasierte Autorisierung (RBAC)
 
 Rechte werden an **Rollen** vergeben, nicht direkt an Benutzer:
 
@@ -354,7 +360,7 @@ Rechte werden an **Rollen** vergeben, nicht direkt an Benutzer:
 | **Beispiel** | Administrator hat mehr Rechte als normaler Benutzer | Stark authentisierter Benutzer darf mehr als schwach authentisierter |
 | **Anwendung** | Berechtigungsverwaltung | Risikoabhängige Authentisierung im e-Banking |
 
-### 8.3 Risikoabhängige Autorisierung im e-Banking
+### Risikoabhängige Autorisierung im e-Banking
 
 Nicht jede Aktion benötigt das gleiche Sicherheitsniveau. Das Risiko bestimmt die Anforderungen:
 
@@ -381,9 +387,9 @@ Nicht jede Aktion benötigt das gleiche Sicherheitsniveau. Das Risiko bestimmt d
 **Psychologischer Effekt:** Benutzer überprüfen seltene Transaktionsbestätigungen sorgfältiger – daher ist es klug, Routinebestätigungen zu reduzieren.
 
 ---
-
+<Callout type="green">
 ## 9. Fehlerhafte Authentisierung (OWASP A2)
-
+</Callout>
 ### Was ist das?
 
 - Login ungenügend gegen **Brute-Force** geschützt
@@ -402,9 +408,9 @@ Nicht jede Aktion benötigt das gleiche Sicherheitsniveau. Das Risiko bestimmt d
 - **Credentials sicher speichern** (bcrypt, Argon2 – keine MD5/SHA1!)
 
 ---
-
+<Callout type="green">
 ## 10. Fehlerhafte Autorisierung (OWASP A5)
-
+</Callout>
 ### Was ist das?
 
 - Eingeschränkte Ressourcen durch direktes Aufrufen der **URL** erreichbar (Insecure Direct Object Reference)
@@ -423,9 +429,9 @@ Nicht jede Aktion benötigt das gleiche Sicherheitsniveau. Das Risiko bestimmt d
 - Zugriffsrechte in **jedem Schritt eines Workflows** prüfen
 
 ---
-
+<Callout type="green">
 ## 11. Logging und Monitoring (OWASP A10)
-
+</Callout>
 ### Warum ist Logging wichtig?
 
 Ein Angriff, der nicht erkannt wird, kann unbemerkt monatelang andauern. Real-Beispiel: Der Ruag-Hack (Schweizer Rüstungsunternehmen) begann im Dezember 2014 und wurde erst im Januar 2016 entdeckt – über **13 Monate** unbemerkte Präsenz. Ähnliche Zahlen zeigt der M-Trends-Bericht: 2011 betrug die durchschnittliche Verweildauer von Angreifern 416 Tage, bis 2019 sank sie auf 56 Tage – immer noch enorm lang.
@@ -448,9 +454,9 @@ Ein Angriff, der nicht erkannt wird, kann unbemerkt monatelang andauern. Real-Be
 - Logs **schreibgeschützt** und integer aufbewahren (Tamper-evident Logging)
 
 ---
-
+<Callout type="danger">
 ## Zusammenfassung
-
+</Callout>
 ```mermaid
 mindmap
   root((Zugangskontrolle))

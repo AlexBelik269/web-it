@@ -57,7 +57,7 @@ Wenn ein Paket sein Ziel nicht erreichen kann, sendet ein Router oder der Zielho
 | 3 | Adresse nicht erreichbar |
 | 4 | Port nicht erreichbar |
 
-#### 1.3 Time Exceeded (Zeit abgelaufen)
+#### Time Exceeded (Zeit abgelaufen)
 
 Jedes IPv4-Paket enthält ein **TTL-Feld (Time to Live)**. Jeder Router, der das Paket weiterleitet, dekrementiert diesen Wert um 1. Erreicht der TTL-Wert **0**, wird das Paket verworfen und der Router sendet eine **ICMPv4 Time Exceeded**-Nachricht an den Absender.
 
@@ -69,7 +69,7 @@ Das `traceroute`-Tool nutzt diesen Mechanismus gezielt aus (mehr dazu unten).
 
 ---
 
-### 2. ICMPv6-Erweiterungen: Neighbor Discovery Protocol (NDP)
+### ICMPv6-Erweiterungen: Neighbor Discovery Protocol (NDP)
 
 ICMPv6 ist deutlich mächtiger als ICMPv4. Es beinhaltet das **Neighbor Discovery Protocol (NDP)**, das vier neue Nachrichtentypen definiert:
 
@@ -114,7 +114,7 @@ Um die MAC-Adresse zu einer bekannten IPv6-Adresse zu finden, sendet ein Gerät 
 
 ---
 
-### 3. Ping und Traceroute
+### Ping und Traceroute
 
 #### ping – Verbindungstest
 
@@ -181,7 +181,7 @@ Tracing the route to 192.168.40.2
 
 ---
 
-## Transportschicht (Transport Layer)
+## 2. Transportschicht (Transport Layer)
 
 ### Was macht die Transportschicht?
 
@@ -568,7 +568,7 @@ Das ist für viele Echtzeitanwendungen akzeptabel – ein paar verlorene VoIP-Pa
 
 ---
 
-### Zusammenfassung: TCP vs. UDP auf einen Blick
+### TCP vs. UDP
 
 ```mermaid
 graph TD
@@ -593,7 +593,7 @@ graph TD
 
 ---
 
-### Glossar der wichtigsten Begriffe
+### Begriffe
 
 | Begriff | Erklärung |
 |---------|-----------|

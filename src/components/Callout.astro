@@ -1,6 +1,6 @@
 ---
 interface Props {
-  type?: 'note' | 'tip' | 'caution' | 'danger';
+  type?: 'note' | 'tip' | 'caution' | 'danger' | 'green' | 'yellow' ;
   title?: string;
 }
 
@@ -21,8 +21,8 @@ const {
 <style>
   .callout {
     border-left: 4px solid;
-    padding: 1rem 1.25rem;
-    margin: 1.5rem 0;
+    padding: 0.8rem 1.0rem;
+    margin: 1.2rem 0;
     border-radius: 0.5rem;
   }
 
@@ -36,17 +36,17 @@ const {
     font-weight: 600;
   }
 
-  /* NOTE */
-  .callout-note {
-    background: #e0e7ff;
-    border-color: #4f46e5;
-  }
+    /* NOTE */
+    .callout-note {
+      background: #e0e7ff;
+      border-color: #4f46e5;
+    }
 
-  .callout-note .callout-content :global(h1),
-  .callout-note .callout-content :global(h2),
-  .callout-note .callout-content :global(h3) {
-    color: #3730a3;
-  }
+    .callout-note .callout-content :global(h1),
+    .callout-note .callout-content :global(h2),
+    .callout-note .callout-content :global(h3) {
+      color: #3730a3;
+    }
 
   /* TIP */
   .callout-tip {
@@ -81,6 +81,30 @@ const {
   .callout-danger .callout-content :global(h1),
   .callout-danger .callout-content :global(h2),
   .callout-danger .callout-content :global(h3) {
-    color: #000000;
+    color: #580000;
+  }
+
+  /* GREEN */
+  .callout-green {
+    background: #d1fae5;
+    border-color: #059669;
+  }
+
+  .callout-green .callout-content :global(h1),
+  .callout-green .callout-content :global(h2),
+  .callout-green .callout-content :global(h3) {
+    color: #047857;
+  }
+
+  /* YELLOW */
+  .callout-yellow {
+    background: #fef3c7;
+    border-color: #f59e0b;
+  }
+
+  .callout-yellow .callout-content :global(h1),
+  .callout-yellow .callout-content :global(h2),
+  .callout-yellow .callout-content :global(h3) {
+    color: #92400e;
   }
 </style>

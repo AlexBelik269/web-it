@@ -1,26 +1,12 @@
 ---
-title: "ISF – SW01: Begriffe & Common Ground"
+title: "Einführung in die Informationssicherheit"
 description: "Informationssicherheit – Grundlagen"
 ---
+import Callout from '../../../../components/Callout.astro';
 
-**Informationssicherheit – Grundlagen**
-*Hochschule Luzern | 15. September 2025*
-
----
-## Lernziele
-
-Nach dieser Lektion solltest du folgendes können:
-
-- Die Bedeutung von Daten für Informationen erklären
-- Die Grundbegriffe **Sicherheit** und **Risiko** definieren und unterscheiden
-- Die Begriffe IT-Sicherheit, Datensicherheit, Cyber-Sicherheit, Informationssicherheit und integrale Sicherheit gegeneinander abgrenzen
-- Die drei Grundschutzziele (CIA) benennen und erläutern
-- Weitere Schutzziele kennen und anhand von Beispielen erklären
-
----
-
+<Callout type="green"> 
 ## 1. Einführung: Das Zeitalter des Zettabyte
-
+</Callout>
 Wir leben in einer Zeit der explodierenden Datenmenge. Laut IDC Global DataSphere wird die jährlich erzeugte, erfasste und replizierte Datenmenge bis 2025 auf **175 Zettabyte** angewachsen sein – ein nahezu unvorstellbares Volumen.
 
 ### Datengrössen im Überblick
@@ -43,9 +29,9 @@ Wir leben in einer Zeit der explodierenden Datenmenge. Laut IDC Global DataSpher
 > **Warum ist das relevant?** Je mehr Daten erzeugt und gespeichert werden, desto grösser wird die Angriffsfläche für Missbrauch, Diebstahl und Manipulation. Informationssicherheit ist deshalb kein nischiges IT-Thema, sondern eine gesellschaftliche Grundfrage.
 
 ---
-
+<Callout type="green"> 
 ## 2. Daten, Information und Wissen
-
+</Callout>
 Um zu verstehen, *was* wir schützen wollen, müssen wir zunächst verstehen, was Daten eigentlich sind – und wie sie zu Information und Wissen werden.
 
 ### Die Hierarchie: Zeichen → Daten → Information → Wissen
@@ -72,19 +58,20 @@ flowchart TD
 Francis Bacon sagte bereits im 16. Jahrhundert: **„Wissen ist Macht."** Heute gilt: Wissen ist zur entscheidenden Produktivkraft moderner Ökonomien geworden – es ist der *Rohstoff des 21. Jahrhunderts* (Ralf Fücks). Wer Informationen kontrolliert, hat Macht. Wer Informationen stiehlt oder manipuliert, kann enormen Schaden anrichten.
 
 ---
-
+<Callout type="green"> 
 ## 3. Bedrohungen für Daten und Informationen
+</Callout>
 
 Bedrohungen lassen sich in vier Kategorien einteilen:
 
-### 3.1 Menschliches Fehlverhalten
+### Menschliches Fehlverhalten
 Nicht jeder Schaden entsteht durch böse Absicht. Häufige Ursachen:
 - **Fahrlässigkeit** – z.B. ungesicherte Dokumente in der Öffentlichkeit (Beispiel: Bob Quick, ex Scotland Yard, der geheime Unterlagen unverdeckt vor Kameras trug)
 - **Gleichgültigkeit** – Sicherheitsregeln werden als lästig empfunden und ignoriert
 - **Unwissenheit** – Mitarbeitende kennen Risiken nicht
 - **Leichtgläubigkeit** – Opfer von Social Engineering (Phishing etc.)
 
-### 3.2 Organisatorische Schwachstellen
+### Organisatorische Schwachstellen
 Auch gut ausgebildete Menschen können nicht sicher handeln, wenn die Organisation es nicht ermöglicht:
 - Fehlendes Sicherheitsverständnis des Managements
 - Unklare Verantwortlichkeiten
@@ -92,20 +79,20 @@ Auch gut ausgebildete Menschen können nicht sicher handeln, wenn die Organisati
 - Mangelhafte Richtlinien und fehlende Kontrollen
 - Unzureichende Awareness-Schulungen
 
-### 3.3 Technisches Versagen
+### Technisches Versagen
 Technik ist nicht unfehlbar:
 - Ungenügende Wartung von Systemen
 - Nicht funktionierende Überwachungssysteme (z.B. IDS)
 - Falsch dimensionierte oder fehlerhaft konfigurierte Systeme
 - Fehler in Applikationen, Betriebssystemen, Firmware oder Treibern
 
-### 3.4 Höhere Gewalt
+### Höhere Gewalt
 Manche Bedrohungen sind nicht vom Menschen verursacht:
 - Unwetter, Erdbeben, Überschwemmungen, Vulkanausbrüche
 - Feuer, Wasserschäden
 - Ausschreitungen, Geiselnahme, Krieg
 
-### 3.5 Willentliche, vorsätzliche Angriffe (Internet)
+### Willentliche, vorsätzliche Angriffe (Internet)
 - Unerlaubter Zugriff auf Systeme (Hacking)
 - Abhören und Modifizieren von Daten (Man-in-the-Middle)
 - DDoS-Angriffe (Distributed Denial of Service)
@@ -127,9 +114,9 @@ Manche Bedrohungen sind nicht vom Menschen verursacht:
 Die Motivationen sind vielfältig, aber laut ENISA-Daten dominiert **Financial Gain** (ca. 26%) deutlich, gefolgt von **Ideology** (ca. 41% – insbesondere durch staatliche Akteure). Weitere Motivationen sind Spionage und Sabotage.
 
 ---
-
+<Callout type="green"> 
 ## 4. Die drei Säulen der Informationssicherheit
-
+</Callout>
 Informationen schützen bedeutet nicht nur, Firewalls zu kaufen. Drei Bereiche müssen gleichzeitig adressiert werden:
 
 | Säule | Was bedeutet das? |
@@ -141,8 +128,9 @@ Informationen schützen bedeutet nicht nur, Firewalls zu kaufen. Drei Bereiche m
 > **Warum alle drei?** Selbst die beste Technik schützt nicht, wenn Mitarbeitende auf Phishing hereinfallen. Und selbst gut ausgebildete Menschen handeln unsicher, wenn es keine klaren Prozesse gibt. Alle drei Säulen müssen ineinandergreifen.
 
 ---
-
+<Callout type="green"> 
 ## 5. Grundbegriff: Sicherheit
+</Callout>
 
 ### Definition
 
@@ -168,7 +156,9 @@ Im Deutschen gibt es nur das Wort „Sicherheit" – im Englischen wird untersch
 
 ---
 
+<Callout type="green"> 
 ## 6. Arten von Sicherheit: Abgrenzung der Begriffe
+</Callout>
 
 ### Informations-Sicherheit vs. IT-Sicherheit vs. Cyber-Sicherheit
 
@@ -176,19 +166,19 @@ Diese Begriffe werden im Alltag oft verwechselt, haben aber unterschiedliche Rei
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│               Informationssicherheit                    │
-│  (Schutz ALLER Informationen, unabhängig vom Medium)   │
+│                Informationssicherheit                   │
+│   (Schutz ALLER Informationen, unabhängig vom Medium)   │
 │                                                         │
-│    ┌──────────────────────────────────────────────┐    │
-│    │           IT-Sicherheit                      │    │
-│    │  (Schutz von IKT-Systemen)                   │    │
-│    │                                              │    │
-│    └──────────────────────────────────────────────┘    │
-│                                ┌─────────────────────┐  │
-│                                │  Cyber-Sicherheit   │  │
-│                                │  Internet & davon   │  │
-│                                │  erreichbare Systeme│  │
-│                                └─────────────────────┘  │
+│    ┌─────────────────────────────────────────────────┐  │
+│    │                 IT-Sicherheit                   │  │
+│    │            (Schutz von IKT-Systemen)            │  │
+│    │                                                 │  │
+│    └─────────────────────────────────────────────────┘  │
+│                  ┌─────────────────────┐                │
+│                  │  Cyber-Sicherheit   │                │
+│                  │  Internet & davon   │                │
+│                  │  erreichbare Systeme│                │
+│                  └─────────────────────┘                │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -220,9 +210,9 @@ Integrale Sicherheit ist die **umfassende Betrachtung aller Sicherheitsaspekte e
 - Umweltschutz, Versicherungsschutz, Notfallplanung
 
 ---
-
+<Callout type="green"> 
 ## 7. Grundbegriff: Risiko
-
+</Callout>
 ### Definition
 
 > **Duden:** „Möglicher negativer Ausgang bei einer Unternehmung, mit dem Nachteile, Verlust, Schäden verbunden sind."
@@ -270,19 +260,13 @@ Sicherheit und Risiko sind **zwei Seiten derselben Medaille**: Mehr Sicherheit b
 
 ---
 
+<Callout type="green"> 
 ## 8. Grundschutzziele der Informationssicherheit (CIA-Triad)
+</Callout>
 
 Das Fundament jeder Sicherheitsbetrachtung sind die drei **Grundschutzziele**, abgekürzt **C-I-A**:
 
-```mermaid
-graph TD
-    C["🔒 Vertraulichkeit<br/>(Confidentiality)"]
-    I["🛡 Integrität<br/>(Integrity)"]
-    A["⚡ Verfügbarkeit<br/>(Availability)"]
-    C --- I
-    I --- A
-    A --- C
-```
+![CIA Triad](./ciatriad.webp)
 
 ### C – Confidentiality (Vertraulichkeit)
 
@@ -332,9 +316,9 @@ graph TD
 **Wann wird es entdeckt?** *Unmittelbar* – wenn ein System nicht mehr verfügbar ist, fällt das sofort auf.
 
 ---
-
+<Callout type="green"> 
 ## 9. Entdeckungszeitraum der Schutzziele
-
+</Callout>
 Ein wichtiges Konzept: Nicht alle Sicherheitsverletzungen werden gleich schnell bemerkt:
 
 ```
@@ -347,17 +331,17 @@ Verfügbarkeit   Verbindlichkeit   Authentizität   Vertraulichkeit
 > **Implikation:** Eine Verletzung der Vertraulichkeit kann jahrelang unentdeckt bleiben. Unternehmen merken oft erst Monate nach einem Einbruch, dass Daten gestohlen wurden. Dies erfordert proaktive Überwachung (z.B. SIEM-Systeme, Threat Intelligence).
 
 ---
-
+<Callout type="green"> 
 ## 10. „Harvest now, decrypt later" – Y2Q
-
+</Callout>
 Ein Sonderfall, der die Zeitdimension in der Sicherheit illustriert: Staatliche Akteure sammeln heute **bereits verschlüsselte Daten**, die sie erst dann entschlüsseln wollen, wenn **Quantencomputer** leistungsfähig genug sind (Year-to-Quantum = Y2Q).
 
 Das bedeutet: Daten, die heute als sicher verschlüsselt gelten, könnten in 10–20 Jahren lesbar werden. Dies ist ein Argument für **Post-Quantum-Kryptografie**, an der NIST bereits standardisiert.
 
 ---
-
+<Callout type="green"> 
 ## 11. Erweiterte Schutzziele
-
+</Callout>
 Über die CIA-Triade hinaus gibt es weitere wichtige Schutzziele:
 
 ### Privatsphäre (Privacy)
@@ -432,9 +416,9 @@ Die **Zugriffskontrolle** umfasst:
 | **Wirksamkeit** | Effectiveness | Fähigkeit, ein gewünschtes Ergebnis zu erzielen |
 
 ---
-
+<Callout type="green"> 
 ## 12. Konflikte zwischen Schutzzielen
-
+</Callout>
 Sicherheitsanforderungen können sich **widersprechen** oder sogar **ausschliessen**:
 
 ### Authentifikation vs. Anonymität
@@ -456,30 +440,9 @@ Für die sichere Internet-Nutzung braucht es gleichzeitig:
 > **Praxisbeispiel Kryptowährungen:** Bitcoin kombiniert Anonymität (keine Klarnamen) mit Verbindlichkeit (Transaktionen sind unveränderlich auf der Blockchain). Dies ist möglich durch kryptografische Identitäten (Adressen), die keine Person direkt identifizieren – aber Transaktionen eindeutig zuordnen. Ein elegantes, aber nicht vollständiges Kompromiss zwischen den beiden Zielen.
 
 ---
-
-## 13. Glossar wichtiger Begriffe
-
-| Begriff | Definition |
-|---|---|
-| **Malware** | Oberbegriff für schädliche Software (Viren, Würmer, Trojaner, Ransomware, Spyware...) |
-| **Ransomware** | Erpresser-Malware: verschlüsselt Daten und fordert Lösegeld |
-| **Phishing** | Täuschung von Nutzern zur Preisgabe vertraulicher Daten (Password + Fishing) |
-| **DDoS** | Distributed Denial of Service – koordinierter Angriff auf die Verfügbarkeit |
-| **Drive-by-Infektion** | Infektion durch blossen Besuch einer kompromittierten Webseite |
-| **Trojaner** | Getarntes Schadprogramm, das sich als nützliche Software ausgibt |
-| **Wurm** | Selbst-replizierendes Programm, das Netzwerke ausnutzt (kein Wirt nötig) |
-| **Botnetz** | Netzwerk infizierter Computer, ferngesteuert für Angriffe |
-| **Patch** | Software-Update zur Behebung von Sicherheitslücken (Bug Fix) |
-| **Firewall** | Netzwerkkomponente, die Zugriffe auf/vom geschützten Netz kontrolliert |
-| **Backup** | Datensicherungskopie auf externem Medium, regelmässig durchgeführt |
-| **Cookies** | Textdateien im Browser, die Nutzungsverhalten speichern |
-| **Spyware** | Spionageprogramme, die Nutzerverhalten ohne Wissen übermitteln |
-| **Man-in-the-Middle** | Angreifer schaltet sich unbemerkt zwischen zwei Kommunikationspartner |
-| **Jailbreak** | Nicht-autorisiertes Entfernen von Nutzungsbeschränkungen (z.B. bei Smartphones) |
-
----
-
+<Callout type="danger">
 ## Zusammenfassung
+</Callout>
 
 ```
 Daten → Informationen → Wissen
@@ -510,6 +473,22 @@ Daten → Informationen → Wissen
   → Ziel: akzeptables Restrisiko
 ```
 
----
+## Begriffe
 
-*Nächste Woche: **Awareness** – bitte den Foliensatz vollständig lesen (gehört vollständig zum Prüfungsstoff!)*
+| Begriff | Definition |
+|---|---|
+| **Malware** | Oberbegriff für schädliche Software (Viren, Würmer, Trojaner, Ransomware, Spyware...) |
+| **Ransomware** | Erpresser-Malware: verschlüsselt Daten und fordert Lösegeld |
+| **Phishing** | Täuschung von Nutzern zur Preisgabe vertraulicher Daten (Password + Fishing) |
+| **DDoS** | Distributed Denial of Service – koordinierter Angriff auf die Verfügbarkeit |
+| **Drive-by-Infektion** | Infektion durch blossen Besuch einer kompromittierten Webseite |
+| **Trojaner** | Getarntes Schadprogramm, das sich als nützliche Software ausgibt |
+| **Wurm** | Selbst-replizierendes Programm, das Netzwerke ausnutzt (kein Wirt nötig) |
+| **Botnetz** | Netzwerk infizierter Computer, ferngesteuert für Angriffe |
+| **Patch** | Software-Update zur Behebung von Sicherheitslücken (Bug Fix) |
+| **Firewall** | Netzwerkkomponente, die Zugriffe auf/vom geschützten Netz kontrolliert |
+| **Backup** | Datensicherungskopie auf externem Medium, regelmässig durchgeführt |
+| **Cookies** | Textdateien im Browser, die Nutzungsverhalten speichern |
+| **Spyware** | Spionageprogramme, die Nutzerverhalten ohne Wissen übermitteln |
+| **Man-in-the-Middle** | Angreifer schaltet sich unbemerkt zwischen zwei Kommunikationspartner |
+| **Jailbreak** | Nicht-autorisiertes Entfernen von Nutzungsbeschränkungen (z.B. bei Smartphones) |

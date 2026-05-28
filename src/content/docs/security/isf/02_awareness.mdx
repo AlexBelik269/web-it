@@ -1,27 +1,13 @@
 ---
-title: "ISF – SW02: (Self-)Awareness in der Informationssicherheit"
+title: "(Self-)Awareness in der Informationssicherheit"
 description: "Informationssicherheit – Grundlagen"
 ---
-**Vorlesung von Prof. Dr. Peter E. Fischer | Hochschule Luzern – Informatik**  
-*Basierend auf den Vorlesungsfolien vom 21. Februar 2022*
+import Callout from '../../../../components/Callout.astro';
 
----
 
-## Lernziele
-
-Nach dieser Vorlesung solltest du in der Lage sein:
-
-- Malware-Kategorien zu unterscheiden und ihre Funktionsweise zu erklären
-- Die **5 Schritte der Informationssicherheit** zu kennen und anzuwenden
-- Die Folgen von Sorglosigkeit im Umgang mit digitalen Geräten zu verstehen
-- Das Potenzial des **Faktors Mensch** – positiv wie negativ – einzuschätzen
-- Argumente für Awareness-Schulungen zu formulieren
-- Das Grundkonzept für Awareness-Kampagnen zu erkennen und anzuwenden
-
----
-
+<Callout type="green"> 
 ## 1. Die drei Säulen der Informationssicherheit
-
+</Callout>
 Bevor wir uns dem Menschen widmen, ist es wichtig zu verstehen, dass Informationssicherheit nie aus einer einzigen Perspektive betrachtet werden kann. Sie basiert auf **drei gleichwertigen Säulen**:
 
 ```mermaid
@@ -49,9 +35,9 @@ graph TD
 Technische Massnahmen allein reichen nicht aus – ein Virenschutzprogramm schützt nicht vor einem Mitarbeitenden, der leichtfertig sein Passwort weitergibt. Prozesse ohne Technik sind wirkungslos, und Technik ohne geschulte Menschen ebenfalls. Nur das Zusammenspiel aller drei Bereiche ergibt eine robuste Sicherheitsarchitektur.
 
 ---
-
+<Callout type="green"> 
 ## 2. Was ist «Awareness»?
-
+</Callout>
 Das englische Wort **«awareness»** bedeutet auf Deutsch **Bewusstsein** – im Sinne von: sich einer Sache bewusst sein, informiert sein.
 
 > *"Awareness = Bewusstsein: sich einer Sache bewusst sein, wissen, dass etwas existiert oder passiert."*
@@ -64,8 +50,9 @@ Im Kontext der Informationssicherheit bedeutet Awareness:
 Awareness ist kein einmaliges Ereignis, sondern ein **kontinuierlicher Prozess** der Sensibilisierung und Schulung.
 
 ---
-
+<Callout type="green"> 
 ## 3. Der Faktor Mensch
+</Callout>
 
 ### Daten – Informationen – Wissen
 
@@ -91,6 +78,10 @@ graph BT
 Wissen ist im 21. Jahrhundert der wichtigste Rohstoff moderner Ökonomien. Deshalb: **Informationen müssen vor Missbrauch geschützt werden!**
 
 ---
+
+<Callout type="green"> 
+## 3. Der Faktor Mensch
+</Callout>
 
 ### Der Mensch: Grösstes Risiko UND grösster Schutz
 
@@ -128,9 +119,9 @@ Die Vorlesung nennt acht typische menschliche Verhaltensweisen, die Sicherheitsr
 **Fazit:** Das Potenzial der Mitarbeitenden muss aktiv eingebunden werden – sowohl um Risiken zu minimieren als auch um Schutz zu maximieren.
 
 ---
-
+<Callout type="green"> 
 ## 4. Malware-Typen
-
+</Callout>
 Malware (von englisch *malicious software*) bezeichnet **Computerprogramme mit schädlichen Funktionen**. Es gibt vier Hauptkategorien:
 
 ```mermaid
@@ -223,8 +214,9 @@ Eine besonders heimtückische Methode: **Infizierung allein durch das Besuchen e
 
 ---
 
+<Callout type="green"> 
 ## 5. Die 5 Schritte der Informationssicherheit
-
+</Callout>
 Dies sind die fünf konkreten Massnahmen, die jeder Benutzer umsetzen sollte:
 
 ```mermaid
@@ -242,9 +234,9 @@ graph LR
 ```
 
 ---
-
+<Callout type="yellow"> 
 ### Schritt 1: Sichern (Backup)
-
+</Callout>
 > *«Mit Sicherheitsgurt beim Crash gerettet! Mit Datensicherung vor Datenverlust bewahrt!»*
 
 Studien zeigen, dass ein Grossteil der Menschen erst **nach einem Datenverlust** mit der Datensicherung beginnt. Das ist wie erst nach dem Unfall den Sicherheitsgurt anzulegen.
@@ -280,9 +272,9 @@ graph TD
 - **Achtung:** Backup-Medium nach dem Backup **vom Computer trennen** und sicher aufbewahren! (Schutz vor Ransomware, die auch angeschlossene Laufwerke verschlüsselt)
 
 ---
-
+<Callout type="yellow"> 
 ### Schritt 2: Schützen (Virenschutz)
-
+</Callout>
 Ein Antivirenprogramm (AV) schützt vor Viren, Würmern, Trojanern und Ransomware, indem es:
 - Dateien auf bekannte Schadsoftware-Signaturen prüft
 - Internet-Kommunikation und E-Mails analysiert
@@ -301,9 +293,9 @@ Ein Antivirenprogramm (AV) schützt vor Viren, Würmern, Trojanern und Ransomwar
 **Empfehlung für Windows 10/11:** Der integrierte **Windows Defender** ist eine zuverlässige, wartungsarme Lösung, die für die meisten Benutzer ausreicht.
 
 ---
-
+<Callout type="yellow"> 
 ### Schritt 3: Überwachen (Firewall)
-
+</Callout>
 Eine Firewall ist eine Softwareschicht, die den **ein- und ausgehenden Datenverkehr** kontrolliert und filtert.
 
 **Was macht eine Firewall?**
@@ -326,9 +318,9 @@ graph LR
 - **macOS**: Muss **manuell aktiviert** werden unter: *Systemeinstellungen → Sicherheit → Firewall*
 
 ---
-
+<Callout type="yellow"> 
 ### Schritt 4: Vorbeugen (Software-Updates)
-
+</Callout>
 Jeden Tag werden neue Sicherheitslücken in weit verbreiteten Programmen entdeckt. Kriminelle suchen gezielt nach diesen Lücken, um sie auszunutzen – bevor sie gepatcht werden.
 
 > **Zero-Day-Exploit:** Eine Sicherheitslücke, die ausgenutzt wird, bevor der Hersteller einen Patch veröffentlicht hat – der Hersteller hat «null Tage» Vorsprung.
@@ -343,8 +335,9 @@ Jeden Tag werden neue Sicherheitslücken in weit verbreiteten Programmen entdeck
 **Wichtig:** Alte, nicht mehr unterstützte Windows-Versionen (XP, Vista, 7, 8.1) erhalten keine Sicherheits-Updates mehr und sind dauerhaft angreifbar. **Upgrades sind keine Option, sondern eine Pflicht.**
 
 ---
-
+<Callout type="yellow"> 
 ### Schritt 5: Aufpassen (Persönliches Verhalten)
+</Callout>
 
 Das persönliche Verhalten ist das **wichtigste Sicherheitselement** – und gleichzeitig das schwächste Glied in der Kette. Alle technischen Massnahmen können durch unvorsichtiges Verhalten umgangen werden.
 
@@ -354,9 +347,9 @@ Das persönliche Verhalten ist das **wichtigste Sicherheitselement** – und gle
 - Sich mit dem Internet und seinen Risiken vertraut machen
 
 ---
-
+<Callout type="green"> 
 ## 6. Passwörter – Das schwächste Glied
-
+</Callout>
 Benutzername und Passwort sind nach wie vor die **gängigsten Schlüssel zur digitalen Identität** – und gleichzeitig einer der grössten Schwachpunkte.
 
 **Warum sind Passwörter problematisch?**
@@ -437,9 +430,9 @@ Die Sicherheit kommt aus zwei Prinzipien:
 2. **Einmalige Verwendung**: Jedes OTP (One Time Password) ist nur einmal und nur kurz gültig
 
 ---
-
+<Callout type="green"> 
 ## 7. Phishing
-
+</Callout>
 **Phishing** ist ein Kunstwort aus «password» und «fishing» – wörtlich: nach Passwörtern fischen.
 
 ### Klassisches Phishing (E-Mail)
@@ -490,9 +483,9 @@ sequenceDiagram
 - Browser-**Cache** nach jedem Login leeren
 
 ---
-
+<Callout type="green"> 
 ## 8. Schutz vor Ransomware
-
+</Callout>
 ### Prävention
 
 - Aktuelles Antivirenprogramm und aktive Firewall
@@ -521,9 +514,9 @@ flowchart TD
 ```
 
 ---
-
+<Callout type="green"> 
 ## 9. Aktuelle Themen
-
+</Callout>
 ### Smartphones
 
 Smartphones sind vollwertige Computer – mit allen damit verbundenen Risiken. Zusätzlich sind sie:
@@ -588,9 +581,9 @@ Cloud-Dienste bieten Komfort, bergen aber auch Risiken:
 **Für Gesundheits- und Patientendaten:** Nur **Schweizer Cloud-Anbieter** mit verschlüsselter Speicherung verwenden! Dienste wie Dropbox, OneDrive oder iCloud sind **streng verboten** für medizinische Daten.
 
 ---
-
+<Callout type="green"> 
 ## 10. Sichere Datenübertragung
-
+</Callout>
 Für den sicheren Versand sensibler Daten per E-Mail:
 
 | Methode | Beschreibung |
@@ -602,9 +595,9 @@ Für den sicheren Versand sensibler Daten per E-Mail:
 **Wichtige Regel:** Das Passwort für eine verschlüsselte Datei **immer über einen anderen Kanal** übermitteln (Telefon, SMS, persönlich) – nie in derselben E-Mail!
 
 ---
-
+<Callout type="green"> 
 ## 11. Awareness: Das Konzept
-
+</Callout>
 ### Was Awareness erreichen soll
 
 Awareness-Massnahmen verfolgen drei Ziele:
@@ -630,7 +623,9 @@ Nur wenn Wissen in Einstellungen übergeht und sich dann im konkreten Verhalten 
 
 ---
 
+<Callout type="green"> 
 ## 12. Hilfreiche Ressourcen und Meldestellen
+</Callout>
 
 ### «eBanking – aber sicher!» (EBAS)
 - **Website:** [www.ebas.ch](https://www.ebas.ch) / [www.ebankingabersicher.ch](https://www.ebankingabersicher.ch)
@@ -650,8 +645,9 @@ Nur wenn Wissen in Einstellungen übergeht und sich dann im konkreten Verhalten 
 | **KOBIK** | Koordinationsstelle zur Bekämpfung der Internetkriminalität | via NCSC |
 
 ---
-
+<Callout type="danger"> 
 ## Zusammenfassung
+</Callout>
 
 ```mermaid
 graph TD
@@ -679,7 +675,3 @@ Technische Massnahmen sind notwendig, aber nicht ausreichend. Nur durch kontinui
 
 > *«Zwei Dinge sind unendlich: das Universum und die menschliche Dummheit. Aber bei dem Universum bin ich mir noch nicht ganz sicher.»*  
 > — Albert Einstein
-
----
-
-*Zusammenfassung basierend auf den Vorlesungsfolien ISF SW02, HSLU Informatik, Prof. Dr. Peter E. Fischer, 21. Februar 2022.*

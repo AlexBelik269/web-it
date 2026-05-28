@@ -1,20 +1,12 @@
 ---
-title: "ISF – SW09: Risiko-Management"
+title: "Risiko-Management"
 description: "Grundlagen des Risiko-Managements in der Informationssicherheit: Begriffe, Prozesse, Analyse-Methoden (quantitativ & qualitativ), FAIR-Modell, Risiko-Strategien und praktische Anwendung."
 ---
+import Callout from '../../../../components/Callout.astro';
 
-## Lernziele
-
-Nach dieser Einheit kannst du:
-- die Begriffe **Risiko**, **Bedrohung**, **Schwachstelle** und **Exposition** im Cyberraum korrekt anwenden und voneinander abgrenzen
-- das Vorgehen zur **Identifikation und Bewertung** von Risiken systematisch anwenden
-- Risiken **quantitativ berechnen** (z. B. mit dem FAIR-Modell)
-- passende **Strategien zur Risikominimierung** auswählen und begründen
-
----
-
+<Callout type="green">
 ## 1. Risiko – Kontext und Wissensdimensionen
-
+</Callout>
 Bevor man Risiken managen kann, muss man verstehen, *was* man überhaupt weiss – und was nicht. Das folgende 2×2-Schema (bekannt aus dem Rumsfeld-Zitat) hilft dabei:
 
 |                | **Wissen**                                                                 | **Unwissen**                                                                 |
@@ -28,7 +20,9 @@ Bevor man Risiken managen kann, muss man verstehen, *was* man überhaupt weiss �
 
 ---
 
+<Callout type="green">
 ## 2. Risiko-Management vs. Resilienz
+</Callout>
 
 Oft werden Risiko-Management und Resilienz verwechselt oder gleichgesetzt. Sie sind aber komplementär, nicht identisch:
 
@@ -43,9 +37,9 @@ Oft werden Risiko-Management und Resilienz verwechselt oder gleichgesetzt. Sie s
 **Fazit:** Risiko-Management ist ein strukturiertes, periodisches Verfahren für bekannte Risiken. Resilienz ist eine organisationale Eigenschaft, die auch mit dem Unbekannten umgehen kann. Beide Ansätze ergänzen sich.
 
 ---
-
+<Callout type="green">
 ## 3. Kernbegriffe: Bedrohung, Schwachstelle, Exposition, Asset, Risiko
-
+</Callout>
 Bevor man Risiken identifizieren kann, müssen die Begriffe klar sein:
 
 ```mermaid
@@ -77,9 +71,9 @@ flowchart TD
 **Das Venn-Diagramm des Risikos:** Risiko existiert genau dort, wo sich Bedrohung, Schwachstelle *und* Exposition überschneiden. Fehlt eine der drei Komponenten, ist das Risiko erheblich geringer oder gar nicht vorhanden. Das zeigt auch: Exposition und Schwachstelle sind die steuerbaren Hebel.
 
 ---
-
+<Callout type="green">
 ## 4. Cybersecurity Risiko-Management: Das Gesamtbild
-
+</Callout>
 Im Cybersecurity-Kontext kommen weitere Elemente hinzu:
 
 - **CIA-Triade**: Assets haben Schutzziele bezüglich **Confidentiality (C)**, **Integrity (I)** und **Availability (A)**
@@ -89,9 +83,9 @@ Im Cybersecurity-Kontext kommen weitere Elemente hinzu:
 Alle diese Elemente kosten Ressourcen (CHF), weshalb Risiko-Management immer auch eine wirtschaftliche Abwägung ist.
 
 ---
-
+<Callout type="green">
 ## 5. Der Risiko-Management-Prozess (ISO 27005 / ISO 31000)
-
+</Callout>
 Risiko-Management ist kein einmaliges Projekt, sondern ein **zyklischer, iterativer Prozess**. Der internationale Standard ISO/IEC 27005:2022 definiert ihn für die Informationssicherheit:
 
 ```mermaid
@@ -129,11 +123,13 @@ Flankiert wird dieser Prozess durchgehend von:
 
 ---
 
+<Callout type="green">
 ## 6. Schritt 1: Risiken identifizieren
+</Callout>
 
 Der erste Schritt ist die Identifikation aller relevanten **Assets** und **Bedrohungen/Angreifer**.
 
-### 6.1 Asset-Kategorien
+### Asset-Kategorien
 
 Assets lassen sich in vier Hauptkategorien einteilen:
 
@@ -144,7 +140,7 @@ Assets lassen sich in vier Hauptkategorien einteilen:
 | **Einrichtungen** | Rechenzentren, Bürogebäude, Produktionsanlagen |
 | **Mitarbeiter** | Know-how, Zugriffsrechte, Schlüsselpersonen |
 
-### 6.2 Angreifer-Kategorien
+### Angreifer-Kategorien
 
 Angreifer unterscheiden sich stark in Motivation, Ressourcen und Vorgehen:
 
@@ -159,10 +155,10 @@ Angreifer unterscheiden sich stark in Motivation, Ressourcen und Vorgehen:
 Die Unterscheidung zwischen **zufälligen** (opportunistischen) und **zielgerichteten** Angriffen ist wichtig: Zufällige Angriffe (Script Kiddies, automatisierte Scans) lassen sich durch grundlegende Härtung abwehren. Zielgerichtete Angriffe (staatliche Akteure, organisierte Kriminalität) erfordern tiefgreifendere Massnahmen.
 
 ---
-
+<Callout type="green">
 ## 7. Schritt 2: Risiken analysieren
-
-### 7.1 Quantitative vs. qualitative Analyse
+</Callout>
+### Quantitative vs. qualitative Analyse
 
 | | **Quantitative Analyse** | **Qualitative Analyse** |
 |---|---|---|
@@ -179,7 +175,7 @@ $$\text{Risiko} = \text{Eintrittshäufigkeit} \times \text{Schadensausmass}$$
 - **Schadensausmass**: [CHF], Wert der exponierten Assets
 - **Risiko**: [CHF/Jahr]
 
-### 7.2 Das FAIR-Modell (Factor Analysis of Information Risk)
+### Das FAIR-Modell (Factor Analysis of Information Risk)
 
 FAIR ist das führende quantitative Rahmenwerk für Cyber-Risiken. Es zerlegt das Risiko in messbare Einzelfaktoren:
 
@@ -227,7 +223,7 @@ flowchart TD
 
 Obwohl Laptops viel häufiger verloren gehen, ist die Vulnerability gering (Festplattenverschlüsselung, Passwortschutz). Der Insider tritt seltener auf, hat aber eine viel höhere Erfolgswahrscheinlichkeit.
 
-### 7.3 Wie kommt man zu einem guten Risikowert?
+### Wie kommt man zu einem guten Risikowert?
 
 Der FAIR-Prozess läuft in vier Schritten:
 
@@ -245,7 +241,7 @@ flowchart LR
 
 **Swisscom-Fallbeispiel:** Swisscom hat FAIR eingesetzt, um das Risiko eines Datenlecks auf dem Customer Portal zu quantifizieren. Ergebnis: Most-Likely CHF 195'081 pro Ereignis, Maximum CHF 904'734. Eine IT-Investition von CHF 120'000 reduzierte das durchschnittliche Risiko um CHF 480'000 – ein klarer Business Case.
 
-### 7.4 Qualitative Risikoanalyse
+### Qualitative Risikoanalyse
 
 Wenn keine genauen Daten verfügbar sind, arbeitet man mit Skalen:
 
@@ -296,18 +292,18 @@ Die Kombination aus Schadensausmass (x-Achse) und Eintrittshäufigkeit (y-Achse)
 **Kritik an der klassischen Risikoanalyse:** Die konventionelle Risikoanalyse gilt als kostspielig und wenig effektiv, weil sie mit Gefährdungen und Attacken zu tun hat, die zum Zeitpunkt der Analyse noch gar nicht existieren. Ausserdem ist der Aufwand durch die individuelle Betrachtung einzelner Assets sehr hoch.
 
 ---
-
+<Callout type="green">
 ## 8. Schritt 3: Risiken bewerten (Risiko-Evaluation)
-
+</Callout>
 Die Bewertung entscheidet, welche Risiken akzeptabel sind und welche behandelt werden müssen. Dazu dienen:
 
-### 8.1 Schutzziel und Akzeptanzlinie
+### Schutzziel und Akzeptanzlinie
 
 **Definition Schutzziel:** Das Schutzziel beschreibt den angestrebten Sicherheitszustand und definiert die Grenze zwischen akzeptierbaren und nicht akzeptierbaren Risiken.
 
 In der Risikomatrix wird diese Grenze als **Akzeptanzlinie** eingezeichnet. Risiken rechts/oberhalb dieser Linie müssen behandelt werden, Risiken links/unterhalb können (vorläufig) akzeptiert werden.
 
-### 8.2 Risiko-Portfolio und Risk-Map
+### Risiko-Portfolio und Risk-Map
 
 - **Risiko-Portfolio**: Die Gesamtheit aller im Rahmen einer Risikoanalyse identifizierten Risiken, oft pro Geschäftsfeld
 - **Risiko-Landkarte / Risk-Map**: Alle Einzelrisiken des Portfolios werden in einer Risikomatrix eingezeichnet – so entsteht ein visuelles Gesamtbild der Risikolandschaft
@@ -322,9 +318,9 @@ Das Risiko-Portfolio enthält typischerweise für jedes Risiko:
 - Restrisiko nach Massnahmen
 
 ---
-
+<Callout type="green">
 ## 9. Schritt 4: Risiken behandeln – Strategien
-
+</Callout>
 Nach dem Assessment stehen vier grundlegende Strategien zur Verfügung:
 
 ```mermaid
@@ -347,7 +343,7 @@ quadrantChart
 
 > **Achtung – Accountability vs. Responsibility:** Beim Transfer (z. B. Outsourcing) wird die *Responsibility* (operative Verantwortung) verschoben, die *Accountability* (Haftbarkeit gegenüber Stakeholdern) bleibt aber beim Unternehmen!
 
-### 9.1 Wirkung der Strategien auf die Risikobaussteine
+### Wirkung der Strategien auf die Risikobaussteine
 
 ```mermaid
 flowchart LR
@@ -365,7 +361,7 @@ flowchart LR
     end
 ```
 
-### 9.2 Massnahmen-Kategorien (ISO 27002)
+### Massnahmen-Kategorien (ISO 27002)
 
 Die Massnahmen lassen sich in einer Matrix aus **Wirkungstyp** und **Massnahmentyp** einordnen:
 
@@ -375,7 +371,7 @@ Die Massnahmen lassen sich in einer Matrix aus **Wirkungstyp** und **Massnahment
 | **Detektiv** | Kamera | Alarm, Reporting | Logging, SIEM | Audits |
 | **Korrektiv** | Backups einspielen | BCM-Playbooks | Redundante Backups | Versicherung |
 
-### 9.3 Das Restrisiko
+### Das Restrisiko
 
 Nach der Anwendung aller Massnahmen verbleibt immer ein **Restrisiko (Residual Risk)**. Dieses:
 - ist das unvermeidliche Restrisiko, das nach AVOID → REDUCE → TRANSFER übrig bleibt
@@ -383,9 +379,9 @@ Nach der Anwendung aller Massnahmen verbleibt immer ein **Restrisiko (Residual R
 - wird bewusst durch den Risk-Owner **akzeptiert** (Risk Acceptance nach ISO 27005)
 
 ---
-
+<Callout type="green">
 ## 10. Cyber-Versicherung als Transfer-Strategie
-
+</Callout>
 Cyber-Risiken haben spezifische Eigenschaften, die ihre Versicherbarkeit erschweren:
 
 **Kriterien für Versicherbarkeit:**
@@ -410,9 +406,9 @@ FAIR strukturiert Szenarien nach dem Muster:
 Beispiel: „Cyber Criminals impact Sensitive Personal Data via Ransomware with Data Exfiltration, causing Information Privacy Loss and Reputational Damage."
 
 ---
-
+<Callout type="green">
 ## 11. Praktische Übung: HochTief AG
-
+</Callout>
 **Situation:** HochTief AG ist eine Baufirma (CHF 10 Mio. Umsatz) mit eigener Betonproduktion. Es gibt zwei Risiken:
 
 - **Ransomware-Attacke**: 4× in 5 Jahren = 0.8/Jahr; Schaden CHF 20'000/Fall
@@ -440,9 +436,9 @@ Die Entscheidung, die Betonproduktion an einen Lieferanten auszulagern, eliminie
 - Beide Massnahmen zusammen sind **REDUZIEREN**-Strategien, die sowohl Frequenz als auch Schadenshöhe senken
 
 ---
-
+<Callout type="green">
 ## 12. Essenz des Risiko-Managements
-
+</Callout>
 Risiko-Management zielt **nicht** darauf ab, alle Risiken zu eliminieren – das wäre unmöglich und wirtschaftlich unsinnig. Es geht vielmehr darum:
 
 1. Risiken **transparent zu bestimmen und zu bewerten**
@@ -460,8 +456,9 @@ Diese Zitate illustrieren ein fundamentales Problem: Menschen sind von Natur aus
 
 ---
 
-## Zusammenfassung: Der Risiko-Management-Kreislauf
-
+<Callout type="danger">
+## Zusammenfassung
+</Callout>
 ```mermaid
 flowchart LR
     KH["🏛️ Kontext\nherstellen"] --> ID["🔍 Risiken\nidentifizieren"]
