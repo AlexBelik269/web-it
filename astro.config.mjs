@@ -9,6 +9,19 @@ export default defineConfig({
 		mermaid({ theme: 'neutral', autoTheme: true }),
 		starlight({
 			title: 'IT Knowledge Base',
+			customCss: ['./src/styles/layout.css'],
+			components: {
+				Header: './src/components/Header.astro',
+				MobileMenuFooter: './src/components/MobileMenuFooter.astro',
+			},
+			head: [
+				{
+					// Apply the saved text size and sidebar width before first paint to avoid a layout jump.
+					tag: 'script',
+					content:
+						"try{var d=document.documentElement,z=localStorage.getItem('it-zoom'),w=localStorage.getItem('it-sidebar-width');if(z)d.style.setProperty('--it-zoom',z);if(w)d.style.setProperty('--it-sidebar-user',w+'px')}catch(e){}",
+				},
+			],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/AlexBelik269/web-it' }],
 			sidebar: [
 				{

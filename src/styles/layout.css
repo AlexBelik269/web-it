@@ -1,0 +1,187 @@
+/* ---------- Text zoom ---------- */
+/* Starlight sizes everything in rem, so scaling the root font scales the whole UI. */
+html {
+	font-size: calc(100% * var(--it-zoom, 1));
+}
+
+/* ---------- Resizable sidebar ---------- */
+:root {
+	--it-sidebar-default: 18.75rem;
+}
+/* Tablets (e.g. iPad portrait): a slimmer default sidebar leaves more room for content. */
+@media (min-width: 50rem) and (max-width: 72rem) {
+	:root {
+		--it-sidebar-default: 15rem;
+	}
+}
+@media (min-width: 50rem) {
+	:root {
+		/* --it-sidebar-user is set (in px) when the reader drags the sidebar edge. */
+		--it-sidebar-width: clamp(11rem, var(--it-sidebar-user, var(--it-sidebar-default)), 50vw);
+	}
+	:root[data-has-sidebar] {
+		--sl-content-inline-start: var(--it-sidebar-width);
+	}
+	.sidebar-pane {
+		width: var(--it-sidebar-width);
+	}
+}
+
+.sidebar-resizer {
+	display: none;
+}
+@media (min-width: 50rem) {
+	.sidebar-resizer {
+		display: block;
+		position: fixed;
+		inset-block: var(--sl-nav-height) 0;
+		inset-inline-start: calc(var(--it-sidebar-width) - 4px);
+		width: 9px;
+		z-index: calc(var(--sl-z-index-menu) + 1);
+		cursor: col-resize;
+		touch-action: none;
+	}
+	.sidebar-resizer::after {
+		content: '';
+		position: absolute;
+		inset-block: 0;
+		inset-inline-start: 3px;
+		width: 3px;
+		background: var(--sl-color-accent);
+		opacity: 0;
+		transition: opacity 0.15s;
+	}
+	.sidebar-resizer:hover::after,
+	.sidebar-resizer:focus-visible::after,
+	.it-resizing .sidebar-resizer::after {
+		opacity: 1;
+	}
+	.sidebar-resizer:focus-visible {
+		outline: none;
+	}
+}
+.it-resizing,
+.it-resizing * {
+	cursor: col-resize !important;
+	user-select: none !important;
+}
+
+/* ---------- Content on small screens ---------- */
+/* Long words / URLs shouldn't push the page wider than the screen. */
+.sl-markdown-content {
+	overflow-wrap: break-word;
+}
+.sl-markdown-content table {
+	-webkit-overflow-scrolling: touch;
+}
+
+/* ---------- Diagrams: tap/click to open a zoomable viewer ---------- */
+.sl-markdown-content pre.mermaid[data-zoomable] {
+	position: relative;
+	cursor: zoom-in;
+}
+.sl-markdown-content pre.mermaid[data-zoomable]::after {
+	content: '⤢ Zoom';
+	position: absolute;
+	top: 0.5rem;
+	inset-inline-end: 0.5rem;
+	padding: 0.15rem 0.5rem;
+	border-radius: 0.375rem;
+	font: 600 var(--sl-text-xs) / 1.4 var(--__sl-font);
+	color: var(--sl-color-gray-2);
+	background: var(--sl-color-gray-6);
+	opacity: 0.85;
+	pointer-events: none;
+}
+@media (hover: hover) {
+	.sl-markdown-content pre.mermaid[data-zoomable]::after {
+		opacity: 0;
+		transition: opacity 0.15s;
+	}
+	.sl-markdown-content pre.mermaid[data-zoomable]:hover::after,
+	.sl-markdown-content pre.mermaid[data-zoomable]:focus-visible::after {
+		opacity: 0.9;
+	}
+}
+
+.diagram-viewer {
+	width: 100vw;
+	height: 100vh;
+	height: 100dvh;
+	max-width: none;
+	max-height: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: var(--sl-color-bg);
+	color: var(--sl-color-white);
+	overflow: hidden;
+}
+.diagram-viewer[open] {
+	display: flex;
+	flex-direction: column;
+}
+.dv-toolbar {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	padding-top: max(0.5rem, env(safe-area-inset-top));
+	border-bottom: 1px solid var(--sl-color-hairline-shade);
+	background: var(--sl-color-bg-nav);
+}
+.dv-toolbar button {
+	min-width: 2.5rem;
+	min-height: 2.5rem;
+	padding: 0 0.75rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.5rem;
+	background: transparent;
+	color: var(--sl-color-gray-1);
+	font: inherit;
+	font-size: var(--sl-text-base);
+	cursor: pointer;
+}
+.dv-toolbar button:hover {
+	background: var(--sl-color-gray-6);
+}
+.dv-level {
+	min-width: 3.5rem;
+	text-align: center;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+	font-variant-numeric: tabular-nums;
+}
+.dv-hint {
+	margin-inline-start: auto;
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+}
+@media (max-width: 40rem) {
+	.dv-hint {
+		display: none;
+	}
+	.dv-close {
+		margin-inline-start: auto;
+	}
+}
+.dv-stage {
+	position: relative;
+	flex: 1;
+	overflow: hidden;
+	touch-action: none;
+	cursor: grab;
+}
+.dv-stage:active {
+	cursor: grabbing;
+}
+.dv-canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform-origin: 0 0;
+}
+.dv-canvas svg {
+	display: block;
+	max-width: none !important;
+}
