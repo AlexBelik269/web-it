@@ -1,19 +1,12 @@
 ---
-title: "ISF – SW11: Vulnerabilities"
+title: "Vulnerabilities"
 description: "Umfassende Zusammenfassung der Vorlesung zu Software-Schwachstellen: Typen, Lifecycle, Disclosure-Prozesse und Priorisierungsmethoden."
 ---
+import Callout from '../../../../components/Callout.astro';
 
-## Lernziele
-
-Nach dieser Vorlesung kannst du:
-- beschreiben, was **Vulnerabilities** sind und wie sie mit Risiken für ein Unternehmen verknüpft sind
-- die Bedeutung des **Disclosure-Prozesses** einer Vulnerability verstehen
-- Methoden zur **Priorisierung** von Vulnerabilities anwenden
-
----
-
-## Teil 1: Was sind Vulnerabilities?
-
+<Callout type="green"> 
+## 1. Was sind Vulnerabilities?
+</Callout>
 ### Warum das Thema wichtig ist
 
 Die wirtschaftlichen Schäden durch Cybervorfälle sind enorm. In Deutschland wurden 2024 Gesamtschäden von **266,6 Milliarden Euro** durch Cyberkriminalität verursacht (Quelle: Bitkom). Die grössten Einzelposten sind dabei:
@@ -116,9 +109,9 @@ Niklaus Wirth (Erfinder von Pascal) kommentierte dies pointiert:
 Dies erklärt, warum moderne speichersichere Sprachen wie **Rust** zunehmend an Bedeutung gewinnen – sogar die US-Regierung (NSA, CISA) empfiehlt inzwischen den Wechsel weg von C/C++.
 
 ---
-
-## Das Vulnerability-Ökosystem: CVE, CVSS, CWE, KEV
-
+<Callout type="green"> 
+## 2. Das Vulnerability-Ökosystem: CVE, CVSS, CWE, KEV
+</Callout>
 Diese vier Abkürzungen sind das Grundvokabular der Vulnerability-Verwaltung:
 
 ### CVE – Common Vulnerabilities and Exposures
@@ -198,9 +191,9 @@ Die gefährlichsten Schwachstellenklassen laut MITRE (2024):
 | 10 | CWE-434 | Unrestricted File Upload |
 
 ---
-
-## Cybersecurity Risiko-Management
-
+<Callout type="green"> 
+## 3. Cybersecurity Risiko-Management
+</Callout>
 Eine Vulnerability entsteht nicht im Vakuum – sie ist eingebettet in ein Risikomodell:
 
 ```mermaid
@@ -232,9 +225,9 @@ graph TD
 > **Wichtig**: Eine Weakness alleine ist noch kein Risiko. Erst wenn ein Angreifer mit einem Exploit die Weakness durch die Exposition des Assets ausnutzt, entsteht ein reales Risiko.
 
 ---
-
-## Lifecycle einer Vulnerability
-
+<Callout type="green"> 
+## 4. Lifecycle einer Vulnerability
+</Callout>
 Vulnerabilities durchlaufen einen charakteristischen Lebenszyklus:
 
 ```mermaid
@@ -298,9 +291,9 @@ Google Project Zero ist ein Team von Sicherheitsforschern, das Zero-Day-Vulnerab
 Das Ziel von GPZ ist es, Hersteller unter Druck zu setzen, Patches schneller zu liefern – durch die Ankündigung, eine Vulnerability nach 90 Tagen öffentlich zu machen (Coordinated Disclosure).
 
 ---
-
-## Vulnerabilities in Lieferketten
-
+<Callout type="green"> 
+## 5. Vulnerabilities in Lieferketten
+</Callout>
 Moderne Software besteht aus vielen Komponenten von verschiedenen Anbietern. Das schafft ein komplexes Kommunikationsproblem:
 
 ```mermaid
@@ -321,9 +314,9 @@ graph TD
 > **Cybersecurity ist auch Kommunikation!**
 
 ---
-
-## Teil 2: Welche Vulnerabilities sind relevant?
-
+<Callout type="green"> 
+## 6. Welche Vulnerabilities sind relevant?
+</Callout>
 ### Das Priorisierungsproblem
 
 Mit täglich Dutzenden neuer CVEs ist es unmöglich, alle Vulnerabilities sofort zu beheben. Untersuchungen zeigen:
@@ -477,9 +470,9 @@ Microsoft veröffentlicht jeden zweiten Dienstag im Monat (Patch Tuesday) gesamm
 Das zeigt die schiere Menge an Schwachstellen, mit denen IT-Abteilungen jeden Monat konfrontiert sind – und warum Priorisierung so wichtig ist.
 
 ---
-
-## Teil 3: Kommunikation von Vulnerabilities
-
+<Callout type="green"> 
+## 7. Kommunikation von Vulnerabilities
+</Callout>
 ### Disclosure-Optionen
 
 Wenn man eine Vulnerability entdeckt, gibt es grundsätzlich vier Möglichkeiten:
@@ -489,7 +482,7 @@ quadrantChart
     title Disclosure-Optionen und ihre Konsequenzen
     x-axis "Niedrige öffentliche Wirkung" --> "Hohe öffentliche Wirkung"
     y-axis "Wenig koordiniert" --> "Stark koordiniert"
-    quadrant-1 Responsible Disclosure (CVD)
+    quadrant-1 Responsible Disclosure - CVD
     quadrant-2 Full Disclosure
     quadrant-3 Geheim halten
     quadrant-4 An Meistbietenden verkaufen

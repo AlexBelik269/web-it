@@ -1,9 +1,12 @@
 ---
-title: "INTROL – SW11: IPv6 – Das Netz der Zukunft"
+title: "IPv6 – Das Netz der Zukunft"
 description: "Grundlagen von IPv6: Adressierung, Header-Struktur, Autokonfiguration, Übergangsmechanismen und Vergleich mit IPv4"
 ---
+import Callout from '../../../../components/Callout.astro';
 
-## Warum überhaupt IPv6?
+<Callout type="green">
+## 1. Warum überhaupt IPv6?
+</Callout>
 
 IPv4 ist über 40 Jahre alt und wurde in einer Zeit entworfen, in der niemand ahnte, wie gross das Internet einmal werden würde. Das grundsätzliche Prinzip von IP funktioniert zwar nach wie vor – aber IPv4 stösst an fundamentale Grenzen:
 
@@ -17,7 +20,9 @@ Die IETF (Internet Engineering Task Force) begann in den 1990er-Jahren, eine Nac
 
 ---
 
-## Was bringt IPv6? – Die wichtigsten Verbesserungen
+<Callout type="green">
+## 2. Was bringt IPv6? – Die wichtigsten Verbesserungen
+</Callout>
 
 | Aspekt | IPv4 | IPv6 |
 |--------|------|-------|
@@ -35,7 +40,9 @@ Die IETF (Internet Engineering Task Force) begann in den 1990er-Jahren, eine Nac
 
 ---
 
-## IPv6-Adressierung
+<Callout type="green">
+## 3. IPv6-Adressierung
+</Callout>
 
 ### Notation
 
@@ -276,7 +283,9 @@ Unterschied zu DHCPv4: DHCPv6 kommuniziert über UDP-Ports **546** (Client) und 
 
 ---
 
-## Wichtige Multicast-Adressen in IPv6
+<Callout type="green">
+## 4. Wichtige Multicast-Adressen in IPv6
+</Callout>
 
 Da IPv6 keinen Broadcast mehr kennt, werden Multicast-Adressen für Protokollfunktionen verwendet:
 
@@ -292,7 +301,9 @@ Das Multicast-Präfix ist immer `ff` (= binär `11111111`). Die zweite Stelle gi
 
 ---
 
-## Übergang von IPv4 zu IPv6
+<Callout type="green">
+## 5. Übergang von IPv4 zu IPv6
+</Callout>
 
 Da nicht alle Geräte und Netze gleichzeitig auf IPv6 umgestellt werden können, gibt es keinen "Flag Day". Stattdessen existieren Übergangsmechanismen:
 
@@ -367,7 +378,9 @@ IPv6 löst die fundamentalen Probleme von IPv4 (Adressknappheit, Komplexität du
 
 ---
 
-## Weiterführende Links
+<Callout type="green">
+## 6. Weiterführende Links
+</Callout>
 
 - [test-ipv6.com](https://test-ipv6.com/) – IPv6-Konnektivität des eigenen Anschlusses testen
 - [BSI IPv6-Leitfaden](https://www.bsi.bund.de/) – Leitfaden zur sicheren IPv6-Konfiguration

@@ -499,6 +499,7 @@ export default defineConfig({
                         label: 'Preparation',
                         collapsed: true,
                         items: [
+                            { label: 'Start', slug: 'math/prep/00_start' },
                             { label: 'Grundlagen', slug: 'math/prep/01_grundlagen' },
                             { label: 'Gleichungen', slug: 'math/prep/02_gleichungen' },
                             { label: 'Funktionen I', slug: 'math/prep/03_funktionen_grundlagen' },

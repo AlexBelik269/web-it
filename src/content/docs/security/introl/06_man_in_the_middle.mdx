@@ -1,9 +1,12 @@
 ---
-title: "INTROL – SW06: Man in the Middle – ARP Request Poisoning & DNS Spoofing"
+title: "Man in the Middle – ARP Request Poisoning & DNS Spoofing"
 description: "Einführung in Man-in-the-Middle-Angriffe: Theorie und Praxis von ARP Request Poisoning und DNS Spoofing mit Kali Linux, arpspoof und Ettercap."
 ---
+import Callout from '../../../../components/Callout.astro';
 
-## Lernziele
+<Callout type="green">
+## 1. Lernziele
+</Callout>
 
 - Verständnis des Man-in-the-Middle-Konzepts auf verschiedenen OSI-Schichten
 - Durchführung einer ARP Request Poisoning-Attacke mit `arpspoof`
@@ -14,7 +17,9 @@ description: "Einführung in Man-in-the-Middle-Angriffe: Theorie und Praxis von 
 
 ---
 
-## 1. Hintergrund: Was ist ein Man-in-the-Middle-Angriff?
+<Callout type="green">
+## 2. Hintergrund: Was ist ein Man-in-the-Middle-Angriff?
+</Callout>
 
 Ein **Man-in-the-Middle (MITM)**-Angriff beschreibt eine Angriffskategorie, bei der ein Angreifer sich **physisch oder logisch zwischen zwei kommunizierende Parteien** einklinkt. Das Ziel ist es, den Datenverkehr abzufangen, auszuspähen, zu manipulieren und anschliessend weiterzuleiten – idealerweise ohne dass die Kommunikationspartner dies bemerken.
 
@@ -94,7 +99,9 @@ ARP wurde 1982 (RFC 826) standardisiert und besitzt **keine Authentifizierung**.
 
 ---
 
+<Callout type="green">
 ## 3. ARP Request Poisoning
+</Callout>
 
 ### Konzept
 
@@ -336,7 +343,9 @@ flowchart TD
 
 ---
 
-## 6. Erkennungsmerkmale einer gefälschten Website
+<Callout type="green">
+## 4. Erkennungsmerkmale einer gefälschten Website
+</Callout>
 
 Folgende Anzeichen können darauf hindeuten, dass eine Website gefälscht ist:
 
@@ -350,7 +359,9 @@ Folgende Anzeichen können darauf hindeuten, dass eine Website gefälscht ist:
 
 ---
 
-## 7. Wichtige Tools im Überblick
+<Callout type="green">
+## 5. Wichtige Tools im Überblick
+</Callout>
 
 | Tool | Zweck |
 |---|---|

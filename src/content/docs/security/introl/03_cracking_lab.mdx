@@ -1,9 +1,12 @@
 ---
-title: "INTROL – SW03: Passwort-Sicherheit & Cracking Lab"
+title: "Passwort-Sicherheit & Cracking Lab"
 description: "Grundlagen der Passwortsicherheit, Hash-Funktionen, Salting, Angriffsmethoden (Rainbow Tables, Brute Force, Wörterbuchangriffe) und praktisches Passwort-Hacking mit Ophcrack, RainbowCrack und Metasploit."
 ---
+import Callout from '../../../../components/Callout.astro';
 
-## Lernziele
+<Callout type="green">
+## 1. Lernziele
+</Callout>
 
 In diesem Labor beschäftigen wir uns mit einem der grundlegendsten und gleichzeitig am häufigsten unterschätzten Themen der IT-Sicherheit: **Passwörter**. Konkret geht es darum:
 
@@ -15,7 +18,9 @@ In diesem Labor beschäftigen wir uns mit einem der grundlegendsten und gleichze
 
 ---
 
-## 1. Warum Passwörter so wichtig – und so gefährdet – sind
+<Callout type="green">
+## 2. Warum Passwörter so wichtig – und so gefährdet – sind
+</Callout>
 
 Passwörter sind der primäre Zugangsmechanismus zu digitalen Systemen. Das eigentliche Ziel von Passwort-Angreifern ist dabei oft **nicht** das direkte Einloggen bei einem Dienst (z. B. Instagram), sondern das **Erlangen des Klartextpassworts** selbst – denn Menschen verwenden Passwörter häufig für mehrere Konten wieder. Wer das Passwort eines Nutzers kennt, hat potenziell Zugang zu E-Mail, Firmennetzwerk, Bankdaten und mehr.
 
@@ -23,7 +28,9 @@ Professionelle Angreifer arbeiten deshalb mit gestohlenen **Passwortdateien** (v
 
 ---
 
-## 2. Gute Passwörter – Eigenschaften und Regeln
+<Callout type="green">
+## 3. Gute Passwörter – Eigenschaften und Regeln
+</Callout>
 
 Ein starkes Passwort erfüllt möglichst viele der folgenden Kriterien:
 
@@ -44,7 +51,9 @@ Ein starkes Passwort erfüllt möglichst viele der folgenden Kriterien:
 
 ---
 
-## 3. Hash-Funktionen: Wie Passwörter gespeichert werden
+<Callout type="green">
+## 4. Hash-Funktionen: Wie Passwörter gespeichert werden
+</Callout>
 
 Passwörter werden **nie im Klartext** gespeichert (zumindest sollten sie es nicht). Stattdessen wird das Passwort durch eine **Hash-Funktion** in einen Hash-Wert umgewandelt, der dann gespeichert wird.
 
@@ -100,7 +109,9 @@ sequenceDiagram
 
 ---
 
-## 4. Salting: Hashing verbessern
+<Callout type="green">
+## 5. Salting: Hashing verbessern
+</Callout>
 
 Selbst wenn Passwörter gehasht gespeichert sind, gibt es Schwachstellen. Zwei Nutzer mit demselben Passwort haben denselben Hash – das ermöglicht Angriffe mit **vorberechneten Tabellen (Rainbow Tables)**.
 
@@ -289,7 +300,9 @@ Rainbow Table → Search Rainbow Tables → [Tabelle auswählen]
 
 ---
 
-## 7. Hashcat: Modernes Passwort-Cracking
+<Callout type="green">
+## 6. Hashcat: Modernes Passwort-Cracking
+</Callout>
 
 **Hashcat** ist das mächtigste verfügbare Passwort-Cracking-Tool:
 
@@ -305,7 +318,9 @@ Grundprinzip: Rät ein Passwort → berechnet den Hash → vergleicht mit dem Zi
 
 ---
 
-## 8. Reverse Shell mit Metasploit (msfvenom)
+<Callout type="green">
+## 7. Reverse Shell mit Metasploit (msfvenom)
+</Callout>
 
 Im zweiten Teil des Labors wird gezeigt, wie ein Angreifer nach dem Passwort-Cracking **Remote-Zugriff** auf ein System erlangt.
 
@@ -358,7 +373,9 @@ run
 
 ---
 
-## 9. Zusammenfassung und Lessons Learned
+<Callout type="green">
+## 8. Zusammenfassung und Lessons Learned
+</Callout>
 
 ```mermaid
 flowchart TD

@@ -1,13 +1,17 @@
 ﻿---
 title: "PowerShell"
-description: "PowerShell scripting basics — cmdlets, the pipeline, objects, variables, conditionals, loops, and functions for automating Windows and cross-platform tasks."
+description: "PowerShell scripting — cmdlets, the object pipeline, variables, conditionals, loops, functions, error handling, and remoting for automating Windows and cross-platform tasks."
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
 
 
-PowerShell is an object-oriented shell and scripting language built on .NET. Unlike Bash (which passes text between commands), PowerShell passes **objects** — structured data with properties and methods.
+PowerShell is an object-oriented shell and scripting language built on .NET. Unlike Bash (which passes text between commands), PowerShell passes **objects** — structured data with properties and methods. This single design choice changes everything about how you write scripts: you query and filter typed data instead of parsing text with `grep`, `awk`, and `cut`.
+
+<Aside type="note" title="Windows PowerShell vs PowerShell (Core)">
+There are two lineages. **Windows PowerShell 5.1** ships built into Windows, runs on the older .NET Framework, and is Windows-only. **PowerShell 7+** (formerly "PowerShell Core") is the modern, cross-platform, open-source version that runs on Windows, Linux, and macOS — its executable is `pwsh`. New scripts should target 7+ where possible; 5.1 remains common on existing Windows servers.
+</Aside>
 
 ## The Key Difference: Objects, Not Text
 
@@ -19,11 +23,22 @@ ps aux | grep nginx | awk '{print $1}'
 Get-Process nginx | Select-Object -ExpandProperty Id
 ```
 
+Because everything is an object, you can inspect what you're working with. `Get-Member` is the most important discovery cmdlet in the language — it tells you what properties and methods an object has:
+
+```powershell
+Get-Process | Get-Member          # what can a process object do?
+Get-Process | Get-Member -MemberType Property
+```
+
+<Aside type="tip" title="The three discovery cmdlets">
+When you don't know how to do something, these three answer almost any question without leaving the shell: **`Get-Command`** (what cmdlets exist? supports wildcards: `Get-Command *service*`), **`Get-Help`** (how does this cmdlet work?), and **`Get-Member`** (what does this object contain?). Learning to lean on these beats memorising cmdlets.
+</Aside>
+
 ---
 
 ## Cmdlets
 
-The basic command unit. Named as `Verb-Noun`. PowerShell includes hundreds of built-in cmdlets.
+The basic command unit. Named as `Verb-Noun`. PowerShell includes hundreds of built-in cmdlets, and the consistent verb naming makes them discoverable — once you know `Get-`/`Set-`/`New-`/`Remove-`, you can guess most command names.
 
 ```powershell
 Get-Command              # list all cmdlets
@@ -38,6 +53,10 @@ Remove- # delete something
 Start-  # begin something
 Stop-   # end something
 ```
+
+<Aside type="note" title="Aliases: convenient interactively, avoid in scripts">
+PowerShell provides short aliases for common cmdlets — `ls`, `dir`, and `gci` all map to `Get-ChildItem`; `?` is `Where-Object`; `%` is `ForEach-Object`. These are great for typing at the prompt but should be spelled out in scripts, where clarity and stability matter more than brevity (aliases can be redefined or differ between systems).
+</Aside>
 
 ---
 
@@ -54,8 +73,12 @@ Write-Host "Files: $($files.Count)"        # expression inside $()
 
 # Type-constrained
 [int]$port = 8080
-[string]$host = "localhost"
+[string]$hostname = "localhost"
 ```
+
+<Aside type="caution" title="Single vs double quotes">
+Double-quoted strings **interpolate** variables (`"Hello $name"` → `Hello Alice`); single-quoted strings are **literal** (`'Hello $name'` → `Hello $name`). To evaluate anything more than a bare variable inside a string — a property or a method call — wrap it in the subexpression operator `$(...)`, as in `"Count: $($files.Count)"`. A bare `"$files.Count"` would stringify the whole collection and then append the literal text `.Count`.
+</Aside>
 
 ---
 
@@ -77,13 +100,22 @@ Select-Object # choose properties or first/last N items
 Sort-Object   # sort
 ForEach-Object # run a script block per object (alias: foreach, %)
 Measure-Object # count, sum, average
+Group-Object  # group objects by a property value
 ```
 
 ```powershell
 # ForEach-Object — $_ is the current object
 Get-ChildItem C:\logs -Filter "*.log" |
     ForEach-Object { Write-Host "Processing: $($_.Name)" }
+
+# Measure-Object — stats over a property
+Get-ChildItem C:\logs -File |
+    Measure-Object -Property Length -Sum -Average
 ```
+
+<Aside type="caution" title="Keep Format-* at the very end">
+`Format-Table`, `Format-List`, and friends produce *formatting objects* meant only for display — they are no longer the original data. If you pipe a `Format-*` cmdlet into anything that processes data (another `Where-Object`, `Export-Csv`, etc.) you'll get garbage. Filter and select first; format last. For exporting structured data, skip `Format-*` entirely and use `Export-Csv` / `ConvertTo-Json`.
+</Aside>
 
 ---
 
@@ -99,9 +131,18 @@ if ($age -ge 18) {
 } else {
     Write-Host "Child"
 }
+
+# switch — cleaner than a long if/elseif chain
+switch ($day) {
+    "Sat"   { "Weekend" }
+    "Sun"   { "Weekend" }
+    default { "Weekday" }
+}
 ```
 
 ### Comparison Operators
+
+PowerShell uses word-style operators (not `>`/`<`), because angle brackets mean redirection.
 
 | Operator | Meaning |
 |---|---|
@@ -111,8 +152,12 @@ if ($age -ge 18) {
 | `-ge` / `-le` | Greater or equal / less or equal |
 | `-like` | Wildcard match (`*`, `?`) |
 | `-match` | Regex match |
-| `-contains` | Collection contains value |
+| `-contains` / `-in` | Collection membership |
 | `-and` / `-or` / `-not` | Boolean operators |
+
+<Aside type="note" title="Comparison operators auto-filter collections">
+If the left side is a collection, a comparison operator *returns the matching elements* rather than a single true/false. So `(1,2,3,4) -gt 2` returns `3, 4`. This is occasionally surprising but often handy. Add `-c` for case-sensitive (`-ceq`) or `-i` to force case-insensitive (`-ieq`); string comparisons are case-insensitive by default.
+</Aside>
 
 ---
 
@@ -143,6 +188,10 @@ foreach ($file in Get-ChildItem C:\logs -Filter "*.log") {
 }
 ```
 
+<Aside type="tip" title="foreach statement vs ForEach-Object cmdlet">
+These look similar but differ: the **`foreach` statement** collects all items into memory first, then iterates — fast, and you can `break`/`continue`. The **`ForEach-Object` cmdlet** processes items one at a time as they stream down the pipeline — slightly slower, but it handles huge or infinite inputs without loading everything into RAM. Use the statement for in-memory arrays, the cmdlet in pipelines.
+</Aside>
+
 ---
 
 ## Functions
@@ -163,6 +212,10 @@ function Get-DiskInfo {
 Get-DiskInfo -DriveLetter C
 Get-DiskInfo   # uses default
 ```
+
+<Aside type="note" title="Return objects, not formatted text">
+Notice this function emits a `[PSCustomObject]`, not a `Write-Host` string. That's idiomatic PowerShell: functions should *output objects* so callers can pipe, filter, sort, and export the results. `Write-Host` writes directly to the screen and can't be captured or piped — reserve it for messages to a human, and use the function's normal output for data. Note also `1GB` is a built-in size literal (PowerShell understands `KB`, `MB`, `GB`, `TB`, `PB`).
+</Aside>
 
 ---
 
@@ -187,6 +240,10 @@ $ErrorActionPreference = "Stop"
 if (-not $?) { Write-Error "Last command failed" }
 ```
 
+<Aside type="caution" title="`catch` only fires on terminating errors">
+PowerShell distinguishes **non-terminating** errors (the default for most cmdlets — they print red text but keep going) from **terminating** errors (which `try/catch` can actually catch). Many cmdlets won't trigger your `catch` block unless you add `-ErrorAction Stop` to promote their errors to terminating, or set `$ErrorActionPreference = "Stop"` globally. This is why a `try/catch` sometimes "doesn't work" — the error was non-terminating and sailed right past it.
+</Aside>
+
 ---
 
 ## Working with Files
@@ -207,7 +264,17 @@ Remove-Item C:\temp -Recurse -Force
 
 # Directory listing
 Get-ChildItem C:\ -Recurse -Filter "*.log" | Select-Object FullName, Length
+
+# Structured data — first-class support
+Get-Content config.json | ConvertFrom-Json
+$data | ConvertTo-Json -Depth 5
+Import-Csv users.csv | Where-Object Department -eq "IT"
+$results | Export-Csv report.csv -NoTypeInformation
 ```
+
+<Aside type="tip" title="JSON and CSV are built in">
+Because PowerShell speaks objects, converting to and from JSON/CSV is native and lossless-ish: `ConvertFrom-Json` turns a JSON string into a real object you can dot into (`$config.database.host`), and `Import-Csv` gives you one object per row with named properties. This makes PowerShell excellent glue for APIs and data files — no manual parsing required.
+</Aside>
 
 ---
 
@@ -241,6 +308,32 @@ $files | Remove-Item -Force
 Write-Log "Done"
 ```
 
+<Aside type="note" title="`[CmdletBinding()]` gives you superpowers for free">
+Adding `[CmdletBinding()]` above your `param()` block turns a plain function or script into an "advanced" one: it automatically gains the common parameters like `-Verbose`, `-Debug`, and crucially `-WhatIf`/`-Confirm` (when paired with `SupportsShouldProcess`). `-WhatIf` lets users preview what a destructive script *would* do without doing it — a hallmark of well-behaved PowerShell.
+</Aside>
+
+---
+
+## Execution Policy
+
+A first-run gotcha: by default Windows may refuse to run your `.ps1` script.
+
+```powershell
+Get-ExecutionPolicy                # check current setting
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+| Policy | Meaning |
+|---|---|
+| `Restricted` | No scripts at all (common default) |
+| `RemoteSigned` | Local scripts run; downloaded ones need a signature |
+| `AllSigned` | Every script must be signed |
+| `Unrestricted` | Anything runs (not recommended) |
+
+<Aside type="caution">
+Execution policy is a safety guardrail to prevent accidentally running untrusted scripts — **not** a security boundary (it's trivially bypassed). `RemoteSigned` for `CurrentUser` is the usual sensible setting for someone who writes their own scripts.
+</Aside>
+
 ---
 
 ## Remoting
@@ -251,11 +344,18 @@ PowerShell can run commands on remote machines.
 # One-off remote command
 Invoke-Command -ComputerName server01 -ScriptBlock { Get-Service | Where-Object Status -eq "Stopped" }
 
+# Run against many machines at once (runs in parallel)
+Invoke-Command -ComputerName web01, web02, web03 -ScriptBlock { Restart-Service nginx }
+
 # Interactive remote session
 Enter-PSSession -ComputerName server01
 # ... do stuff ...
 Exit-PSSession
 ```
+
+<Aside type="note">
+Remoting uses **WinRM** on Windows (and SSH on PowerShell 7+ cross-platform). Crucially, objects returned from a remote machine are *serialized* — they cross the wire as data snapshots, so their live methods generally won't work on the receiving end, only their properties.
+</Aside>
 
 ---
 

@@ -1,7 +1,8 @@
 ---
-title: "INTROL – SW09: Firewall Basics"
+title: "Firewall Basics"
 description: "Grundlagen der Firewall-Konfiguration am Beispiel einer Palo Alto PA-440: Netzwerkzonierung, Interfaces, NAT, DHCP, DNS-Proxy und Firewall-Regeln."
 ---
+import Callout from '../../../../components/Callout.astro';
 
 Dieses Dokument fasst die Inhalte des Einführungslabors zur Netzwerksicherheit zusammen.
 Im Mittelpunkt steht die praktische Konfiguration einer professionellen **Next-Generation Firewall (NGFW)**
@@ -9,7 +10,9 @@ vom Typ Palo Alto PA-440. Die behandelten Konzepte sind jedoch universell auf an
 
 ---
 
+<Callout type="green">
 ## 1. Lernziele
+</Callout>
 
 | Ziel | Beschreibung |
 |------|-------------|
@@ -23,7 +26,9 @@ vom Typ Palo Alto PA-440. Die behandelten Konzepte sind jedoch universell auf an
 
 ---
 
+<Callout type="green">
 ## 2. Laboraufbau und Netzwerkarchitektur
+</Callout>
 
 ### 2.1 Physischer Aufbau
 
@@ -116,7 +121,9 @@ graph LR
 
 ---
 
-## 4. Inbetriebnahme der Palo Alto PA-440
+<Callout type="green">
+## 3. Inbetriebnahme der Palo Alto PA-440
+</Callout>
 
 ### 4.1 Erstzugang über Management-Port
 
@@ -244,7 +251,9 @@ sequenceDiagram
 
 ---
 
-## 7. Firewall-Regeln und das Whitelisting-Prinzip
+<Callout type="green">
+## 4. Firewall-Regeln und das Whitelisting-Prinzip
+</Callout>
 
 ### 7.1 Top-Down-Prinzip
 
@@ -388,7 +397,9 @@ sequenceDiagram
 
 ---
 
-## 9. DNS-Proxy auf der Firewall
+<Callout type="green">
+## 5. DNS-Proxy auf der Firewall
+</Callout>
 
 ### 9.1 Das Problem mit externen DNS-Servern
 
@@ -436,7 +447,9 @@ nslookup google.com       → Löst externen Namen auf (Forwarding)
 
 ---
 
-## 10. Destination Network Address Translation (DNAT)
+<Callout type="green">
+## 6. Destination Network Address Translation (DNAT)
+</Callout>
 
 ### 10.1 Das Problem: Interne Server von aussen erreichbar machen
 
@@ -533,7 +546,9 @@ graph TD
 
 ---
 
-## 12. Wichtige Befehle zur Überprüfung (Windows-Client)
+<Callout type="green">
+## 7. Wichtige Befehle zur Überprüfung (Windows-Client)
+</Callout>
 
 | Befehl | Zweck |
 |--------|-------|
@@ -547,7 +562,9 @@ graph TD
 
 ---
 
-## 13. Häufige Fehlerquellen
+<Callout type="green">
+## 8. Häufige Fehlerquellen
+</Callout>
 
 | Problem | Ursache | Lösung |
 |---------|---------|--------|
@@ -561,7 +578,9 @@ graph TD
 
 ---
 
-## 14. Konzeptuelles Gesamtbild
+<Callout type="green">
+## 9. Konzeptuelles Gesamtbild
+</Callout>
 
 ```mermaid
 flowchart TB

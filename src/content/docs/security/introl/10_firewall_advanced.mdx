@@ -1,9 +1,12 @@
 ---
-title: "INTROL – SW06: Firewall Advanced"
+title: "Firewall Advanced"
 description: "NextGen-Firewall: Layer 7-Prüfung, SSL-Decryption, Malware-Analyse (Antivirus & WildFire), Captive Portal Authentifizierung, URL- und Application-Filtering sowie Social Media Tracking auf einer Palo Alto PA-440."
 ---
+import Callout from '../../../../components/Callout.astro';
 
-## Überblick und Lernziele
+<Callout type="green">
+## 1. Überblick und Lernziele
+</Callout>
 
 Dieses Labor baut auf der Basiskonfiguration einer Palo Alto PA-440 auf und vertieft die erweiterten Funktionen einer **Next Generation Firewall (NGFW)**. Der zentrale Unterschied zu einer klassischen Firewall liegt darin, dass eine NGFW den Netzwerkverkehr nicht nur auf Layer 3/4 (IP-Adressen, Ports) analysiert, sondern bis auf **OSI-Layer 7** (Anwendungsschicht) prüfen kann. Dies ermöglicht feingranulare Kontrolle über Inhalte, Applikationen und Nutzerverhalten.
 
@@ -17,7 +20,9 @@ Dieses Labor baut auf der Basiskonfiguration einer Palo Alto PA-440 auf und vert
 
 ---
 
-## 1. Netzwerkinfrastruktur des Labors
+<Callout type="green">
+## 2. Netzwerkinfrastruktur des Labors
+</Callout>
 
 ### Physische Topologie
 
@@ -139,7 +144,9 @@ Nach erfolgreicher Installation zeigt Firefox zwar noch einen Hinweis ("Mozilla 
 
 ---
 
+<Callout type="green">
 ## 3. Malware Threat Analysis
+</Callout>
 
 ### 3.1 Antivirus Threat Analysis
 
@@ -248,7 +255,9 @@ Der Analysis Report zeigt:
 
 ---
 
+<Callout type="green">
 ## 4. Authentication – Captive Portal
+</Callout>
 
 ### Konzept: Authentifizierung vs. Autorisierung
 
@@ -363,7 +372,7 @@ Das Captive Portal muss über das Inside-Interface erreichbar sein. Das erforder
 
 ## 5. Layer 7 Web-Filtering
 
-### 5.1 URL-Blocking
+### URL-Blocking
 
 #### Konzept
 
@@ -402,7 +411,7 @@ Eine neue Regel **oberhalb** der `inside-outside-allow`-Regel:
 
 **Was erscheint bei blockierten Seiten?** Nicht der typische Browser-Fehlerscreen, sondern eine **eigene Blockierungsseite der Palo Alto Firewall** – möglich dank SSL Decryption und Layer 7-Fähigkeit.
 
-### 5.2 URL-Blocking auf Nutzer-Basis
+### URL-Blocking auf Nutzer-Basis
 
 Durch die Captive Portal Authentifizierung kann die Firewall identifizieren, **welcher Benutzer** hinter einer IP-Adresse steckt. Dies ermöglicht **nutzerbasierte Regeln**.
 
@@ -430,7 +439,7 @@ debug user-id reset captive-portal ip-address 192.168.10.100
 ```
 Dies erzwingt eine erneute Anmeldung beim nächsten Seitenaufruf.
 
-### 5.3 Application Filtering und das QUIC-Problem
+### Application Filtering und das QUIC-Problem
 
 #### Das Problem mit QUIC
 
@@ -502,7 +511,9 @@ Dies ist mit reinem URL-Blocking **nicht möglich**, da beides über dieselbe Do
 
 ---
 
+<Callout type="green">
 ## 6. Social Media Tracking
+</Callout>
 
 ### Facebook Tracking-Methoden
 
@@ -538,7 +549,9 @@ Dies ist der Kernvorteil von Application-Based Filtering gegenüber URL-Blocking
 
 ---
 
+<Callout type="green">
 ## 7. Aufräumen und Best Practices
+</Callout>
 
 ### Warum Aufräumen wichtig ist
 
@@ -555,7 +568,9 @@ In einem Labor-Umfeld teilen sich mehrere Teams dieselbe Hardware. Nicht bereing
 
 ---
 
+<Callout type="danger">
 ## Zusammenfassung: Architektur einer NextGen Firewall
+</Callout>
 
 ```mermaid
 graph TB

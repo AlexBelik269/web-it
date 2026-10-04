@@ -1,13 +1,13 @@
 ﻿---
 title: "Bash"
-description: "Bash scripting basics — variables, conditionals, loops, functions, and common patterns for automating tasks on Linux."
+description: "Bash scripting — variables, quoting, conditionals, loops, functions, parameter expansion, error handling, and battle-tested patterns for automating Linux tasks."
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
 
 
-Bash (Bourne Again SHell) is the default shell on most Linux distributions. It is both an interactive command interpreter and a scripting language for automating tasks.
+Bash (Bourne Again SHell) is the default shell on most Linux distributions. It is both an interactive command interpreter and a scripting language for automating tasks. Its great strength is gluing together small programs; its great weakness is that subtle quoting and word-splitting rules cause bugs that only surface on the one filename with a space in it. Most of this page is about writing Bash that *doesn't* break on those edge cases.
 
 ## Script Structure
 
@@ -25,6 +25,10 @@ echo "Hello, world!"
 chmod +x myscript.sh
 ./myscript.sh
 ```
+
+<Aside type="tip" title="Why `/usr/bin/env bash` and not `/bin/bash`?">
+`#!/usr/bin/env bash` looks up bash on the user's `PATH` rather than hard-coding a location. This matters on systems where bash lives somewhere non-standard (macOS with Homebrew, some BSDs, Nix). Hard-coding `/bin/bash` is fine for system scripts on a known distro but less portable.
+</Aside>
 
 ---
 
@@ -44,6 +48,16 @@ files=$(ls /etc/*.conf | wc -l)
 echo "Today: $today, config files: $files"
 ```
 
+<Aside type="caution" title="The single most common Bash bug">
+**Always quote your variable expansions**: `"$var"`, not `$var`. Unquoted, Bash splits the value on whitespace and expands glob characters (`*`, `?`). A file named `my report.txt` becomes *two* arguments `my` and `report.txt`; a variable containing `*` expands to every file in the directory. The rule of thumb: if you're not certain you want splitting and globbing, quote it.
+
+```bash
+file="my report.txt"
+rm $file        # WRONG: tries to remove 'my' and 'report.txt'
+rm "$file"      # CORRECT: removes 'my report.txt'
+```
+</Aside>
+
 ### Special Variables
 
 | Variable | Meaning |
@@ -52,9 +66,46 @@ echo "Today: $today, config files: $files"
 | `$1`, `$2`... | Positional arguments |
 | `$#` | Number of arguments |
 | `$@` | All arguments (as separate words) |
+| `$*` | All arguments (as one string) |
 | `$?` | Exit code of last command (0 = success) |
 | `$$` | PID of current shell |
 | `$!` | PID of last background process |
+
+<Aside type="note" title='"$@" vs "$*"'>
+Quoted `"$@"` expands to each argument as a *separate* word — this is almost always what you want when forwarding arguments to another command. Quoted `"$*"` joins everything into a *single* word. Use `"$@"` by default.
+</Aside>
+
+---
+
+## Parameter Expansion
+
+Bash can manipulate variables without calling external tools like `sed` or `cut` — faster and dependency-free.
+
+```bash
+file="/var/log/syslog.1.gz"
+
+echo "${file##*/}"      # syslog.1.gz   — strip longest leading */ (basename)
+echo "${file%/*}"       # /var/log      — strip trailing /* (dirname)
+echo "${file%.gz}"      # .../syslog.1  — remove .gz suffix
+echo "${file#*.}"       # 1.gz          — remove up to first .
+
+name="Alice"
+echo "${name:-Guest}"   # Alice; if unset/empty → "Guest" (default value)
+echo "${name:=Guest}"   # like above but also assigns it
+echo "${#name}"         # 5 — string length
+echo "${name^^}"        # ALICE — uppercase
+echo "${name,,}"        # alice — lowercase
+echo "${name/A/4}"      # 4lice — replace first match
+```
+
+| Pattern | Effect |
+|---|---|
+| `${var:-default}` | Use `default` if `var` unset/empty |
+| `${var:=default}` | …and assign it back |
+| `${var:?msg}` | Error and exit if `var` unset |
+| `${var#pattern}` / `${var##pattern}` | Strip shortest / longest prefix |
+| `${var%pattern}` / `${var%%pattern}` | Strip shortest / longest suffix |
+| `${var/old/new}` / `${var//old/new}` | Replace first / all |
 
 ---
 
@@ -82,6 +133,20 @@ if [ -z "$var" ];       then echo "variable is empty"; fi
 if [ -n "$var" ];       then echo "variable is not empty"; fi
 ```
 
+### Comparison operators
+
+Numeric and string comparisons use *different* operators — a frequent source of confusion.
+
+| Numeric | String | Meaning |
+|---|---|---|
+| `-eq` | `=` / `==` | Equal |
+| `-ne` | `!=` | Not equal |
+| `-gt` | `>` * | Greater than |
+| `-lt` | `<` * | Less than |
+| `-ge` / `-le` | — | Greater/less or equal |
+
+\* Inside `[[ ]]`, `<` and `>` compare strings lexically. Using `>` in `[ ]` is interpreted as redirection — another reason to prefer `[[ ]]`.
+
 ### [[ ]] vs [ ]
 
 Prefer `[[ ]]` in modern bash — it supports regex, `&&`/`||` inside the test, and doesn't word-split variables.
@@ -90,6 +155,26 @@ Prefer `[[ ]]` in modern bash — it supports regex, `&&`/`||` inside the test, 
 if [[ "$name" == A* ]]; then echo "starts with A"; fi
 if [[ "$str" =~ ^[0-9]+$ ]]; then echo "all digits"; fi
 if [[ -f "$file" && -r "$file" ]]; then echo "readable file"; fi
+```
+
+For arithmetic, `(( ))` is cleaner still:
+
+```bash
+if (( count > 10 )); then echo "big"; fi   # no $ needed, real math operators
+(( total = price * qty ))
+```
+
+### case statements
+
+For matching one value against many patterns, `case` is more readable than a long `if/elif` chain:
+
+```bash
+case "$1" in
+    start)        echo "Starting...";;
+    stop|halt)    echo "Stopping...";;       # multiple patterns with |
+    *.txt)        echo "A text file";;        # glob patterns work
+    *)            echo "Unknown: $1";;        # default
+esac
 ```
 
 ---
@@ -125,6 +210,12 @@ while IFS= read -r line; do
 done < /etc/hosts
 ```
 
+<Aside type="caution" title="Never `for line in $(cat file)`">
+A tempting but broken idiom is `for line in $(cat file)`. It splits on *every whitespace character*, not just newlines, so a line with spaces becomes multiple iterations, and globs in the file get expanded. The correct way to read a file line by line is the `while IFS= read -r line` pattern shown above:
+- `IFS=` prevents trimming of leading/trailing whitespace,
+- `-r` stops backslashes being interpreted as escapes.
+</Aside>
+
 ---
 
 ## Functions
@@ -142,6 +233,10 @@ greet "Bob"
 # Capture function output
 result=$(greet "Charlie")
 ```
+
+<Aside type="note" title="Functions return codes, not values">
+A Bash function's `return` only sets an exit status (0–255), like any command — it is **not** a return value. To pass data back, the function writes to stdout and the caller captures it with `$(...)`, as in `result=$(greet "Charlie")`. Always declare function-internal variables with `local`, or they leak into the global scope and cause spooky action at a distance.
+</Aside>
 
 ---
 
@@ -162,7 +257,17 @@ ps aux | sort -rk3 | head -5   # top 5 by CPU
 
 # Here string
 grep "pattern" <<< "search in this string"
+
+# Here document — feed a multi-line block as stdin
+cat <<EOF > /etc/myapp.conf
+host = localhost
+port = 8080
+EOF
 ```
+
+<Aside type="tip" title="Useful text tools to pipe into">
+The classic Unix filters that make pipelines powerful: `grep` (filter lines), `cut` (extract columns), `sort`, `uniq -c` (count duplicates), `tr` (translate/delete chars), `sed` (stream edit), `awk` (field-aware processing), `head`/`tail`, `wc` (count). Composing these often replaces what would be a whole script in another language.
+</Aside>
 
 ---
 
@@ -177,9 +282,21 @@ echo "${#fruits[@]}"         # count
 # Append
 fruits+=("date")
 
-# Iterate
+# Iterate (always quote "${arr[@]}")
 for f in "${fruits[@]}"; do
     echo "$f"
+done
+```
+
+Bash 4+ also has **associative arrays** (key→value maps):
+
+```bash
+declare -A capital
+capital[Switzerland]="Bern"
+capital[France]="Paris"
+echo "${capital[Switzerland]}"        # Bern
+for country in "${!capital[@]}"; do   # ! gives the keys
+    echo "$country -> ${capital[$country]}"
 done
 ```
 
@@ -205,6 +322,24 @@ if ! cp source.txt dest.txt; then
     exit 1
 fi
 ```
+
+<Aside type="caution" title="`set -e` is not a magic safety net">
+`set -euo pipefail` catches many mistakes, but `set -e` has surprising blind spots: it does *not* trigger inside conditionals, in the left side of `&&`/`||`, or in command substitutions in some contexts. It's a useful default, not a substitute for checking the exit codes of commands that genuinely matter. For anything important, test `$?` or use `if ! command; then ...` explicitly.
+</Aside>
+
+---
+
+## Debugging
+
+```bash
+bash -x script.sh       # print every command as it runs (trace mode)
+set -x                  # turn on tracing partway through a script
+set +x                  # turn it off again
+```
+
+<Aside type="tip" title="Run your scripts through ShellCheck">
+[ShellCheck](https://www.shellcheck.net) is a static analyser that catches the overwhelming majority of common Bash bugs — unquoted variables, useless `cat`, wrong test operators — before you ever run the script. Many editors integrate it. It's the single highest-value tool for writing correct Bash.
+</Aside>
 
 ---
 

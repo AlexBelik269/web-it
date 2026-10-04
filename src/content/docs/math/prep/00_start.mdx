@@ -1,0 +1,353 @@
+---
+title: "Mathematische Grundlagen, Regeln und Prinzipien"
+description: "Mathematische Grundbegriffe, Zahlensysteme"
+---
+
+## 1. Grundbegriffe und Definitionen
+
+Jede Rechenoperation hat eigene Fachbegriffe für die beteiligten Zahlen und das Ergebnis:
+
+| Operation | Bestandteile | Ergebnis |
+|-----------|--------------|----------|
+| Addition | Summand + Summand | Summe |
+| Subtraktion | Minuend − Subtrahend | Differenz |
+| Multiplikation | Faktor · Faktor | Produkt |
+| Division | Dividend ÷ Divisor | Quotient |
+| Potenzierung | Basis^Exponent | Potenz |
+
+**Potenzieren** bedeutet nichts anderes als wiederholtes Multiplizieren mit dem gleichen Faktor:
+
+$$2^4 = 2 \cdot 2 \cdot 2 \cdot 2 = 16$$
+
+$$(-3)^3 = (-3) \cdot (-3) \cdot (-3) = -27$$
+
+> **Merke:** Bei negativer Basis und geradem Exponenten ist das Ergebnis positiv; bei ungeradem Exponenten negativ.
+
+---
+
+## 2. Vorzeichen- und Klammerregeln
+
+### Minus vor der Klammer
+
+Steht ein **Minuszeichen vor einer Klammer**, kehren sich alle Vorzeichen innerhalb der Klammer um. Das ist gleichbedeutend mit dem Ausklammern von $(-1)$:
+
+$$a - (b + c) = a - b - c$$
+
+$$a - (b - c) = a - b + c$$
+
+$$5 - (3 + 2) = 5 - 3 - 2 = 0$$
+
+$$5 - (3 - 2) = 5 - 3 + 2 = 4$$
+
+### Weitere Vorzeichen-Umformungen
+
+$$a - (+b) = a - b$$
+
+$$a - (-b) = a + b \quad \leftarrow \text{„Minus mal Minus gibt Plus"}$$
+
+**Praxisbeispiel:**
+
+$$10 - (-4) = 10 + 4 = 14$$
+
+### Ausmultiplizieren (Distributivgesetz)
+
+Beim Ausmultiplizieren wird jeder Term in der Klammer mit dem Faktor außerhalb multipliziert:
+
+$$a \cdot (b + c) = ab + ac$$
+
+$$3 \cdot (x + 5) = 3x + 15$$
+
+$$(a + b)(c + d) = ac + ad + bc + bd$$
+
+$$(x + 2)(x + 3) = x^2 + 3x + 2x + 6 = x^2 + 5x + 6$$
+
+### Ausklammern (Umkehrung)
+
+Ausklammern ist die Umkehrung des Ausmultiplizierens — man sucht den **grössten gemeinsamen Faktor** (ggF):
+
+$$ab + ac = a(b + c)$$
+
+$$6x^2 + 9x = 3x(2x + 3)$$
+
+---
+
+## 3. Potenzgesetze
+
+Die Potenzgesetze gelten für $a \neq 0$ und beliebige ganzzahlige Exponenten $m, n$:
+
+| Gesetz | Formel | Beispiel |
+|--------|--------|---------|
+| Gleiche Basen multiplizieren | $a^m \cdot a^n = a^{m+n}$ | $2^3 \cdot 2^4 = 2^7 = 128$ |
+| Gleiche Basen dividieren | $a^m : a^n = a^{m-n}$ | $5^6 : 5^2 = 5^4 = 625$ |
+| Potenz einer Potenz | $(a^m)^n = a^{m \cdot n}$ | $(3^2)^3 = 3^6 = 729$ |
+| Produkt potenzieren | $(a \cdot b)^n = a^n \cdot b^n$ | $(2 \cdot 3)^2 = 4 \cdot 9 = 36$ |
+| Quotient potenzieren | $\left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$ | $\left(\frac{2}{3}\right)^2 = \frac{4}{9}$ |
+| Nullter Exponent | $a^0 = 1$ | $7^0 = 1$ |
+| Negativer Exponent | $a^{-n} = \frac{1}{a^n}$ | $2^{-3} = \frac{1}{8}$ |
+
+> **Häufiger Fehler:** $a^m \cdot b^m = (ab)^m$, aber $a^m \cdot a^n \neq a^{m \cdot n}$ (das wäre $(a^m)^n$)!
+
+---
+
+## 4. Division und Besonderheiten
+
+$$a : b = \frac{a}{b}$$
+
+$$0 : b = \frac{0}{b} = 0 \quad (b \neq 0)$$
+
+$$a : 0 = \frac{a}{0} \rightarrow \textbf{nicht definiert!}$$
+
+**Warum ist Division durch 0 undefiniert?**
+
+Division ist die Umkehrung der Multiplikation. Wenn $\frac{a}{0} = x$ wäre, müsste gelten: $x \cdot 0 = a$. Da aber jede Zahl mal 0 immer 0 ergibt, gibt es keine Lösung (ausser $a = 0$, was aber unendlich viele Lösungen hätte). Daher ist $\frac{a}{0}$ für alle $a$ **nicht definiert**.
+
+---
+
+## 5. Binomische Formeln und Faktorisierung
+
+### Die drei binomischen Formeln
+
+Diese Formeln sind so häufig, dass sie auswendig beherrscht werden sollten:
+
+$$\boxed{(a + b)^2 = a^2 + 2ab + b^2}$$
+
+$$\boxed{(a - b)^2 = a^2 - 2ab + b^2}$$
+
+$$\boxed{(a + b)(a - b) = a^2 - b^2}$$
+
+**Beispiele:**
+
+$$(x + 3)^2 = x^2 + 6x + 9$$
+
+$$(2x - 5)^2 = 4x^2 - 20x + 25$$
+
+$$(x + 4)(x - 4) = x^2 - 16$$
+
+### Kubische Formeln
+
+$$(a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$$
+
+$$(a - b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$
+
+$$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$$
+
+$$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$$
+
+### ⚠️ Wichtige Warnungen
+
+> **Summen von Quadraten können NICHT faktorisiert werden:**
+>
+> $(a^2 + b^2) \neq (a + b)^2$ und lässt sich über den reellen Zahlen **nicht** in Linearfaktoren zerlegen!
+
+> **Nie aus Summen kürzen:**
+>
+> $$\frac{a^2 + b^2}{a + b} \neq a + b \quad \text{(FALSCH!)}$$
+>
+> Das gilt analog für alle Ausdrücke der Form $\frac{x + y}{x}$ — man kann nur ganze Faktoren, nicht Summanden kürzen.
+
+### Faktorisierungsbeispiele
+
+Durch geschicktes Gruppieren kann man komplexe Ausdrücke faktorisieren:
+
+$$ax + ay + bx + by = a(x + y) + b(x + y) = (a + b)(x + y)$$
+
+$$6a^2 + 3ac - 2ab - bc = 3a(2a + c) - b(2a + c) = (3a - b)(2a + c)$$
+
+---
+
+## 6. ggT und kgV
+
+### Grösster gemeinsamer Teiler (ggT)
+
+**Vorgehen:**
+1. Jede Zahl vollständig in **Primfaktoren** zerlegen.
+2. Nur die Primfaktoren nehmen, die in **allen** Zahlen vorkommen.
+3. Jeweils die **kleinste** Häufigkeit verwenden.
+4. Diese Primfaktoren multiplizieren.
+
+**Beispiel: ggT(24, 36, 60)**
+
+$$24 = 2^3 \cdot 3$$
+
+$$36 = 2^2 \cdot 3^2$$
+
+$$60 = 2^2 \cdot 3 \cdot 5$$
+
+Gemeinsam sind $2^2$ und $3^1$:
+
+$$\text{ggT}(24, 36, 60) = 2^2 \cdot 3 = 12$$
+
+**Wofür braucht man den ggT?** Zum Kürzen von Brüchen und zum Finden gemeinsamer Einheiten.
+
+### Kleinstes gemeinsames Vielfaches (kgV)
+
+**Vorgehen:**
+1. Jede Zahl vollständig in Primfaktoren zerlegen.
+2. **Alle** vorkommenden Primfaktoren nehmen.
+3. Jeweils die **grösste** Häufigkeit verwenden.
+4. Diese Primfaktoren multiplizieren.
+
+**Beispiel: kgV(24, 36, 60)**
+
+Höchste Häufigkeiten: $2^3$, $3^2$, $5^1$:
+
+$$\text{kgV}(24, 36, 60) = 2^3 \cdot 3^2 \cdot 5 = 8 \cdot 9 \cdot 5 = 360$$
+
+**Wofür braucht man das kgV?** Als Hauptnenner beim Addieren von Brüchen.
+
+> **Merkhilfe:** ggT nimmt das **Minimum** jedes Primfaktors, kgV das **Maximum**.
+
+---
+
+## 7. Bruchrechnen
+
+### Goldene Regel
+
+> **Nie aus Summen kürzen!** Summen müssen zuerst in Produkte umgeformt werden.
+>
+> $$\frac{a + b}{a} \neq 1 + b \quad \text{(FALSCH!)} \qquad \frac{a \cdot b}{a} = b \quad \text{(richtig)}$$
+
+### Das Vorzeichen bei Brüchen
+
+$$-\frac{a}{b} = \frac{-a}{b} = \frac{a}{-b}$$
+
+Nützlich: Wenn Zähler und Nenner sich nur um das Vorzeichen unterscheiden, kann man $(-1)$ ausklammern:
+
+$$\frac{a - b}{b - a} = \frac{a - b}{-(a - b)} = -1$$
+
+### Erweitern und Kürzen
+
+**Erweitern** (Zähler und Nenner mit gleicher Zahl multiplizieren — ändert den Wert nicht):
+
+$$\frac{3}{4} = \frac{3 \cdot 5}{4 \cdot 5} = \frac{15}{20}$$
+
+**Kürzen** (nur mit gemeinsamen **Faktoren**, nicht Summanden):
+
+$$\frac{12}{18} = \frac{2 \cdot 6}{3 \cdot 6} = \frac{2}{3}$$
+
+$$\frac{3(x+2)}{6(x+2)} = \frac{3}{6} = \frac{1}{2} \quad (x \neq -2)$$
+
+### Addition und Subtraktion
+
+Bei **gleichen Nennern** einfach die Zähler addieren/subtrahieren:
+
+$$\frac{a}{c} \pm \frac{b}{c} = \frac{a \pm b}{c}$$
+
+$$\frac{5}{7} + \frac{3}{7} = \frac{8}{7}$$
+
+Bei **verschiedenen Nennern** zuerst auf den gemeinsamen Nenner (= kgV der Nenner) bringen:
+
+$$\frac{1}{4} + \frac{1}{6} = \frac{3}{12} + \frac{2}{12} = \frac{5}{12}$$
+
+$$\frac{2}{x} - \frac{3}{x^2} = \frac{2x}{x^2} - \frac{3}{x^2} = \frac{2x - 3}{x^2}$$
+
+**Klammerregeln beim Subtrahieren von Brüchen beachten:**
+
+$$\frac{a - (b - c)}{d} = \frac{a - b + c}{d}$$
+
+**Sonderfall:** Wenn Nenner sich nur um Faktor $(-1)$ unterscheiden:
+
+$$\frac{a}{a - 2b} + \frac{b}{2b - a} = \frac{a}{a - 2b} - \frac{b}{a - 2b} = \frac{a - b}{a - 2b}$$
+
+### Multiplikation
+
+Zähler mal Zähler, Nenner mal Nenner — dabei wenn möglich **zuerst kürzen**:
+
+$$\frac{a}{b} \cdot \frac{c}{d} = \frac{ac}{bd}$$
+
+$$\frac{3}{8} \cdot \frac{4}{9} = \frac{12}{72} = \frac{1}{6} \qquad \text{(besser: } \frac{\cancel{3}}{8} \cdot \frac{4}{\cancel{9}} = \frac{4}{24} = \frac{1}{6}\text{)}$$
+
+### Division
+
+Dividieren = mit dem **Kehrbruch** multiplizieren:
+
+$$\frac{a}{b} : \frac{c}{d} = \frac{a}{b} \cdot \frac{d}{c} = \frac{ad}{bc}$$
+
+$$\frac{5}{6} : \frac{2}{3} = \frac{5}{6} \cdot \frac{3}{2} = \frac{15}{12} = \frac{5}{4}$$
+
+### Doppelbrüche
+
+Den Hauptbruchstrich durch ein Divisionszeichen ersetzen:
+
+$$\frac{\dfrac{a}{b}}{\dfrac{c}{d}} = \frac{a}{b} : \frac{c}{d} = \frac{ad}{bc}$$
+
+$$\frac{\dfrac{3}{4}}{\dfrac{9}{8}} = \frac{3}{4} \cdot \frac{8}{9} = \frac{24}{36} = \frac{2}{3}$$
+
+> **Wenn Zähler oder Nenner eine Summe/Differenz ist**, muss diese zuerst zu einem einzigen Bruch zusammengefasst werden, bevor man den Hauptbruch umformt.
+
+---
+
+## 8. Gleichungen
+
+### Grundprinzip: Äquivalenzumformungen
+
+Eine Gleichung bleibt gültig, solange man **auf beiden Seiten die gleiche Operation** durchführt. Erlaubt sind: Addition, Subtraktion, Multiplikation (mit $\neq 0$), Division (durch $\neq 0$), Potenzieren, Wurzelziehen (mit Fallunterscheidung bei geraden Wurzeln).
+
+### Lineare Gleichungen
+
+**Ziel:** Variable auf eine Seite bringen, Zahlen auf die andere.
+
+$$3x - 7 = 2x + 5 \quad |-2x$$
+
+$$x - 7 = 5 \quad |+7$$
+
+$$x = 12$$
+
+### Bruchgleichungen
+
+**Strategie:** Alle Nenner durch Multiplikation mit dem **Hauptnenner** (= kgV aller Nenner) eliminieren.
+
+**Beispiel:**
+
+$$\frac{x}{4} - \frac{x}{10} = 3 \quad | \cdot 20 \quad \text{(kgV von 4 und 10)}$$
+
+$$5x - 2x = 60$$
+
+$$3x = 60 \implies x = 20$$
+
+**Probe:** $\frac{20}{4} - \frac{20}{10} = 5 - 2 = 3$ ✓
+
+> **Wichtig:** Bei Bruchgleichungen immer prüfen, ob die Lösung einen Nenner null macht — solche Werte sind **unzulässig** (Definitionslücken).
+
+**Weiteres Beispiel:**
+
+$$\frac{2}{x - 1} + \frac{3}{x + 1} = \frac{10}{x^2 - 1} \quad | \cdot (x^2 - 1), \quad x \neq \pm 1$$
+
+$$2(x + 1) + 3(x - 1) = 10$$
+
+$$2x + 2 + 3x - 3 = 10$$
+
+$$5x - 1 = 10 \implies x = \frac{11}{5}$$
+
+### Proportionsgleichungen
+
+Eine Proportion $a : b = c : d$ (auch $\frac{a}{b} = \frac{c}{d}$) lässt sich durch **Kreuzmultiplikation** lösen:
+
+$$\frac{a}{b} = \frac{c}{d} \implies a \cdot d = b \cdot c$$
+
+**Beispiel:**
+
+$$45 : 33 = x : 22 \implies \frac{45}{33} = \frac{x}{22} \quad | \cdot 66$$
+
+$$90 = 3x \implies x = 30$$
+
+**Probe:** $45 : 33 = 1{,}\overline{36}$ und $30 : 22 = 1{,}\overline{36}$ ✓
+
+**Anwendung (Dreisatz):**
+
+> Ein Auto fährt 120 km in 1,5 Stunden. Wie weit kommt es in 4 Stunden?
+>
+> $$\frac{120 \text{ km}}{1{,}5 \text{ h}} = \frac{x}{4 \text{ h}} \implies x = \frac{120 \cdot 4}{1{,}5} = 320 \text{ km}$$
+
+---
+
+## Schnellübersicht: Häufige Fehler
+
+| ❌ Falsch | ✅ Richtig | Erklärung |
+|-----------|-----------|-----------|
+| $\frac{a + b}{a} = 1 + b$ | $\frac{a(1 + b/a)}{a} = 1 + \frac{b}{a}$ | Nur Faktoren kürzen, nicht Summanden |
+| $(a + b)^2 = a^2 + b^2$ | $(a + b)^2 = a^2 + 2ab + b^2$ | Mittleres Glied $2ab$ nicht vergessen |
+| $a^2 + b^2 = (a + b)^2$ | Nicht weiter faktorisierbar | Summe von Quadraten ≠ Quadrat der Summe |
+| $a^m \cdot a^n = a^{m \cdot n}$ | $a^m \cdot a^n = a^{m+n}$ | Gleiche Basen → Exponenten addieren |
+| $(a^m)^n = a^{m+n}$ | $(a^m)^n = a^{m \cdot n}$ | Potenz einer Potenz → Exponenten multiplizieren |
+| $\frac{a}{0} = 0$ | $\frac{a}{0}$ ist **nicht definiert** | Division durch 0 existiert nicht |

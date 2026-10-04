@@ -33,3 +33,12 @@ code {
   font-weight: 550;
   color: #0026ff;
 }
+
+.katex  {
+  font-size: 1.3rem;
+
+}
+
+.katex .mfrac {
+    font-size: 1.3em;
+}

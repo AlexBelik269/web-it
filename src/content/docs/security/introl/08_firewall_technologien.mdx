@@ -1,9 +1,12 @@
 ---
-title: "INTROL – SW08: Firewall Grundlagen – Schutz des Perimeters"
+title: "Firewall Grundlagen – Schutz des Perimeters"
 description: "Einführung in Firewall-Technologien: Generationen, Architekturen, ALGs, WAF, NGFWs und Personal Firewalls – mit Erklärungen, Hintergründen und Diagrammen."
 ---
+import Callout from '../../../../components/Callout.astro';
 
+<Callout type="green">
 ## 1. Was ist ein Perimeter – und warum braucht man mehr als nur einen Router?
+</Callout>
 
 Der **Perimeter** bezeichnet den Übergang zwischen dem internen Netzwerk (Intranet) einer Organisation und dem externen Netzwerk (Internet bzw. dem ISP). Rein funktional reicht für diesen Übergang ein einfacher Router aus – er leitet Pakete weiter und verbindet die zwei Netze.
 
@@ -11,7 +14,9 @@ Aber: Ein Router allein trifft keine Sicherheitsentscheidungen. Er unterscheidet
 
 ---
 
+<Callout type="green">
 ## 2. Was ist eine Firewall?
+</Callout>
 
 Eine Firewall ist ein Sicherungssystem, das ein Rechnernetz oder einen einzelnen Computer vor unerwünschten Netzwerkzugriffen schützt. Sie besteht aus mehreren Komponenten (Hardware und/oder Software) und wird zwischen zwei oder mehr Netzwerken positioniert.
 
@@ -32,7 +37,9 @@ Es gibt wichtige Grenzen, die man kennen sollte:
 
 ---
 
+<Callout type="green">
 ## 3. Firewall-Generationen im Überblick
+</Callout>
 
 Die Entwicklung der Firewall-Technologie lässt sich historisch in drei Generationen einteilen. Diese Kategorisierung ist eine vereinfachende Sichtweise – in der Praxis gibt es keine offiziellen Standards dafür –, sie hilft aber, die grundlegenden Konzepte zu verstehen.
 
@@ -148,7 +155,9 @@ Wichtig dabei: Die letzte Regel ist typischerweise eine **Drop Rule** (Deny all)
 
 ---
 
-## 6. Generation 3: Application Layer Gateways (ALGs) und Proxies
+<Callout type="green">
+## 4. Generation 3: Application Layer Gateways (ALGs) und Proxies
+</Callout>
 
 ### Konzept: Vollständige Protokollanalyse auf Schicht 7
 
@@ -267,7 +276,9 @@ flowchart TD
 
 ---
 
-## 9. Firewall-Architekturen
+<Callout type="green">
+## 5. Firewall-Architekturen
+</Callout>
 
 ### Grundprinzip: Die DMZ (Demilitarisierte Zone)
 
@@ -355,7 +366,9 @@ flowchart TB
 
 ---
 
-## 10. Beispiel: E-Commerce 3-Tier-Architektur
+<Callout type="green">
+## 6. Beispiel: E-Commerce 3-Tier-Architektur
+</Callout>
 
 Eine typische E-Commerce-Applikation folgt einer **3-Tier-Architektur**:
 
@@ -445,7 +458,9 @@ Wer eine professionelle Firewall ohne Lizenzkosten benötigt, kann auf Open-Sour
 
 ---
 
-## 12. Zusammenfassung: Firewall-Generationen im Vergleich
+<Callout type="green">
+## 7. Zusammenfassung: Firewall-Generationen im Vergleich
+</Callout>
 
 ```mermaid
 flowchart TB

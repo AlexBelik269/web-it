@@ -1,7 +1,8 @@
 ---
-title: "INTROL – SW04: Netzwerk-Analyse mit Wireshark"
+title: "Netzwerk-Analyse mit Wireshark"
 description: "Grundlagen der Netzwerk- und Protokollanalyse, Angriffsflächen im Netzwerk, Wireshark als zentrales Analyse-Tool, Filtermethoden, OSI-Schichten im Packet-Capture sowie ein Überblick über weitere Software- und Hardware-Analysatoren."
 ---
+import Callout from '../../../../components/Callout.astro';
 
 Bevor man professionelle Analyse-Tools einsetzt, ist `ping` das einfachste und wichtigste Diagnosewerkzeug. `ping` sendet eine **ICMP Echo Request**-Nachricht direkt über IP – also ohne TCP – an einen Zielhost und wartet auf eine Antwort (ICMP Echo Reply). Anhand der Rückmeldung lässt sich die Fehlerursache eingrenzen.
 
@@ -48,7 +49,9 @@ Typische Anwendungsfälle der Protokollanalyse sind das Nachvollziehen von Fehlv
 
 ---
 
-## 3. Angriffsflächen des Netzwerkes
+<Callout type="green">
+## 1. Angriffsflächen des Netzwerkes
+</Callout>
 
 Ein Netzwerk ist kein isoliertes System – es ist per Definition offen für Kommunikation, und genau das macht es angreifbar. Man unterscheidet mehrere Klassen von Angriffen:
 
@@ -159,7 +162,9 @@ Wireshark gliedert die Ansicht in drei Hauptbereiche:
 
 ---
 
-## 6. OSI-Schichten in Wireshark verstehen
+<Callout type="green">
+## 2. OSI-Schichten in Wireshark verstehen
+</Callout>
 
 Wireshark dekodiert jedes Paket schichtweise. Am Beispiel eines `ping`-Befehls (`ping 8.8.8.8`):
 
@@ -246,7 +251,9 @@ flowchart LR
 
 ---
 
-## 9. TCP-Verbindungsaufbau (3-Way Handshake)
+<Callout type="green">
+## 3. TCP-Verbindungsaufbau (3-Way Handshake)
+</Callout>
 
 Im Labor wird auch der TCP-Verbindungsaufbau untersucht. Jede TCP-Verbindung beginnt mit einem **3-Way Handshake**:
 

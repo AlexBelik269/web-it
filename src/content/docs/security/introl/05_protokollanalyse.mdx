@@ -1,13 +1,16 @@
 ---
-title: "INTROL – SW05: Netzwerk-Protokollanalyse mit Wireshark"
+title: "Netzwerk-Protokollanalyse mit Wireshark"
 description: "Einführung in die Netzwerkanalyse mit Wireshark: ARP, ICMP, TCP, DHCP, DNS, HTTP, HTTPS/TLS und FTP über alle OSI-Schichten hinweg."
 ---
+import Callout from '../../../../components/Callout.astro';
 
 Dieses Dokument fasst die wesentlichen Inhalte des einführenden Sicherheitslabors (INTROL) zusammen. Im Fokus steht die praktische Analyse von Netzwerkprotokollen über alle relevanten OSI-Schichten hinweg – mit dem Tool **Wireshark** als zentralem Analysewerkzeug.
 
 ---
 
-## OSI-Schichtenmodell – Überblick
+<Callout type="green">
+## 1. OSI-Schichtenmodell – Überblick
+</Callout>
 
 Bevor wir in die einzelnen Protokolle einsteigen, ist es wichtig, das OSI-Schichtenmodell zu verstehen. Jedes Protokoll arbeitet auf einer bestimmten Schicht und nutzt die Dienste der darunterliegenden Schicht.
 
@@ -66,7 +69,9 @@ sequenceDiagram
 
 ---
 
-## Schicht 3: ICMP – ping und tracert
+<Callout type="green">
+## 2. Schicht 3: ICMP – ping und tracert
+</Callout>
 
 ### Was ist ICMP?
 
@@ -166,7 +171,9 @@ Port-Nummern (0–65535) adressieren Anwendungen auf einem Host:
 
 ---
 
-## Schicht 7: DHCP – Dynamic Host Configuration Protocol
+<Callout type="green">
+## 3. Schicht 7: DHCP – Dynamic Host Configuration Protocol
+</Callout>
 
 ### Wozu DHCP?
 
@@ -244,7 +251,9 @@ sequenceDiagram
 
 ---
 
-## Schicht 7: HTTP – Hypertext Transfer Protocol
+<Callout type="green">
+## 4. Schicht 7: HTTP – Hypertext Transfer Protocol
+</Callout>
 
 ### Das Protokoll des Web
 
@@ -291,7 +300,9 @@ Da HTTP Klartext überträgt, kann jeder Netzwerkteilnehmer (z.B. im gleichen WL
 
 ---
 
-## Schicht 7: HTTPS / TLS – Verschlüsselte Übertragung
+<Callout type="green">
+## 5. Schicht 7: HTTPS / TLS – Verschlüsselte Übertragung
+</Callout>
 
 ### TLS – Transport Layer Security
 
@@ -380,7 +391,9 @@ Der eingebaute Windows-FTP-Client unterstützt den passiven Modus nicht. Er send
 
 ---
 
-## Wireshark – Wichtige Features
+<Callout type="green">
+## 6. Wireshark – Wichtige Features
+</Callout>
 
 **Wireshark** ist das Standard-Tool für Netzwerkanalyse und Protokoll-Debugging.
 
@@ -412,7 +425,9 @@ Statt Filter manuell einzutippen: Rechtsklick auf ein Paketfeld → **„Als Fil
 
 ---
 
-## Zusammenfassung: Protokoll-Übersicht
+<Callout type="green">
+## 7. Zusammenfassung: Protokoll-Übersicht
+</Callout>
 
 ```mermaid
 graph TD
