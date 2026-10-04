@@ -20,10 +20,20 @@ export default defineConfig({
     integrations: [mermaid({ theme: 'neutral', autoTheme: true }), [expressiveCode()], [mdx()], starlight({
         title: 'IT Knowledge Base',
         social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/AlexBelik269/web-it' }],
-        customCss: ['katex/dist/katex.min.css', './src/styles/custom.css'],
+        customCss: ['katex/dist/katex.min.css', './src/styles/custom.css', './src/styles/layout.css'],
         components: {
             Sidebar: './src/components/Sidebar.astro',
+            Header: './src/components/Header.astro',
+            MobileMenuFooter: './src/components/MobileMenuFooter.astro',
         },
+        head: [
+            {
+                // Apply the saved text size and sidebar width before first paint to avoid a layout jump.
+                tag: 'script',
+                content:
+                    "try{var d=document.documentElement,z=localStorage.getItem('it-zoom'),w=localStorage.getItem('it-sidebar-width');if(z)d.style.setProperty('--it-zoom',z);if(w)d.style.setProperty('--it-sidebar-user',w+'px')}catch(e){}",
+            },
+        ],
         sidebar: [
             {
                 label: 'Overview',

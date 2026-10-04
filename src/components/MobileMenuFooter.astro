@@ -1,0 +1,21 @@
+---
+import Default from '@astrojs/starlight/components/MobileMenuFooter.astro';
+import ZoomControl from './ZoomControl.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+<div class="mobile-zoom">
+	<span>Text size</span>
+	<ZoomControl />
+</div>
+
+<style>
+	.mobile-zoom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-block: 0.75rem 1rem;
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-sm);
+	}
+</style>

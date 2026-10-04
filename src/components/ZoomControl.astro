@@ -1,0 +1,41 @@
+---
+/** Text-size control: scales the whole page (Starlight sizes everything in rem). */
+---
+
+<div class="zoom-control" role="group" aria-label="Text size">
+	<button type="button" data-zoom="out" aria-label="Decrease text size" title="Decrease text size">A−</button>
+	<button type="button" data-zoom="reset" aria-label="Reset text size" title="Reset text size" class="zoom-level">100%</button>
+	<button type="button" data-zoom="in" aria-label="Increase text size" title="Increase text size">A+</button>
+</div>
+
+<style>
+	.zoom-control {
+		display: flex;
+		align-items: center;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.5rem;
+		overflow: hidden;
+		flex-shrink: 0;
+	}
+	button {
+		background: transparent;
+		border: 0;
+		color: var(--sl-color-gray-2);
+		font: inherit;
+		font-size: var(--sl-text-sm);
+		line-height: 1;
+		padding: 0.4rem 0.55rem;
+		cursor: pointer;
+		min-height: 2rem;
+	}
+	button:hover {
+		color: var(--sl-color-white);
+		background: var(--sl-color-gray-6);
+	}
+	.zoom-level {
+		min-width: 3.25rem;
+		font-variant-numeric: tabular-nums;
+		border-inline: 1px solid var(--sl-color-gray-5);
+		font-size: var(--sl-text-xs);
+	}
+</style>

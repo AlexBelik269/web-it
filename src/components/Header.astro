@@ -1,0 +1,37 @@
+---
+import Default from '@astrojs/starlight/components/Header.astro';
+import ZoomControl from './ZoomControl.astro';
+---
+
+<div class="header-wrap">
+	<Default {...Astro.props}><slot /></Default>
+	<div class="header-zoom print:hidden">
+		<ZoomControl />
+	</div>
+</div>
+
+<script>
+	import '../scripts/layout';
+</script>
+
+<style>
+	.header-wrap {
+		display: flex;
+		align-items: center;
+		gap: var(--sl-nav-gap);
+		height: 100%;
+	}
+	.header-wrap > :global(.header) {
+		flex: 1;
+		min-width: 0;
+	}
+	/* On phones the control lives in the mobile menu instead. */
+	.header-zoom {
+		display: none;
+	}
+	@media (min-width: 50rem) {
+		.header-zoom {
+			display: flex;
+		}
+	}
+</style>
