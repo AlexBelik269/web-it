@@ -47,9 +47,6 @@ Console.WriteLine(a + " " + c);
 > **Answer: B**
 > Boxing copies the value of `a` into a heap-allocated object. Unboxing copies that value back to `c`. Assigning `b = 10` creates a new box; it does not change `a` or `c`. Both `a` and `c` remain `5`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is the output of the following code?
 
@@ -67,9 +64,6 @@ Console.WriteLine(object.ReferenceEquals(s1, s2));
 > **Answer: B**
 > The CLR string intern pool ensures that identical string literals share the same object at runtime. `object.ReferenceEquals` therefore returns `true` for two variables holding the same literal.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A team member writes this code expecting it to swap two integers:
 
@@ -90,9 +84,6 @@ What is actually printed and why?
 > **Answer: B**
 > `int` is a value type. Parameters `x` and `y` are copies. Modifying them inside the method has no effect on `a` and `b`. To fix, use `ref` parameters or a tuple swap: `(a, b) = (b, a)`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer needs a variable that can hold either an `int` or `null`. Which declaration is correct in C#?
 
@@ -104,9 +95,6 @@ What is actually printed and why?
 > **Answer: C**
 > `int?` is shorthand for `Nullable<int>`. It allows the value type `int` to hold `null`. Assigning `null` directly to a non-nullable `int` causes a compile error.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What does the following expression print?
 
@@ -123,9 +111,6 @@ Console.WriteLine(10.0 / 3);
 > **Answer: B**
 > Integer division truncates toward zero — `10 / 3` is `3`. When either operand is `double`, floating-point division is used — `10.0 / 3` produces the full double-precision result `3.3333333333333335`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer declares the following and attempts to use it. What is the result?
 
@@ -142,9 +127,6 @@ Pi = 3.14; // line B
 > **Answer: B**
 > `const` values are compile-time constants and are embedded directly into the IL. Any attempt to assign to them causes a compile-time error.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -173,9 +155,6 @@ Console.WriteLine(a.Speak());
 > **Answer: B**
 > `virtual`/`override` enables runtime polymorphism. The CLR dispatches to the most-derived override at runtime. Although `a` is declared as `Animal`, it holds a `Dog` instance, so `Dog.Speak()` is called.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer uses `new` instead of `override`. What does the code print?
 
@@ -195,9 +174,6 @@ Console.WriteLine(obj.Name());
 > **Answer: B**
 > `new` hides the base method rather than overriding it. Because the reference is typed as `Base`, the virtual dispatch table still points to `Base.Name()`. If the variable were typed as `Derived`, it would print `Derived`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A class needs to prevent instantiation but still provide shared helper methods to derived classes. Which modifier achieves this?
 
@@ -209,9 +185,6 @@ Console.WriteLine(obj.Name());
 > **Answer: C**
 > An `abstract` class cannot be instantiated directly but can be inherited. It may contain a mix of abstract members (no implementation, must be overridden) and concrete members (with implementation).
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is the output of the following code?
 
@@ -234,9 +207,6 @@ Console.WriteLine(Counter.Count);
 > **Answer: C**
 > `Count` is a static field shared by all instances. Each constructor call increments it. After two instantiations, `Count` is `2`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer wants a class that can only be used as a base class inside its own assembly, but can be used and instantiated normally outside. Which combination is correct?
 
@@ -248,9 +218,6 @@ Console.WriteLine(Counter.Count);
 > **Answer: D**
 > A `public` class with a `protected` constructor cannot be instantiated directly from outside (no accessible constructor) but derived classes inside or outside the assembly can call it. `internal abstract` is only visible inside the assembly.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is printed by the following code?
 
@@ -275,9 +242,6 @@ new B();
 > **Answer: C**
 > Base constructors always run before derived constructors. `B()` chains to `A(int x)`, printing `A1 `, then `B()` body prints `B `.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -303,9 +267,6 @@ What is printed?
 > **Answer: A**
 > The `where T : IComparable<T>` constraint allows calling `CompareTo`. Both `int` and `string` implement `IComparable<T>`. `7 > 3` and `"mango" > "apple"` lexicographically, so `7` and `mango` are returned.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer needs a collection that:
 - Maintains insertion order
@@ -322,9 +283,6 @@ Which .NET collection best fits?
 > **Answer: B**
 > In .NET 5+, `Dictionary<K,V>` preserves insertion order as an implementation detail (though not guaranteed by specification). For a guaranteed ordered dict use `SortedList`/`SortedDictionary` (sorted by key, not insertion) or `OrderedDictionary` (non-generic, legacy). The most idiomatic modern answer is `Dictionary<K,V>` for key lookup; if strict insertion-order guarantee is needed `List<(K,V)>` or a purpose-built `OrderedDictionary<K,V>` (.NET 9) should be used.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is the output of the following code?
 
@@ -343,9 +301,6 @@ Console.WriteLine(list.Count);
 > **Answer: B**
 > `List<T>` is a reference type. Assigning `copy = list` copies the reference, not the data. Both variables point to the same `List<int>` instance. Adding to `copy` is visible through `list`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer needs fast membership testing for a large set of string tags with no duplicates. Which collection offers O(1) average-case lookup?
 
@@ -357,9 +312,6 @@ Console.WriteLine(list.Count);
 > **Answer: C**
 > `HashSet<T>` uses a hash table internally, giving O(1) average `Contains` and `Add`. `List` is O(n), `SortedSet` is O(log n), `LinkedList` is O(n).
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What does this code print?
 
@@ -378,9 +330,6 @@ Console.WriteLine(stack.Peek());
 > **Answer: B**
 > `Stack<T>` is LIFO. `Push(1)`, `Push(2)`, `Push(3)` — top is `3`. `Pop()` removes and returns `3`. `Peek()` returns the new top without removing it — `2`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer uses covariance on a generic interface:
 
@@ -399,9 +348,6 @@ Why does this compile without a cast?
 > **Answer: B**
 > `IEnumerable<out T>` is covariant. The `out` keyword means `T` only appears in output (return) position. When `Dog` derives from `Animal`, `IEnumerable<Dog>` is safely assignable to `IEnumerable<Animal>`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -424,9 +370,6 @@ Console.WriteLine(combined(5));
 > **Answer: A**
 > `doubler(5)` = `10`, then `addTen(10)` = `20`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer builds a multicast delegate and notices only the last return value is received:
 
@@ -447,9 +390,6 @@ What is printed and why?
 > **Answer: C**
 > Multicast delegates invoke all targets in order but only propagate the return value of the **last** invoked delegate. If you need all results, iterate `GetInvocationList()`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is the classic closure variable-capture bug in the following code?
 
@@ -468,9 +408,6 @@ actions.ForEach(a => a());
 > **Answer: B**
 > All three lambdas close over the **same** `i` variable. After the loop finishes, `i` is `3`. Fix: `int copy = i; actions.Add(() => Console.Write(copy + " "));`
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A junior developer accidentally does this:
 
@@ -495,9 +432,6 @@ What is a problem with this design, and what does line X demonstrate?
 > **Answer: B**
 > A public delegate field exposes the assignment operator to external code. `=` on line X replaces the entire invocation list. Using `event` restricts external code to `+=` and `-=` only, protecting subscribers.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is the difference between `Action<string>` and `Func<string, bool>`?
 
@@ -509,9 +443,6 @@ What is a problem with this design, and what does line X demonstrate?
 > **Answer: B**
 > `Action<T>` delegates always return `void`. `Func<T, TResult>` delegates return the last type parameter (`bool` here). Choose `Action` for side-effect operations and `Func` for transformations/predicates.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -533,9 +464,6 @@ foreach (var x in result) Console.Write(x + " ");
 > **Answer: B**
 > `Where` filters to even numbers (`2, 4, 6`). `Select` squares each: `4, 16, 36`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer writes the following LINQ and is surprised that the database is queried five times. Why?
 
@@ -553,9 +481,6 @@ for (int i = 0; i < 5; i++)
 > **Answer: B**
 > `IQueryable<T>` uses deferred execution. The query is not executed when defined; it executes each time a terminal operator (`Count`, `ToList`, `First`, etc.) is called. Fix: `int count = query.Count();` before the loop.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What does the following code print?
 
@@ -576,9 +501,6 @@ Console.WriteLine(result);
 > **Answer: A**
 > `Where` filters to words starting with `a`: `["apple", "avocado"]`. `OrderBy(Length)` sorts by length: `["apple" (5), "avocado" (7)]`. `FirstOrDefault` returns `apple`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer needs to flatten a list of orders where each order contains multiple items, and get a distinct list of all product names. Which LINQ operators should be used?
 
@@ -590,9 +512,6 @@ Console.WriteLine(result);
 > **Answer: B**
 > `SelectMany` flattens a sequence of sequences (each order\'s items into a single sequence). `Distinct` then removes duplicate product names.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is the difference between `First()` and `FirstOrDefault()` in LINQ?
 
@@ -604,9 +523,6 @@ Console.WriteLine(result);
 > **Answer: B**
 > `First()` throws when no element matches or the sequence is empty. `FirstOrDefault()` returns `default(T)` in those cases. Prefer `FirstOrDefault()` when an empty result is a valid scenario.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is printed by this GroupBy query?
 
@@ -625,9 +541,6 @@ foreach (var g in groups)
 > **Answer: C**
 > Words starting with `c`: `cat`, `car` (count 2). Words starting with `b`: `bat`, `bar`, `bee` (count 3). Output is `c:2` and `b:3` on separate lines.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -651,9 +564,6 @@ public async Task<string> GetDataAsync()
 > **Answer: B**
 > `Thread.Sleep` is a synchronous blocking call. It blocks the thread for 2 seconds even inside an `async` method, defeating the purpose of async. `await Task.Delay(2000)` yields the thread to the pool while waiting.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is printed by the following code?
 
@@ -677,9 +587,6 @@ Console.WriteLine("Finished: " + t.Result);
 > **Answer: A**
 > `await Task.Delay(0)` still schedules a continuation, so the task may not be complete by the time the `IsCompleted` check runs. After `await t` the task is complete and `Result` is `42`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer writes a fire-and-forget async method as `async void`. A tester reports that exceptions from the method are swallowed silently. Why?
 
@@ -691,9 +598,6 @@ Console.WriteLine("Finished: " + t.Result);
 > **Answer: A**
 > `async void` raises exceptions on the `SynchronizationContext` rather than returning a faultable `Task`. If there is no handler, the exception can crash the process or be silently lost. Use `async Task` and always `await` the result.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is the risk of the following code in a high-throughput ASP.NET Core application?
 
@@ -709,9 +613,6 @@ public string GetData() => GetDataAsync().Result;
 > **Answer: B**
 > In contexts with a `SynchronizationContext` (classic ASP.NET, WPF, WinForms), `.Result` blocks the thread, while the awaited continuation needs that same thread to resume — causing a deadlock. Use `await` throughout or `ConfigureAwait(false)`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** Two threads share a counter and increment it 10,000 times each. The final value is often less than 20,000. What is the cause and fix?
 
@@ -732,9 +633,6 @@ Console.WriteLine(counter);
 > **Answer: B**
 > `counter++` is three operations: read, add 1, write back. Two threads can both read the same value and write the same incremented value, losing updates. `Interlocked.Increment` is CPU-atomic and fixes the race.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** When should `ValueTask<T>` be preferred over `Task<T>`?
 
@@ -746,9 +644,6 @@ Console.WriteLine(counter);
 > **Answer: B**
 > `Task<T>` always allocates a heap object. `ValueTask<T>` is a `struct` that avoids the allocation when the result is already available synchronously. Prefer it in hot-path methods like caching layers. Do not `await` a `ValueTask<T>` more than once without converting to `Task` first.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -775,9 +670,6 @@ catch (Exception ex)
 > **Answer: B**
 > `throw` (bare) re-throws the current exception with its original stack trace intact. `throw ex` creates a new throw point — the stack trace appears to originate from the `catch` block, hiding the real source of the error.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** Given this code, does the `finally` block execute?
 
@@ -801,9 +693,6 @@ finally
 > **Answer: B**
 > `finally` blocks execute regardless of how the `try` block exits — normal flow, `return`, `break`, `continue`, or a handled exception. Exceptions: `Environment.FailFast()` and `StackOverflowException` can bypass `finally`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer defines a custom exception. Which constructor pattern is most important to include?
 
@@ -822,9 +711,6 @@ public class OrderException : Exception
 > **Answer: C**
 > Best practice is to provide the three standard constructors. The `(string, Exception)` constructor is especially important: it allows wrapping a lower-level exception as an `InnerException`, preserving the full exception chain for debugging.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer uses an exception filter. What is an advantage of the `when` clause?
 
@@ -843,9 +729,6 @@ catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
 > **Answer: B**
 > The `when` predicate is evaluated in the context of the original throw site. If it returns `false`, the stack is not unwound, allowing debuggers to inspect the original state. It also cleanly routes exception handling without re-throwing.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What happens when `Task.WhenAll` is awaited and two of three tasks fail?
 
@@ -867,9 +750,6 @@ catch (Exception ex) { Console.WriteLine(ex.Message); }
 > **Answer: B**
 > `await Task.WhenAll(...)` waits for all tasks and then re-throws the **first** exception from the underlying `AggregateException`. To see all failures, inspect `tasks[i].Exception` for each faulted task after the catch.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -885,9 +765,6 @@ catch (Exception ex) { Console.WriteLine(ex.Message); }
 > **Answer: B**
 > When an unreachable finalizable object is discovered in cycle 1, the GC queues it for finalization rather than reclaiming it immediately. The finalizer thread runs the `~Destructor`, and the next GC cycle reclaims the now-finalized object. This is why `GC.SuppressFinalize(this)` in `Dispose()` improves performance.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** Which code pattern correctly implements the Dispose pattern to handle both managed and unmanaged resources?
 
@@ -920,9 +797,6 @@ public class Resource : IDisposable
 > **Answer: B**
 > Option B is the canonical Dispose pattern: `Dispose(bool)` separates managed from unmanaged cleanup, `GC.SuppressFinalize` prevents a redundant finalizer call when `Dispose()` is called explicitly, and the `_disposed` guard prevents double-dispose.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer writes a cache using strong references and observes memory keeps growing. What alternative avoids holding objects alive unnecessarily?
 
@@ -934,9 +808,6 @@ public class Resource : IDisposable
 > **Answer: B**
 > `WeakReference<T>` allows the GC to collect the referenced object. When `TryGetTarget` returns `false`, the cache misses and recomputes. This avoids holding large objects alive longer than necessary under memory pressure.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer finds a memory leak in a long-running service. The most likely root cause from the following list is:
 
@@ -948,9 +819,6 @@ public class Resource : IDisposable
 > **Answer: B**
 > Unsubscribed event handlers are one of the most common managed memory leaks. The publisher holds a delegate reference to the subscriber. As long as the publisher lives, the subscriber cannot be collected. Always unsubscribe in `Dispose()` or use `WeakEventManager`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** When is it acceptable to call `GC.Collect()` explicitly?
 
@@ -962,9 +830,6 @@ public class Resource : IDisposable
 > **Answer: B**
 > Forcing a GC disrupts the GC\'s self-tuning heuristics, promotes objects to higher generations unnecessarily, and introduces latency pauses. It is almost always the wrong choice in production application code.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -995,9 +860,6 @@ What is the output?
 > **Answer: B**
 > The public `Hello()` satisfies `IA` and is accessible via the class reference. `IB.Hello()` is an explicit interface implementation, only accessible via an `IB` reference, and returns `IB explicit`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer wants to add a default implementation to an interface method so existing implementors do not need to be updated. Which C# feature supports this?
 
@@ -1009,9 +871,6 @@ What is the output?
 > **Answer: B**
 > C# 8 introduced default interface method implementations. Existing classes that implement the interface inherit the default without change. Classes can still override the default.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** Which design pattern is implemented in this code?
 
@@ -1038,9 +897,6 @@ public abstract class DataProcessor
 > **Answer: C**
 > The Template Method pattern defines the skeleton of an algorithm in a base class (`Process()`), deferring specific steps to subclasses via `abstract` or `virtual` methods. The overall structure is fixed; the details vary.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer wants to ensure only one instance of a `ConfigurationManager` class exists throughout the application. Which pattern should be used?
 
@@ -1052,9 +908,6 @@ public abstract class DataProcessor
 > **Answer: B**
 > The Singleton pattern restricts instantiation to one object. In .NET, the thread-safe lazy singleton is commonly implemented with `Lazy<T>`: `private static readonly Lazy<ConfigurationManager> _instance = new(() => new());`
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer wants to add logging and timing behaviour to an existing `IOrderService` without modifying its implementation. Which pattern applies?
 
@@ -1066,9 +919,6 @@ public abstract class DataProcessor
 > **Answer: C**
 > The Decorator pattern wraps an existing object with a new class implementing the same interface, adding behaviour before/after delegating to the inner implementation — no modification of the original class needed.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -1084,9 +934,6 @@ public abstract class DataProcessor
 > **Answer: A**
 > `File.ReadAllLines` allocates an array containing every line. For a 10 GB log file this can exhaust memory. `File.ReadLinesAsync` (returning `IAsyncEnumerable<string>`) yields one line at a time, allowing processing with `await foreach` and minimal memory usage.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer serializes an object to JSON:
 
@@ -1105,9 +952,6 @@ The output is `{"Id":1,"CustomerName":"Alice"}` but the API contract requires `{
 > **Answer: B**
 > `[JsonPropertyName("id")]` on a property overrides the serialized name. For a global policy, `JsonNamingPolicy.SnakeCaseLower` (added in .NET 8) converts all property names to snake_case automatically.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer needs to process a 2 GB JSON file without loading it all into memory. Which .NET API is most appropriate?
 
@@ -1119,9 +963,6 @@ The output is `{"Id":1,"CustomerName":"Alice"}` but the API contract requires `{
 > **Answer: B**
 > `Utf8JsonReader` is a forward-only, low-allocation JSON reader that processes tokens from a `ReadOnlySpan<byte>` or `ReadOnlySequence<byte>`. `JsonSerializer.DeserializeAsync` with a `Stream` also streams the document. Both avoid loading the entire file into memory.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer is writing a file and wants to ensure the data is flushed to disk even if the application crashes immediately after. Which approach is correct?
 
@@ -1133,9 +974,6 @@ The output is `{"Id":1,"CustomerName":"Alice"}` but the API contract requires `{
 > **Answer: B**
 > `FileOptions.WriteThrough` (or `flushToDisk: true`) bypasses the OS page cache and writes directly to the storage device. This is important for write-ahead logs and databases where durability is critical. Normal `Flush()` only moves data from .NET buffers to the OS, not necessarily to disk.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -1151,9 +989,6 @@ The output is `{"Id":1,"CustomerName":"Alice"}` but the API contract requires `{
 > **Answer: B**
 > `405 Method Not Allowed` means the URL matched a route but the HTTP method was not allowed. The most common causes are: the route matches a different action that only allows `GET`, or attribute routing has a mismatch between the declared HTTP method and the client\'s request method.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer registers a service as `Singleton` but injects it into a `Scoped` service, which is then injected into a `Transient` service. What is the problem?
 
@@ -1165,9 +1000,6 @@ The output is `{"Id":1,"CustomerName":"Alice"}` but the API contract requires `{
 > **Answer: B**
 > A `Singleton` outlives a `Scope`. If a singleton captures a `Scoped` service, that scoped service is never released at the end of the request, causing memory leaks and stale state. ASP.NET Core\'s DI container throws a `InvalidOperationException` in Development mode to catch this.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A minimal API endpoint is defined as:
 
@@ -1185,9 +1017,6 @@ A client calls `GET /users/abc`. What response does the client receive?
 > **Answer: B**
 > When a route parameter cannot be converted to the declared parameter type (`int`), the ASP.NET Core model binding system returns `400 Bad Request` automatically. With `[ApiController]` or minimal APIs, this is handled before the handler runs.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer registers two middleware components in this order:
 
@@ -1207,9 +1036,6 @@ What is printed for a single request?
 > **Answer: A**
 > The middleware pipeline is a chain of nested calls. `A1` executes, calls `next` → `B1` executes, calls `next` → `C` runs (terminal). Unwinding: `B2` runs, then `A2`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A Web API returns `200 OK` for a newly created resource. A reviewer says this violates REST conventions. What should be returned instead?
 
@@ -1221,9 +1047,6 @@ What is printed for a single request?
 > **Answer: B**
 > REST convention for a successful resource creation is `201 Created` with a `Location` header containing the URI of the new resource. Use `CreatedAtAction` or `CreatedAtRoute` in ASP.NET Core controllers, or `Results.Created(uri, value)` in minimal APIs.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer forgets to add `app.UseAuthentication()` but has `app.UseAuthorization()`. What happens when a protected endpoint is accessed with a valid JWT?
 
@@ -1235,9 +1058,6 @@ What is printed for a single request?
 > **Answer: B**
 > `UseAuthentication()` must come before `UseAuthorization()`. Authentication middleware reads and validates the JWT, setting `HttpContext.User`. Without it, `User` is an unauthenticated principal and every `[Authorize]` check fails with `401`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -1261,9 +1081,6 @@ var names = db.Products
 > **Answer: B**
 > `ToList()` materialises the query immediately, pulling all rows into memory. Any LINQ operators applied after `ToList()` run in-process (LINQ to Objects), not as SQL. Move `Where` and `Select` before the final `ToList()` to generate an efficient SQL query.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer loads a list of orders with their items:
 
@@ -1283,9 +1100,6 @@ The app is extremely slow when there are 1,000 orders. What is the problem?
 > **Answer: B**
 > Without `.Include(o => o.Items)`, EF Core uses lazy loading (if enabled) or throws a `NullReferenceException`. With lazy loading enabled, each `order.Items` access fires a new SQL query — 1,000 extra queries. Fix: `db.Orders.Include(o => o.Items).ToList()`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer calls `db.SaveChangesAsync()` without calling `AsNoTracking()`. A colleague adds `AsNoTracking()` to a read-only query. What is the benefit?
 
@@ -1297,9 +1111,6 @@ The app is extremely slow when there are 1,000 orders. What is the problem?
 > **Answer: B**
 > EF Core\'s change tracker stores a snapshot of each loaded entity for change detection. For read-only scenarios (reports, APIs that only return data), this snapshot wastes memory and CPU. `AsNoTracking()` skips this overhead.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** Two concurrent requests both read an order with `Status = "Pending"` and try to set it to `"Processing"`. Only one should succeed. Which EF Core mechanism handles this?
 
@@ -1311,9 +1122,6 @@ The app is extremely slow when there are 1,000 orders. What is the problem?
 > **Answer: B**
 > Optimistic concurrency adds a concurrency token (e.g., `[Timestamp] public byte[] RowVersion { get; set; }`). EF Core includes the original token in the `WHERE` clause of `UPDATE`. If another request has changed the row, the `WHERE` matches zero rows and EF throws `DbUpdateConcurrencyException`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -1337,9 +1145,6 @@ else
 > **Answer: B**
 > C# 9 conjunctive patterns use `and` to combine conditions. `obj is int n and > 10 and < 100` checks that `obj` is an `int`, assigns it to `n`, and verifies `10 < n < 100`. `42` satisfies all conditions.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer uses a `switch` expression. What does the following return for `shape = new Circle(5)`?
 
@@ -1360,9 +1165,6 @@ double Area(Shape shape) => shape switch
 > **Answer: B**
 > The `switch` expression matches `Circle` with radius 5 and computes `π × 5 × 5 ≈ 78.54`. Switch expressions in C# 8+ allow concise pattern-based dispatch without `break` statements.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What does the null-coalescing assignment operator do in the following code?
 
@@ -1381,9 +1183,6 @@ Console.WriteLine(tags.Count);
 > **Answer: B**
 > The `??=` operator (C# 8+) assigns the right-hand value to the left-hand variable only when the variable is `null`. After `??=`, `tags` is a new list. Adding `"dotnet"` makes `Count` = `1`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is the output of the following using C# string interpolation with format specifiers?
 
@@ -1401,9 +1200,6 @@ Console.WriteLine($"Pi: {Math.PI:F4}");
 > **Answer: B**
 > `{value:C2}` formats as currency with 2 decimal places (locale-dependent — `$1,234.50` in `en-US`). `{value:F4}` formats as fixed-point with 4 decimal places — `3.1416` (rounded).
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer uses `Span<T>` instead of array slicing. What is the advantage?
 
@@ -1420,9 +1216,6 @@ Span<int> slice = data.AsSpan(1, 3); // { 2, 3, 4 }
 > **Answer: B**
 > `Span<T>` is a stack-allocated struct that represents a contiguous region of memory. `.AsSpan(1, 3)` creates a zero-copy window into `data`. Mutations via `slice` are reflected in the original array. It is allocation-free, unlike creating a `new int[]` slice.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer uses `required` on a property:
 
@@ -1444,9 +1237,6 @@ What happens at line A in C# 11+?
 > **Answer: B**
 > The `required` modifier (C# 11) enforces that the property is set in an object initializer. Omitting it is a compile-time error: `CS9035: Required member 'Config.ConnectionString' must be set in the object initializer or attribute constructor`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -1470,9 +1260,6 @@ Console.WriteLine(ReferenceEquals(p1, p2));
 > **Answer: C**
 > Records use **value-based equality**: `p1 == p2` compares properties and returns `true`. But records are still reference types (unless `record struct`), so `ReferenceEquals` returns `false` — they are distinct objects on the heap.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer uses a `record` with the `with` expression. What does this print?
 
@@ -1491,9 +1278,6 @@ Console.WriteLine(alice.Name + " " + bob.Name);
 > **Answer: C**
 > The `with` expression creates a **new** record copying all properties from the original and overriding specified ones. `alice` is unchanged (`Alice, 30`); `bob` is a new record (`Bob, 30`). Records are immutable — `with` produces a copy, not a mutation.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** What is the key difference between a `class` and a `struct` in C#?
 
@@ -1505,9 +1289,6 @@ Console.WriteLine(alice.Name + " " + bob.Name);
 > **Answer: B**
 > The fundamental distinction: `class` → reference type → assignment copies reference → heap allocation. `struct` → value type → assignment copies the entire value → typically stack/inline. Structs cannot inherit from other structs/classes (except interfaces) and are sealed implicitly.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer defines a large mutable struct and passes it by value repeatedly. A performance profiler shows excessive copying. What is the most appropriate fix?
 
@@ -1519,9 +1300,6 @@ Console.WriteLine(alice.Name + " " + bob.Name);
 > **Answer: B**
 > Passing a large struct by value copies all its bytes. `ref` parameters pass a reference to the original, avoiding copying. `in` passes a read-only reference (no mutation, no copy). `readonly struct` also allows the JIT to pass by reference automatically in some cases.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br>
 
@@ -1537,9 +1315,6 @@ Console.WriteLine(alice.Name + " " + bob.Name);
 > **Answer: B**
 > Mocking frameworks create test doubles that implement the interface. After execution, `Verify` asserts that specific methods were called with specific arguments. This is the standard approach to testing method interactions without side effects.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer registers a service in `Program.cs` and needs to resolve it in a test without starting a full web host. Which approach is correct?
 
@@ -1551,9 +1326,6 @@ Console.WriteLine(alice.Name + " " + bob.Name);
 > **Answer: B**
 > `WebApplicationFactory<T>` spins up the application in memory using the same `Program.cs` configuration. Tests can make HTTP requests via `CreateClient()` or resolve services from the container, enabling integration tests without a real network connection.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer writes this test and it always passes even when the code is broken. What is wrong?
 
@@ -1575,9 +1347,6 @@ public async Task GetOrder_ReturnsOrder()
 > **Answer: B**
 > Without `await`, `order` is a non-null `Task<Order?>` — not the actual order value. The assertion checks the task object, not the result. Fix: `var order = await service.GetOrderAsync(1);`
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer uses the `Arrange-Act-Assert` pattern in a test. A reviewer suggests extracting repeated `Arrange` steps. Which xUnit attribute supports shared setup that runs once before all tests in a class?
 
@@ -1589,9 +1358,6 @@ public async Task GetOrder_ReturnsOrder()
 > **Answer: B**
 > xUnit uses `IClassFixture<T>` for class-scoped setup (created once, shared by all tests in the class). `[SetUp]` and `[TestInitialize]` are NUnit/MSTest attributes. xUnit\'s per-test setup is done in the test class constructor.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Q.** A developer wants to run the same test with multiple input values:
 
@@ -1616,6 +1382,3 @@ What xUnit feature is being used and how many test cases will be run?
 > **Answer: B**
 > `[Theory]` marks a data-driven test. Each `[InlineData(...)]` attribute provides one set of arguments, resulting in 3 individual test cases. This is xUnit\'s equivalent of parameterised tests in NUnit (`[TestCase]`) and MSTest (`[DataRow]`).
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>

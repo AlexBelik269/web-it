@@ -3,36 +3,32 @@ title: "Design Patterns in .NET"
 description: "Design patterns applied in .NET Core — dependency injection, singleton, factory, observer, strategy, and middleware patterns with C# examples."
 ---
 
-> *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
-
-<br/>
-
 ## Table of Contents
 
-* [Design Pattern Fundamentals](#-1.design-pattern-fundamentals)
-* [Dependency Injection and IoC](#-2.dependency-injection)
-* [Singleton Pattern](#-3-singleton-pattern)
-* [Factory Pattern](#-4-factory-pattern)
-* [Observer Pattern](#-5-observer-pattern)
-* [Strategy Pattern](#-6-strategy-pattern)
-* [Middleware Pattern](#-7-middleware-pattern)
-* [Decorator Pattern](#-8-decorator-pattern)
-* [Proxy Pattern](#-9-proxy-pattern)
-* [Command Pattern](#-10-command-pattern)
-* [Module Pattern](#-11-module-pattern)
-* [Dependency Injection Pattern](#-12-dependency-injection-pattern)
-* [Repository Pattern](#-13-repository-pattern)
-* [Delegate Pattern](#-14-delegate-pattern)
-* [Mediator Pattern](#-15-mediator-pattern)
-* [Adapter Pattern](#-16-adapter-pattern)
-* [Facade Pattern](#-17-Facade-pattern)
-* [Builder Pattern](#-18-builder-pattern)
-* [Specification Pattern](#-19-specification-pattern)
-* [Anti-Pattern & Code Smell](#-20-anti-pattern)
+* [Design Pattern Fundamentals](#1-design-pattern-fundamentals)
+* [Dependency Injection and IoC](#12-dependency-injection-pattern)
+* [Singleton Pattern](#3-singleton-pattern)
+* [Factory Pattern](#4-factory-pattern)
+* [Observer Pattern](#5-observer-pattern)
+* [Strategy Pattern](#6-strategy-pattern)
+* [Middleware Pattern](#7-middleware-pattern)
+* [Decorator Pattern](#8-decorator-pattern)
+* [Proxy Pattern](#9-proxy-pattern)
+* [Command Pattern](#10-command-pattern)
+* [Module Pattern](#11-module-pattern)
+* [Dependency Injection Pattern](#12-dependency-injection-pattern)
+* [Repository Pattern](#13-repository-pattern)
+* [Delegate Pattern](#14-delegate-pattern)
+* [Mediator Pattern](#15-mediator-pattern)
+* [Adapter Pattern](#16-adapter-pattern)
+* [Facade Pattern](#17-facade-pattern)
+* [Builder Pattern](#18-builder-pattern)
+* [Specification Pattern](#19-specification-pattern)
+* [Anti-Pattern & Code Smell](#20-anti-pattern--code-smell)
 
 <br/>
 
-## # 1. DESIGN PATTERN FUNDAMENTALS
+## 1. Design Pattern Fundamentals
 
 <br/>
 
@@ -55,9 +51,6 @@ Design Patterns are reusable solutions to commonly occurring problems in softwar
 - Facilitates testability and loose coupling
 - Built into ASP.NET Core (DI, Middleware, Options Pattern)
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between a Design Pattern and an Architecture Pattern?
 
@@ -68,13 +61,10 @@ Design Patterns are reusable solutions to commonly occurring problems in softwar
 | Purpose            | Solves local design problems            | Defines system structure                    |
 | Granularity        | Fine-grained                            | Coarse-grained                              |
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 2. DEPENDENCY INJECTION AND IoC
+## 2. Dependency Injection and IoC
 
 <br/>
 
@@ -123,9 +113,6 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddSingleton<ICacheService, MemoryCacheService>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the DI Lifetime scopes in .NET Core?
 
@@ -150,13 +137,10 @@ builder.Services.AddSingleton<ISingletonService, SingletonService>();
 
 **Captive Dependency (Anti-pattern):** Injecting a shorter-lived service into a longer-lived one (e.g., Scoped into Singleton) causes bugs and should be avoided.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 3. SINGLETON PATTERN
+## 3. Singleton Pattern
 
 <br/>
 
@@ -226,9 +210,6 @@ public class AppCache
 builder.Services.AddSingleton<AppCache>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the pitfalls of the Singleton Pattern?
 
@@ -240,13 +221,10 @@ builder.Services.AddSingleton<AppCache>();
 
 **Better alternative in .NET Core:** Register via DI as `AddSingleton<T>` to keep benefits while maintaining testability.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 4. FACTORY PATTERN
+## 4. Factory Pattern
 
 <br/>
 
@@ -262,9 +240,6 @@ The Factory Pattern provides an interface for creating objects without specifyin
 | Factory Method    | Subclasses decide which class to instantiate                 |
 | Abstract Factory  | Creates families of related objects                          |
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Factory Method Pattern in .NET Core with a real-world example.
 
@@ -352,9 +327,6 @@ public class PaymentController : ControllerBase
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the Abstract Factory Pattern? Provide a .NET Core example.
 
@@ -400,13 +372,10 @@ builder.Services.AddSingleton<IUIFactory>(sp =>
         : new LinuxUIFactory());
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 5. OBSERVER PATTERN
+## 5. Observer Pattern
 
 <br/>
 
@@ -474,9 +443,6 @@ using var subscription = ticker.Subscribe(display);
 ticker.UpdatePrice(new StockPrice("MSFT", 420.50m));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How does the Observer Pattern relate to C# Events?
 
@@ -528,13 +494,10 @@ orderService.OrderPlaced += inventoryUpdater.OnOrderPlaced;
 orderService.PlaceOrder(new Order { Id = 1 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 6. STRATEGY PATTERN
+## 6. Strategy Pattern
 
 <br/>
 
@@ -615,9 +578,6 @@ cart.SetDiscountStrategy(new PercentageDiscountStrategy(20));
 decimal discountedTotal = cart.CalculateTotal(items);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement Strategy Pattern using .NET Core DI and a factory?
 
@@ -656,13 +616,10 @@ public class ShippingStrategyFactory
 builder.Services.AddSingleton<ShippingStrategyFactory>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 7. MIDDLEWARE PATTERN
+## 7. Middleware Pattern
 
 <br/>
 
@@ -715,9 +672,6 @@ app.UseAuthorization();
 app.MapControllers();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement global exception handling middleware?
 
@@ -769,13 +723,10 @@ public class GlobalExceptionMiddleware
 app.UseMiddleware<GlobalExceptionMiddleware>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 8. DECORATOR PATTERN
+## 8. Decorator Pattern
 
 <br/>
 
@@ -881,13 +832,10 @@ builder.Services.Decorate<IProductRepository, CachedProductRepository>();
 builder.Services.Decorate<IProductRepository, LoggingProductRepository>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 9. PROXY PATTERN
+## 9. Proxy Pattern
 
 <br/>
 
@@ -968,13 +916,10 @@ public class AuthorizationProxy : IExpensiveService
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 10. COMMAND PATTERN
+## 10. Command Pattern
 
 <br/>
 
@@ -1075,9 +1020,6 @@ manager.Undo(); // removes "World"
 manager.Redo(); // re-inserts "World"
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How does CQRS relate to the Command Pattern in .NET Core?
 
@@ -1117,13 +1059,10 @@ public class GetProductByIdQueryHandler
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 11. MODULE PATTERN
+## 11. Module Pattern
 
 <br/>
 
@@ -1187,13 +1126,10 @@ foreach (var module in modules)
     module.MapEndpoints(app);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 12. DEPENDENCY INJECTION PATTERN
+## 12. Dependency Injection Pattern
 
 <br/>
 
@@ -1247,9 +1183,6 @@ public class EmailService
 | `IOptionsSnapshot<T>`  | Yes               | Yes    |
 | `IOptionsMonitor<T>`   | Yes               | No     |
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you auto-register services by convention in .NET Core?
 
@@ -1277,13 +1210,10 @@ public static class ServiceCollectionExtensions
 builder.Services.AddApplicationServices(typeof(Program).Assembly);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 13. REPOSITORY PATTERN
+## 13. Repository Pattern
 
 <br/>
 
@@ -1398,13 +1328,10 @@ public class OrderService
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 14. DELEGATE PATTERN
+## 14. Delegate Pattern
 
 <br/>
 
@@ -1458,13 +1385,10 @@ logger += msg => Debug.WriteLine($"[Debug] {msg}");
 logger("Application started"); // All three handlers fire
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 15. MEDIATOR PATTERN
+## 15. Mediator Pattern
 
 <br/>
 
@@ -1558,13 +1482,10 @@ public class UserController : ControllerBase
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 16. ADAPTER PATTERN
+## 16. Adapter Pattern
 
 <br/>
 
@@ -1631,13 +1552,10 @@ builder.Services.AddSingleton<StripeClient>();
 builder.Services.AddScoped<IPaymentGateway, StripePaymentGatewayAdapter>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 17. FACADE PATTERN
+## 17. Facade Pattern
 
 <br/>
 
@@ -1738,13 +1656,10 @@ public class OrderController : ControllerBase
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 18. BUILDER PATTERN
+## 18. Builder Pattern
 
 <br/>
 
@@ -1819,9 +1734,6 @@ var email = new EmailBuilder()
     .Build();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How does the Builder Pattern apply to dynamic query construction?
 
@@ -1880,13 +1792,10 @@ var products = await new ProductQueryBuilder(context)
     .ExecuteAsync();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 19. SPECIFICATION PATTERN
+## 19. Specification Pattern
 
 <br/>
 
@@ -1986,13 +1895,10 @@ var combinedSpec = activeSpec.And(categorySpec).And(priceSpec);
 var products = await _repository.FindAsync(combinedSpec);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 20. ANTI-PATTERN & CODE SMELL
+## 20. Anti-Pattern & Code Smell
 
 <br/>
 
@@ -2141,9 +2047,6 @@ public static class Timeouts
 if (user.Role == Roles.Admin) { }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the Captive Dependency problem in .NET Core DI?
 
@@ -2187,6 +2090,3 @@ builder.Host.UseDefaultServiceProvider(options =>
 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>

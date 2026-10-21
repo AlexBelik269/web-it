@@ -3,7 +3,7 @@ title: "Kubernetes Workshop"
 description: "Hands-on Kubernetes workshop covering architecture, pods, nodes, services, deployments, ReplicaSets, namespaces, volumes, secrets, and deploying a Node.js app."
 ---
 
-1. [Kubernetes Architecture](#1-Kubernetes-architecture)
+1. [Kubernetes Architecture](#1-kubernetes-architecture)
 1. [Kubernetes Installation and Dashboard Setup](#2-kubernetes-installation-and-dashboard-setup)
 1. [Kubernetes Pod](#3-kubernetes-pod)
 1. [Kubernetes Node](#4-kubernetes-node)
@@ -15,27 +15,14 @@ description: "Hands-on Kubernetes workshop covering architecture, pods, nodes, s
 1. [Kubernetes Secrets](#10-kubernetes-secrets)
 1. [Deploy a NodeJS application in Kubernetes Cluster](#11-deploy-a-nodejs-application-in-kubernetes-cluster)
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 1. Kubernetes Architecture
 
-<p align="center">
-  <img src="assets/kubernetes-architecture.png" alt="Kubernetes Architecture" width="800px" />
-</p>
-
-<p align="center">
-  <img src="assets/levels-of-abstraction.png" alt="Kubernetes levels of abstraction" width="300px" />
-</p>
 
 **1. Node:**
 
 It represents a single machine in a cluster, which could be a physical machine in a data center or a virtual machine from a cloud provider. Each machine can substitute any other machine in a Kubernetes cluster.
 
-<p align="center">
-  <img src="assets/node-overview.png" alt="Node Overview" width="400px" />
-</p>
 
 **2. Pod:**
 
@@ -82,9 +69,6 @@ The scheduler ( Kube-scheduler ) is responsible for workload utilization and all
 
 This is a proxy ( Kube-proxy ) service which runs on each node and helps in making services available to the external host. It helps in forwarding the request to correct containers and is capable of performing primitive load balancing.
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 2. Kubernetes Installation and Dashboard Setup
 
@@ -94,9 +78,6 @@ To enable Kubernetes support and install a standalone instance of Kubernetes run
 
 Click **Apply & Restart** to save the settings and then click **Install** to confirm. This instantiates images required to run the Kubernetes server as containers, and installs the `/usr/local/bin/kubectl` command on your machine.
 
-<p align="center">
-  <img src="assets/kubernetes-installation.png" alt="Kubernetes-Installation" width="500px" />
-</p>
 
 * [Visual Studio Code Kubernetes plugin](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
 
@@ -112,9 +93,6 @@ kubectl proxy                               // Launch Kubernetes Dashboard
 
 * [Kubernetes UI Dashboard Login](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login)
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 3. Kubernetes Pod
 
@@ -145,9 +123,6 @@ kubectl get pod nginx-pod
 kubectl describe pod nginx-pod
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 4. Kubernetes Node
 
@@ -159,9 +134,6 @@ NAME             STATUS   ROLES                  AGE   VERSION
 docker-desktop   Ready    control-plane,master   41d   v1.21.5
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 5. Kubernetes Service
 
@@ -187,9 +159,6 @@ kubectl get pod -o wide                 # Get detail information of POD
 kubectl get deployment nginx-deployment -o yaml > nginx-deployment-result.yaml  # Export deployment yaml result
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 6. Kubernetes Deployment
 
@@ -226,9 +195,6 @@ kubectl get deployment
 kubectl describe deployment nginx-deployment
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 7. Kubernetes ReplicaSet
 
@@ -263,9 +229,6 @@ kubectl get rs
 kubectl describe rs nginx-replica
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 8. Kubernetes Namespace
 
@@ -298,9 +261,6 @@ kubectl get namespace
 kubectl describe namespace nginx-namespace
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 9. Kubernetes Volume
 
@@ -339,9 +299,6 @@ kubectl get pv
 kubectl describe pv nginx-volume
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 10. Kubernetes Secrets
 
@@ -398,9 +355,6 @@ kubectl get secret nginx-pod
 kubectl describe secret nginx-pod
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 11. Deploy a NodeJS application in Kubernetes Cluster
 
@@ -455,9 +409,6 @@ nodejs-deployment                         LoadBalancer   10.110.82.211    localh
 nodejs-service                            ClusterIP      10.110.60.110    <none>        80/TCP                       2m25s
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Kubectl Basic Commands
 
@@ -551,9 +502,6 @@ kubectl delete -f nginx-deployment.yaml
 kubectl delete - f nginx-service.yaml
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Application Deployment
 
@@ -846,9 +794,6 @@ minikube ssh                                      // SSH to minikibe
 kubectl get configmap                             // Display Config Map details
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## [Install Prometheus Operator](https://grafana.com/docs/grafana-cloud/quickstart/prometheus_operator/)
 
@@ -862,9 +807,6 @@ kubectl get secret                                // Get Secrets
 kubectl get statefulset
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Install Promethus Operator using Helm
 
@@ -891,6 +833,3 @@ kubectl get servicemonitor prometheus-kube-prometheus-grafana -oyaml       // Vi
 kubectl get crd                                       // Display Custom Resource Definitions
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>

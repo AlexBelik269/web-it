@@ -3,26 +3,22 @@ title: ".NET Unit Testing with xUnit"
 description: "Unit testing in .NET using xUnit — test attributes, lifecycle, assertions, data-driven tests, mocking with Moq, async testing, and shared test fixtures."
 ---
 
-> *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
-
-<br/>
-
 ## Table of Contents
 
-* [Getting Started](#-1-getting-started)
-* [Test Attributes & Lifecycle](#-2-test-attributes--lifecycle)
-* [Assertions](#-3-assertions)
-* [Data-Driven Tests](#-4-data-driven-tests)
-* [Mocking with Moq](#-5-mocking-with-moq)
-* [Async Testing](#-6-async-testing)
-* [Test Fixtures & Shared Context](#-7-test-fixtures--shared-context)
-* [Testing ASP.NET Core](#-8-testing-aspnet-core)
-* [Testing EF Core](#-9-testing-ef-core)
-* [Code Coverage & Best Practices](#-10-code-coverage--best-practices)
+* [Getting Started](#1-getting-started)
+* [Test Attributes & Lifecycle](#2-test-attributes--lifecycle)
+* [Assertions](#3-assertions)
+* [Data-Driven Tests](#4-data-driven-tests)
+* [Mocking with Moq](#5-mocking-with-moq)
+* [Async Testing](#6-async-testing)
+* [Test Fixtures & Shared Context](#7-test-fixtures--shared-context)
+* [Testing ASP.NET Core](#8-testing-aspnet-core)
+* [Testing EF Core](#9-testing-ef-core)
+* [Code Coverage & Best Practices](#10-code-coverage--best-practices)
 
 <br/>
 
-## # 1. GETTING STARTED
+## 1. Getting Started
 
 <br/>
 
@@ -100,9 +96,6 @@ dotnet test --verbosity normal
 dotnet test --filter "FullyQualifiedName~CalculatorServiceTests"
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the Arrange-Act-Assert (AAA) pattern?
 
@@ -147,9 +140,6 @@ public class BankAccountTests
 - Test method names should follow the pattern: `MethodName_Scenario_ExpectedBehaviour`.
 - Keep each test small, fast (< 1 ms), and independent — tests must not rely on execution order.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between unit tests, integration tests, and end-to-end tests?
 
@@ -194,13 +184,10 @@ public async Task GetProducts_ReturnsOk()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 2. TEST ATTRIBUTES & LIFECYCLE
+## 2. Test Attributes & Lifecycle
 
 <br/>
 
@@ -256,9 +243,6 @@ public void AddProduct_NullInput_Throws()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How does xUnit manage test setup and teardown?
 
@@ -333,9 +317,6 @@ public class AsyncSetupTests : IAsyncLifetime
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you categorize and filter tests using traits?
 
@@ -389,13 +370,10 @@ public class UnitTestAttribute : TraitAttribute
 public void MyTest() { /* ... */ }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 3. ASSERTIONS
+## 3. Assertions
 
 <br/>
 
@@ -471,9 +449,6 @@ Assert.InRange(score, low: 0, high: 100);
 Assert.NotInRange(score, low: 101, high: int.MaxValue);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you assert on exceptions including message and inner exception?
 
@@ -517,9 +492,6 @@ public class ParserTests
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you write custom assertions or use FluentAssertions?
 
@@ -587,13 +559,10 @@ public static class OrderAssert
 OrderAssert.ValidOrder(result);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 4. DATA-DRIVEN TESTS
+## 4. Data-Driven Tests
 
 <br/>
 
@@ -678,9 +647,6 @@ public void Add_ReturnsSum(int a, int b, int expected)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you load test data from an external file (JSON/CSV)?
 
@@ -721,13 +687,10 @@ public class CsvDataSource : IEnumerable<object[]>
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 5. MOCKING WITH MOQ
+## 5. Mocking with MOQ
 
 <br/>
 
@@ -806,9 +769,6 @@ mockRepo.Setup(r => r.DeleteAsync(It.IsAny<int>()))
         .ThrowsAsync(new UnauthorizedAccessException("No permission"));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the different Moq verification options?
 
@@ -848,9 +808,6 @@ Assert.NotNull(capturedOrder);
 Assert.Equal(99, capturedOrder!.CustomerId);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you mock properties and sequences with Moq?
 
@@ -893,13 +850,10 @@ var service = new RetryService(config);
 Assert.Equal(5, service.MaxRetries);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 6. ASYNC TESTING
+## 6. Async Testing
 
 <br/>
 
@@ -972,9 +926,6 @@ public async Task StreamOrdersAsync_ReturnsAllOrders()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you test code with CancellationToken?
 
@@ -1032,13 +983,10 @@ public class FileProcessorTests
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 7. TEST FIXTURES & SHARED CONTEXT
+## 7. Test Fixtures & Shared Context
 
 <br/>
 
@@ -1102,9 +1050,6 @@ public class ProductRepositoryTests(DatabaseFixture fixture)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is ICollectionFixture and how does it differ from IClassFixture?
 
@@ -1139,9 +1084,6 @@ public class OrderTests(DatabaseFixture fixture)
 | Shared across | Tests in one class | All classes in a `[Collection]` |
 | Parallelism | Classes run in parallel by default | Classes in the same collection run **sequentially** |
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you write diagnostic output in xUnit tests?
 
@@ -1175,13 +1117,10 @@ public class DiagnosticsTests(ITestOutputHelper output)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 8. TESTING ASP.NET CORE
+## 8. Testing ASP.NET Core
 
 <br/>
 
@@ -1247,9 +1186,6 @@ public class ProductsApiTests(TestWebAppFactory factory)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you test a controller action directly (without HTTP)?
 
@@ -1306,9 +1242,6 @@ public class ProductsControllerTests
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you test middleware in ASP.NET Core?
 
@@ -1358,13 +1291,10 @@ public class RequestLoggingMiddlewareTests
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 9. TESTING EF CORE
+## 9. Testing EF Core
 
 <br/>
 
@@ -1442,9 +1372,6 @@ private static AppDbContext CreateInMemoryDb()
 
 > **Note:** Prefer SQLite in-memory for tests that need FK constraints, indexes, or raw SQL queries. Use the InMemory provider only for simple read/write tests.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you test EF Core queries that involve transactions?
 
@@ -1503,13 +1430,10 @@ public class TransactionTests : IDisposable
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 <br/>
 
-## # 10. CODE COVERAGE & BEST PRACTICES
+## 10. Code Coverage & Best Practices
 
 <br/>
 
@@ -1552,9 +1476,6 @@ public class AutoGeneratedMapper
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the best practices for writing maintainable unit tests?
 
@@ -1665,9 +1586,6 @@ public void CartService_AddItem_UpdatesCartTotal()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you run tests in parallel and control test execution order?
 
@@ -1711,9 +1629,6 @@ public class WorkflowTests
 
 > **Note:** Ordered/dependent tests are generally an anti-pattern. Each test should be independent. Use ordered execution only for integration/workflow tests where you explicitly document the dependency.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you test time-dependent code?
 
@@ -1793,6 +1708,3 @@ public void IsExpired_UsingFakeTimeProvider()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>

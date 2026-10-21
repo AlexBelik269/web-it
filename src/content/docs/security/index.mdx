@@ -11,9 +11,10 @@ import {
   TabItem,
   Steps,
   Icon,
+  LinkCard,
 } from '@astrojs/starlight/components';
 
-<Aside type="tip" title="Security is never one thingt">
+<Aside type="tip" title="Security is never one thing">
 Secure systems are built with **layers of protection** — prevention, detection, response, and recovery.  
 This section complements the [Auth](/auth) section to provide full-stack security coverage.
 </Aside>
@@ -21,78 +22,51 @@ This section complements the [Auth](/auth) section to provide full-stack securit
 ## Explore the Security Handbook
 
 <CardGrid>
-  <Card
-    title="Security Principals"
-    icon="open-book"
+  <LinkCard
+    title="Security Principles"
     href="/security/principals/cyber-warfare"
-  >
-    Cyber warfare, endpoint protection, email security, and password security.
-  </Card>
-
-  <Card
+    description="Cyber warfare, endpoint protection, email security, and password security."
+  />
+  <LinkCard
     title="Web App Security"
-    icon="desktop"
     href="/security/web/owasp-top-10"
-  >
-    OWASP Top 10, XSS, SQL Injection, CSRF, CORS, CSP, and secure browser defenses.
-  </Card>
-
-  <Card
+    description="OWASP Top 10, XSS, SQL Injection, CSRF, CORS, CSP, and secure browser defenses."
+  />
+  <LinkCard
     title="Malware"
-    icon="warning"
     href="/security/malware"
-  >
-    Malware categories, attack techniques, persistence, ransomware, detection, and defense.
-  </Card>
-
-  <Card
+    description="Malware categories, attack techniques, persistence, ransomware, detection, and defense."
+  />
+  <LinkCard
     title="Cryptography"
-    icon="padlock"
     href="/security/cryptography/fundamentals"
-  >
-    Encryption, hashing, key management, digital signatures, and encoding systems.
-  </Card>
-
-  <Card
+    description="Encryption, hashing, key management, digital signatures, and encoding systems."
+  />
+  <LinkCard
     title="Infrastructure Security"
-    icon="puzzle"
     href="/security/infrastructure/secrets-management"
-  >
-    Secrets management, cloud security, containers, and production hardening.
-  </Card>
-
-  <Card
+    description="Secrets management, cloud security, containers, and production hardening."
+  />
+  <LinkCard
     title="Compliance"
-    icon="magnifier"
     href="/security/compliance"
-  >
-    GDPR, SOC 2, ISO 27001, NIST CSF, CIS Controls, and governance requirements.
-  </Card>
-
-  <Card
+    description="GDPR, SOC 2, ISO 27001, NIST CSF, CIS Controls, and governance requirements."
+  />
+  <LinkCard
     title="Incident Response"
-    icon="phone"
     href="/security/incident-response/logging-monitoring"
-  >
-    Logging, monitoring, alerting, digital forensics, and response playbooks.
-  </Card>
-
-
-    <Card
-    title="Informations- und Cyber-Sicherheit "
-    icon="error"
-    href="/security/introl/sw01_einfuehrung"
-  >
-    Logging, monitoring, alerting, digital forensics, and response playbooks.
-  </Card>
-
-    <Card
-    title="Informationssicherheit"
-    icon="rocket"
-    href="/security/isf/SW01_Begriffe_CommonGround.mdx"
-  >
-    Logging, monitoring, alerting, digital forensics, and response playbooks.
-  </Card>
+    description="Logging, monitoring, alerting, digital forensics, and response playbooks."
+  />
+  <LinkCard
+    title="INTROL – Informations- und Cyber-Sicherheit"
+    href="/security/introl/01_einfuehrung"
+    description="Course notes (DE): password cracking, Wireshark, man-in-the-middle, physical security, firewalls, and IPv6 labs."
+  />
+  <LinkCard
+    title="ISF – Informationssicherheit"
+    href="/security/isf/01_einfuehrung"
+    description="Course notes (DE): awareness, cryptology, crypto protocols, ISMS & standards, risk management, access control, and vulnerabilities."
+  />
 </CardGrid>
 
 ---
@@ -189,7 +163,7 @@ A modern system should assume that **any single control can fail**.
 - [OWASP Top 10](/security/web/owasp-top-10)
 - [XSS](/security/web/xss)
 - [SQL Injection](/security/web/sql-injection)
-- [CSRF](/security/web/csrf)
+- [CSRF](/security/web/csrf-clickjacking)
 - [HTTP Security Headers](/security/web/http-security-headers)
 
 </TabItem>
@@ -209,8 +183,8 @@ A modern system should assume that **any single control can fail**.
 
 ### Secure systems and services
 
-- [API Security Fundamentals](/security/api/api-security-fundamentals)
-- [Input Validation](/security/api/input-validation)
+- [API Security Fundamentals](/web/api/api-security-fundamentals)
+- [Input Validation](/web/api/input-validation)
 - [Secrets Management](/security/infrastructure/secrets-management)
 - [Container Security](/security/infrastructure/container-security)
 

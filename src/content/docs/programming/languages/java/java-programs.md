@@ -88,9 +88,6 @@ Output
 ```
 5
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Write a program to generate random numbers between the given range?
 
@@ -240,9 +237,6 @@ Output
 Array after pushing all zeros to end of array:
 1 9 8 4 2 7 6 9 0 0 0 0
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Write a multi-threading program to print odd number using one thread and even number using other?
 ```java
@@ -339,7 +333,7 @@ Thread Odd: 5
 **Recursive Approach**  
 
 
-![Recursive Approach](https://github.com/learning-zone/java-interview-questions/blob/master/assets/recursive.png)
+![Recursive Approach](https://raw.githubusercontent.com/learning-zone/java-interview-questions/master/assets/recursive.png)
 
 ```java
 public class PermuteString 
@@ -1468,9 +1462,6 @@ public class toLowerCase {
      }
 }    
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Explain deadlock condition in-between two threads with example?
 
@@ -1555,13 +1546,10 @@ public class MainClass {
   }
 }
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Find the shortest-path weights d(s, v) from given source s for all vertices v present in the graph.
 
-![Dijkstras Algorithm](https://github.com/learning-zone/java-interview-questions/blob/master/assets/shorted-path-dijkstras.png)
+![Dijkstras Algorithm](https://raw.githubusercontent.com/learning-zone/java-interview-questions/master/assets/shorted-path-dijkstras.png)
 
 For Example:
 
@@ -1573,7 +1561,6 @@ Path from vertex A to vertex C has min cost of 6 & the route is [ A -> E -> B ->
 Path from vertex A to vertex D has min cost of 5 & the route is [ A -> E -> D ]
 
 Path from vertex A to vertex E has min cost of 3 & the route is [ A -> E ]
-
 
 
 Dijkstra’s Algorithm is an algorithm for finding the shortest paths between nodes in a graph. For a given source node in the graph, the algorithm finds the shortest path between that node and every other node. It can also be used for finding the shortest paths from a single node to a single destination node by stopping the algorithm once the shortest path to the destination node has been determined.
@@ -1724,9 +1711,6 @@ Path from vertex 0 to vertex 2 has minimum cost of 6 and the route is [ 0 4 1 2 
 Path from vertex 0 to vertex 3 has minimum cost of 5 and the route is [ 0 4 3 ]
 Path from vertex 0 to vertex 4 has minimum cost of 3 and the route is [ 0 4 ]
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to display 10 random numbers using forEach()?
 
@@ -1737,9 +1721,6 @@ Path from vertex 0 to vertex 4 has minimum cost of 3 and the route is [ 0 4 ]
     .forEach ( System . out :: println);
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How can I display unique squares of numbers using the method map()?
 
@@ -1752,9 +1733,6 @@ Stream
     .forEach ( System . out :: println);
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to display the number of empty lines using the method filter()?
 
@@ -1766,9 +1744,6 @@ System.out.println (
         .count ());
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to display 10 random numbers in ascending order?
 
@@ -1780,9 +1755,6 @@ System.out.println (
     .forEach ( System . out :: println);
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to find the maximum number in a set?
 
@@ -1794,9 +1766,6 @@ Stream
     .getAsInt (); // 55
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to find the minimum number in a set?
 
@@ -1808,9 +1777,6 @@ Stream
     .getAsInt (); // 2
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to get the sum of all numbers in a set?
 
@@ -1821,9 +1787,6 @@ Stream
     .sum(); // 69
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to get the average of all numbers?
 
@@ -1835,18 +1798,12 @@ Stream
     .getAsDouble (); // 13.8
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 ## Q. How to get current date using Date Time API from Java 8?
 
 ```java
 LocalDate as.now();
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to add 1 week, 1 month, 1 year, 10 years to the current date using the Date Time API?
 
@@ -1857,9 +1814,6 @@ LocalDate as.now ().plusYears ( 1 );
 LocalDate as.now ().plus ( 1 , ChronoUnit.DECADES );
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to get the next Tuesday using the Date Time API?
 
@@ -1867,9 +1821,6 @@ LocalDate as.now ().plus ( 1 , ChronoUnit.DECADES );
 LocalDate as.now().with( TemporalAdjusters.next ( DayOfWeek.TUESDAY ));
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to get the current time accurate to milliseconds using the Date Time API?
 
@@ -1877,9 +1828,6 @@ LocalDate as.now().with( TemporalAdjusters.next ( DayOfWeek.TUESDAY ));
 new  Date ().toInstant ();
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to get the second Saturday of the current month using the Date Time API?
 
@@ -1889,9 +1837,6 @@ LocalDate
     .with ( TemporalAdjusters.nextOrSame ( DayOfWeek.SATURDAY ))
     .with ( TemporalAdjusters.next ( DayOfWeek.SATURDAY ));
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to get the current time in local time accurate to milliseconds using the Date Time API?
 
@@ -1899,9 +1844,6 @@ LocalDate
 LocalDateTime.ofInstant ( new  Date().toInstant(), ZoneId.systemDefault());
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to sort a list of strings using a lambda expression?
 
@@ -1912,9 +1854,6 @@ public  static  List < String > sort ( List < String > list) {
 }
 ```
 
-<div align="right">
-    <b><a href="#related-topics">↥ back to top</a></b>
-</div>
 
 #### Q. How to find if there is a sub array with sum equal to zero?
 #### Q. How to remove a given element from array in Java?
@@ -2017,9 +1956,5 @@ public  static  List < String > sort ( List < String > list) {
 #### Q. Java Program to find gcd and lcm of two numbers
 #### Q. Write a program to find the sum of the first 1000 prime numbers?
 #### Q. How to perform matrix operations in java?
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 

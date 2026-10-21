@@ -1,11 +1,7 @@
-﻿---
-title: "C# Basics"
-description: "Core C# language fundamentals â€” types, classes, interfaces, generics, LINQ, async/await, and common interview questions."
 ---
-
-> *Click &#9733; if you like the project. Your contributions are heartily â™¡ welcome.*
-
-<br/>
+title: "C# Basics"
+description: "Core C# language fundamentals — types, classes, interfaces, generics, LINQ, async/await, and common interview questions."
+---
 
 ## Related Topics
 
@@ -15,7 +11,7 @@ description: "Core C# language fundamentals â€” types, classes, interfaces,
 * *[Angular Basics](https://github.com/learning-zone/angular-basics)*
 * *[SQL Basics](https://github.com/learning-zone/sql-basics)*
 * *[ASP.NET Core](asp-net-core.md)*
-* *[ADO.NET](ado.net.md)*
+* *[ADO.NET](ado-net.md)*
 * *[.NET Multiple Choice Questions](dotnet-mcq.md)*
 * *[Unit Testing](dotnet-unit-test.md)*
 * *[Design Patterns](dotnet-dp.md)*
@@ -25,28 +21,28 @@ description: "Core C# language fundamentals â€” types, classes, interfaces,
 
 ## Table of Contents
 
-* [Fundamentals](#-1-fundamentals)
-* [Operators](#-2-operators)
-* [Classes](#-3-classes)
-* [Inheritance](#-4-inheritance)
-* [Collections](#-5-collections)
-* [Multithreading](#-6-multithreading)
-* [File Handling](#-7-file-handling)
-* [Regular Expression](#-8-regular-expression)
-* [Exception Handling](#-9-exception-handling)
-* [Events and Delegates](#-10-events-and-delegates)
-* [Garbage Collection](#-11-garbage-collection)
-* [Lambda Expressions](#-12-lambda-expressions)
-* [Language Integrated Query](#-13-language-integrated-query)
-* [Microservices](#-14-microservices)
-* [Performance and Optimization](#-15-performance-and-optimization)
-* [Deployment](#-16-deployment)
-* [.NET Core](#-17-net-core)
-* [Miscellaneous](#-18-miscellaneous)
+* [Fundamentals](#1-fundamentals)
+* [Operators](#2-operators)
+* [Classes](#3-classes)
+* [Inheritance](#4-inheritance)
+* [Collections](#5-collections)
+* [Multithreading](#6-multithreading)
+* [File Handling](#7-file-handling)
+* [Regular Expression](#8-regular-expression)
+* [Exception Handling](#9-exception-handling)
+* [Events and Delegates](#10-events-and-delegates)
+* [Garbage Collection](#11-garbage-collection)
+* [Lambda Expressions](#12-lambda-expressions)
+* [Language Integrated Query](#13-language-integrated-query)
+* [Microservices](#14-microservices)
+* [Performance and Optimization](#15-performance-and-optimization)
+* [Deployment](#16-deployment)
+* [.NET Core](#17-net-core)
+* [Miscellaneous](#18-miscellaneous)
 
 <br/>
 
-## # 1. FUNDAMENTALS
+## 1. Fundamentals
 
 <br/>
 
@@ -74,7 +70,7 @@ string? nullableName = null;        // explicitly nullable
 string nonNullableName = "Pradeep"; // cannot be null
 ```
 
-* **Pattern Matching (C# 8â€“14):** C# has rich pattern matching with `switch` expressions, relational, list, and type patterns.
+* **Pattern Matching (C# 8–14):** C# has rich pattern matching with `switch` expressions, relational, list, and type patterns.
 
 ```cs
 object shape = new Circle(5);
@@ -110,7 +106,7 @@ T Sum<T>(T[] numbers) where T : INumber<T>
     => numbers.Aggregate(T.Zero, (acc, n) => acc + n);
 ```
 
-* **Native AOT (Ahead-of-Time Compilation, .NET 7+):** Compile to native binaries for fast startup, small footprint, and deployment without the .NET runtime â€” ideal for microservices and CLI tools.
+* **Native AOT (Ahead-of-Time Compilation, .NET 7+):** Compile to native binaries for fast startup, small footprint, and deployment without the .NET runtime — ideal for microservices and CLI tools.
 
 * **Collection Expressions (C# 12):** Unified syntax for all collection types.
 
@@ -122,9 +118,6 @@ Span<int> span = [10, 20, 30];
 
 * **Cross-Platform Development:** .NET 10 runs on Windows, Linux, macOS, Android, iOS, and WebAssembly (Blazor).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different types of data types available in C#?
 
@@ -149,10 +142,10 @@ Simple Types   Enum Types  Struct Type  Nullable Type                           
 These store data directly and include:
 
 * **Integral types**: `byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `char`
-* **Native-sized integers (C# 9+)**: `nint`, `nuint` â€” size matches the platform\'s pointer size (32 or 64-bit)
+* **Native-sized integers (C# 9+)**: `nint`, `nuint` — size matches the platform\'s pointer size (32 or 64-bit)
 * **128-bit integers (.NET 7+)**: `Int128`, `UInt128`
 * **Floating-point types**: `float`, `double`
-* **Half-precision float (.NET 5+)**: `Half` â€” 16-bit floating-point
+* **Half-precision float (.NET 5+)**: `Half` — 16-bit floating-point
 * **Decimal type**: `decimal`
 * **Boolean type**: `bool`
 * **Structs**: Custom value types (e.g., `DateTime`, `Guid`)
@@ -192,9 +185,6 @@ record struct Point(int X, int Y); // Record struct (C# 10+)
 Point p = new Point(1, 2);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can primitive data types be stored in heap?
 
@@ -212,9 +202,6 @@ int x = 10; // Stored on the stack
 object obj = x; // Boxing: x is copied to the heap
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. It is possible to store mixed datatypes such as int, string, float, char all in one array?
 
@@ -245,9 +232,6 @@ True
 * Arrays like int[], string[], etc., can only store a single data type.
 * Using object[] allows mixed types, but it\'s generally better to use generic collections or tuples for type safety and clarity.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is an extension method in C# and how is it implemented?
 
@@ -289,9 +273,9 @@ Console.WriteLine(15.Clamp(0, 10)); // Output: 10
 Console.WriteLine(5.5.Clamp(0.0, 10.0)); // Output: 5.5
 ```
 
-**3. Extension members (C# 14 â€” new syntax):**
+**3. Extension members (C# 14 — new syntax):**
 
-C# 14 introduces a new `extension` block syntax that allows properties, static methods, and operators as extensions â€” not just instance methods:
+C# 14 introduces a new `extension` block syntax that allows properties, static methods, and operators as extensions — not just instance methods:
 
 ```cs
 extension(string s) StringEx
@@ -307,9 +291,6 @@ Console.WriteLine(StringEx.Repeat("ha", 3)); // Output: hahaha
 
 **Note:** Extension methods are resolved at compile time. They are found only when the namespace of the static class is imported with `using`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a generic type in C# and why is it used?
 
@@ -319,7 +300,7 @@ Generics allow you to write classes, methods, delegates, and interfaces that wor
 
 * **Type Safety**: Errors are caught at compile time.
 * **Code Reusability**: One implementation works for all types.
-* **Performance**: No boxing/unboxing â€” generics use the actual type at runtime.
+* **Performance**: No boxing/unboxing — generics use the actual type at runtime.
 
 **1. Generic class:**
 
@@ -374,9 +355,6 @@ Console.WriteLine(Sum(new[] { 1m, 2m, 3.5m }));       // Output: 6.5
 | `where T : INumber<T>`    | T must be a numeric type (C# 11+)              |
 | `where T : notnull`       | T cannot be a nullable type (C# 8+)            |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is an anonymous method in C# and how is it used?
 
@@ -414,9 +392,6 @@ class Program
 
 Lambda expressions are a more concise way to achieve the same functionality as anonymous methods. Lambda expressions are generally preferred over anonymous methods in modern C# code. 
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between a method and a function in C#?
 
@@ -439,13 +414,10 @@ public class Calculator
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the Common Language Runtime (CLR) in C#?
 
-The **Common Language Runtime (CLR)** â€” known as **CoreCLR** in modern .NET (formerly .NET Core) â€” is the core execution engine for .NET applications. It manages execution, memory, security, and cross-language interoperability. As of **.NET 10**, CoreCLR is cross-platform (Windows, Linux, macOS, Android, iOS, WebAssembly).
+The **Common Language Runtime (CLR)** — known as **CoreCLR** in modern .NET (formerly .NET Core) — is the core execution engine for .NET applications. It manages execution, memory, security, and cross-language interoperability. As of **.NET 10**, CoreCLR is cross-platform (Windows, Linux, macOS, Android, iOS, WebAssembly).
 
 **Key Functions:**
 
@@ -463,7 +435,7 @@ The **Common Language Runtime (CLR)** â€” known as **CoreCLR** in modern .N
 
 * **Metadata:** Type information embedded in assemblies enables reflection, serialization, and source generators.
 
-**Example â€” inspecting runtime info (.NET 10):**
+**Example — inspecting runtime info (.NET 10):**
 
 ```cs
 using System.Runtime.InteropServices;
@@ -473,9 +445,6 @@ Console.WriteLine(RuntimeInformation.OSDescription);        // e.g., Linux 6.x
 Console.WriteLine(RuntimeInformation.ProcessArchitecture);  // X64 / Arm64
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of namespaces in C#?
 
@@ -511,9 +480,6 @@ using MyCompany.Project.Utilities;
 Logger logger = new Logger();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `using` statement in C#?
 
@@ -531,7 +497,7 @@ using (var file = new StreamReader("example.txt"))
 
 **2. `using` declaration (C# 8+, .NET Core 3+):**
 
-No braces needed â€” the object is disposed at the end of the enclosing scope. This is the preferred modern style.
+No braces needed — the object is disposed at the end of the enclosing scope. This is the preferred modern style.
 
 ```cs
 using var file = new StreamReader("example.txt");
@@ -555,9 +521,6 @@ await connection.OpenAsync();
 * Prevents resource leaks for files, streams, database connections, HTTP clients, etc.
 * `using` declarations (C# 8+) reduce nesting and are generally preferred in modern .NET code.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are properties in C# and how are they used?
 
@@ -596,12 +559,12 @@ public class Product
 }
 
 var p = new Product { Name = "Laptop", Price = 999.99m };
-// p.Name = "Phone"; // Compile error â€” init-only
+// p.Name = "Phone"; // Compile error — init-only
 ```
 
 **3. `required` properties (C# 11+):**
 
-Forces callers to set the property in an object initializer â€” a compile-time guarantee of initialization.
+Forces callers to set the property in an object initializer — a compile-time guarantee of initialization.
 
 ```cs
 public class Employee
@@ -611,7 +574,7 @@ public class Employee
     public string Department { get; init; } = "General";
 }
 
-// Must provide Name and Id â€” compiler enforces it
+// Must provide Name and Id — compiler enforces it
 var emp = new Employee { Name = "Pradeep", Id = 101 };
 Console.WriteLine(emp.Info); // Output: Name: Pradeep, Age: 30
 ```
@@ -627,9 +590,6 @@ public class Point(int x, int y)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the Arrays in C#.Net?
 
@@ -696,9 +656,6 @@ for (int i = 0; i < numbers.Length; i++)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between the System.Array.CopyTo() and System.Array.Clone()?
 
@@ -742,9 +699,6 @@ for (int i = 0; i < clone.Length; i++)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is jagged array in C#.Net?
 
@@ -767,9 +721,6 @@ Console.WriteLine(jaggedArray[0][1]); // Output: 20
 Console.WriteLine(jaggedArray[1][0]); // Output: 40
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can you sort the elements of the array in descending order?
 
@@ -799,9 +750,6 @@ foreach (int num in descending)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `var` and `dynamic` types?
 
@@ -848,9 +796,6 @@ Console.WriteLine(value.NonExistentMethod()); // Compiles, but throws runtime ex
 |Type Changes	|Fixed after initialization	    |Allowed to change at runtime
 |Error Detection   |Compile time| Runtime
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `struct` in C#?
 
@@ -889,7 +834,7 @@ public readonly struct Temperature(double celsius)
 {
     public double Celsius { get; } = celsius;
     public double Fahrenheit => Celsius * 9 / 5 + 32;
-    public override string ToString() => $"{Celsius}Â°C";
+    public override string ToString() => $"{Celsius}°C";
 }
 ```
 
@@ -912,7 +857,7 @@ var c3 = c1 with { Latitude = 28.61 };
 
 **4. `readonly record struct` (C# 10+):**
 
-Fully immutable value type with value equality â€” preferred for small, data-centric types.
+Fully immutable value type with value equality — preferred for small, data-centric types.
 
 ```cs
 public readonly record struct Money(decimal Amount, string Currency);
@@ -921,9 +866,6 @@ var price = new Money(9.99m, "USD");
 var discounted = price with { Amount = 7.99m };
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `abstract` and `virtual` methods?
 
@@ -943,9 +885,6 @@ Abstract methods are declared without an implementation, requiring derived class
 * If a derived class does not override a virtual method, the base class\'s implementation will be used. 
 * Virtual methods enable polymorphism, allowing different object types to respond to the same method call in different ways. 
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `out` and `ref` parameters?
 
@@ -995,9 +934,6 @@ public class Program
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `Tuple` in C#?
 
@@ -1008,7 +944,7 @@ A Tuple is a data structure that stores a fixed number of elements of potentiall
 * Returns multiple values from a method without `out` parameters or a custom class.
 * Supports named elements for better readability.
 * Supports **deconstruction** to unpack values into individual variables.
-* Value tuples (C# 7+) are structs â€” more performant than old `Tuple<T>` class (heap-allocated).
+* Value tuples (C# 7+) are structs — more performant than old `Tuple<T>` class (heap-allocated).
 
 **1. Named tuple elements (preferred):**
 
@@ -1048,12 +984,9 @@ var employees = new[]
 };
 
 foreach (var (name, dept) in employees)
-    Console.WriteLine($"{name} â€“ {dept}");
+    Console.WriteLine($"{name} – {dept}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain byval and byref?
 
@@ -1097,9 +1030,6 @@ Increment(ref a);
 Console.WriteLine(a); // Output: 11 (original value changed)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is an immutable string?
 
@@ -1120,9 +1050,6 @@ s1 = s1 + " World"; // Creates a new string, s1 now points to "Hello World"
 Console.WriteLine(s2); // Output: Hello (s2 is unchanged)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the JIT compiler process?
 
@@ -1130,7 +1057,7 @@ The JIT (Just-In-Time) compiler is a core component of the .NET runtime (CLR/Cor
 
 **JIT Compilation Process:**
 
-1. **Source â†’ IL:** The C# compiler (`csc` / `dotnet build` using **Roslyn**) compiles source code into **Intermediate Language (IL)** and stores it in assemblies (`.dll` / `.exe`).
+1. **Source → IL:** The C# compiler (`csc` / `dotnet build` using **Roslyn**) compiles source code into **Intermediate Language (IL)** and stores it in assemblies (`.dll` / `.exe`).
 2. **Assembly Loading:** The CoreCLR loads the required assemblies at startup.
 3. **JIT Compilation:** When a method is called for the first time, the JIT compiler translates its IL to **native machine code** optimized for the current CPU (x64, Arm64, etc.).
 4. **Caching:** The native code is cached in memory so subsequent calls execute directly without re-compilation.
@@ -1138,13 +1065,13 @@ The JIT (Just-In-Time) compiler is a core component of the .NET runtime (CLR/Cor
 
 ```
 Source Code (.cs)
-      â†“  Roslyn compiler
+      ↓  Roslyn compiler
 IL Code + Metadata (Assembly .dll/.exe)
-      â†“  CoreCLR loads assembly
+      ↓  CoreCLR loads assembly
 JIT Compiler (per method, first call only)
-      â†“
+      ↓
 Native Machine Code (cached)
-      â†“
+      ↓
 Execution by CPU
 ```
 
@@ -1156,7 +1083,7 @@ Execution by CPU
 
 **Alternative: Native AOT (Ahead-of-Time Compilation, .NET 7+):**
 
-Native AOT compiles the entire application to a **self-contained native binary** at build time â€” no JIT, no .NET runtime required at deployment.
+Native AOT compiles the entire application to a **self-contained native binary** at build time — no JIT, no .NET runtime required at deployment.
 
 ```bash
 dotnet publish -r linux-x64 -p:PublishAot=true
@@ -1168,7 +1095,7 @@ dotnet publish -r linux-x64 -p:PublishAot=true
 * Suitable for serverless functions, CLI tools, and containers
 
 ```cs
-// Program.cs â€” minimal Native AOT app (.NET 10)
+// Program.cs — minimal Native AOT app (.NET 10)
 Console.WriteLine("Hello from Native AOT!");
 ```
 
@@ -1176,14 +1103,11 @@ Console.WriteLine("Hello from Native AOT!");
 
 | Scenario                   | JIT (Default)     | Native AOT              |
 |----------------------------|-------------------|-------------------------|
-| Long-running services      | âœ… Preferred       | âœ… Supported             |
-| Cold-start sensitive apps  | âš ï¸ Warm-up delay  | âœ… Instant start         |
-| Reflection-heavy code      | âœ… Full support    | âš ï¸ Limited              |
-| Smallest binary size       | âš ï¸ Runtime needed | âœ… Single file           |
+| Long-running services      | ✅ Preferred       | ✅ Supported             |
+| Cold-start sensitive apps  | ⚠️ Warm-up delay  | ✅ Instant start         |
+| Reflection-heavy code      | ✅ Full support    | ⚠️ Limited              |
+| Smallest binary size       | ⚠️ Runtime needed | ✅ Single file           |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the characteristics of value-type variables that are supported in the C# programming language.
 
@@ -1220,10 +1144,6 @@ DateTime today = DateTime.Now; // Struct (user-defined value type)
 | Default Value          | `int x;`          | Defaults to `0`                               |
 | Inheritance            | `struct`          | Cannot inherit from another struct/class      |
 
-
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a parameter? Explain the new types of parameters introduced in C# 4.0.
 
@@ -1272,9 +1192,6 @@ PrintMessage("Pradeep", city: "Bengaluru"); // age uses default value 0
 // Pradeep, 0, Bengaluru
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different types of literals?
 
@@ -1299,8 +1216,8 @@ In C#, **literals** are fixed values assigned directly to variables or constants
 **4. String Literals**
   - Represent a sequence of characters, enclosed in double quotes.
   - Examples: `"Hello"`, `"C#\nBasics"`.
-  - **Verbatim string literals**: Start with `@` â€” preserve escape sequences and line breaks, e.g., `@"C:\Users\Name"`.
-  - **Interpolated strings (C# 6+)**: Prefix with `$` â€” embed expressions, e.g., `$"Hello, {name}!"`.
+  - **Verbatim string literals**: Start with `@` — preserve escape sequences and line breaks, e.g., `@"C:\Users\Name"`.
+  - **Interpolated strings (C# 6+)**: Prefix with `$` — embed expressions, e.g., `$"Hello, {name}!"`.
   - **Raw string literals (C# 11+)**: Start and end with at least three double quotes `"""..."""`. No escape sequences needed, multi-line friendly.
 
 ```cs
@@ -1317,7 +1234,7 @@ string name = "Pradeep";
 string greeting = $"""Hello, {name}! Welcome to "C# 14".""";
 ```
 
-  - **UTF-8 string literals (C# 11+)**: Suffix with `u8` â€” produces a `ReadOnlySpan<byte>` for zero-copy UTF-8 data, ideal for networking and file I/O.
+  - **UTF-8 string literals (C# 11+)**: Suffix with `u8` — produces a `ReadOnlySpan<byte>` for zero-copy UTF-8 data, ideal for networking and file I/O.
 
 ```cs
 ReadOnlySpan<byte> utf8Hello = "Hello"u8;
@@ -1342,9 +1259,6 @@ bool isActive = true;        // Boolean literal
 object obj = null;           // Null literal
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the main difference between sub-procedure and function?
 
@@ -1373,9 +1287,6 @@ void PrintSum(int a, int b)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between string and StringBuilder in C#?
 
@@ -1419,9 +1330,6 @@ string result = sb.ToString();
 * Use `string` for simple, infrequent changes.
 * Use `StringBuilder` for complex or repeated string manipulations, especially in loops.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is difference between late binding and early binding in C#?
 
@@ -1457,9 +1365,6 @@ dynamic obj = GetSomeObject();
 obj.MyMethod(); // Resolved at runtime
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is Indexer in C#?
 
@@ -1486,9 +1391,6 @@ collection[0] = "Hello";
 Console.WriteLine(collection[0]); // Output: Hello
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the differences between Object, Var and Dynamic type?
 
@@ -1547,9 +1449,6 @@ value = 123;
 | Member Access   | Requires casting | Direct (after inference) | Direct (runtime) |
 | Use Case        | General base type, APIs | When type is obvious or anonymous types | Interop, dynamic scenarios |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between managed and unmanaged code?
 
@@ -1571,9 +1470,6 @@ Unmanaged code is code that runs directly on the operating system, outside the c
 
 Managed code is safer and easier to maintain, while unmanaged code offers more control and performance but requires careful resource management.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is an Object Pool in C#?
 
@@ -1615,9 +1511,6 @@ pool.ReturnObject(sb);
 
 .NET Core provides `System.Buffers.ObjectPool<T>` and `ArrayPool<T>` for pooling arrays and other objects.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the difference between lazy and eager evaluation in C#?
 
@@ -1665,10 +1558,6 @@ IEnumerable<int> GetNumbers()
 | LINQ             | `.ToList()` (immediate)   | `.Where()` (deferred)         |
 
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
-
 ## Q. Mention the two major categories that distinctly classify the variables of C# programs.
 
 In C# programs, variables are primarily categorized into **value types** and **reference types**. Value types directly store the variable\'s value in memory, while reference types store a memory address (reference) to the value\'s location. 
@@ -1681,9 +1570,6 @@ These store the actual data directly in the memory location of the variable (Sta
 
 These store a memory address to the location where the actual data is stored (Heap). Examples include `string`, `object`, `array`, and `class` types. When a reference type variable is copied, the copy contains the same memory address, meaning both variables point to the same data. Therefore, changes to the data through one reference will be reflected in the other. 
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is checked and unchecked block?
 
@@ -1731,9 +1617,6 @@ int result = checked(max + 1);    // Throws OverflowException
 int result2 = unchecked(max + 1); // Wraps around
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between typeOf() and sizeOf()?
 
@@ -1777,9 +1660,6 @@ Console.WriteLine(size); // Output: 4
 - `typeof()` works for all types (value and reference).
 - `sizeof()` works only for value types and may require `unsafe` context for custom structs.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is widening and Narrowing conversion in C#?
 
@@ -1819,9 +1699,6 @@ Console.WriteLine(y); // Output: 123
 Console.WriteLine(small); // Output: -31072
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to view an Assembly?
 
@@ -1847,8 +1724,8 @@ ildasm YourAssembly.dll
 
 **3. Using Visual Studio:**
 
-- Right-click on a reference in Solution Explorer â†’ "Go to Definition" to view metadata.
-- Use "Object Browser" (View â†’ Object Browser) to explore assemblies.
+- Right-click on a reference in Solution Explorer → "Go to Definition" to view metadata.
+- Use "Object Browser" (View → Object Browser) to explore assemblies.
 
 **4. Using Reflection in Code:**
 
@@ -1871,9 +1748,6 @@ class Program
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are MultiLingual Applications?
 
@@ -1913,9 +1787,6 @@ string greeting = rm.GetString("Greeting", ci);
 Console.WriteLine(greeting); // Output depends on selected culture
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you describe the process of code compilation in .NET?
 
@@ -1938,7 +1809,7 @@ The compiler (like Roslyn for C#) initially converts the high-level source code 
    - **.NET 8/9/10 improvements:** Tiered Compilation and Dynamic PGO recompile hot methods with full optimizations at runtime automatically.
 
 4. **Native AOT (Ahead-of-Time, .NET 7+):**
-   - With `PublishAot=true`, the entire app is compiled to a self-contained native binary at build time â€” no JIT or runtime required at deployment.
+   - With `PublishAot=true`, the entire app is compiled to a self-contained native binary at build time — no JIT or runtime required at deployment.
 
 5. **Execution:**
    - The CPU executes the native code. JIT-compiled code is cached for subsequent calls.
@@ -1947,18 +1818,15 @@ The compiler (like Roslyn for C#) initially converts the high-level source code 
 
 ```
 Source Code (C# 14)
-      â†“  Roslyn Compiler
+      ↓  Roslyn Compiler
 IL Code + Metadata (Assembly)
-      â†“  CoreCLR loads assembly
-      â”œâ”€â”€â”€ JIT (default): method-by-method â†’ native code (cached, PGO-optimized)
-      â””â”€â”€â”€ Native AOT: whole-app â†’ single native binary (no runtime needed)
-                â†“
+      ↓  CoreCLR loads assembly
+      ├─── JIT (default): method-by-method → native code (cached, PGO-optimized)
+      └─── Native AOT: whole-app → single native binary (no runtime needed)
+                ↓
            Execution by CPU
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you return multiple values from a function in C#?
 
@@ -2040,9 +1908,6 @@ public int[] GetValues()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. In how many ways you can pass parameters to a method?
 
@@ -2138,11 +2003,8 @@ MyMethod(y: 10, x: 5);
 | Named Parameter    | name: val  | Specify argument by name                    |
 | In Parameter       | in         | Passes a reference to the variable(cannot modify the value)|
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 2. OPERATORS
+## 2. Operators
 
 <br/>
 
@@ -2321,9 +2183,6 @@ Func<int, int> square = x => x * x;
 Console.WriteLine(square(5)); // Output: 25
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `nameof` operator in C#?
 ---
@@ -2355,9 +2214,6 @@ public class Person
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is difference between const and readonly in C#?
 ---
@@ -2401,9 +2257,6 @@ public class MyClass
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How you would use a bitwise operator in C#? 
 ---
@@ -2452,9 +2305,6 @@ int rightShift = a >> 1; // 0010 = 2
 Console.WriteLine($"AND: {and}, OR: {or}, XOR: {xor}, NOT: {notA}, <<: {leftShift}, >>: {rightShift}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the use of the `as` operator in C# and the best way to use it?
 ---
@@ -2513,9 +2363,6 @@ else
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the use of Null Coalescing Operator (??) in C#? 
 ---
@@ -2529,9 +2376,6 @@ string age = userAge ?? 18;
 Console.WriteLine(userAge); // Output: 18
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is difference between "is" and "as" operator in C#?
 ---
@@ -2570,22 +2414,19 @@ if (str != null)
 - Use `is` when you only need to check the type.
 - Use `as` when you want to try casting and handle failure gracefully (by checking for `null`).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are nullable types in C#?
 ---
 In C#, **nullable types** cover two distinct concepts:
 
-**1. Nullable Value Types (`T?` / `Nullable<T>`) â€” all .NET versions:**
+**1. Nullable Value Types (`T?` / `Nullable<T>`) — all .NET versions:**
 
 Allow value types (e.g., `int`, `bool`, `DateTime`) to represent `null`, useful for optional database fields or missing data.
 
 **Key members:**
-* `HasValue` â€” `true` if the variable holds a non-null value.
-* `Value` â€” gets the value (throws `InvalidOperationException` if `null`).
-* `GetValueOrDefault()` â€” returns the value or the type\'s default.
+* `HasValue` — `true` if the variable holds a non-null value.
+* `Value` — gets the value (throws `InvalidOperationException` if `null`).
+* `GetValueOrDefault()` — returns the value or the type\'s default.
 
 ```cs
 int? score = null;
@@ -2605,8 +2446,8 @@ Enable compile-time null safety for **reference types**. Enabled project-wide wi
 ```cs
 // Without nullable context: string can be null silently (old behavior)
 // With nullable context:
-string nonNullable = "Pradeep"; // Cannot be null â€” compiler warns if you try
-string? nullable = null;        // Explicitly nullable â€” must check before use
+string nonNullable = "Pradeep"; // Cannot be null — compiler warns if you try
+string? nullable = null;        // Explicitly nullable — must check before use
 
 int length = nullable?.Length ?? 0; // Safe with null-conditional + null-coalescing
 Console.WriteLine(length); // Output: 0
@@ -2629,9 +2470,6 @@ Suppresses the nullable warning when you know a value isn\'t null:
 string? value = GetMaybeNull();
 int len = value!.Length; // tells compiler "trust me, not null"
 ```
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is Type Casting and what are its types in C#?
 ---
@@ -2702,9 +2540,6 @@ int result;
 bool success = int.TryParse("456", out result);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `==` operator and `.Equals()` method?
 ---
@@ -2751,9 +2586,6 @@ Console.WriteLine(p1.Equals(p2));   // True  (same value)
 - Use `==` for simple value types and when you know the operator is overloaded for value comparison (like `string`).
 - Use `.Equals()` when you want to ensure value-based comparison, especially for custom types.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is short-circuit evaluation in C#?
 ---
@@ -2792,9 +2624,6 @@ If x is 0, the first condition is true, so the second part is not evaluated, aga
 - **Safety:** Prevents errors like null reference or divide-by-zero.
 - **Control flow:** Lets you write conditions that depend on earlier checks.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. List some different ways for equality check in .Net?
 ---
@@ -2903,9 +2732,6 @@ bool isEqual = EqualityComparer<string>.Default.Equals("Hi", "Hi");
 | `StructuralEqualityComparer`  | Arrays, tuples, structural types|
 | `EqualityComparer<T>.Default.Equals()`| generic code            |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is difference between static, readonly, and constant in C#?
 ---
@@ -2957,9 +2783,6 @@ public static int Counter = 0;
 |static        |Implicitly| Optional      | Yes    |
 |Mutable       |No        | No(after init)| Yes(if not readonly)|
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to loop through an enum in C#?
 ---
@@ -3004,9 +2827,6 @@ Saturday
 - `Enum.GetValues(typeof(Days))` returns an array of all enum values.
 - You can also use `Enum.GetNames(typeof(Days))` to get the names as strings.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to set default value to Property in C#?
 ---
@@ -3060,9 +2880,6 @@ public class Person
 - Use property initializers for simple default values.
 - Use the constructor for more complex logic or when default values depend on other parameters.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to convert int to enum in C#?
 ---
@@ -3105,18 +2922,15 @@ else
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is BigInteger Data Type in C#?
 ---
-The `BigInteger` data type in C# is a structure provided by the `System.Numerics` namespace that allows you to work with arbitrarily large integersâ€”much larger than the built-in numeric types like `int` or `long`. Unlike these fixed-size types, `BigInteger` can represent numbers of any size and precision, limited only by the available system memory.
+The `BigInteger` data type in C# is a structure provided by the `System.Numerics` namespace that allows you to work with arbitrarily large integers—much larger than the built-in numeric types like `int` or `long`. Unlike these fixed-size types, `BigInteger` can represent numbers of any size and precision, limited only by the available system memory.
 
 **Key Points:**
 - `BigInteger` is used when you need to handle numbers larger than `long.MaxValue` (9,223,372,036,854,775,807).
 - It supports all standard arithmetic operations (+, -, *, /, %, etc.).
-- It is immutableâ€”operations return a new `BigInteger` instance.
+- It is immutable—operations return a new `BigInteger` instance.
 
 **Example:**
 
@@ -3140,9 +2954,6 @@ class Program
 - To use `BigInteger`, add a reference to `System.Numerics` and include `using System.Numerics;` at the top of your file.
 - This is especially useful in scenarios like cryptography, scientific computations, or financial calculations where precision and large values are critical. 
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to convert String to Enum in C#?
 ---
@@ -3204,9 +3015,6 @@ Enum.TryParse("pending", ignoreCase: true, out Status status);
 - You can pass `true` as the second argument to `TryParse` for case-insensitive matching.
 - Always validate user input before parsing to avoid exceptions.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to convert an Object to JSON in C#?
 ---
@@ -3248,9 +3056,6 @@ Console.WriteLine(json); // Output: {"Name":"Pradeep","Age":30}
 - For `System.Text.Json`, add `using System.Text.Json;`.
 - For `Newtonsoft.Json`, install the NuGet package and add `using Newtonsoft.Json;`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to convert JSON String to Object in C#?
 ---
@@ -3307,9 +3112,6 @@ Console.WriteLine(person.Age);  // Output: 30
 - The class properties must match the JSON keys (case-insensitive by default).
 - For dynamic or anonymous types, you can use `JsonDocument` (System.Text.Json) or `JObject` (Newtonsoft.Json).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to Pass or Access Command-line Arguments in C#?
 ---
@@ -3374,16 +3176,13 @@ string cultureFormatted = now.ToString("D", new CultureInfo("fr-FR"));
 ```
 
 **Common formats:**
-- `"yyyy-MM-dd"` â†’ 2025-05-26
-- `"MM/dd/yyyy"` â†’ 05/26/2025
-- `"dddd, MMMM dd, yyyy"` â†’ Monday, May 26, 2025
+- `"yyyy-MM-dd"` → 2025-05-26
+- `"MM/dd/yyyy"` → 05/26/2025
+- `"dddd, MMMM dd, yyyy"` → Monday, May 26, 2025
 
 **Summary:**  
 Use `dateTime.ToString()` for default, or `dateTime.ToString("format")` for custom string output.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to combine two arrays without duplicate values in C#?
 ---
@@ -3412,9 +3211,6 @@ class Program
 - `Union` returns the set union of two sequence, which means it removes duplicates.
 - `ToArray()` converts the result back to an array.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to convert string to int in C#?
 ---
@@ -3469,9 +3265,6 @@ Use `int.TryParse()` for user input or when the string may not be a valid intege
 |int.TryParse()   |No                     |Yes          | User/untrusted input|
 |Convert.ToInt32()|Yes                    |Yes (returns 0) | Nullable input   |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is boxing and unboxing?
 ---
@@ -3507,10 +3300,6 @@ int num = (int)obj; // Unboxing: obj is converted back to int
 **Notes:**
 - Boxing incurs a performance cost due to heap allocation.
 - Unboxing requires explicit casting and can throw exceptions if the types do not match.
-
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 
 ## Q. What effect does boxing and unboxing have on performance?
@@ -3553,9 +3342,6 @@ int y = (int)obj;    // Unboxing (type check + copy)
 - When working with collections-prefer `List<int>` over `List<object>`.
 - Use generics to avoid boxing in data structures.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `==` and `ReferenceEquals` in C#?
 ---
@@ -3590,9 +3376,6 @@ Console.WriteLine(object.ReferenceEquals(a, b)); // False, different objects in 
 - Use `==` for value comparison (if overridden).
 - Use `ReferenceEquals` when you need to know if two variables refer to the exact same object instance.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How does operator overloading work in C#?
 ---
@@ -3635,9 +3418,6 @@ Point result = p1 + p2; // Uses the overload + operator
 * You can also overload comparison operators, but they must be overloaded in paris (`==` with `!=`, `<` with `>`).
 * Overloading short-circuiting operators (`||` and `&&`) is generally discouraged due to potential confusion. 
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the "=>" operator in C#? Where is it used?
 ---
@@ -3696,9 +3476,6 @@ class Program
 **Summary:**  
 The `=>` operator is used to define inline functions (lambdas) and concise member implementations, making code more readable and expressive, especially in LINQ and functional programming scenarios.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the null-conditional operator (?.) and how does it differ from the null-coalescing operator (??)?
 ---
@@ -3729,9 +3506,6 @@ You can combine both:
 int? length = person?.Name?.Length ?? 0; // If person or Name is null, length is 0
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the default literal in C#?
 ---
@@ -3761,9 +3535,6 @@ public T GetDefaultValue<T>()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you explain the is not pattern introduced in C# 9.0?
 ---
@@ -3811,11 +3582,8 @@ if (person is not Employee { IsActive: true }) {
 - Works with all pattern matching scenarios.
 - This pattern is especially useful in switch expressions and when working with pattern matching in modern C#.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 3. CLASSES
+## 3. Classes
 
 <br/>
 
@@ -3833,9 +3601,6 @@ Object-oriented programming (OOP) in C# is a programming paradigm based on the c
 
 * **Abstraction**: Hides complex implementation details and exposes only the necessary features of an object.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a constructor in C# and what are its different types?
 
@@ -3877,7 +3642,7 @@ var p = new Person("Pradeep", 30);
 
 **3. Primary Constructor (C# 12+):**
 
-Parameters declared directly on the class â€” concise and idiomatic in .NET 8+.
+Parameters declared directly on the class — concise and idiomatic in .NET 8+.
 
 ```cs
 public class Employee(string name, int id)
@@ -3959,9 +3724,6 @@ var c = new Circle(5.0);
 Console.WriteLine($"{c.Color} circle, radius={c.Radius}"); // Red circle, radius=5
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you explain the use of the "this" keyword in C#?
 
@@ -3988,7 +3750,7 @@ public class Person
     }
 }
 
-// 2. Constructor chaining â€” delegate to another constructor
+// 2. Constructor chaining — delegate to another constructor
 public class Order
 {
     public int    Id       { get; }
@@ -4017,7 +3779,7 @@ public class Button
     public void Click() => Clicked?.Invoke(this); // passes self
 }
 
-// 4. Extension method â€” 'this' marks the extended type
+// 4. Extension method — 'this' marks the extended type
 public static class StringExtensions
 {
     public static string Shorten(this string value, int maxLength) =>
@@ -4026,7 +3788,7 @@ public static class StringExtensions
 
 Console.WriteLine("Hello, World!".Shorten(5)); // Hello...
 
-// 5. Fluent builder â€” return 'this' for method chaining
+// 5. Fluent builder — return 'this' for method chaining
 public class QueryBuilder
 {
     private readonly List<string> _parts = [];
@@ -4045,13 +3807,10 @@ string sql = new QueryBuilder()
 Console.WriteLine(sql); // SELECT * FROM Products WHERE Price > 100
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How are static constructors executed in a Parent/Child class hierarchy?
 
-Static constructors are **type-initializers** â€” each runs exactly once, the first time its own class is used (accessed or instantiated). The execution order follows a simple rule: **the static constructor of the base class runs before the static constructor of the derived class**.
+Static constructors are **type-initializers** — each runs exactly once, the first time its own class is used (accessed or instantiated). The execution order follows a simple rule: **the static constructor of the base class runs before the static constructor of the derived class**.
 
 ```cs
 public class Base
@@ -4080,7 +3839,7 @@ public class Derived : Base
     public Derived() => Console.WriteLine("Derived instance constructor");
 }
 
-// First use of Derived â€” triggers type initialization
+// First use of Derived — triggers type initialization
 var d = new Derived();
 Console.WriteLine(Base.Config);
 Console.WriteLine(Derived.Extra);
@@ -4099,13 +3858,10 @@ Derived initialized
 **Key rules:**
 - Static constructors run **before any instance constructor** of the same class.
 - Base static constructor always runs **before** the derived static constructor.
-- Static constructors are called **at most once** per AppDomain â€” guaranteed by the CLR.
+- Static constructors are called **at most once** per AppDomain — guaranteed by the CLR.
 - They run automatically; you cannot call them explicitly.
-- They are thread-safe â€” the CLR ensures only one thread executes a static constructor.
+- They are thread-safe — the CLR ensures only one thread executes a static constructor.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. If a base class has overloaded constructors, can you enforce a call from an inherited constructor to a specific base constructor?
 
@@ -4134,7 +3890,7 @@ public class ElectricVehicle : Vehicle
 {
     public int BatteryKwh { get; }
 
-    // Explicitly calls Vehicle(make, model) â€” two-param base constructor
+    // Explicitly calls Vehicle(make, model) — two-param base constructor
     public ElectricVehicle(string make, string model, int batteryKwh)
         : base(make, model)
     {
@@ -4142,7 +3898,7 @@ public class ElectricVehicle : Vehicle
         Console.WriteLine($"ElectricVehicle battery={batteryKwh} kWh");
     }
 
-    // Explicitly calls Vehicle(make, model, year) â€” three-param base constructor
+    // Explicitly calls Vehicle(make, model, year) — three-param base constructor
     public ElectricVehicle(string make, string model, int year, int batteryKwh)
         : base(make, model, year)
     {
@@ -4161,20 +3917,17 @@ var ev2 = new ElectricVehicle("Tesla", "Cybertruck", 2023, 123);
 ```
 
 **Rules:**
-- `base(...)` must be the **first** thing executed â€” before the derived constructor body.
+- `base(...)` must be the **first** thing executed — before the derived constructor body.
 - You can only call **one** base constructor per derived constructor.
 - If no `base(...)` is specified, the compiler implicitly calls the **parameterless** base constructor; if none exists, the code will not compile.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you access the constructor of one class from another class?
 
 There are several ways to invoke or chain constructors across classes:
 
 ```cs
-// 1. base() â€” call a specific base class constructor from a derived constructor
+// 1. base() — call a specific base class constructor from a derived constructor
 public class Animal
 {
     public string Name { get; }
@@ -4191,9 +3944,9 @@ public class Dog : Animal
 }
 
 var dog = new Dog("Rex", "Labrador");
-Console.WriteLine($"{dog.Name} â€” {dog.Breed}"); // Rex â€” Labrador
+Console.WriteLine($"{dog.Name} — {dog.Breed}"); // Rex — Labrador
 
-// 2. this() â€” call another constructor in the SAME class
+// 2. this() — call another constructor in the SAME class
 public class Point
 {
     public int X { get; }
@@ -4204,7 +3957,7 @@ public class Point
     public Point(int x, int y, int z) { X = x; Y = y; Z = z; }
 }
 
-// 3. Factory method â€” control instantiation from outside the class
+// 3. Factory method — control instantiation from outside the class
 public class Connection
 {
     private Connection(string connectionString) { /* init */ }
@@ -4215,7 +3968,7 @@ public class Connection
 
 var conn = Connection.Create("Server=prod;Database=MyDb;");
 
-// 4. Activator.CreateInstance â€” dynamic instantiation via reflection
+// 4. Activator.CreateInstance — dynamic instantiation via reflection
 object instance = Activator.CreateInstance(typeof(Dog), "Buddy", "Poodle")!;
 Console.WriteLine(((Dog)instance).Name); // Buddy
 
@@ -4225,9 +3978,6 @@ Console.WriteLine(((Dog)instance).Name); // Buddy
 // Constructor of SqlRepository is called by the container when resolved
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the use of static constructors?
 
@@ -4259,7 +4009,7 @@ public class AppConfig
 
     static AppConfig()
     {
-        // Load from environment / file on first use â€” only once
+        // Load from environment / file on first use — only once
         Settings = new Dictionary<string, string>
         {
             ["AppName"] = Environment.GetEnvironmentVariable("APP_NAME") ?? "MyApp",
@@ -4306,13 +4056,10 @@ public class Singleton
 **Key properties:**
 - Runs **at most once** per AppDomain.
 - Runs **before** the first instance is created or any static member is accessed.
-- Is **thread-safe** â€” CLR guarantees single execution.
+- Is **thread-safe** — CLR guarantees single execution.
 - Cannot have parameters or an access modifier.
 - Cannot be called directly.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you explain the difference between a static and an instance method in C#?
 
@@ -4320,7 +4067,7 @@ public class Singleton
 |-|--------------|----------------|
 | **Belongs to** | The type itself | An instance (object) of the type |
 | **Access** | Called via `ClassName.Method()` | Called via `objectRef.Method()` |
-| **`this` keyword** | Not available | Available â€” refers to the current object |
+| **`this` keyword** | Not available | Available — refers to the current object |
 | **Instance members** | Cannot access directly | Can access all instance members |
 | **Static members** | Can access | Can access |
 | **Memory** | One copy per type | Logically one per instance (code shared, state per instance) |
@@ -4329,10 +4076,10 @@ public class Singleton
 ```cs
 public class Counter
 {
-    // Static field â€” shared across all instances
+    // Static field — shared across all instances
     private static int _totalCreated = 0;
 
-    // Instance field â€” each object has its own copy
+    // Instance field — each object has its own copy
     private int _count = 0;
     public string Name { get; }
 
@@ -4342,12 +4089,12 @@ public class Counter
         _totalCreated++;           // modify shared state
     }
 
-    // Instance method â€” operates on this specific object\'s _count
+    // Instance method — operates on this specific object\'s _count
     public void Increment() => _count++;
     public void Decrement() => _count--;
     public int  GetCount()  => _count;
 
-    // Static method â€” no 'this', accesses only static members
+    // Static method — no 'this', accesses only static members
     public static int GetTotalCreated() => _totalCreated;
     public static Counter Create(string name) => new Counter(name); // factory
 }
@@ -4362,7 +4109,7 @@ Console.WriteLine(a.GetCount());             // 3
 Console.WriteLine(b.GetCount());             // 1
 Console.WriteLine(Counter.GetTotalCreated()); // 2 (shared across all instances)
 
-// Static utility classes â€” all static methods, no instance needed
+// Static utility classes — all static methods, no instance needed
 public static class MathHelper
 {
     public static double CircleArea(double radius)  => Math.PI * radius * radius;
@@ -4377,9 +4124,6 @@ Console.WriteLine(MathHelper.HypotenuseLeg(3, 4)); // 5
 - **Static:** Pure functions, factory methods, utility/helper methods, operations that don\'t depend on instance state.
 - **Instance:** Operations that read or modify object state; methods that should be polymorphic (`virtual`/`override`).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is an abstract class in C# and when is it used?
 
@@ -4431,11 +4175,8 @@ foreach (var animal in animals)
 
 - When multiple related classes share a common base implementation.
 - When you want to enforce a contract (abstract members) while providing shared code.
-- When you need constructors, state (fields), or access modifiers â€” things interfaces cannot provide (before C# 8).
+- When you need constructors, state (fields), or access modifiers — things interfaces cannot provide (before C# 8).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between an abstract class and an interface?
 
@@ -4475,9 +4216,6 @@ public interface ILogger
 
 **Guideline:** Use an **interface** to define a capability shared across unrelated types. Use an **abstract class** when related types share code and state.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is reflection in .NET and how would you use it?
 
@@ -4485,7 +4223,7 @@ public interface ILogger
 
 **Common uses:** Serialization frameworks, dependency injection containers, ORMs, test runners, and source generators.
 
-**Example â€” inspecting a type at runtime:**
+**Example — inspecting a type at runtime:**
 
 ```cs
 using System.Reflection;
@@ -4508,7 +4246,7 @@ foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.Instan
     Console.WriteLine($"  Method: {method.Name}");
 ```
 
-**Example â€” dynamic instantiation and method invocation:**
+**Example — dynamic instantiation and method invocation:**
 
 ```cs
 object instance = Activator.CreateInstance(typeof(Product),
@@ -4523,7 +4261,7 @@ MethodInfo? display = typeof(Product).GetMethod("Display");
 display?.Invoke(instance, null); // Output: Laptop: $0.00
 ```
 
-**âš ï¸ .NET 10 note â€” prefer Source Generators over Reflection:**
+**⚠️ .NET 10 note — prefer Source Generators over Reflection:**
 
 Reflection has runtime overhead and is incompatible with **Native AOT**. In modern .NET, prefer:
 - `System.Text.Json` source generators for serialization
@@ -4531,9 +4269,6 @@ Reflection has runtime overhead and is incompatible with **Native AOT**. In mode
 - `[GeneratedRegex]` for compiled regex
 - `IIncrementalGenerator` for compile-time code generation
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a sealed class in C# and why is it used?
 
@@ -4558,7 +4293,7 @@ public sealed class ImmutablePoint
     public override string ToString() => $"({X}, {Y})";
 }
 
-// var p = new DerivedPoint(); // Compile error â€” cannot inherit from sealed class
+// var p = new DerivedPoint(); // Compile error — cannot inherit from sealed class
 ```
 
 **Sealed methods in unsealed classes:**
@@ -4579,15 +4314,12 @@ public class Derived : Base
 
 **Note:** In .NET, many BCL types like `string`, `StringBuilder`, and `HttpClient` are `sealed` for performance and security.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the benefits of using a sealed class in C#?
 
 **1. Performance (JIT / Native AOT devirtualization):**
 
-When the JIT compiler or Native AOT knows a class is `sealed`, it can replace virtual method dispatch with direct calls â€” eliminating the vtable lookup overhead.
+When the JIT compiler or Native AOT knows a class is `sealed`, it can replace virtual method dispatch with direct calls — eliminating the vtable lookup overhead.
 
 ```cs
 public sealed class PriceCalculator
@@ -4597,7 +4329,7 @@ public sealed class PriceCalculator
 }
 
 var calc = new PriceCalculator();
-// JIT devirtualizes Calculate() â€” compiled as a direct call, no vtable
+// JIT devirtualizes Calculate() — compiled as a direct call, no vtable
 Console.WriteLine(calc.Calculate(100m, 0.18m)); // Output: 118
 ```
 
@@ -4621,7 +4353,7 @@ public sealed class JwtTokenValidator
 
 **3. Signals clear design intent:**
 
-Tells consumers of your API: *"This type is complete â€” do not extend it."*
+Tells consumers of your API: *"This type is complete — do not extend it."*
 
 **4. Supports pattern matching optimisation:**
 
@@ -4640,9 +4372,6 @@ double Area(Shape s) => s switch
 };
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is it possible for a sealed class to be used as a base class in C#?
 
@@ -4660,7 +4389,7 @@ public sealed class Logger
 
 **Why:** The entire purpose of `sealed` is to prevent inheritance. The compiler enforces this as an error, not a warning.
 
-**Workaround â€” use composition instead of inheritance:**
+**Workaround — use composition instead of inheritance:**
 
 ```cs
 public class FileLogger
@@ -4675,11 +4404,8 @@ public class FileLogger
 }
 ```
 
-**Note:** Many .NET BCL types are sealed for this reason â€” `string`, `StringBuilder`, `HttpClient`, `DateTime`. You extend their behaviour via extension methods or wrapper classes, not inheritance.
+**Note:** Many .NET BCL types are sealed for this reason — `string`, `StringBuilder`, `HttpClient`, `DateTime`. You extend their behaviour via extension methods or wrapper classes, not inheritance.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is it possible for a sealed class in C# to define virtual methods?
 
@@ -4711,13 +4437,10 @@ var cat = new Cat();
 Console.WriteLine(cat.Speak()); // Output: Meow
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is it possible for a non-child class to define sealed methods in C#?
 
-**No.** The `sealed` modifier on a method is only valid on an **override** method â€” it means *"stop allowing further overriding of this inherited virtual method"*. A class that is not part of an inheritance chain cannot use `sealed` on a method.
+**No.** The `sealed` modifier on a method is only valid on an **override** method — it means *"stop allowing further overriding of this inherited virtual method"*. A class that is not part of an inheritance chain cannot use `sealed` on a method.
 
 ```cs
 // Compile error: 'MyClass.Method()' cannot be sealed because it is not an override
@@ -4727,7 +4450,7 @@ Console.WriteLine(cat.Speak()); // Output: Meow
 // }
 ```
 
-**Valid use â€” `sealed override` in a derived class:**
+**Valid use — `sealed override` in a derived class:**
 
 ```cs
 public class Base
@@ -4753,22 +4476,19 @@ d.Render(); // Output: Derived.Render
 
 **Summary:** `sealed` on a method requires the method to be an `override`. It cannot be applied to brand-new methods or methods in classes that are not part of an inheritance chain.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can abstract classes be used to implement the Template Method design pattern?
 
-The **Template Method** pattern defines the skeleton of an algorithm in a base class, deferring specific steps to derived classes. The base class calls abstract (or virtual) methods in a fixed sequence â€” derived classes fill in the details without altering the overall flow.
+The **Template Method** pattern defines the skeleton of an algorithm in a base class, deferring specific steps to derived classes. The base class calls abstract (or virtual) methods in a fixed sequence — derived classes fill in the details without altering the overall flow.
 
 **Abstract classes are ideal here** because they can have both the concrete template method (the skeleton) and abstract hook methods (the steps).
 
-**Example â€” Report generation pipeline (.NET 10):**
+**Example — Report generation pipeline (.NET 10):**
 
 ```cs
 public abstract class ReportGenerator
 {
-    // Template method â€” defines the fixed algorithm skeleton
+    // Template method — defines the fixed algorithm skeleton
     public void Generate()
     {
         FetchData();
@@ -4799,7 +4519,7 @@ public class ExcelReportGenerator : ReportGenerator
     protected override void FetchData()  => Console.WriteLine("Fetching data from API...");
     protected override void FormatData() => Console.WriteLine("Formatting as Excel...");
     protected override void Render()     => Console.WriteLine("Rendering Excel file...");
-    // Uses default SendReport() â€” saved locally
+    // Uses default SendReport() — saved locally
 }
 
 // Usage
@@ -4826,15 +4546,12 @@ Report saved locally.
 
 **Key takeaway:** The base class (`ReportGenerator`) controls *when* each step runs. Subclasses control *what* each step does.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you give an example of how abstract classes can lead to implementation of anti-patterns such as the God Object pattern?
 
-The **God Object** anti-pattern occurs when a single class takes on too many responsibilities. If a poorly-designed abstract base class accumulates abstractions for unrelated concerns, every subclass inherits this bloat â€” making the hierarchy rigid, hard to test, and hard to maintain.
+The **God Object** anti-pattern occurs when a single class takes on too many responsibilities. If a poorly-designed abstract base class accumulates abstractions for unrelated concerns, every subclass inherits this bloat — making the hierarchy rigid, hard to test, and hard to maintain.
 
-**Bad example â€” God Object abstract class:**
+**Bad example — God Object abstract class:**
 
 ```cs
 // BAD: one abstract class handles authentication, logging, emailing, AND data access
@@ -4861,11 +4578,11 @@ public class UserService : BaseService
 ```
 
 **Problems:**
-- Violates **SRP** â€” one class owns authentication, logging, email, data, and reports.
+- Violates **SRP** — one class owns authentication, logging, email, data, and reports.
 - Every subclass is forced to implement unrelated methods.
 - Testing `UserService` requires stubbing all six unrelated concerns.
 
-**Good example â€” Segregated interfaces + abstract class per concern (SOLID):**
+**Good example — Segregated interfaces + abstract class per concern (SOLID):**
 
 ```cs
 public interface IAuthService   { bool Authenticate(string username, string password); }
@@ -4893,15 +4610,12 @@ public class UserRegistrationService(IAuthService auth, IEmailService email)
 
 **Key takeaway:** Abstract classes should represent a single coherent abstraction. Use interfaces to compose unrelated capabilities rather than cramming them into one base class.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can abstract classes be used to implement the Factory Method pattern?
 
 The **Factory Method** pattern defines an abstract method for creating an object, letting subclasses decide which concrete type to instantiate. The base class orchestrates the workflow but delegates object creation to derived classes.
 
-**Example â€” Notification system (.NET 10):**
+**Example — Notification system (.NET 10):**
 
 ```cs
 // Product: the object being created
@@ -4931,7 +4645,7 @@ public class PushNotification : Notification
 // Creator: defines the factory method and uses it in a template
 public abstract class NotificationService
 {
-    // Factory method â€” subclasses decide what type to create
+    // Factory method — subclasses decide what type to create
     protected abstract Notification CreateNotification();
 
     // Template: uses the factory method
@@ -4958,7 +4672,7 @@ public class PushNotificationService : NotificationService
     protected override Notification CreateNotification() => new PushNotification();
 }
 
-// Usage â€” client code depends on the abstract creator, not concrete types
+// Usage — client code depends on the abstract creator, not concrete types
 NotificationService[] services =
 [
     new EmailNotificationService(),
@@ -4979,17 +4693,14 @@ Push to pradeep@example.com: Your order has shipped!
 
 **Key benefits:**
 - Client code (`Notify`) is decoupled from concrete notification types.
-- Adding a new channel (e.g., `WhatsAppNotification`) requires only a new subclass â€” no changes to existing code (**Open/Closed Principle**).
+- Adding a new channel (e.g., `WhatsAppNotification`) requires only a new subclass — no changes to existing code (**Open/Closed Principle**).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the SOLID principles in C#?
 
 **SOLID** is an acronym for five object-oriented design principles that lead to more maintainable, scalable, and testable software.
 
-**1. S â€” Single Responsibility Principle (SRP)**
+**1. S — Single Responsibility Principle (SRP)**
 
 A class should have only one reason to change.
 
@@ -5002,7 +4713,7 @@ public class ReportGenerator { public string Generate() => "Report data"; }
 public class ReportSaver { public void Save(string data, string path) => File.WriteAllText(path, data); }
 ```
 
-**2. O â€” Open/Closed Principle (OCP)**
+**2. O — Open/Closed Principle (OCP)**
 
 Open for extension, closed for modification. Use abstractions and polymorphism.
 
@@ -5012,17 +4723,17 @@ public class SeasonalDiscount : Discount { public override decimal Apply(decimal
 public class LoyaltyDiscount : Discount { public override decimal Apply(decimal p) => p * 0.85m; }
 ```
 
-**3. L â€” Liskov Substitution Principle (LSP)**
+**3. L — Liskov Substitution Principle (LSP)**
 
 Derived types must be substitutable for their base types without altering correctness.
 
 ```cs
 public class Bird { public virtual void Fly() => Console.WriteLine("Flying"); }
 public class Eagle : Bird { public override void Fly() => Console.WriteLine("Eagle soaring"); }
-// Penguin cannot fly â€” violates LSP if it inherits Bird with Fly()
+// Penguin cannot fly — violates LSP if it inherits Bird with Fly()
 ```
 
-**4. I â€” Interface Segregation Principle (ISP)**
+**4. I — Interface Segregation Principle (ISP)**
 
 Clients should not be forced to depend on interfaces they don\'t use.
 
@@ -5039,7 +4750,7 @@ public class AllInOne : IPrintable, IScannable
 }
 ```
 
-**5. D â€” Dependency Inversion Principle (DIP)**
+**5. D — Dependency Inversion Principle (DIP)**
 
 High-level modules should not depend on low-level modules. Both should depend on abstractions.
 
@@ -5064,15 +4775,12 @@ public class OrderService(IEmailSender emailSender) // DI via primary constructo
 // services.AddScoped<OrderService>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can abstract classes be used to implement the Dependency Inversion principle?
 
 The **Dependency Inversion Principle (DIP)** states that high-level modules should depend on abstractions (abstract classes or interfaces), not on concrete implementations. Abstract classes act as the abstraction layer.
 
-**Example â€” payment processing (.NET 10):**
+**Example — payment processing (.NET 10):**
 
 ```cs
 // Abstraction (abstract class)
@@ -5116,14 +4824,11 @@ public class OrderService(PaymentProcessor processor)
     }
 }
 
-// Usage â€” swap processor without changing OrderService
+// Usage — swap processor without changing OrderService
 var service = new OrderService(new StripeProcessor());
 service.PlaceOrder("Laptop", 999m);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between an abstract class and a concrete class in C#, and how does this relate to the Open-Closed principle?
 
@@ -5133,14 +4838,14 @@ service.PlaceOrder("Laptop", 999m);
 **Relationship to Open-Closed Principle (OCP):** A system is *open for extension* (add new concrete subclasses) but *closed for modification* (the abstract base class never changes). You extend behavior by adding new subclasses rather than editing existing code.
 
 ```cs
-// Abstract base â€” CLOSED for modification
+// Abstract base — CLOSED for modification
 public abstract class TaxCalculator
 {
     public abstract decimal GetRate();        // must override
     public decimal Calculate(decimal price) => price * GetRate(); // fixed template
 }
 
-// Concrete classes â€” OPEN for extension (add without touching base)
+// Concrete classes — OPEN for extension (add without touching base)
 public class UkTaxCalculator   : TaxCalculator { public override decimal GetRate() => 0.20m; }
 public class UsTaxCalculator   : TaxCalculator { public override decimal GetRate() => 0.15m; }
 public class IndianTaxCalculator : TaxCalculator { public override decimal GetRate() => 0.18m; }
@@ -5150,18 +4855,15 @@ TaxCalculator[] calculators = [new UkTaxCalculator(), new UsTaxCalculator(), new
 foreach (var c in calculators)
     Console.WriteLine($"{c.GetType().Name}: {c.Calculate(1000m):C}");
 // Output:
-// UkTaxCalculator: Â£200.00 ... etc.
+// UkTaxCalculator: £200.00 ... etc.
 ```
 
-Adding a `CanadaTaxCalculator` requires **no changes** to `TaxCalculator` or existing classes â€” that is OCP in action.
+Adding a `CanadaTaxCalculator` requires **no changes** to `TaxCalculator` or existing classes — that is OCP in action.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you give an example of how abstract classes can help to enforce the Interface Segregation principle?
 
-The **Interface Segregation Principle (ISP)** says clients should not be forced to depend on methods they don\'t use. Abstract classes enforce ISP by providing small, focused abstractions â€” each abstract class defines only the operations relevant to one concern.
+The **Interface Segregation Principle (ISP)** says clients should not be forced to depend on methods they don\'t use. Abstract classes enforce ISP by providing small, focused abstractions — each abstract class defines only the operations relevant to one concern.
 
 ```cs
 // Focused abstract classes (not one God class with 10 abstract methods)
@@ -5211,17 +4913,14 @@ var transformed = transformer.Transform(lines);
 writer.Write("", transformed);
 ```
 
-**Key takeaway:** `CsvReader` never knows about writing; `ConsoleWriter` never knows about reading â€” each abstract class is small and focused.
+**Key takeaway:** `CsvReader` never knows about writing; `ConsoleWriter` never knows about reading — each abstract class is small and focused.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can abstract classes be used to implement the Strategy design pattern?
 
 The **Strategy** pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. Abstract classes serve as the strategy contract, while concrete subclasses are the actual strategies.
 
-**Example â€” sorting strategies (.NET 10):**
+**Example — sorting strategies (.NET 10):**
 
 ```cs
 // Strategy contract
@@ -5267,7 +4966,7 @@ public class Sorter(SortStrategy strategy)
     public void Sort(List<int> data) => _strategy.Execute(data);
 }
 
-// Usage â€” swap strategies at runtime
+// Usage — swap strategies at runtime
 var data = new List<int> { 5, 3, 8, 1, 9, 2 };
 var sorter = new Sorter(new BubbleSortStrategy());
 sorter.Sort(data);
@@ -5277,13 +4976,10 @@ sorter.SetStrategy(new LinqSortStrategy());
 sorter.Sort(data);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is it possible to declare abstract methods as private in C#?
 
-**No.** Abstract methods cannot be `private`. An abstract method must be overridden by a derived class, but a `private` member is not visible to derived classes â€” making it impossible to override.
+**No.** Abstract methods cannot be `private`. An abstract method must be overridden by a derived class, but a `private` member is not visible to derived classes — making it impossible to override.
 
 The compiler enforces this with an error:
 
@@ -5295,44 +4991,41 @@ error CS0621: 'MyClass.Method()': virtual or abstract members cannot be private
 
 | Modifier             | Allowed on abstract method? |
 |----------------------|-----------------------------|
-| `public`             | âœ… Yes                      |
-| `protected`          | âœ… Yes (most common)        |
-| `internal`           | âœ… Yes                      |
-| `protected internal` | âœ… Yes                      |
-| `private`            | âŒ No â€” compile error       |
-| `private protected`  | âŒ No â€” compile error       |
+| `public`             | ✅ Yes                      |
+| `protected`          | ✅ Yes (most common)        |
+| `internal`           | ✅ Yes                      |
+| `protected internal` | ✅ Yes                      |
+| `private`            | ❌ No — compile error       |
+| `private protected`  | ❌ No — compile error       |
 
 ```cs
 public abstract class Shape
 {
-    public abstract double Area();       // âœ… public
-    protected abstract string Describe(); // âœ… protected
-    // private abstract void Init();    // âŒ compile error
+    public abstract double Area();       // ✅ public
+    protected abstract string Describe(); // ✅ protected
+    // private abstract void Init();    // ❌ compile error
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is it possible for an abstract class to contain a main method in C#?
 
-**Yes.** An abstract class can contain a `static void Main` (or `static Task Main`) method. The `Main` method is `static`, so it belongs to the type itself â€” not to any instance â€” and can coexist with abstract instance members.
+**Yes.** An abstract class can contain a `static void Main` (or `static Task Main`) method. The `Main` method is `static`, so it belongs to the type itself — not to any instance — and can coexist with abstract instance members.
 
 ```cs
 public abstract class ApplicationBase
 {
-    // Abstract instance member â€” cannot instantiate ApplicationBase directly
+    // Abstract instance member — cannot instantiate ApplicationBase directly
     public abstract string GetAppName();
 
     // Concrete shared logic
     protected void PrintBanner()
         => Console.WriteLine($"=== {GetAppName()} ===");
 
-    // Entry point â€” perfectly valid on an abstract class
+    // Entry point — perfectly valid on an abstract class
     public static void Main(string[] args)
     {
-        // Cannot do: new ApplicationBase() â€” it\'s abstract
+        // Cannot do: new ApplicationBase() — it\'s abstract
         // But we can instantiate a concrete subclass:
         ApplicationBase app = new ConsoleApp();
         app.PrintBanner();
@@ -5349,15 +5042,12 @@ public class ConsoleApp : ApplicationBase
 // Main running in abstract class.
 ```
 
-**Note:** In modern .NET (C# 9+), top-level statements (`Program.cs` with no class) are the preferred entry point â€” you rarely put `Main` in any class, abstract or not.
+**Note:** In modern .NET (C# 9+), top-level statements (`Program.cs` with no class) are the preferred entry point — you rarely put `Main` in any class, abstract or not.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is it possible in C# that a class inherit from multiple abstract classes?
 
-**No.** C# does not support multiple class inheritance â€” a class can inherit from **only one** base class (abstract or concrete). This is by design to avoid the "diamond problem".
+**No.** C# does not support multiple class inheritance — a class can inherit from **only one** base class (abstract or concrete). This is by design to avoid the "diamond problem".
 
 ```cs
 public abstract class Logger    { public abstract void Log(string msg); }
@@ -5367,7 +5057,7 @@ public abstract class Formatter { public abstract string Format(string msg); }
 // public class MyService : Logger, Formatter { }
 ```
 
-**Workaround â€” use multiple interfaces:**
+**Workaround — use multiple interfaces:**
 
 Interfaces (including default interface method implementations in C# 8+) allow a class to implement multiple contracts:
 
@@ -5387,9 +5077,6 @@ svc.Log(svc.Format("hello")); // Output: [LOG] HELLO
 
 **Summary:** Single class inheritance + multiple interface implementation is the C# pattern for combining multiple contracts.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between a sealed class and an unsealed class in C#?
 
@@ -5397,12 +5084,12 @@ svc.Log(svc.Format("hello")); // Output: [LOG] HELLO
 |----------------------|--------------------------------------|----------------------------------------|
 | Inheritance          | Cannot be inherited                  | Can be inherited                       |
 | Virtual methods      | Cannot declare new `virtual` methods | Can declare `virtual` methods          |
-| Performance          | JIT can devirtualize â€” faster calls  | Virtual dispatch overhead              |
+| Performance          | JIT can devirtualize — faster calls  | Virtual dispatch overhead              |
 | Design intent        | Type is complete, extension forbidden| Type is designed to be extended        |
 | Example in BCL       | `string`, `HttpClient`, `DateTime`   | `Stream`, `Exception`, `DbContext`     |
 
 ```cs
-// Sealed â€” cannot inherit
+// Sealed — cannot inherit
 public sealed class Circle
 {
     public double Radius { get; }
@@ -5410,7 +5097,7 @@ public sealed class Circle
     public double Area() => Math.PI * Radius * Radius;
 }
 
-// Unsealed â€” can be inherited and extended
+// Unsealed — can be inherited and extended
 public class Shape
 {
     public virtual double Area() => 0;
@@ -5427,9 +5114,6 @@ Console.WriteLine(s.Area()); // Output: 20
 
 **When to seal:** Use `sealed` when you want to prevent unintended subclassing, improve performance, or express that the type is intentionally final.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can you use a sealed class to prevent inheritance in C#?
 
@@ -5465,13 +5149,10 @@ public class ElectricCar : Vehicle
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can we do Multiple inheritance with Abstract classes?
 
-**No.** C# does not support multiple class inheritance â€” a class can have only **one** base class, whether abstract or concrete. This prevents the diamond-inheritance ambiguity problem.
+**No.** C# does not support multiple class inheritance — a class can have only **one** base class, whether abstract or concrete. This prevents the diamond-inheritance ambiguity problem.
 
 ```cs
 public abstract class Flyable  { public abstract void Fly(); }
@@ -5481,7 +5162,7 @@ public abstract class Swimmable { public abstract void Swim(); }
 // public class Duck : Flyable, Swimmable { }
 ```
 
-**Solution â€” use multiple interfaces:**
+**Solution — use multiple interfaces:**
 
 ```cs
 public interface IFlyable  { void Fly(); }
@@ -5500,9 +5181,6 @@ duck.Swim();  // Output: Duck swimming
 
 A class can inherit from **one abstract class** and implement **many interfaces** simultaneously.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between Abstract class and interface?
 
@@ -5518,9 +5196,6 @@ See the detailed comparison in [What is the difference between an abstract class
 | Default methods   | Yes (concrete methods)     | Yes (C# 8+ default impl)    |
 | Use when          | Related types share state/code | Unrelated types share a capability |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Why simple base class replace Abstract class?
 
@@ -5532,7 +5207,7 @@ A simple (concrete) base class **can** replace an abstract class when:
 **When to prefer a simple base class:**
 
 ```cs
-// All methods have defaults â€” no abstract needed
+// All methods have defaults — no abstract needed
 public class Logger
 {
     public virtual void Log(string msg) => Console.WriteLine($"[INFO] {msg}");
@@ -5545,18 +5220,15 @@ public class FileLogger : Logger
         File.AppendAllText("app.log", msg + Environment.NewLine);
 }
 
-// Base class is usable on its own â€” fine as concrete
+// Base class is usable on its own — fine as concrete
 var log = new Logger();
 log.Log("Starting app");
 ```
 
 **When abstract is the right choice:** Use `abstract` when the base class cannot meaningfully function on its own and derived classes *must* provide implementation (e.g., `Area()` on `Shape`).
 
-**Rule of thumb:** If the base class can stand alone and all methods have reasonable defaults â†’ concrete base class. If the base class is incomplete without subclasses â†’ abstract class.
+**Rule of thumb:** If the base class can stand alone and all methods have reasonable defaults → concrete base class. If the base class is incomplete without subclasses → abstract class.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are nested classes and when to use them?
 
@@ -5572,7 +5244,7 @@ public class LinkedList<T>
 {
     private Node? _head;
 
-    // Nested class â€” only LinkedList needs to know about Node
+    // Nested class — only LinkedList needs to know about Node
     private class Node
     {
         public T Value;
@@ -5600,9 +5272,6 @@ list.Add(1); list.Add(2); list.Add(3);
 list.Print(); // Output: 3 2 1
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can Nested class access outer class variables?
 
@@ -5617,10 +5286,10 @@ public class Outer
     public class Inner
     {
         public void ShowStatic()
-            => Console.WriteLine(_staticSecret); // âœ… direct access to outer static
+            => Console.WriteLine(_staticSecret); // ✅ direct access to outer static
 
         public void ShowInstance(Outer outer)
-            => Console.WriteLine(outer._instanceSecret); // âœ… via outer reference
+            => Console.WriteLine(outer._instanceSecret); // ✅ via outer reference
     }
 }
 
@@ -5629,11 +5298,8 @@ inner.ShowStatic();               // Output: outer-static
 inner.ShowInstance(new Outer());  // Output: outer-instance
 ```
 
-**Key point:** The nested class has special visibility into the outer class\'s `private` members â€” this is unlike a regular external class.
+**Key point:** The nested class has special visibility into the outer class\'s `private` members — this is unlike a regular external class.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can we have public, protected access modifiers in nested class?
 
@@ -5642,19 +5308,19 @@ inner.ShowInstance(new Outer());  // Output: outer-instance
 ```cs
 public class OuterClass
 {
-    // public nested â€” accessible from anywhere
+    // public nested — accessible from anywhere
     public class PublicNested
     {
         public void Hello() => Console.WriteLine("Public nested");
     }
 
-    // protected nested â€” accessible only in OuterClass and its subclasses
+    // protected nested — accessible only in OuterClass and its subclasses
     protected class ProtectedNested
     {
         public void Hello() => Console.WriteLine("Protected nested");
     }
 
-    // private nested â€” only accessible within OuterClass
+    // private nested — only accessible within OuterClass
     private class PrivateNested
     {
         public void Hello() => Console.WriteLine("Private nested");
@@ -5662,9 +5328,9 @@ public class OuterClass
 
     public void Demo()
     {
-        new PublicNested().Hello();    // âœ…
-        new ProtectedNested().Hello(); // âœ…
-        new PrivateNested().Hello();   // âœ…
+        new PublicNested().Hello();    // ✅
+        new ProtectedNested().Hello(); // ✅
+        new PrivateNested().Hello();   // ✅
     }
 }
 
@@ -5672,20 +5338,17 @@ public class Derived : OuterClass
 {
     public void Test()
     {
-        new PublicNested().Hello();    // âœ…
-        new ProtectedNested().Hello(); // âœ… â€” accessible via inheritance
-        // new PrivateNested().Hello(); // âŒ not accessible
+        new PublicNested().Hello();    // ✅
+        new ProtectedNested().Hello(); // ✅ — accessible via inheritance
+        // new PrivateNested().Hello(); // ❌ not accessible
     }
 }
 
 // From outside:
-new OuterClass.PublicNested().Hello(); // âœ…
-// new OuterClass.ProtectedNested();   // âŒ
+new OuterClass.PublicNested().Hello(); // ✅
+// new OuterClass.ProtectedNested();   // ❌
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Are private class members inherited to the derived class?
 
@@ -5703,18 +5366,15 @@ public class Derived : Base
 {
     public void Show()
     {
-        Console.WriteLine(Name);      // âœ… public member
-        Console.WriteLine(Protected); // âœ… protected member
-        // Console.WriteLine(_secret); // âŒ compile error â€” private
+        Console.WriteLine(Name);      // ✅ public member
+        Console.WriteLine(Protected); // ✅ protected member
+        // Console.WriteLine(_secret); // ❌ compile error — private
     }
 }
 ```
 
 **Note:** You can access `private` base members indirectly via `public` or `protected` methods/properties of the base class.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Where is a protected class-level variable available?
 
@@ -5733,17 +5393,14 @@ public class Animal
 public class Dog : Animal
 {
     public void ShowSpecies()
-        => Console.WriteLine(Species); // âœ… accessible in derived class
+        => Console.WriteLine(Species); // ✅ accessible in derived class
 }
 
 // Outside the hierarchy:
 var a = new Animal();
-// Console.WriteLine(a.Species); // âŒ compile error â€” not accessible here
+// Console.WriteLine(a.Species); // ❌ compile error — not accessible here
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Are private class-level variables inherited?
 
@@ -5751,9 +5408,6 @@ Yes, they are part of the object\'s memory, but **not accessible by name** in de
 
 **Quick answer:** `private` members are **inherited (exist in memory)** but **not accessible (compile error if referenced)** in derived classes.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Which class is at the top of .NET class hierarchy?
 
@@ -5762,9 +5416,9 @@ Yes, they are part of the object\'s memory, but **not accessible by name** in de
 ```cs
 // All of these inherit from System.Object:
 object o    = new object();
-string s    = "hello";     // string â†’ object
-int boxed   = 42;          // int â†’ ValueType â†’ object (when boxed)
-object arr  = new int[5];  // Array â†’ object
+string s    = "hello";     // string → object
+int boxed   = 42;          // int → ValueType → object (when boxed)
+object arr  = new int[5];  // Array → object
 
 Console.WriteLine(typeof(string).BaseType);     // System.Object
 Console.WriteLine(typeof(Exception).BaseType);  // System.Object
@@ -5774,9 +5428,6 @@ Console.WriteLine(42.GetType().BaseType);       // System.ValueType
 Console.WriteLine(o.GetType()); // System.Object
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the .NET collection class that allows an element to be accessed using a unique key?
 
@@ -5812,9 +5463,6 @@ foreach (var (country, city) in capitals)
 | `SortedDictionary<K,V>`      | Keys kept in sorted order                  |
 | `Hashtable`                  | Non-generic legacy (avoid in new code)     |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the three services model commonly known as a three-tier application?
 
@@ -5826,7 +5474,7 @@ A **three-tier architecture** separates an application into three logical layers
 | **Business Logic Layer** | Application / BLL | Business rules, workflows, calculations  |
 | **Data Access Layer** | DAL / Persistence | Database or external service communication  |
 
-**Example â€” ASP.NET Core Web API (.NET 10):**
+**Example — ASP.NET Core Web API (.NET 10):**
 
 ```cs
 // 1. Data Access Layer (DAL)
@@ -5867,13 +5515,10 @@ public class ProductsController(ProductService service) : ControllerBase
 
 **Benefits:** Independent scalability, testability, and maintainability of each tier.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you prevent your class from being inherited by another class?
 
-**Yes** â€” apply the `sealed` modifier to the class:
+**Yes** — apply the `sealed` modifier to the class:
 
 ```cs
 public sealed class Singleton
@@ -5889,13 +5534,10 @@ public sealed class Singleton
 // public class MySingleton : Singleton { }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you allow a class to be inherited, but prevent the method from being over-ridden?
 
-**Yes** â€” apply `sealed` on a specific `override` method, while keeping the class itself unsealed:
+**Yes** — apply `sealed` on a specific `override` method, while keeping the class itself unsealed:
 
 ```cs
 public class BaseLogger
@@ -5910,45 +5552,39 @@ public class FileLogger : BaseLogger
     public sealed override void Log(string msg)
         => File.AppendAllText("app.log", msg + Environment.NewLine);
 
-    // Error() is NOT sealed â€” can be overridden further
+    // Error() is NOT sealed — can be overridden further
     public override void Error(string msg)
         => File.AppendAllText("error.log", msg + Environment.NewLine);
 }
 
 public class AdvancedFileLogger : FileLogger
 {
-    // public override void Log(string msg) { } // âŒ compile error â€” sealed
-    public override void Error(string msg) => Console.WriteLine($"ALERT: {msg}"); // âœ…
+    // public override void Log(string msg) { } // ❌ compile error — sealed
+    public override void Error(string msg) => Console.WriteLine($"ALERT: {msg}"); // ✅
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. When do you absolutely have to declare a class as abstract?
 
 You **must** declare a class `abstract` when it contains one or more `abstract` members (methods, properties, indexers, or events with no implementation). The compiler requires this because an incomplete class cannot be instantiated.
 
 ```cs
-// Must be abstract â€” it has an abstract member
+// Must be abstract — it has an abstract member
 public abstract class Shape
 {
-    public abstract double Area(); // no body â€” derived class MUST implement
+    public abstract double Area(); // no body — derived class MUST implement
     public void Describe() => Console.WriteLine($"Area = {Area():F2}");
 }
 
 // Compile error if not abstract but contains abstract member:
-// public class BadShape { public abstract double Area(); } // âŒ
+// public class BadShape { public abstract double Area(); } // ❌
 ```
 
 **Other scenarios where abstract is the right choice (design decision, not enforced):**
 - The class represents a concept that has no meaningful standalone instance (e.g., `Animal`, `Vehicle`).
 - You want to enforce a contract while providing shared implementation.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the implicit name of the parameter that gets passed into the set method/property of a class?
 
@@ -5964,7 +5600,7 @@ public class Person
         get => _name;
         set
         {
-            // 'value' is the implicit parameter â€” holds what the caller assigns
+            // 'value' is the implicit parameter — holds what the caller assigns
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Name cannot be empty.");
             _name = value.Trim();
@@ -5979,9 +5615,6 @@ Console.WriteLine(p.Name); // Output: Pradeep
 
 In C# 13+, the `field` keyword is also available inside property accessors to reference the auto-generated backing field directly, but `value` remains the parameter name for the setter.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. When you inherit a protected class-level variable, who is it available to?
 
@@ -5996,52 +5629,43 @@ public class Base { protected int Value = 10; }
 
 public class Child : Base
 {
-    public void Show() => Console.WriteLine(Value); // âœ… accessible
+    public void Show() => Console.WriteLine(Value); // ✅ accessible
 }
 
 public class Unrelated
 {
     public void Test(Base b)
     {
-        // Console.WriteLine(b.Value); // âŒ not accessible from unrelated class
+        // Console.WriteLine(b.Value); // ❌ not accessible from unrelated class
     }
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the top .NET class that everything is derived from?
 
 `System.Object` (alias `object`). See [Which class is at the top of .NET class hierarchy?](#q-which-class-is-at-the-top-of-net-class-hierarchy) above.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. When do you absolutely have to declare a class as abstract (as opposed to free-willed educated choice or decision based on UML diagram)?
 
 You are **forced** by the compiler to use `abstract` when the class contains **at least one `abstract` member** (a member declared without a body). Without `abstract` on the class, the code will not compile.
 
 ```cs
-// FORCED: contains abstract member â†’ class must be abstract
-public abstract class DataExporter // â† required by compiler
+// FORCED: contains abstract member → class must be abstract
+public abstract class DataExporter // ← required by compiler
 {
-    public abstract void Export(string data); // â† forces class to be abstract
+    public abstract void Export(string data); // ← forces class to be abstract
     public void Log(string msg) => Console.WriteLine(msg);
 }
 ```
 
-In all other cases, `abstract` is a design choice â€” you opt in to signal that the type is incomplete by intent.
+In all other cases, `abstract` is a design choice — you opt in to signal that the type is incomplete by intent.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is it namespace class or class namespace?
 
-The correct syntax is **`namespace` then `class`** â€” namespaces contain classes, not the other way around.
+The correct syntax is **`namespace` then `class`** — namespaces contain classes, not the other way around.
 
 ```cs
 // Correct: namespace wraps the class
@@ -6053,7 +5677,7 @@ namespace MyApp.Services
     }
 }
 
-// File-scoped namespace (C# 10+) â€” preferred modern style
+// File-scoped namespace (C# 10+) — preferred modern style
 namespace MyApp.Services;
 
 public class OrderService
@@ -6064,9 +5688,6 @@ public class OrderService
 
 A class belongs to a namespace; a namespace cannot belong to a class.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the default Access Modifier for the members of the class?
 
@@ -6095,9 +5716,6 @@ class MyClass          // default: internal (visible only within the assembly)
 | Enum member                | `public`        |
 | Struct member              | `private`       |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to Call the Default constructor of one class with the parameterized constructor of same class?
 
@@ -6116,7 +5734,7 @@ public class Person
     // Partial parameterized chains to the full constructor
     public Person(string name) : this(name, 0, "India") { }
 
-    // Full parameterized constructor â€” all others delegate here
+    // Full parameterized constructor — all others delegate here
     public Person(string name, int age, string country)
     {
         Name    = name;
@@ -6133,9 +5751,6 @@ Console.WriteLine($"{p1.Name}, {p1.Country}"); // Unknown, India
 Console.WriteLine($"{p2.Name}, {p2.Country}"); // Pradeep, India
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is scope of a Protected Internal member variable of a C# class?
 
@@ -6152,45 +5767,42 @@ public class Base
     protected internal string Data = "shared";
 }
 
-// Assembly A â€” unrelated class (same assembly â†’ internal part grants access)
+// Assembly A — unrelated class (same assembly → internal part grants access)
 public class Unrelated
 {
-    public void Test(Base b) => Console.WriteLine(b.Data); // âœ…
+    public void Test(Base b) => Console.WriteLine(b.Data); // ✅
 }
 
-// Assembly B â€” derived class (protected part grants access)
+// Assembly B — derived class (protected part grants access)
 public class Derived : Base
 {
-    public void Show() => Console.WriteLine(Data); // âœ…
+    public void Show() => Console.WriteLine(Data); // ✅
 }
 
-// Assembly B â€” unrelated class
+// Assembly B — unrelated class
 public class External
 {
-    // Console.WriteLine(new Base().Data); // âŒ not accessible
+    // Console.WriteLine(new Base().Data); // ❌ not accessible
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between Virtual method and Abstract method?
 
 | Feature             | `virtual` method                       | `abstract` method                      |
 |---------------------|----------------------------------------|----------------------------------------|
-| Body                | Has a default implementation           | No body â€” derived class must implement |
+| Body                | Has a default implementation           | No body — derived class must implement |
 | Class requirement   | Class can be concrete or abstract      | Class must be `abstract`               |
-| Override required   | Optional â€” derived class may override  | Mandatory â€” derived class must override|
+| Override required   | Optional — derived class may override  | Mandatory — derived class must override|
 | Instantiation       | Containing class can be instantiated   | Containing class cannot be instantiated|
 
 ```cs
 public abstract class Animal
 {
-    // abstract â€” NO body, MUST be overridden
+    // abstract — NO body, MUST be overridden
     public abstract string MakeSound();
 
-    // virtual â€” HAS a body, CAN be overridden
+    // virtual — HAS a body, CAN be overridden
     public virtual string Describe()
         => $"I am a {GetType().Name} and I say {MakeSound()}";
 }
@@ -6198,7 +5810,7 @@ public abstract class Animal
 public class Dog : Animal
 {
     public override string MakeSound() => "Woof"; // required
-    // Describe() not overridden â€” uses base implementation
+    // Describe() not overridden — uses base implementation
 }
 
 public class Cat : Animal
@@ -6215,9 +5827,6 @@ foreach (var a in animals)
 // I'm a cat. Meow!
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is scope of a Internal member variable of a C# class?
 
@@ -6231,26 +5840,23 @@ public class Configuration
     public string AppName = "MyApp"; // accessible everywhere
 }
 
-// Same assembly â€” OK
+// Same assembly — OK
 public class DatabaseService
 {
     public void Connect()
     {
         var config = new Configuration();
-        Console.WriteLine(config.ConnectionString); // âœ… same assembly
+        Console.WriteLine(config.ConnectionString); // ✅ same assembly
     }
 }
 
-// Assembly B â€” external project referencing MyApp.dll
+// Assembly B — external project referencing MyApp.dll
 // var cfg = new Configuration();
-// Console.WriteLine(cfg.ConnectionString); // âŒ not accessible externally
+// Console.WriteLine(cfg.ConnectionString); // ❌ not accessible externally
 ```
 
 **Tip:** Use `[assembly: InternalsVisibleTo("TestProject")]` to expose `internal` members to a test assembly without making them `public`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How would you implement multiple interfaces with the same method name in the same class?
 
@@ -6262,7 +5868,7 @@ public interface IPrintable { void Draw(); } // same method name
 
 public class Document : IDrawable, IPrintable
 {
-    // Explicit implementation â€” called only via the interface reference
+    // Explicit implementation — called only via the interface reference
     void IDrawable.Draw()  => Console.WriteLine("Drawing to screen");
     void IPrintable.Draw() => Console.WriteLine("Printing to paper");
 
@@ -6281,11 +5887,8 @@ drawable.Draw();  // Output: Drawing to screen
 printable.Draw(); // Output: Printing to paper
 ```
 
-**Note:** Explicitly implemented members are not accessible directly on the class instance â€” only via a cast to the interface type.
+**Note:** Explicitly implemented members are not accessible directly on the class instance — only via a cast to the interface type.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can you create a derived class object from a base class?
 
@@ -6303,7 +5906,7 @@ public class Dog : Animal
 }
 
 // Base class reference pointing to derived class object
-Animal animal = new Dog(); // âœ… upcasting (implicit)
+Animal animal = new Dog(); // ✅ upcasting (implicit)
 Console.WriteLine(animal.Sound()); // Output: Woof
 
 // Downcast when you need derived-specific members
@@ -6329,9 +5932,6 @@ Shape s = Shape.CreateCircle(5);
 Console.WriteLine(s.Area()); // Output: 78.54...
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Which is the parent class of all classes which we create in C#?
 
@@ -6349,13 +5949,10 @@ Console.WriteLine(obj.Equals(new MyClass())); // False (reference equality by de
 
 Methods inherited from `object`: `Equals()`, `GetHashCode()`, `ToString()`, `GetType()`, `MemberwiseClone()`, `Finalize()`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the base class in .NET framework from which all the classes have been developed?
 
-`System.Object` is the ultimate base class for all types in .NET. In .NET 10 (CoreCLR), this is the same â€” `System.Object` sits at the root of the entire type hierarchy.
+`System.Object` is the ultimate base class for all types in .NET. In .NET 10 (CoreCLR), this is the same — `System.Object` sits at the root of the entire type hierarchy.
 
 ```cs
 // Verify any type\'s chain back to System.Object
@@ -6370,9 +5967,6 @@ while (t != null)
 // System.Object
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you implement a custom attribute in C#?
 
@@ -6407,11 +6001,8 @@ Console.WriteLine($"Author: {attr?.Author}, Version: {attr?.Version}");
 // Output: Author: Pradeep, Version: 2.0
 ```
 
-**âš ï¸ Note for .NET 10 / Native AOT:** Reflection-based attribute reading works but is trimmed by the AOT compiler. Prefer source generators or `[DynamicallyAccessedMembers]` annotations when targeting Native AOT.
+**⚠️ Note for .NET 10 / Native AOT:** Reflection-based attribute reading works but is trimmed by the AOT compiler. Prefer source generators or `[DynamicallyAccessedMembers]` annotations when targeting Native AOT.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the `System.String` and `System.Text.StringBuilder` classes?
 
@@ -6419,7 +6010,7 @@ Both represent text, but with different performance characteristics:
 
 | Feature            | `System.String`                 | `System.Text.StringBuilder`          |
 |--------------------|---------------------------------|--------------------------------------|
-| Mutability         | **Immutable** â€” every change creates a new object | **Mutable** â€” modifies in place |
+| Mutability         | **Immutable** — every change creates a new object | **Mutable** — modifies in place |
 | Thread safety      | Inherently safe (immutable)     | Not thread-safe                      |
 | Performance        | Fine for few concatenations     | Efficient for many concatenations    |
 | Memory             | New allocation per modification | Single buffer, grows as needed       |
@@ -6448,9 +6039,6 @@ Console.WriteLine(result);
 
 **Rule:** Use `string` for a small number of operations. Use `StringBuilder` for loops or building large strings dynamically.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are I/O classes in C#?
 
@@ -6470,7 +6058,7 @@ The `System.IO` namespace provides classes for reading from and writing to files
 | `BinaryReader/Writer` | Read/write primitive types as binary   |
 | `Path`            | Platform-safe path manipulation              |
 
-**Example â€” modern async file I/O (.NET 10):**
+**Example — modern async file I/O (.NET 10):**
 
 ```cs
 using System.IO;
@@ -6494,13 +6082,10 @@ Directory.CreateDirectory(dir);
 Console.WriteLine(Directory.Exists(dir)); // True
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you add extension methods to an existing static class?
 
-**No** â€” you cannot add extension methods *to* a static class (i.e., you cannot extend a static class\'s API with new instance-style methods, because static classes cannot be used as a type that has instances or be referenced via `this`).
+**No** — you cannot add extension methods *to* a static class (i.e., you cannot extend a static class\'s API with new instance-style methods, because static classes cannot be used as a type that has instances or be referenced via `this`).
 
 However, you can **create extension methods in a static class** to extend other types (including non-static classes):
 
@@ -6508,7 +6093,7 @@ However, you can **create extension methods in a static class** to extend other 
 // Extension methods LIVE IN a static class, but they extend OTHER types
 public static class StringExtensions
 {
-    // Extends 'string' â€” not the static class itself
+    // Extends 'string' — not the static class itself
     public static bool IsPalindrome(this string s)
     {
         var reversed = new string(s.Reverse().ToArray());
@@ -6525,13 +6110,10 @@ Console.WriteLine("hello".IsPalindrome());   // False
 ```cs
 public static class MathHelper { }
 
-// âŒ Cannot write: public static void NewMethod(this MathHelper m) { }
-// MathHelper has no instances â€” 'this MathHelper' is meaningless
+// ❌ Cannot write: public static void NewMethod(this MathHelper m) { }
+// MathHelper has no instances — 'this MathHelper' is meaningless
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you create sealed abstract class in C#?
 
@@ -6546,7 +6128,7 @@ Combining them produces a compile error:
 // public sealed abstract class MyClass { }
 ```
 
-The closest valid pattern is a `static` class â€” it cannot be instantiated or inherited and can contain only static members:
+The closest valid pattern is a `static` class — it cannot be instantiated or inherited and can contain only static members:
 
 ```cs
 public static class Utilities
@@ -6555,9 +6137,6 @@ public static class Utilities
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you inherit multiple interfaces?
 
@@ -6590,9 +6169,6 @@ An interface can also inherit from multiple interfaces:
 public interface IReadWritable : IReadable, IWritable { }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What interface should your data structure implement to make the "Where" method work?
 
@@ -6621,20 +6197,17 @@ var evens = bag.Where(n => n % 2 == 0).ToList();
 Console.WriteLine(string.Join(", ", evens)); // Output: 2, 4, 6
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can we define methods as private in interface?
 
-**Yes** â€” since **C# 8 / .NET Core 3**, interfaces can define `private` methods. Private interface methods can only be called from within the interface itself (typically from default implementations) and cannot be overridden by implementing classes.
+**Yes** — since **C# 8 / .NET Core 3**, interfaces can define `private` methods. Private interface methods can only be called from within the interface itself (typically from default implementations) and cannot be overridden by implementing classes.
 
 ```cs
 public interface IGreeter
 {
     void Greet(string name);
 
-    // Private helper â€” only callable within this interface
+    // Private helper — only callable within this interface
     private string FormatName(string name)
         => name.Trim().ToUpperInvariant();
 
@@ -6654,15 +6227,12 @@ g.Greet("pradeep");        // Output: Hello, pradeep!
 g.GreetFormal("pradeep");  // Output: Good day, PRADEEP.
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. If I want to change an interface, what\'s the best practice?
 
-Changing a published interface is a **breaking change** â€” all implementing classes must be updated. The safest strategies:
+Changing a published interface is a **breaking change** — all implementing classes must be updated. The safest strategies:
 
-**1. Default interface methods (C# 8+) â€” non-breaking addition:**
+**1. Default interface methods (C# 8+) — non-breaking addition:**
 
 Add new methods with a default implementation. Existing implementors don\'t need to change.
 
@@ -6676,7 +6246,7 @@ public interface ILogger
 }
 ```
 
-**2. Interface versioning â€” create a new interface:**
+**2. Interface versioning — create a new interface:**
 
 ```cs
 public interface ILogger    { void Log(string message); }
@@ -6689,15 +6259,12 @@ public interface ILogger2 : ILogger { void LogWarning(string message); }
 
 If you anticipate change, an abstract class with virtual methods is easier to evolve without breaking consumers.
 
-**4. Avoid changing interface signatures** if the interface is in a public NuGet package or shared library â€” use extension methods or wrapper interfaces instead.
+**4. Avoid changing interface signatures** if the interface is in a public NuGet package or shared library — use extension methods or wrapper interfaces instead.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can we create instance of interface?
 
-**No.** You cannot instantiate an interface directly with `new`. An interface is a contract â€” it has no concrete implementation or constructor.
+**No.** You cannot instantiate an interface directly with `new`. An interface is a contract — it has no concrete implementation or constructor.
 
 ```cs
 // Compile error: cannot create an instance of an abstract type/interface
@@ -6713,24 +6280,21 @@ public class ConsoleLogger : ILogger
     public void Log(string msg) => Console.WriteLine(msg);
 }
 
-ILogger logger = new ConsoleLogger(); // âœ… interface reference to concrete instance
+ILogger logger = new ConsoleLogger(); // ✅ interface reference to concrete instance
 logger.Log("Hello!"); // Output: Hello!
 ```
 
 **Exception:** Anonymous types implementing interfaces via `static` methods (not common), or using mock frameworks in tests that generate proxy implementations at runtime.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the differences between covariance and contravariance in C# for delegates and interfaces.
 
-**Covariance** allows a more derived type to be used where a less derived type is expected (output positions â€” return types).  
-**Contravariance** allows a less derived type to be used where a more derived type is expected (input positions â€” parameter types).
+**Covariance** allows a more derived type to be used where a less derived type is expected (output positions — return types).  
+**Contravariance** allows a less derived type to be used where a more derived type is expected (input positions — parameter types).
 
 Enabled with `out` (covariance) and `in` (contravariance) on generic type parameters.
 
-**Covariance (`out`) â€” return type can be more derived:**
+**Covariance (`out`) — return type can be more derived:**
 
 ```cs
 public class Animal { }
@@ -6738,19 +6302,19 @@ public class Dog : Animal { }
 
 // IEnumerable<T> is covariant (out T)
 IEnumerable<Dog> dogs = new List<Dog> { new Dog() };
-IEnumerable<Animal> animals = dogs; // âœ… Dog is more derived than Animal
+IEnumerable<Animal> animals = dogs; // ✅ Dog is more derived than Animal
 
 // Func<T> is covariant in TResult
 Func<Dog> getDog = () => new Dog();
-Func<Animal> getAnimal = getDog; // âœ… covariant
+Func<Animal> getAnimal = getDog; // ✅ covariant
 ```
 
-**Contravariance (`in`) â€” parameter type can be less derived:**
+**Contravariance (`in`) — parameter type can be less derived:**
 
 ```cs
 // Action<T> is contravariant (in T)
 Action<Animal> processAnimal = a => Console.WriteLine("Processing animal");
-Action<Dog> processDog = processAnimal; // âœ… contravariant â€” can handle Dog via Animal handler
+Action<Dog> processDog = processAnimal; // ✅ contravariant — can handle Dog via Animal handler
 
 processDog(new Dog()); // Output: Processing animal
 ```
@@ -6765,19 +6329,16 @@ public class DogProducer : IProducer<Dog>
     public Dog Produce() => new Dog();
 }
 
-IProducer<Animal> producer = new DogProducer(); // âœ… covariant
+IProducer<Animal> producer = new DogProducer(); // ✅ covariant
 ```
 
 **Summary:**
 
 | Keyword | Type parameter | Allowed direction | Example                       |
 |---------|---------------|-------------------|-------------------------------|
-| `out`   | Return type    | More derived â†’ base | `IEnumerable<Dog>` â†’ `IEnumerable<Animal>` |
-| `in`    | Parameter type | Base â†’ more derived | `Action<Animal>` â†’ `Action<Dog>` |
+| `out`   | Return type    | More derived → base | `IEnumerable<Dog>` → `IEnumerable<Animal>` |
+| `in`    | Parameter type | Base → more derived | `Action<Animal>` → `Action<Dog>` |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is an abstraction?
 
@@ -6806,7 +6367,7 @@ public class StripePayment : IPayment
     }
 }
 
-// High-level code only knows IPayment â€” abstracted from Stripe details
+// High-level code only knows IPayment — abstracted from Stripe details
 public class CheckoutService(IPayment payment)
 {
     public async Task Checkout(decimal total)
@@ -6817,13 +6378,10 @@ public class CheckoutService(IPayment payment)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is it compulsory to implement Abstract methods?
 
-**Yes** â€” any non-abstract class that inherits from an abstract class **must** implement all abstract methods. Failure to do so is a compile error.
+**Yes** — any non-abstract class that inherits from an abstract class **must** implement all abstract methods. Failure to do so is a compile error.
 
 ```cs
 public abstract class Shape
@@ -6833,10 +6391,10 @@ public abstract class Shape
     public virtual void Print() => Console.WriteLine($"Area={Area():F2}"); // optional
 }
 
-// Compile error â€” Area() and Perimeter() are not implemented:
+// Compile error — Area() and Perimeter() are not implemented:
 // public class BadShape : Shape { }
 
-// OK â€” all abstract members implemented:
+// OK — all abstract members implemented:
 public class Square(double side) : Shape
 {
     public override double Area()      => side * side;
@@ -6847,23 +6405,20 @@ var sq = new Square(5);
 sq.Print(); // Output: Area=25.00
 ```
 
-**Exception:** If a derived class is itself `abstract`, it does not need to implement the abstract methods â€” the responsibility is passed to the next concrete class in the chain.
+**Exception:** If a derived class is itself `abstract`, it does not need to implement the abstract methods — the responsibility is passed to the next concrete class in the chain.
 
 ```cs
 public abstract class AbstractDerived : Shape
 {
-    // Still abstract â€” no need to implement Area() or Perimeter() yet
+    // Still abstract — no need to implement Area() or Perimeter() yet
     public abstract string Name();
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the method MemberwiseClone() doing?
 
-`MemberwiseClone()` is a `protected` method inherited from `System.Object`. It creates a **shallow copy** of the current object â€” all value-type fields are copied by value, but reference-type fields are copied by reference (both objects share the same referenced object).
+`MemberwiseClone()` is a `protected` method inherited from `System.Object`. It creates a **shallow copy** of the current object — all value-type fields are copied by value, but reference-type fields are copied by reference (both objects share the same referenced object).
 
 ```cs
 public class Address
@@ -6896,9 +6451,6 @@ Console.WriteLine(original.Location.City); // Delhi (shared reference!)
 
 **For a deep copy**, implement `ICloneable` or manually copy each reference-type field.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the difference between destructor, dispose and finalize method?
 
@@ -6908,12 +6460,12 @@ Console.WriteLine(original.Location.City); // Delhi (shared reference!)
 | `Finalize()`   | `protected override void Finalize()` | GC | Last resort cleanup of unmanaged resources |
 | `Dispose()`    | `IDisposable.Dispose()`  | Developer / `using` | Deterministic cleanup of managed + unmanaged resources |
 
-**Destructor / Finalize** (non-deterministic â€” GC decides when):
+**Destructor / Finalize** (non-deterministic — GC decides when):
 
 ```cs
 public class ResourceHolder
 {
-    ~ResourceHolder() // Destructor â€” compiles to override Finalize()
+    ~ResourceHolder() // Destructor — compiles to override Finalize()
     {
         Console.WriteLine("Finalizer called by GC");
         // Release unmanaged resources
@@ -6921,7 +6473,7 @@ public class ResourceHolder
 }
 ```
 
-**IDisposable / Dispose** (deterministic â€” called explicitly or via `using`):
+**IDisposable / Dispose** (deterministic — called explicitly or via `using`):
 
 ```cs
 public class FileHandler : IDisposable
@@ -6953,9 +6505,6 @@ using var fh = new FileHandler("data.txt");
 
 **Best practice (.NET 10):** Implement `IDisposable` for deterministic cleanup. Use `IAsyncDisposable` + `await using` for async resources. Always call `GC.SuppressFinalize(this)` in `Dispose()` if you have a finalizer.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Could you explain the difference between Func vs. Action vs. Predicate?
 
@@ -6968,18 +6517,18 @@ All three are built-in generic delegate types in `System`:
 | `Predicate<T>`| `bool (T arg)`                     | `bool`     | Test a condition (subset of Func)   |
 
 ```cs
-// Action<T> â€” does something, returns nothing
+// Action<T> — does something, returns nothing
 Action<string> print = msg => Console.WriteLine(msg);
 print("Hello Action"); // Output: Hello Action
 
-// Func<T, TResult> â€” transforms and returns
+// Func<T, TResult> — transforms and returns
 Func<int, int, int> add = (a, b) => a + b;
 Console.WriteLine(add(3, 4)); // Output: 7
 
 Func<string, string> toUpper = s => s.ToUpperInvariant();
 Console.WriteLine(toUpper("hello")); // Output: HELLO
 
-// Predicate<T> â€” returns bool (used in List<T>.FindAll, RemoveAll, etc.)
+// Predicate<T> — returns bool (used in List<T>.FindAll, RemoveAll, etc.)
 Predicate<int> isEven = n => n % 2 == 0;
 var numbers = new List<int> { 1, 2, 3, 4, 5, 6 };
 var evens = numbers.FindAll(isEven);
@@ -6989,11 +6538,8 @@ Console.WriteLine(string.Join(", ", evens)); // Output: 2, 4, 6
 Func<int, bool> isEvenFunc = n => n % 2 == 0;
 ```
 
-**Key takeaway:** `Predicate<T>` is essentially `Func<T, bool>` â€” use `Func` in LINQ, and `Predicate` with older `List<T>` APIs.
+**Key takeaway:** `Predicate<T>` is essentially `Func<T, bool>` — use `Func` in LINQ, and `Predicate` with older `List<T>` APIs.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a namespace and is it compulsory?
 
@@ -7024,9 +6570,6 @@ var svc = new OrderService(); // resolved via namespace
 global::System.Console.WriteLine("Using global namespace");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What do you think about empty destructor?
 
@@ -7038,30 +6581,27 @@ An **empty destructor** is harmful and should be avoided. Even with no code, it 
 - Objects survive an extra GC generation, increasing memory pressure.
 
 ```cs
-// BAD â€” empty destructor adds GC overhead with zero benefit
+// BAD — empty destructor adds GC overhead with zero benefit
 public class MyClass
 {
-    ~MyClass() { } // âŒ Remove this
+    ~MyClass() { } // ❌ Remove this
 }
 
-// GOOD â€” no destructor needed if there are no unmanaged resources
+// GOOD — no destructor needed if there are no unmanaged resources
 public class MyClass
 {
-    // No destructor â€” GC collects it efficiently in one cycle
+    // No destructor — GC collects it efficiently in one cycle
 }
 ```
 
 **Rule:** Only add a destructor/finalizer if the class **directly owns unmanaged resources** (e.g., native handles, COM objects). And if you have a finalizer, always also implement `IDisposable` and call `GC.SuppressFinalize(this)` in `Dispose()`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different types of "USING/HAS A" relationship?
 
-"HAS-A" is a **composition** relationship â€” one class contains or uses an instance of another class. C# supports three levels of HAS-A:
+"HAS-A" is a **composition** relationship — one class contains or uses an instance of another class. C# supports three levels of HAS-A:
 
-**1. Association** â€” objects are related but have independent lifecycles.
+**1. Association** — objects are related but have independent lifecycles.
 
 ```cs
 // Teacher knows about a Student but doesn\'t own it
@@ -7069,7 +6609,7 @@ public class Teacher { public void Teach(Student s) => Console.WriteLine($"Teach
 public class Student { public string Name { get; set; } = ""; }
 ```
 
-**2. Aggregation** â€” a "whole-part" relationship where the part can exist independently.
+**2. Aggregation** — a "whole-part" relationship where the part can exist independently.
 
 ```cs
 // Department contains Employees, but Employees can exist without a Department
@@ -7081,10 +6621,10 @@ public class Department
 }
 ```
 
-**3. Composition** â€” a strong "whole-part" relationship; the part cannot exist without the whole.
+**3. Composition** — a strong "whole-part" relationship; the part cannot exist without the whole.
 
 ```cs
-// Engine only exists as part of a Car â€” created and destroyed with it
+// Engine only exists as part of a Car — created and destroyed with it
 public class Car
 {
     private readonly Engine _engine = new Engine(); // Car owns Engine\'s lifecycle
@@ -7099,13 +6639,10 @@ public class Engine { public void Start() => Console.WriteLine("Engine started")
 
 | Relationship  | Lifecycle dependency     | Example              |
 |---------------|--------------------------|----------------------|
-| Association   | Independent              | Teacher â†” Student    |
-| Aggregation   | Part survives whole      | Department â†’ Employee|
-| Composition   | Part dies with whole     | Car â†’ Engine         |
+| Association   | Independent              | Teacher ↔ Student    |
+| Aggregation   | Part survives whole      | Department → Employee|
+| Composition   | Part dies with whole     | Car → Engine         |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Differentiate between Composition vs Aggregation vs Association?
 
@@ -7121,13 +6658,13 @@ See the [USING/HAS A relationship](#q-what-are-the-different-types-of-usinghas-a
 // Association
 public class Order { public void Process(Customer c) { } }
 
-// Aggregation â€” customer exists outside the order
+// Aggregation — customer exists outside the order
 public class ShoppingCart
 {
     public List<Customer> SharedCustomers { get; } = [];
 }
 
-// Composition â€” address is created and owned by customer
+// Composition — address is created and owned by customer
 public class Customer
 {
     private readonly Address _address; // owned, created here
@@ -7135,13 +6672,10 @@ public class Customer
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are circular references?
 
-A **circular reference** occurs when two or more objects reference each other, forming a cycle (A â†’ B â†’ A, or A â†’ B â†’ C â†’ A). In .NET, the GC handles circular references via tracing (mark-and-sweep), so they don\'t cause memory leaks in managed code by themselves.
+A **circular reference** occurs when two or more objects reference each other, forming a cycle (A → B → A, or A → B → C → A). In .NET, the GC handles circular references via tracing (mark-and-sweep), so they don\'t cause memory leaks in managed code by themselves.
 
 However, circular references cause problems in:
 - **Serialization** (JSON/XML infinite loop)
@@ -7164,7 +6698,7 @@ public class Child
 var parent = new Parent();
 var child  = new Child();
 parent.Child  = child;
-child.Parent  = parent; // circle: parent â†’ child â†’ parent
+child.Parent  = parent; // circle: parent → child → parent
 
 // Serialization issue:
 // JsonSerializer.Serialize(parent); // throws JsonException: cycle detected
@@ -7178,9 +6712,6 @@ string json = System.Text.Json.JsonSerializer.Serialize(parent, options);
 Console.WriteLine(json);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is weak reference in C#?
 
@@ -7204,38 +6735,32 @@ else
 ```
 
 **Use cases:**
-- **Caches** â€” hold entries without preventing GC from reclaiming them under memory pressure.
-- **Event handlers** â€” avoid memory leaks when the publisher outlives the subscriber.
+- **Caches** — hold entries without preventing GC from reclaiming them under memory pressure.
+- **Event handlers** — avoid memory leaks when the publisher outlives the subscriber.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain weak and strong references?
 
-- **Strong reference**: Any normal variable holding an object. Keeps the object alive â€” the GC will not collect it.
+- **Strong reference**: Any normal variable holding an object. Keeps the object alive — the GC will not collect it.
 - **Weak reference**: A `WeakReference<T>` that does not prevent GC from collecting the object.
 
 ```cs
-// Strong reference â€” object stays alive
+// Strong reference — object stays alive
 var obj = new List<int> { 1, 2, 3 }; // strong
 
-// Weak reference â€” object can be collected if no strong ref exists
+// Weak reference — object can be collected if no strong ref exists
 var weak = new WeakReference<List<int>>(obj);
 
-Console.WriteLine(weak.TryGetTarget(out _)); // True â€” obj is alive (strong ref exists)
+Console.WriteLine(weak.TryGetTarget(out _)); // True — obj is alive (strong ref exists)
 
 obj = null!; // remove strong reference
 GC.Collect();
 
-Console.WriteLine(weak.TryGetTarget(out _)); // False â€” likely collected
+Console.WriteLine(weak.TryGetTarget(out _)); // False — likely collected
 ```
 
-**Key point:** As long as at least one **strong reference** exists, the GC will not collect the object. When all strong references are removed, the GC may collect it â€” and any `WeakReference<T>` pointing to it will return `false` from `TryGetTarget`.
+**Key point:** As long as at least one **strong reference** exists, the GC will not collect the object. When all strong references are removed, the GC may collect it — and any `WeakReference<T>` pointing to it will return `false` from `TryGetTarget`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can you use Interfaces in C# to reduce coupling and improve maintainability?
 
@@ -7248,12 +6773,12 @@ public interface IEmailService
     Task SendAsync(string to, string subject, string body);
 }
 
-// Two concrete implementations â€” easily swappable
+// Two concrete implementations — easily swappable
 public class SmtpEmailService : IEmailService
 {
     public async Task SendAsync(string to, string subject, string body)
     {
-        Console.WriteLine($"SMTP â†’ {to}: {subject}");
+        Console.WriteLine($"SMTP → {to}: {subject}");
         await Task.CompletedTask;
     }
 }
@@ -7262,7 +6787,7 @@ public class SendGridEmailService : IEmailService
 {
     public async Task SendAsync(string to, string subject, string body)
     {
-        Console.WriteLine($"SendGrid â†’ {to}: {subject}");
+        Console.WriteLine($"SendGrid → {to}: {subject}");
         await Task.CompletedTask;
     }
 }
@@ -7283,13 +6808,10 @@ await service.RegisterAsync("user@example.com");
 ```
 
 **Benefits:**
-- **Testability:** Inject a mock `IEmailService` in unit tests â€” no real email sent.
+- **Testability:** Inject a mock `IEmailService` in unit tests — no real email sent.
 - **Extensibility:** Add `TwilioEmailService` without touching `UserRegistrationService`.
 - **Reduced coupling:** `UserRegistrationService` doesn\'t know or care which email provider is used.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What happens if the inherited interfaces have conflicting method names?
 
@@ -7329,9 +6851,6 @@ logger.Log("Via ILogger");   // Output: [LOG]   Via ILogger
 auditor.Log("Via IAuditor"); // Output: [AUDIT] Via IAuditor
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `volatile` keyword in C#?
 
@@ -7364,9 +6883,6 @@ await worker;
 
 **When to use:** Simple flag variables read/written by multiple threads where full `lock` or `Interlocked` is overkill. For compound operations or incrementing, use `Interlocked` instead.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `checked` keyword in C#?
 
@@ -7375,37 +6891,34 @@ The `checked` keyword enables **overflow checking** for arithmetic operations on
 ```cs
 int max = int.MaxValue; // 2,147,483,647
 
-// Unchecked (default) â€” wraps around silently
+// Unchecked (default) — wraps around silently
 int overflowed = max + 1;
 Console.WriteLine(overflowed); // Output: -2147483648 (wrong!)
 
-// Checked â€” throws OverflowException
+// Checked — throws OverflowException
 try
 {
-    int result = checked(max + 1); // âŒ throws OverflowException
+    int result = checked(max + 1); // ❌ throws OverflowException
 }
 catch (OverflowException ex)
 {
     Console.WriteLine($"Overflow caught: {ex.Message}");
 }
 
-// Checked block â€” applies to all arithmetic in the block
+// Checked block — applies to all arithmetic in the block
 checked
 {
     int a = int.MaxValue;
-    int b = a + 1; // âŒ throws OverflowException
+    int b = a + 1; // ❌ throws OverflowException
 }
 ```
 
 **`unchecked` keyword** explicitly suppresses overflow checking (useful when you want wraparound by design, e.g., hash code calculations):
 
 ```cs
-int hash = unchecked(int.MaxValue + 1); // -2147483648 â€” intentional wrap
+int hash = unchecked(int.MaxValue + 1); // -2147483648 — intentional wrap
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `this` keyword in C#?
 
@@ -7446,9 +6959,6 @@ Console.WriteLine(result); // Output: Pradeep, 30
 
 **In primary constructors (C# 12+):** `this` still refers to the current instance and can be used in method bodies.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `base` keyword in C#?
 
@@ -7500,15 +7010,12 @@ car.Describe();
 // Doors: 4
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `params` keyword in C#?
 
 The `params` keyword allows a method to accept a **variable number of arguments** of the same type. The caller can pass a comma-separated list, an array, or nothing at all.
 
-**C# 13 enhancement:** `params` now works with any collection type (`IEnumerable<T>`, `Span<T>`, `ReadOnlySpan<T>`, `List<T>`, etc.) â€” not just arrays.
+**C# 13 enhancement:** `params` now works with any collection type (`IEnumerable<T>`, `Span<T>`, `ReadOnlySpan<T>`, `List<T>`, etc.) — not just arrays.
 
 **Traditional `params` (all versions):**
 
@@ -7522,7 +7029,7 @@ Console.WriteLine(Sum());                  // Output: 0
 Console.WriteLine(Sum(new[] { 5, 5, 5 })); // Output: 15
 ```
 
-**`params ReadOnlySpan<T>` (C# 13 / .NET 9+) â€” zero allocation:**
+**`params ReadOnlySpan<T>` (C# 13 / .NET 9+) — zero allocation:**
 
 ```cs
 public static double Average(params ReadOnlySpan<double> values)
@@ -7541,9 +7048,6 @@ Console.WriteLine(Average(10.0, 20.0, 30.0)); // Output: 20
 - Must be the last parameter.
 - Cannot be combined with `ref`/`out`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `yield` keyword in C#?
 
@@ -7562,9 +7066,6 @@ foreach (var s in Squares(5))
     Console.Write(s + " "); // Output: 1 4 9 16 25
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `async` and `await` keyword in C#?
 
@@ -7588,7 +7089,7 @@ string data = await FetchDataAsync("https://api.example.com/data");
 Console.WriteLine(data);
 ```
 
-**`IAsyncEnumerable<T>` â€” async streaming (C# 8+):**
+**`IAsyncEnumerable<T>` — async streaming (C# 8+):**
 
 Stream data asynchronously without loading everything into memory.
 
@@ -7642,9 +7143,6 @@ public async Task ProcessAsync(CancellationToken ct = default)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `override` and `new` keywords?
 
@@ -7652,12 +7150,12 @@ Both `override` and `new` affect how a derived class method relates to a base cl
 
 | Aspect              | `override`                                   | `new`                                           |
 |---------------------|----------------------------------------------|-------------------------------------------------|
-| Requires `virtual`  | Yes â€” base method must be `virtual`/`abstract`| No â€” works on any base method                  |
-| Runtime dispatch    | Polymorphic (dynamic) â€” actual type decides  | Static â€” reference type decides                |
+| Requires `virtual`  | Yes — base method must be `virtual`/`abstract`| No — works on any base method                  |
+| Runtime dispatch    | Polymorphic (dynamic) — actual type decides  | Static — reference type decides                |
 | Intent              | Replace the base implementation              | Hide the base method (method hiding)            |
 | Best practice       | Use for intentional polymorphism             | Rarely needed; often a design smell             |
 
-**`override` â€” polymorphic dispatch (runtime type wins):**
+**`override` — polymorphic dispatch (runtime type wins):**
 
 ```cs
 public class Animal
@@ -7671,37 +7169,34 @@ public class Dog : Animal
 }
 
 Animal a = new Dog();
-Console.WriteLine(a.Speak()); // Output: Woof (Dog\'s version â€” runtime type wins)
+Console.WriteLine(a.Speak()); // Output: Woof (Dog\'s version — runtime type wins)
 ```
 
-**`new` â€” method hiding (reference type wins):**
+**`new` — method hiding (reference type wins):**
 
 ```cs
 public class Cat : Animal
 {
-    public new string Speak() => "Meow"; // hides Animal.Speak â€” NOT polymorphic
+    public new string Speak() => "Meow"; // hides Animal.Speak — NOT polymorphic
 }
 
 Animal a = new Cat();
-Console.WriteLine(a.Speak()); // Output: ... (Animal\'s version â€” reference type wins!)
+Console.WriteLine(a.Speak()); // Output: ... (Animal\'s version — reference type wins!)
 
 Cat c = new Cat();
-Console.WriteLine(c.Speak()); // Output: Meow (Cat reference â€” Cat\'s version)
+Console.WriteLine(c.Speak()); // Output: Meow (Cat reference — Cat\'s version)
 ```
 
-**Key takeaway:** Use `override` for true polymorphism. Use `new` only when you intentionally want to hide a base member without polymorphic dispatch â€” and document why.
+**Key takeaway:** Use `override` for true polymorphism. Use `new` only when you intentionally want to hide a base member without polymorphic dispatch — and document why.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Why do we need the `out` keyword?
 
-The `out` keyword allows a method to **return multiple values** by passing parameters by reference. Unlike `ref`, the variable passed as `out` does **not** need to be initialised before the call â€” the method *must* assign a value to it before returning.
+The `out` keyword allows a method to **return multiple values** by passing parameters by reference. Unlike `ref`, the variable passed as `out` does **not** need to be initialised before the call — the method *must* assign a value to it before returning.
 
 **Primary use cases:**
 1. Return multiple values from a single method (before tuples were preferred).
-2. The `TryXxx` pattern â€” return a `bool` and an output value simultaneously.
+2. The `TryXxx` pattern — return a `bool` and an output value simultaneously.
 
 ```cs
 // Basic out parameter
@@ -7712,7 +7207,7 @@ public bool TryDivide(int a, int b, out int result)
     return true;
 }
 
-// Caller â€” variable declared inline (C# 7+)
+// Caller — variable declared inline (C# 7+)
 if (TryDivide(10, 2, out int quotient))
     Console.WriteLine(quotient); // Output: 5
 
@@ -7744,17 +7239,14 @@ GetMinMax(new[] { 3, 1, 4, 1, 5, 9 }, out int mn, out int mx);
 Console.WriteLine($"Min={mn}, Max={mx}"); // Min=1, Max=9
 ```
 
-**Note:** For new code, prefer **tuples** (`(int min, int max) GetMinMax(...)`) over multiple `out` parameters â€” they are more readable and don\'t require pre-declaration.
+**Note:** For new code, prefer **tuples** (`(int min, int max) GetMinMax(...)`) over multiple `out` parameters — they are more readable and don\'t require pre-declaration.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `params` keyword in C#?
 
 The `params` keyword lets a method accept a **variable number of arguments** without the caller needing to create an array explicitly. It must be the last parameter in the signature.
 
-**C# 13 / .NET 9+ enhancement:** `params` now supports any collection type â€” `ReadOnlySpan<T>`, `IEnumerable<T>`, `List<T>`, etc. â€” not just arrays.
+**C# 13 / .NET 9+ enhancement:** `params` now supports any collection type — `ReadOnlySpan<T>`, `IEnumerable<T>`, `List<T>`, etc. — not just arrays.
 
 ```cs
 // Traditional params array (all .NET versions)
@@ -7765,7 +7257,7 @@ Console.WriteLine(Sum(10, 20));         // Output: 30
 Console.WriteLine(Sum());               // Output: 0
 Console.WriteLine(Sum([5, 5, 5]));      // Output: 15 (pass array directly)
 
-// params ReadOnlySpan<T> (C# 13 / .NET 9+) â€” zero heap allocation
+// params ReadOnlySpan<T> (C# 13 / .NET 9+) — zero heap allocation
 public static double Average(params ReadOnlySpan<double> values)
 {
     if (values.IsEmpty) return 0;
@@ -7782,23 +7274,20 @@ Console.WriteLine(Average(10.0, 20.0, 30.0)); // Output: 20
 - Must be the **last** parameter.
 - Cannot be combined with `ref`, `out`, or `in`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `yield` keyword in C#? Provide an example of using it with an iterator?
 
 The `yield` keyword is used inside an **iterator method** to return elements one at a time, enabling lazy evaluation. The method\'s state is preserved between calls, so execution resumes where it left off.
 
-- `yield return` â€” returns the next value to the caller.
-- `yield break` â€” stops the iteration.
+- `yield return` — returns the next value to the caller.
+- `yield break` — stops the iteration.
 
 **Key benefits:**
 - Lazy evaluation: elements are generated on demand, not all at once.
 - Memory efficient: no need to build a full collection in memory.
 - Works with `foreach`, LINQ, and `await foreach` (when returning `IAsyncEnumerable<T>`).
 
-**Example â€” synchronous iterator:**
+**Example — synchronous iterator:**
 
 ```cs
 public IEnumerable<int> EvenNumbers(int max)
@@ -7814,7 +7303,7 @@ foreach (var n in EvenNumbers(10))
     Console.Write(n + " "); // Output: 0 2 4 6 8 10
 ```
 
-**Example â€” infinite sequence with `yield`:**
+**Example — infinite sequence with `yield`:**
 
 ```cs
 public IEnumerable<int> Fibonacci()
@@ -7832,7 +7321,7 @@ Console.WriteLine(string.Join(", ", first10));
 // Output: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34
 ```
 
-**Example â€” async iterator (C# 8+, .NET Core 3+):**
+**Example — async iterator (C# 8+, .NET Core 3+):**
 
 ```cs
 public async IAsyncEnumerable<string> ReadLinesAsync(string path)
@@ -7845,27 +7334,24 @@ await foreach (var line in ReadLinesAsync("data.txt"))
     Console.WriteLine(line);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the "yield" keyword used for in C#?
 
 The `yield` keyword is used in an **iterator method** to lazily produce a sequence of values one at a time. See the full answer with examples in the [`yield` with iterator](#q-what-is-the-purpose-of-the-yield-keyword-in-c-provide-an-example-of-using-it-with-an-iterator) section above.
 
 **Key points:**
-- `yield return <value>` â€” returns the next element and suspends execution until the next iteration.
-- `yield break` â€” ends the sequence early.
+- `yield return <value>` — returns the next element and suspends execution until the next iteration.
+- `yield break` — ends the sequence early.
 - The method return type must be `IEnumerable<T>`, `IEnumerator<T>`, or `IAsyncEnumerable<T>`.
-- State is preserved between `yield return` calls â€” no manual state machine needed.
+- State is preserved between `yield return` calls — no manual state machine needed.
 
 ```cs
-// Lazy sequence â€” elements generated only when consumed
+// Lazy sequence — elements generated only when consumed
 public IEnumerable<int> Countdown(int from)
 {
     for (int i = from; i >= 0; i--)
         yield return i;
-    yield return -1; // sentinel â€” indicates sequence ended
+    yield return -1; // sentinel — indicates sequence ended
 }
 
 foreach (var n in Countdown(3))
@@ -7885,9 +7371,6 @@ var result = TakeWhilePositive([5, 3, 1, -2, 4]).ToList();
 Console.WriteLine(string.Join(", ", result)); // Output: 5, 3, 1
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the importance of "this" keyword?
 
@@ -7911,7 +7394,7 @@ public class Counter
     // 1. Disambiguate field vs. parameter
     public Counter(int count) => this._count = count;
 
-    // 4. Fluent API â€” return this
+    // 4. Fluent API — return this
     public Counter Increment() { _count++; return this; }
     public Counter Add(int n)  { _count += n; return this; }
 
@@ -7947,9 +7430,6 @@ var o2 = o1.WithCustomer("Bob");
 Console.WriteLine(o2.Customer); // Output: Bob
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `ref` and `out` keywords?
 
@@ -7957,13 +7437,13 @@ Both `ref` and `out` pass arguments **by reference** (the method receives a poin
 
 | Aspect | `ref` | `out` |
 |--------|-------|-------|
-| Must be initialized before call | **Yes** â€” caller must assign first | **No** â€” can be uninitialized |
-| Method must assign before return | No â€” method may or may not modify it | **Yes** â€” method must assign before returning |
+| Must be initialized before call | **Yes** — caller must assign first | **No** — can be uninitialized |
+| Method must assign before return | No — method may or may not modify it | **Yes** — method must assign before returning |
 | Primary use | Two-way data exchange | Return multiple values from a method |
-| Inline declaration (C# 7+) | No | Yes â€” `out int result` |
-| Discard allowed | No | Yes â€” `out _` |
+| Inline declaration (C# 7+) | No | Yes — `out int result` |
+| Discard allowed | No | Yes — `out _` |
 
-**`ref` â€” read AND write by caller and method:**
+**`ref` — read AND write by caller and method:**
 
 ```cs
 public void Double(ref int value)
@@ -7976,7 +7456,7 @@ Double(ref x);
 Console.WriteLine(x); // Output: 10
 ```
 
-**`out` â€” write-only output; method must assign:**
+**`out` — write-only output; method must assign:**
 
 ```cs
 public bool TryParse(string s, out int result)
@@ -8001,21 +7481,21 @@ else
 **Side-by-side comparison:**
 
 ```cs
-// ref â€” x must be assigned before passing
+// ref — x must be assigned before passing
 int x = 10;
 Multiply(ref x, 3);
 Console.WriteLine(x); // Output: 30
 
 static void Multiply(ref int n, int factor) => n *= factor;
 
-// out â€” y does NOT need to be assigned before passing
+// out — y does NOT need to be assigned before passing
 GetSquare(5, out int y);
 Console.WriteLine(y); // Output: 25
 
 static void GetSquare(int n, out int result) => result = n * n;
 ```
 
-**Modern alternative â€” prefer tuples for multiple return values:**
+**Modern alternative — prefer tuples for multiple return values:**
 
 ```cs
 // Instead of multiple out parameters:
@@ -8026,9 +7506,6 @@ var (min, max) = GetMinMax([3, 1, 4, 1, 5, 9]);
 Console.WriteLine($"Min={min}, Max={max}"); // Min=1, Max=9
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `partial` class in C#?
 
@@ -8084,9 +7561,6 @@ public partial class DataProcessor
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `static` class in C#?
 
@@ -8135,9 +7609,6 @@ Console.WriteLine("user@example.com".IsEmail()); // True
 | All members must be `static` | Including nested types |
 | Can have `static` constructor | Runs once before first access |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different types of classes in C#?
 
@@ -8145,7 +7616,7 @@ C# supports several class types, each serving a distinct purpose:
 
 | Class type | Description |
 |---|---|
-| **Concrete class** | The default â€” can be instantiated directly |
+| **Concrete class** | The default — can be instantiated directly |
 | **Abstract class** | Cannot be instantiated; may contain abstract members that derived classes must implement |
 | **Sealed class** | Cannot be inherited (e.g., `string`, `StringBuilder`) |
 | **Static class** | Cannot be instantiated or inherited; all members are `static` |
@@ -8184,7 +7655,7 @@ public class Repository<T> where T : class
     public IEnumerable<T> GetAll() => _store;
 }
 
-// Record (C# 9+) â€” immutable, value equality
+// Record (C# 9+) — immutable, value equality
 public record class Product(string Name, decimal Price);
 
 var p1 = new Product("Laptop", 999m);
@@ -8196,13 +7667,10 @@ public partial class Order { public int Id { get; init; } }
 public partial class Order { public bool IsValid() => Id > 0; }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Are private class members inherited to the derived class?
 
-**Yes â€” private members are inherited (they exist in memory), but they are not accessible in derived classes.**
+**Yes — private members are inherited (they exist in memory), but they are not accessible in derived classes.**
 
 The derived class contains the private members of the base class as part of its object layout, but the compiler prevents direct access to them from derived class code.
 
@@ -8221,11 +7689,11 @@ public class Derived : Base
 {
     public void Show()
     {
-        // Console.WriteLine(_secret);  // âŒ compile error â€” not accessible
-        // PrivateHelper();             // âŒ compile error â€” not accessible
+        // Console.WriteLine(_secret);  // ❌ compile error — not accessible
+        // PrivateHelper();             // ❌ compile error — not accessible
 
-        Console.WriteLine(GetSecret()); // âœ… access via public method
-        CallHelper();                   // âœ… access via protected method
+        Console.WriteLine(GetSecret()); // ✅ access via public method
+        CallHelper();                   // ✅ access via protected method
     }
 }
 
@@ -8252,26 +7720,23 @@ foreach (var f in fields)
 
 | Member access | Inherited (exists in memory)? | Accessible in derived class? |
 |---|---|---|
-| `public` | âœ… | âœ… |
-| `protected` | âœ… | âœ… |
-| `internal` | âœ… | âœ… (same assembly) |
-| `private` | âœ… | âŒ |
+| `public` | ✅ | ✅ |
+| `protected` | ✅ | ✅ |
+| `internal` | ✅ | ✅ (same assembly) |
+| `private` | ✅ | ❌ |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are partial classes?
 
 A **partial class** splits a single class definition across multiple source files. The `partial` keyword is required on all parts. The compiler merges them into one class at compile time.
 
 **Use cases:**
-- **Code generators** â€” one file is machine-generated (e.g., EF Core scaffold, WinForms Designer), the other is hand-written.
-- **Large classes** â€” split for organizational clarity without breaking encapsulation.
-- **Source generators** (C# 9+) â€” generators add members to a partial class you define.
+- **Code generators** — one file is machine-generated (e.g., EF Core scaffold, WinForms Designer), the other is hand-written.
+- **Large classes** — split for organizational clarity without breaking encapsulation.
+- **Source generators** (C# 9+) — generators add members to a partial class you define.
 
 ```cs
-// File: Customer.cs  â€” hand-written
+// File: Customer.cs  — hand-written
 public partial class Customer
 {
     public int Id { get; init; }
@@ -8279,7 +7744,7 @@ public partial class Customer
     public string Email { get; init; } = string.Empty;
 }
 
-// File: Customer.Validation.cs â€” hand-written
+// File: Customer.Validation.cs — hand-written
 public partial class Customer
 {
     public bool IsValid() =>
@@ -8288,24 +7753,24 @@ public partial class Customer
         Email.Contains('@');
 }
 
-// File: Customer.g.cs â€” could be machine-generated
+// File: Customer.g.cs — could be machine-generated
 public partial class Customer
 {
     public override string ToString() => $"[{Id}] {Name} <{Email}>";
 }
 
-// Usage â€” all parts are merged into one Customer type
+// Usage — all parts are merged into one Customer type
 var c = new Customer { Id = 1, Name = "Pradeep", Email = "p@example.com" };
 Console.WriteLine(c);           // Output: [1] Pradeep <p@example.com>
 Console.WriteLine(c.IsValid()); // Output: True
 ```
 
-**Partial methods (C# 9+ â€” must have access modifiers):**
+**Partial methods (C# 9+ — must have access modifiers):**
 
 ```cs
 public partial class DataPipeline
 {
-    // Declared in one part â€” implementation is optional in older C#
+    // Declared in one part — implementation is optional in older C#
     // In C# 9+, partial methods with access modifiers MUST be implemented
     public partial void OnProcessed(string data);
 }
@@ -8325,9 +7790,6 @@ pipeline.OnProcessed("record-1"); // Output: Processed: record-1
 - All parts must be in the same assembly and namespace.
 - Works on classes, structs, interfaces, and records.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between a struct and a class in C#?
 
@@ -8365,7 +7827,7 @@ b.X = 99;
 Console.WriteLine(a.X); // Output: 1 (original unchanged)
 ```
 
-**`record struct` (C# 10+) â€” immutable value type with equality:**
+**`record struct` (C# 10+) — immutable value type with equality:**
 
 ```cs
 public readonly record struct Vector2D(double X, double Y)
@@ -8382,9 +7844,6 @@ Console.WriteLine(v.Length); // Output: 5
 - Use `struct` for small, immutable, frequently copied data (e.g., coordinates, colors, currency).
 - Prefer `readonly record struct` for immutable value objects in modern .NET.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `public`, `private`, `protected`, and `internal` access modifiers?
 
@@ -8438,16 +7897,13 @@ public class PremiumAccount : BankAccount
 **`file` modifier (C# 11+):**
 
 ```cs
-// Only usable within this .cs file â€” useful for source generators
+// Only usable within this .cs file — useful for source generators
 file class InternalHelper
 {
     public static void DoWork() => Console.WriteLine("Working...");
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. C# provides a default constructor for me. I write a constructor that takes a string as a parameter, but want to keep the no parameter one. How many constructors should I write?
 
@@ -8497,9 +7953,6 @@ public class Person
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Why do we need constructors?
 
@@ -8510,7 +7963,7 @@ A **constructor** is a special method that initialises an object\'s state when i
 | Purpose | Description |
 |---------|-------------|
 | **Initialisation** | Set fields/properties to meaningful initial values |
-| **Validation** | Enforce invariants â€” reject invalid state at creation time |
+| **Validation** | Enforce invariants — reject invalid state at creation time |
 | **Dependency injection** | Receive required dependencies when the object is created |
 | **Encapsulation** | Control how an object is constructed |
 
@@ -8536,15 +7989,15 @@ public class BankAccount
 }
 
 var acc = new BankAccount("Pradeep", 1000m);
-Console.WriteLine($"{acc.Owner}: {acc.Balance:C}"); // Pradeep: â‚¹1,000.00
+Console.WriteLine($"{acc.Owner}: {acc.Balance:C}"); // Pradeep: ₹1,000.00
 
-// var bad = new BankAccount("", -100); // âŒ throws at construction
+// var bad = new BankAccount("", -100); // ❌ throws at construction
 ```
 
 **Primary constructors (C# 12 / .NET 8+):**
 
 ```cs
-// Concise â€” parameters available throughout the class
+// Concise — parameters available throughout the class
 public class Product(string name, decimal price)
 {
     public string Name  { get; } = name;
@@ -8553,12 +8006,9 @@ public class Product(string name, decimal price)
 }
 
 var p = new Product("Laptop", 999m);
-Console.WriteLine($"{p.Name}: {p.Price:C}"); // Laptop: â‚¹999.00
+Console.WriteLine($"{p.Name}: {p.Price:C}"); // Laptop: ₹999.00
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. In parent child which constructor fires first?
 
@@ -8612,21 +8062,18 @@ public class Dog : Animal
 
 var d = new Dog("Rex", "Labrador");
 // Output:
-// Animal created: Rex      â† base runs first
-// Dog created: Labrador    â† derived runs second
+// Animal created: Rex      ← base runs first
+// Dog created: Labrador    ← derived runs second
 ```
 
 **Rule:** The `base()` call (explicit or implicit) always executes before the body of the derived constructor.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the Constructor Chaining in C#?
 
 **Constructor chaining** is calling one constructor from another in the same class using `this(...)` or from a derived class using `base(...)`. It avoids code duplication and centralises initialisation logic.
 
-**`this(...)` â€” chain within the same class:**
+**`this(...)` — chain within the same class:**
 
 ```cs
 public class Order
@@ -8635,7 +8082,7 @@ public class Order
     public string Customer { get; }
     public decimal Discount { get; }
 
-    // Most specific constructor â€” all initialisation here
+    // Most specific constructor — all initialisation here
     public Order(int id, string customer, decimal discount)
     {
         Id       = id;
@@ -8656,7 +8103,7 @@ new Order(2, "Pradeep");       // Order 2 for Pradeep, discount 0%
 new Order(3, "Alice", 0.15m);  // Order 3 for Alice, discount 15%
 ```
 
-**`base(...)` â€” chain to parent constructor:**
+**`base(...)` — chain to parent constructor:**
 
 ```cs
 public class Vehicle
@@ -8680,13 +8127,10 @@ public class Car : Vehicle
     public Car(string brand) : this(brand, 4) { } // chains to Car(string, int)
 }
 
-new Car("Tesla");         // Vehicle: Tesla â†’ Car: 4 doors
-new Car("BMW", 2);        // Vehicle: BMW   â†’ Car: 2 doors
+new Car("Tesla");         // Vehicle: Tesla → Car: 4 doors
+new Car("BMW", 2);        // Vehicle: BMW   → Car: 2 doors
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different ways a method can be overloaded?
 
@@ -8701,7 +8145,7 @@ new Car("BMW", 2);        // Vehicle: BMW   â†’ Car: 2 doors
 | Different parameter order | `Log(string msg, int level)` vs `Log(int level, string msg)` |
 | `params` vs explicit | `Sum(int a, int b)` vs `Sum(params int[] nums)` |
 
-**âŒ NOT valid for overloading:**
+**❌ NOT valid for overloading:**
 - Different return type only
 - Different parameter names only
 - `ref`/`out` alone (compiler cannot always distinguish)
@@ -8734,26 +8178,23 @@ Console.WriteLine(c.Sum(1, 2));           // 3
 Console.WriteLine(c.Sum(1, 2, 3, 4, 5)); // 15
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. When and why to use method overloading?
 
-Use method overloading when you want to provide **multiple convenient ways to call the same logical operation** with different inputs â€” without forcing callers to remember different method names.
+Use method overloading when you want to provide **multiple convenient ways to call the same logical operation** with different inputs — without forcing callers to remember different method names.
 
 **When to use:**
 - Same operation, different input types (e.g., `Draw(Circle)`, `Draw(Rectangle)`)
 - Optional parameters with meaningful defaults (prefer overloads over default params when callers must be clear)
-- API evolution â€” add a new overload without breaking existing callers
+- API evolution — add a new overload without breaking existing callers
 
 **Why it improves code:**
-- **Readability** â€” callers use one intuitive method name
-- **Discoverability** â€” IntelliSense shows all variants together
-- **Type safety** â€” each overload can handle its input correctly without casting
+- **Readability** — callers use one intuitive method name
+- **Discoverability** — IntelliSense shows all variants together
+- **Type safety** — each overload can handle its input correctly without casting
 
 ```cs
-// Logging API â€” callers don\'t need to know about formatting details
+// Logging API — callers don\'t need to know about formatting details
 public class Logger
 {
     public void Log(string message)
@@ -8783,9 +8224,6 @@ log.Log("Unhandled exception", new Exception("Boom"));
 - You want to avoid a single method with many nullable parameters
 - The combinations are meaningful and not just "add more defaults"
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is operator overloading supported in C#?
 
@@ -8793,7 +8231,7 @@ log.Log("Unhandled exception", new Exception("Boom"));
 
 **Overloadable operators:** `+`, `-`, `*`, `/`, `%`, `==`, `!=`, `<`, `>`, `<=`, `>=`, `!`, `~`, `++`, `--`, `&`, `|`, `^`, `<<`, `>>`, `true`, `false`
 
-**Example â€” `Vector2D` with operator overloading:**
+**Example — `Vector2D` with operator overloading:**
 
 ```cs
 public readonly record struct Vector2D(double X, double Y)
@@ -8819,7 +8257,7 @@ Console.WriteLine(v1 == new Vector2D(1, 2)); // True (record equality)
 Console.WriteLine(v1.Length); // Output: 2.236...
 ```
 
-**Comparison operators â€” must be overloaded in pairs:**
+**Comparison operators — must be overloaded in pairs:**
 
 ```cs
 public class Temperature : IComparable<Temperature>
@@ -8843,32 +8281,29 @@ Console.WriteLine(t1 > t2);  // True
 Console.WriteLine(t1 == t2); // False
 ```
 
-**Note:** `&&` and `||` cannot be overloaded directly â€” overload `true`/`false`/`&`/`|` instead.
+**Note:** `&&` and `||` cannot be overloaded directly — overload `true`/`false`/`&`/`|` instead.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can `this` be used within a static method?
 
-**No.** `this` refers to the **current instance** of a class, but static methods do not belong to any instance â€” they belong to the type itself. Therefore, `this` has no meaning inside a static method and the compiler will produce an error.
+**No.** `this` refers to the **current instance** of a class, but static methods do not belong to any instance — they belong to the type itself. Therefore, `this` has no meaning inside a static method and the compiler will produce an error.
 
 ```cs
 public class Counter
 {
     private int _count = 0;
 
-    public void Increment() => _count++;  // instance method â€” 'this' available
+    public void Increment() => _count++;  // instance method — 'this' available
 
     public static Counter Create()
     {
-        // Console.WriteLine(this._count); // âŒ Compile error: CS0026
+        // Console.WriteLine(this._count); // ❌ Compile error: CS0026
         // 'this' is not valid in a static member
-        return new Counter();              // âœ… create a new instance instead
+        return new Counter();              // ✅ create a new instance instead
     }
 
     public static int Compare(Counter a, Counter b) =>
-        a._count.CompareTo(b._count); // âœ… work with explicit instances
+        a._count.CompareTo(b._count); // ✅ work with explicit instances
 }
 
 var c = Counter.Create();
@@ -8877,13 +8312,10 @@ c.Increment();
 
 **Why:** Static methods are resolved at compile time on the type, not a runtime instance. There is no object to which `this` could refer.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you declare an override method to be static if the original method is not static?
 
-**No.** You cannot change the `static`/instance nature of a method when overriding. An `override` method must match the base method\'s signature exactly â€” same name, same parameter types, same staticness.
+**No.** You cannot change the `static`/instance nature of a method when overriding. An `override` method must match the base method\'s signature exactly — same name, same parameter types, same staticness.
 
 ```cs
 public class Base
@@ -8893,10 +8325,10 @@ public class Base
 
 public class Derived : Base
 {
-    // âŒ Compile error CS0106: cannot change 'virtual' to 'static' in override
+    // ❌ Compile error CS0106: cannot change 'virtual' to 'static' in override
     // public static override void Show() => Console.WriteLine("Derived");
 
-    // âœ… Correct override â€” non-static like the base
+    // ✅ Correct override — non-static like the base
     public override void Show() => Console.WriteLine("Derived");
 }
 ```
@@ -8905,18 +8337,15 @@ public class Derived : Base
 
 | Attempt | Allowed? |
 |---------|----------|
-| `virtual` â†’ `override` (non-static) | âœ… |
-| `virtual` non-static â†’ `static override` | âŒ |
-| `static` method â†’ `static override` | âŒ (static methods cannot be virtual) |
-| `abstract` â†’ `override` | âœ… |
+| `virtual` → `override` (non-static) | ✅ |
+| `virtual` non-static → `static override` | ❌ |
+| `static` method → `static override` | ❌ (static methods cannot be virtual) |
+| `abstract` → `override` | ✅ |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you declare the override method static while the original method is non-static?
 
-**No** â€” same answer as above. `override` requires the method to be non-static if the base method is non-static. Attempting to combine `static` and `override` on a method that overrides a virtual instance method is a compile error.
+**No** — same answer as above. `override` requires the method to be non-static if the base method is non-static. Attempting to combine `static` and `override` on a method that overrides a virtual instance method is a compile error.
 
 The only way to introduce a static method with the same name is to use `new` (method hiding), which is a completely separate method that is not polymorphic:
 
@@ -8928,26 +8357,23 @@ public class Base
 
 public class Derived : Base
 {
-    // âœ… Hides (does NOT override) the base virtual method
+    // ✅ Hides (does NOT override) the base virtual method
     public new static void Process() => Console.WriteLine("Derived static Process");
 
-    // âœ… Still override the virtual instance method separately if needed
+    // ✅ Still override the virtual instance method separately if needed
     public override void Process() => Console.WriteLine("Derived instance Process");
 }
 
-// Warning: hiding causes confusion â€” use with care and explicit casts:
+// Warning: hiding causes confusion — use with care and explicit casts:
 Derived.Process();                   // Output: Derived static Process
 Base b = new Derived();
 b.Process();                         // Output: Derived instance Process (override wins)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Why can you have only one static constructor?
 
-A **static constructor** initialises the type itself (not instances). Because there is exactly one copy of the type, it needs to be initialised exactly once â€” so only one static constructor is allowed and it takes **no parameters**.
+A **static constructor** initialises the type itself (not instances). Because there is exactly one copy of the type, it needs to be initialised exactly once — so only one static constructor is allowed and it takes **no parameters**.
 
 ```cs
 public class AppConfig
@@ -8955,7 +8381,7 @@ public class AppConfig
     public static string ConnectionString { get; }
     public static int MaxRetries { get; }
 
-    // One static constructor â€” no parameters, no access modifier
+    // One static constructor — no parameters, no access modifier
     static AppConfig()
     {
         ConnectionString = Environment.GetEnvironmentVariable("DB_CONN")
@@ -8965,23 +8391,20 @@ public class AppConfig
     }
 }
 
-// Accessed multiple times â€” static constructor runs only once
+// Accessed multiple times — static constructor runs only once
 Console.WriteLine(AppConfig.ConnectionString); // "initialised once" printed here
 Console.WriteLine(AppConfig.MaxRetries);       // no re-initialisation
 ```
 
 **Reasons only one is allowed:**
-1. **No parameters** â€” you can\'t distinguish overloads without parameters.
-2. **Single initialisation** â€” the CLR guarantees it runs exactly once before any static member is first accessed.
-3. **Thread safety** â€” the CLR makes static constructor execution thread-safe automatically; multiple constructors would complicate this guarantee.
+1. **No parameters** — you can\'t distinguish overloads without parameters.
+2. **Single initialisation** — the CLR guarantees it runs exactly once before any static member is first accessed.
+3. **Thread safety** — the CLR makes static constructor execution thread-safe automatically; multiple constructors would complicate this guarantee.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. When does the static constructor fire?
 
-The static constructor fires **automatically, once, before the type is first used** â€” either when a static member is first accessed or when the first instance of the class is created. You cannot call it directly.
+The static constructor fires **automatically, once, before the type is first used** — either when a static member is first accessed or when the first instance of the class is created. You cannot call it directly.
 
 ```cs
 public class Sensor
@@ -9006,22 +8429,19 @@ Console.WriteLine(Sensor.Model);  // triggers static constructor
 // --- First instance creation (if static ctor not yet run) ---
 var s = new Sensor();
 // Output:
-// Static constructor ran   â† runs first
-// Instance constructor ran â† then instance ctor
+// Static constructor ran   ← runs first
+// Instance constructor ran ← then instance ctor
 ```
 
 **Timing guarantees:**
 - Runs at most **once** per application domain.
 - Runs before any instance constructors or static method calls.
-- The CLR ensures thread safety â€” even if multiple threads access the type simultaneously, the static constructor runs only once.
+- The CLR ensures thread safety — even if multiple threads access the type simultaneously, the static constructor runs only once.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. When will the static constructor be called?
 
-The static constructor is called by the **CLR** (not by developer code) and is guaranteed to run **before the first use of the type** â€” whichever of these occurs first:
+The static constructor is called by the **CLR** (not by developer code) and is guaranteed to run **before the first use of the type** — whichever of these occurs first:
 
 1. **First access to a static member** (field, property, or method)
 2. **First instantiation** of the class
@@ -9046,7 +8466,7 @@ Console.WriteLine(Registry.Entries["version"]);
 // Registry loaded
 // 1.0
 
-// Second access â€” static constructor does NOT run again:
+// Second access — static constructor does NOT run again:
 Console.WriteLine(Registry.Entries["env"]); // Output: production
 ```
 
@@ -9056,9 +8476,6 @@ Console.WriteLine(Registry.Entries["env"]); // Output: production
 - Runs exactly **once** per application domain.
 - Exceptions in static constructors cause a `TypeInitializationException` on every subsequent access.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can we declare a Public access modifier for a static constructor?
 
@@ -9067,10 +8484,10 @@ Console.WriteLine(Registry.Entries["env"]); // Output: production
 ```cs
 public class MyClass
 {
-    // âŒ Compile error CS0515: access modifiers are not allowed on static constructors
+    // ❌ Compile error CS0515: access modifiers are not allowed on static constructors
     // public static MyClass() { }
 
-    // âœ… Correct â€” no access modifier
+    // ✅ Correct — no access modifier
     static MyClass()
     {
         Console.WriteLine("Type initialised");
@@ -9085,13 +8502,10 @@ public class MyClass
 | Access modifier | None (not allowed) |
 | Parameters | None (not allowed) |
 | Return type | None |
-| Can be overloaded | No â€” only one allowed |
+| Can be overloaded | No — only one allowed |
 | Called by | CLR automatically |
 | Called how many times | Once per AppDomain |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. If we declare Main() and a static constructor in the same class, which one will be called first?
 
@@ -9119,13 +8533,10 @@ public class Program
 
 **Why:** The CLR guarantees that all static members are initialised before any method of the type runs. Since `Main()` is a static method of `Program`, the CLR initialises `Program` (runs its static constructor) before entering `Main()`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How does dependency inversion benefit? Show with an example.
 
-The **Dependency Inversion Principle (DIP)** â€” the D in SOLID â€” states:
+The **Dependency Inversion Principle (DIP)** — the D in SOLID — states:
 1. High-level modules should not depend on low-level modules. Both should depend on **abstractions**.
 2. Abstractions should not depend on details. Details should depend on abstractions.
 
@@ -9135,7 +8546,7 @@ The **Dependency Inversion Principle (DIP)** â€” the D in SOLID â€” st
 - Allows swapping implementations without changing consumers.
 - Enables parallel development of components.
 
-**Without DIP (tightly coupled â€” bad):**
+**Without DIP (tightly coupled — bad):**
 
 ```cs
 // High-level module depends directly on low-level SqlServer class
@@ -9150,10 +8561,10 @@ public class OrderService
 }
 ```
 
-**With DIP (loosely coupled â€” good):**
+**With DIP (loosely coupled — good):**
 
 ```cs
-// 1. Abstraction (interface) â€” both layers depend on this
+// 1. Abstraction (interface) — both layers depend on this
 public interface IOrderRepository
 {
     void Save(string item);
@@ -9177,11 +8588,11 @@ public class OrderService(IOrderRepository repo) // injected via constructor
     public void PlaceOrder(string item) => repo.Save(item);
 }
 
-// Production â€” use SQL
+// Production — use SQL
 var prodService = new OrderService(new SqlOrderRepository());
 prodService.PlaceOrder("Laptop"); // SQL: Saved 'Laptop'
 
-// Test â€” swap to in-memory without touching OrderService
+// Test — swap to in-memory without touching OrderService
 var testService = new OrderService(new InMemoryOrderRepository());
 testService.PlaceOrder("Monitor"); // Memory: Saved 'Monitor'
 ```
@@ -9190,50 +8601,47 @@ testService.PlaceOrder("Monitor"); // Memory: Saved 'Monitor'
 
 ```cs
 builder.Services.AddScoped<IOrderRepository, SqlOrderRepository>();
-// Swap to InMemoryOrderRepository by changing ONE line â€” no code changes elsewhere
+// Swap to InMemoryOrderRepository by changing ONE line — no code changes elsewhere
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Will only Dependency Inversion solve the decoupling problem?
 
 **No.** DIP is essential but not sufficient on its own. Full decoupling requires applying several complementary principles and patterns together.
 
 **What DIP solves:**
-- Removes direct class-to-class dependencies (high-level â†’ abstraction â† low-level).
+- Removes direct class-to-class dependencies (high-level → abstraction ← low-level).
 - Enables dependency injection.
 
 **What DIP alone does NOT solve:**
 
 | Gap | Solution |
 |-----|---------|
-| Too many responsibilities in one class | **SRP** â€” Single Responsibility Principle |
-| Open to breaking changes when extending | **OCP** â€” Open/Closed Principle |
-| Interfaces that are too broad (fat interfaces) | **ISP** â€” Interface Segregation Principle |
-| Subclasses violating base-class contracts | **LSP** â€” Liskov Substitution Principle |
+| Too many responsibilities in one class | **SRP** — Single Responsibility Principle |
+| Open to breaking changes when extending | **OCP** — Open/Closed Principle |
+| Interfaces that are too broad (fat interfaces) | **ISP** — Interface Segregation Principle |
+| Subclasses violating base-class contracts | **LSP** — Liskov Substitution Principle |
 | Runtime coupling via events | **Observer / Event Aggregator** pattern |
 | Service location anti-pattern | **Constructor injection** (not `ServiceLocator.Get<T>()`) |
 | Circular dependencies | **Mediator** pattern or redesign |
 
-**Example â€” DIP alone is not enough:**
+**Example — DIP alone is not enough:**
 
 ```cs
-// DIP applied: depends on interface âœ…
-// BUT violates SRP: does ordering, emailing, AND logging in one class âŒ
+// DIP applied: depends on interface ✅
+// BUT violates SRP: does ordering, emailing, AND logging in one class ❌
 public class OrderService(IOrderRepository repo, IEmailService email, ILogger logger)
 {
     public void PlaceOrder(string item)
     {
         repo.Save(item);            // ordering
-        email.Send("Confirmation"); // emailing â€” should be separate concern
-        logger.Log("Order placed"); // logging â€” cross-cutting concern
+        email.Send("Confirmation"); // emailing — should be separate concern
+        logger.Log("Order placed"); // logging — cross-cutting concern
     }
 }
 ```
 
-**Better â€” combine DIP + SRP + OCP:**
+**Better — combine DIP + SRP + OCP:**
 
 ```cs
 // Separate concerns, each depending on abstractions
@@ -9246,14 +8654,11 @@ public class OrderService(IOrderRepository repo, IOrderEventPublisher events)
     }
 }
 
-// Email and logging react to the event â€” OrderService doesn\'t know about them
+// Email and logging react to the event — OrderService doesn\'t know about them
 ```
 
 **Takeaway:** Apply all five SOLID principles together, use dependency injection frameworks (like .NET\'s built-in DI), and consider patterns like Mediator, Observer, and Event Aggregator for full decoupling.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between a value type and a reference type in C#?
 
@@ -9266,19 +8671,19 @@ This is one of the most fundamental distinctions in C#. It affects memory layout
 | Default value | Zero/`false`/`\0` etc. | `null` |
 | Equality (default) | Value-based | Reference-based (same object?) |
 | Can be `null` | Only via `Nullable<T>` / `T?` | Yes |
-| Inheritance | Inherits from `ValueType` â†’ `object` | Inherits from `object` |
+| Inheritance | Inherits from `ValueType` → `object` | Inherits from `object` |
 | Examples | `int`, `double`, `bool`, `struct`, `enum`, `record struct` | `class`, `string`, `array`, `interface`, `delegate`, `record class` |
 
 **Assignment behavior:**
 
 ```cs
-// Value type â€” assignment copies the value
+// Value type — assignment copies the value
 int a = 10;
 int b = a;
 b = 99;
-Console.WriteLine(a); // Output: 10  (a is unchanged â€” b got a copy)
+Console.WriteLine(a); // Output: 10  (a is unchanged — b got a copy)
 
-// Reference type â€” assignment copies the reference
+// Reference type — assignment copies the reference
 var list1 = new List<int> { 1, 2, 3 };
 var list2 = list1;   // both point to the same List
 list2.Add(4);
@@ -9294,24 +8699,24 @@ public class  PointR { public int X, Y; }    // reference type
 var sv = new PointV { X = 1, Y = 2 };
 var sv2 = sv;  // full copy
 sv2.X = 99;
-Console.WriteLine(sv.X);  // Output: 1 â€” copy is independent
+Console.WriteLine(sv.X);  // Output: 1 — copy is independent
 
 var rv = new PointR { X = 1, Y = 2 };
 var rv2 = rv;  // reference copy
 rv2.X = 99;
-Console.WriteLine(rv.X);  // Output: 99 â€” same object!
+Console.WriteLine(rv.X);  // Output: 99 — same object!
 ```
 
-**Boxing â€” value type wrapped in reference:**
+**Boxing — value type wrapped in reference:**
 
 ```cs
 int n = 42;
-object boxed = n;     // boxing: value type â†’ heap allocation
+object boxed = n;     // boxing: value type → heap allocation
 int unboxed = (int)boxed; // unboxing
 Console.WriteLine(unboxed); // Output: 42
 ```
 
-**Modern `readonly record struct` (C# 10+) â€” value type with immutability and value equality:**
+**Modern `readonly record struct` (C# 10+) — value type with immutability and value equality:**
 
 ```cs
 public readonly record struct Money(decimal Amount, string Currency)
@@ -9325,9 +8730,6 @@ Console.WriteLine(m1 == m2);  // Output: True  (value equality)
 Console.WriteLine(m1);        // Output: 100.00 USD
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is encapsulation in C# and why is it important?
 
@@ -9339,7 +8741,7 @@ Console.WriteLine(m1);        // Output: 100.00 USD
 - Enables validation logic in setters.
 - Makes code easier to maintain and refactor.
 
-**Example â€” without encapsulation (bad):**
+**Example — without encapsulation (bad):**
 
 ```cs
 public class Temperature
@@ -9351,7 +8753,7 @@ var t = new Temperature();
 t.Celsius = -9999; // invalid, no protection
 ```
 
-**Example â€” with encapsulation (good):**
+**Example — with encapsulation (good):**
 
 ```cs
 public class Temperature
@@ -9371,17 +8773,17 @@ public class Temperature
 
     public double Fahrenheit => _celsius * 9 / 5 + 32;
 
-    public override string ToString() => $"{_celsius}Â°C / {Fahrenheit}Â°F";
+    public override string ToString() => $"{_celsius}°C / {Fahrenheit}°F";
 }
 
 var temp = new Temperature { Celsius = 100 };
-Console.WriteLine(temp); // Output: 100Â°C / 212Â°F
+Console.WriteLine(temp); // Output: 100°C / 212°F
 ```
 
-**Modern .NET â€” encapsulation with records and `init`:**
+**Modern .NET — encapsulation with records and `init`:**
 
 ```cs
-// Immutable by design â€” state set once at construction
+// Immutable by design — state set once at construction
 public record class Product
 {
     public required string Name { get; init; }
@@ -9395,25 +8797,22 @@ public record class Product
 }
 
 var p = new Product { Name = "Laptop", Price = 999m };
-// p.Price = -1; // Compile error â€” init-only
+// p.Price = -1; // Compile error — init-only
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you implement encapsulation in C#?
 
 Encapsulation is implemented in C# through three main mechanisms:
 
-1. **Access modifiers** â€” restrict who can see or modify members.
-2. **Properties** â€” expose controlled read/write access to private fields, with optional validation.
-3. **Methods** â€” expose behaviour while hiding the internal steps.
+1. **Access modifiers** — restrict who can see or modify members.
+2. **Properties** — expose controlled read/write access to private fields, with optional validation.
+3. **Methods** — expose behaviour while hiding the internal steps.
 
 ```cs
 public class BankAccount
 {
-    // 1. Private backing field â€” hidden from outside
+    // 1. Private backing field — hidden from outside
     private decimal _balance;
     private readonly List<string> _transactions = [];
 
@@ -9427,7 +8826,7 @@ public class BankAccount
         Deposit(initialDeposit); // use method, not direct field access
     }
 
-    // 2. Property with validation â€” encapsulates the balance field
+    // 2. Property with validation — encapsulates the balance field
     public decimal Balance => _balance; // read-only externally
 
     // 3. Methods expose controlled behavior
@@ -9455,10 +8854,10 @@ acc.Withdraw(200m);
 
 Console.WriteLine(acc.Balance); // Output: 1300
 foreach (var t in acc.GetHistory())
-    Console.WriteLine(t); // +Â£1,000.00, +Â£500.00, -Â£200.00
+    Console.WriteLine(t); // +£1,000.00, +£500.00, -£200.00
 ```
 
-**Modern approach â€” `required` + `init` properties (C# 11 / .NET 7+):**
+**Modern approach — `required` + `init` properties (C# 11 / .NET 7+):**
 
 ```cs
 public class Product
@@ -9470,17 +8869,14 @@ public class Product
 }
 
 var p = new Product { Name = "Laptop", Price = 999m };
-Console.WriteLine(p.Description); // Laptop: Â£999.00
-// p.Price = 500m; // âŒ compile error â€” init-only
+Console.WriteLine(p.Description); // Laptop: £999.00
+// p.Price = 500m; // ❌ compile error — init-only
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you provide an example of encapsulation in C#?
 
-**Example â€” `Temperature` class with validated property:**
+**Example — `Temperature` class with validated property:**
 
 ```cs
 public class Temperature
@@ -9494,28 +8890,28 @@ public class Temperature
         {
             if (value < -273.15)
                 throw new ArgumentOutOfRangeException(nameof(value),
-                    "Temperature cannot be below absolute zero (-273.15Â°C)");
+                    "Temperature cannot be below absolute zero (-273.15°C)");
             _celsius = value;
         }
     }
 
-    // Derived property â€” read-only, computed from internal state
+    // Derived property — read-only, computed from internal state
     public double Fahrenheit => _celsius * 9.0 / 5.0 + 32;
     public double Kelvin     => _celsius + 273.15;
 
     public override string ToString() =>
-        $"{_celsius:F1}Â°C / {Fahrenheit:F1}Â°F / {Kelvin:F2}K";
+        $"{_celsius:F1}°C / {Fahrenheit:F1}°F / {Kelvin:F2}K";
 }
 
 var t = new Temperature { Celsius = 100 };
-Console.WriteLine(t); // Output: 100.0Â°C / 212.0Â°F / 373.15K
+Console.WriteLine(t); // Output: 100.0°C / 212.0°F / 373.15K
 
 t.Celsius = -10;
 Console.WriteLine(t.Fahrenheit); // Output: 14.0
 
 try
 {
-    t.Celsius = -300; // âŒ below absolute zero
+    t.Celsius = -300; // ❌ below absolute zero
 }
 catch (ArgumentOutOfRangeException ex)
 {
@@ -9524,14 +8920,11 @@ catch (ArgumentOutOfRangeException ex)
 ```
 
 **Key encapsulation points in this example:**
-- `_celsius` is `private` â€” nobody sets it directly.
+- `_celsius` is `private` — nobody sets it directly.
 - The `set` accessor validates the value before storing.
-- `Fahrenheit` and `Kelvin` are computed read-only properties â€” callers cannot set them.
+- `Fahrenheit` and `Kelvin` are computed read-only properties — callers cannot set them.
 - The class *owns* the conversion logic; the caller only provides Celsius.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the benefits of using encapsulation in object-oriented programming?
 
@@ -9544,18 +8937,18 @@ catch (ArgumentOutOfRangeException ex)
 | **Testability** | Encapsulated classes are self-contained and easier to unit-test |
 | **Readability** | Clear public surface separates "what to use" from "how it works" |
 
-**Example â€” changing internals without breaking callers:**
+**Example — changing internals without breaking callers:**
 
 ```cs
-// Version 1 â€” stores Celsius internally
+// Version 1 — stores Celsius internally
 public class Temperature
 {
     private double _celsius;
     public double Celsius { get => _celsius; set => _celsius = value; }
 }
 
-// Version 2 â€” internally switched to Kelvin storage (implementation detail)
-// Callers still use .Celsius â€” nothing breaks!
+// Version 2 — internally switched to Kelvin storage (implementation detail)
+// Callers still use .Celsius — nothing breaks!
 public class Temperature
 {
     private double _kelvin; // changed internal representation
@@ -9567,34 +8960,31 @@ public class Temperature
     }
 }
 
-// Caller â€” unchanged in both versions
+// Caller — unchanged in both versions
 var t = new Temperature { Celsius = 100 };
 Console.WriteLine(t.Celsius); // Output: 100
 ```
 
-The caller never knew about `_celsius` or `_kelvin` â€” encapsulation made the change invisible.
+The caller never knew about `_celsius` or `_kelvin` — encapsulation made the change invisible.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How does encapsulation help in maintaining code?
 
 Encapsulation supports maintainability in four key ways:
 
-**1. Change-safe internals** â€” You can refactor, optimise, or fix the internal implementation of a class without touching any of its consumers, as long as the public API stays the same.
+**1. Change-safe internals** — You can refactor, optimise, or fix the internal implementation of a class without touching any of its consumers, as long as the public API stays the same.
 
-**2. Single point of change** â€” Validation logic lives in one place (the property or constructor). Fix a bug once; every caller benefits.
+**2. Single point of change** — Validation logic lives in one place (the property or constructor). Fix a bug once; every caller benefits.
 
-**3. Prevents invalid state propagation** â€” Bugs caused by one part of the code corrupting another\'s data are stopped at the class boundary.
+**3. Prevents invalid state propagation** — Bugs caused by one part of the code corrupting another\'s data are stopped at the class boundary.
 
-**4. Self-documenting intent** â€” A `private` field signals "implementation detail"; a `public` property signals "intended API". Reading the public members is enough to understand how to use the class.
+**4. Self-documenting intent** — A `private` field signals "implementation detail"; a `public` property signals "intended API". Reading the public members is enough to understand how to use the class.
 
 ```cs
-// Before: no encapsulation â€” Order total calculated in 12 different places
+// Before: no encapsulation — Order total calculated in 12 different places
 public class Order { public decimal Total; } // anyone writes to Total
 
-// After: encapsulation â€” total is always correct, calculated in one place
+// After: encapsulation — total is always correct, calculated in one place
 public class Order
 {
     private readonly List<decimal> _lineItems = [];
@@ -9605,7 +8995,7 @@ public class Order
         _lineItems.Add(price);
     }
 
-    // Total is always consistent â€” derived from the single source of truth
+    // Total is always consistent — derived from the single source of truth
     public decimal Total => _lineItems.Sum();
     public int ItemCount => _lineItems.Count;
 }
@@ -9617,12 +9007,9 @@ order.AddItem(19.99m);
 Console.WriteLine(order.Total);     // Output: 69.98
 Console.WriteLine(order.ItemCount); // Output: 2
 
-// order.Total = 0; // âŒ compile error â€” read-only, prevents accidental zeroing
+// order.Total = 0; // ❌ compile error — read-only, prevents accidental zeroing
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between encapsulation and abstraction in C#?
 
@@ -9636,12 +9023,12 @@ Both are OOP pillars and are often confused, but they address different concerns
 | **Level** | Within a single class | Across the design (class hierarchy, module boundary) |
 | **Question answered** | "Who can see/change this?" | "What can I do with this?" |
 
-**Encapsulation example â€” hiding state:**
+**Encapsulation example — hiding state:**
 
 ```cs
 public class Stack<T>
 {
-    private readonly List<T> _items = []; // hidden â€” caller doesn\'t know it\'s a List
+    private readonly List<T> _items = []; // hidden — caller doesn\'t know it\'s a List
 
     public void Push(T item) => _items.Add(item);
     public T Pop()
@@ -9655,10 +9042,10 @@ public class Stack<T>
 }
 ```
 
-**Abstraction example â€” hiding how things work:**
+**Abstraction example — hiding how things work:**
 
 ```cs
-// Caller only knows "I can send notifications" â€” doesn\'t know SMTP vs push vs SMS
+// Caller only knows "I can send notifications" — doesn\'t know SMTP vs push vs SMS
 public interface INotificationService
 {
     Task NotifyAsync(string userId, string message);
@@ -9669,7 +9056,7 @@ public class PushNotificationService : INotificationService
     public async Task NotifyAsync(string userId, string message)
     {
         // Complex push notification logic hidden here
-        Console.WriteLine($"Push â†’ {userId}: {message}");
+        Console.WriteLine($"Push → {userId}: {message}");
         await Task.CompletedTask;
     }
 }
@@ -9684,21 +9071,18 @@ public class AlertService(INotificationService notifier)
 
 **Together:** Encapsulation protects the *state* inside `PushNotificationService`; abstraction hides *what service is used* from `AlertService`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can encapsulation be violated in C#?
 
 Encapsulation is violated when internal state is exposed or bypassed in ways that allow invalid or unexpected modifications. Common violations:
 
-**1. Public fields â€” no validation possible:**
+**1. Public fields — no validation possible:**
 
 ```cs
-// âŒ Violation â€” direct public field
+// ❌ Violation — direct public field
 public class Circle { public double Radius; } // can be set to -1
 
-// âœ… Fix â€” property with validation
+// ✅ Fix — property with validation
 public class Circle
 {
     private double _radius;
@@ -9706,7 +9090,7 @@ public class Circle
     {
         get => _radius;
         set => _radius = value >= 0 ? value
-               : throw new ArgumentException("Radius must be â‰¥ 0");
+               : throw new ArgumentException("Radius must be ≥ 0");
     }
 }
 ```
@@ -9714,7 +9098,7 @@ public class Circle
 **2. Returning mutable collections directly:**
 
 ```cs
-// âŒ Violation â€” caller can mutate internal list
+// ❌ Violation — caller can mutate internal list
 public class Roster
 {
     private readonly List<string> _names = ["Alice", "Bob"];
@@ -9724,11 +9108,11 @@ public class Roster
 var r = new Roster();
 r.Names.Clear(); // corrupts internal state!
 
-// âœ… Fix â€” return read-only view
+// ✅ Fix — return read-only view
 public IReadOnlyList<string> Names => _names.AsReadOnly();
 ```
 
-**3. Reflection â€” bypasses access modifiers (use only in exceptional scenarios):**
+**3. Reflection — bypasses access modifiers (use only in exceptional scenarios):**
 
 ```cs
 public class Secret { private int _code = 42; }
@@ -9738,13 +9122,13 @@ var field = typeof(Secret).GetField("_code",
     System.Reflection.BindingFlags.NonPublic |
     System.Reflection.BindingFlags.Instance);
 
-field!.SetValue(s, 999); // âš ï¸ bypasses encapsulation via reflection
+field!.SetValue(s, 999); // ⚠️ bypasses encapsulation via reflection
 ```
 
 **4. Overly broad access modifiers:**
 
 ```cs
-// âŒ Making implementation details public/internal unnecessarily
+// ❌ Making implementation details public/internal unnecessarily
 public class PaymentProcessor
 {
     public string _internalToken = "abc123"; // should be private
@@ -9754,13 +9138,13 @@ public class PaymentProcessor
 **5. Mutable default property setters without validation:**
 
 ```cs
-// âŒ Auto-property with public setter â€” no opportunity to validate
+// ❌ Auto-property with public setter — no opportunity to validate
 public class Person
 {
     public int Age { get; set; } // can be set to -1 or 999
 }
 
-// âœ… Validate in setter or use init + constructor validation
+// ✅ Validate in setter or use init + constructor validation
 public class Person
 {
     private int _age;
@@ -9773,9 +9157,6 @@ public class Person
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do access modifiers (public, private, protected, internal) relate to encapsulation in C#?
 
@@ -9783,30 +9164,30 @@ Access modifiers are the **primary tool for implementing encapsulation** in C#. 
 
 | Modifier | Visibility | Encapsulation role |
 |---|---|---|
-| `private` | Same class only | Strongest encapsulation â€” fields should almost always be `private` |
+| `private` | Same class only | Strongest encapsulation — fields should almost always be `private` |
 | `protected` | Same class + derived classes | Shares internals with subclasses while hiding from the outside world |
 | `internal` | Same assembly | Shares internals within a module/library, hidden from other assemblies |
 | `private protected` | Same class + derived (same assembly) | Most restrictive combination |
 | `protected internal` | Derived classes (any) + same assembly | Widest combined modifier |
-| `public` | Everywhere | No encapsulation â€” intentionally exposed API surface |
+| `public` | Everywhere | No encapsulation — intentionally exposed API surface |
 
 **How they work together in a well-encapsulated class:**
 
 ```cs
 public class Employee
 {
-    // private â€” never exposed: internal state
+    // private — never exposed: internal state
     private decimal _salary;
     private readonly List<string> _auditLog = [];
 
-    // public â€” the intentional API surface
+    // public — the intentional API surface
     public string Name { get; }
     public string Department { get; private set; } // readable everywhere, settable here
 
-    // protected â€” available to payroll sub-hierarchy
+    // protected — available to payroll sub-hierarchy
     protected decimal BaseSalary => _salary;
 
-    // internal â€” visible within the HR assembly for reporting
+    // internal — visible within the HR assembly for reporting
     internal DateTime HireDate { get; }
 
     public Employee(string name, string department, decimal salary, DateTime hireDate)
@@ -9817,7 +9198,7 @@ public class Employee
         SetSalary(salary); // use private method to enforce rules
     }
 
-    // private method â€” implementation detail, not part of public API
+    // private method — implementation detail, not part of public API
     private void SetSalary(decimal value)
     {
         if (value < 0) throw new ArgumentException("Salary must be non-negative");
@@ -9842,60 +9223,54 @@ foreach (var entry in emp.GetAuditLog())
 
 **Rule of thumb:** Start with `private`. Only widen the access modifier when there is a clear need.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain method hiding?
 
-**Method hiding** occurs when a derived class defines a method with the same name and signature as a base class method using the `new` keyword. The derived method *hides* the base method rather than *overriding* it â€” it breaks the polymorphic chain.
+**Method hiding** occurs when a derived class defines a method with the same name and signature as a base class method using the `new` keyword. The derived method *hides* the base method rather than *overriding* it — it breaks the polymorphic chain.
 
 **Key difference from `override`:**
-- `override` â€” the derived method replaces the base: called even through a base reference.
-- `new` (hiding) â€” the derived method only applies when accessed via the derived type reference.
+- `override` — the derived method replaces the base: called even through a base reference.
+- `new` (hiding) — the derived method only applies when accessed via the derived type reference.
 
 ```cs
 public class Animal
 {
-    public virtual string Sound() => "...";  // virtual â€” intended for override
-    public string Name()  => "Animal";        // non-virtual â€” hiding candidate
+    public virtual string Sound() => "...";  // virtual — intended for override
+    public string Name()  => "Animal";        // non-virtual — hiding candidate
 }
 
 public class Dog : Animal
 {
-    public override string Sound() => "Woof"; // override â€” polymorphic
-    public new string Name()  => "Dog";        // new â€” hides Animal.Name()
+    public override string Sound() => "Woof"; // override — polymorphic
+    public new string Name()  => "Dog";        // new — hides Animal.Name()
 }
 
 // ---- Polymorphism with override ----
 Animal a1 = new Dog();
-Console.WriteLine(a1.Sound()); // Output: Woof  â† Dog\'s version (override wins)
+Console.WriteLine(a1.Sound()); // Output: Woof  ← Dog\'s version (override wins)
 
 // ---- Method hiding with new ----
 Animal a2 = new Dog();
-Console.WriteLine(a2.Name()); // Output: Animal â† reference type decides (base wins!)
+Console.WriteLine(a2.Name()); // Output: Animal ← reference type decides (base wins!)
 
 Dog d = new Dog();
-Console.WriteLine(d.Name());  // Output: Dog    â† derived reference â†’ Dog\'s version
+Console.WriteLine(d.Name());  // Output: Dog    ← derived reference → Dog\'s version
 ```
 
 **Why method hiding exists:**
-- Versioning â€” a base class added a new method AFTER the derived class defined one with the same name; `new` prevents a compile warning while acknowledging the conflict.
-- Intentional API divergence â€” rare, but sometimes a derived class needs a completely separate method with the same name.
+- Versioning — a base class added a new method AFTER the derived class defined one with the same name; `new` prevents a compile warning while acknowledging the conflict.
+- Intentional API divergence — rare, but sometimes a derived class needs a completely separate method with the same name.
 
-**Warning:** Method hiding breaks the **Liskov Substitution Principle** â€” code that holds a `Dog` via an `Animal` reference will call the base `Name()` unexpectedly. Prefer `override` for polymorphic behavior.
+**Warning:** Method hiding breaks the **Liskov Substitution Principle** — code that holds a `Dog` via an `Animal` reference will call the base `Name()` unexpectedly. Prefer `override` for polymorphic behavior.
 
 ```cs
 // Practical demonstration of the problem
 void PrintName(Animal a) => Console.WriteLine(a.Name());
 
 PrintName(new Animal()); // Output: Animal
-PrintName(new Dog());    // Output: Animal  â† NOT Dog! Hiding breaks polymorphism
+PrintName(new Dog());    // Output: Animal  ← NOT Dog! Hiding breaks polymorphism
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is polymorphism?
 
@@ -9903,7 +9278,7 @@ PrintName(new Dog());    // Output: Animal  â† NOT Dog! Hiding breaks polym
 
 C# supports two main forms:
 
-**1. Compile-time (static) polymorphism â€” method overloading:**
+**1. Compile-time (static) polymorphism — method overloading:**
 
 Multiple methods with the same name but different parameter signatures.
 
@@ -9921,7 +9296,7 @@ Console.WriteLine(calc.Add(1.5, 2.5));      // 4
 Console.WriteLine(calc.Add("Hello ", "World")); // Hello World
 ```
 
-**2. Runtime (dynamic) polymorphism â€” method overriding:**
+**2. Runtime (dynamic) polymorphism — method overriding:**
 
 Derived classes override `virtual` or `abstract` methods; the correct implementation is chosen at runtime.
 
@@ -9963,9 +9338,6 @@ double GetArea(object shape) => shape switch
 };
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the four pillars of OOP in C#?
 
@@ -10044,11 +9416,8 @@ foreach (var n in notifications)
 // SMS: Your order is shipped!
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 4. INHERITANCE
+## 4. Inheritance
 
 <br/>
 
@@ -10120,9 +9489,6 @@ var d = new Dog("Rex", "Labrador");
 Console.WriteLine(d); // Output: Rex (Labrador)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between single inheritance and multiple inheritance in C#?
 
@@ -10132,8 +9498,8 @@ Console.WriteLine(d); // Output: Rex (Labrador)
 
 | Feature | Single inheritance | Multiple inheritance |
 |---|---|---|
-| Class | âœ… Supported | âŒ Not supported |
-| Interface | âœ… | âœ… (multiple interfaces allowed) |
+| Class | ✅ Supported | ❌ Not supported |
+| Interface | ✅ | ✅ (multiple interfaces allowed) |
 | Diamond problem | Not possible | Avoided by design |
 
 **Single class inheritance:**
@@ -10180,11 +9546,8 @@ flyer.Fly();   // Donald is flying
 swimmer.Swim(); // Donald is swimming
 ```
 
-**Why C# avoids multiple class inheritance:** The **diamond problem** â€” if two base classes define the same method, the compiler cannot determine which version to call. Interfaces (with default implementations in C# 8+) sidestep this via explicit interface implementation.
+**Why C# avoids multiple class inheritance:** The **diamond problem** — if two base classes define the same method, the compiler cannot determine which version to call. Interfaces (with default implementations in C# 8+) sidestep this via explicit interface implementation.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can you use the "base" keyword in C# to call the base class constructor?
 
@@ -10195,7 +9558,7 @@ The `base` keyword in a constructor\'s initialiser list calls a specific base cl
 public DerivedClass(args) : base(args_for_base) { }
 ```
 
-**Example â€” calling parameterised base constructors:**
+**Example — calling parameterised base constructors:**
 
 ```cs
 public class Vehicle
@@ -10227,7 +9590,7 @@ public class ElectricCar : Car
 {
     public int RangeKm { get; }
 
-    // Chains all the way up: Vehicle â†’ Car â†’ ElectricCar
+    // Chains all the way up: Vehicle → Car → ElectricCar
     public ElectricCar(string brand, int year, int doors, int rangeKm)
         : base(brand, year, doors)
     {
@@ -10286,15 +9649,12 @@ new TimestampLogger().Log("started");
 // [14:32:01]
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you explain polymorphism and how it is achieved in C#?
 
 **Polymorphism** ("many forms") is the ability for a single interface or method name to represent different behaviors depending on the runtime type of the object. C# supports three forms:
 
-**1. Compile-time polymorphism â€” method overloading:**
+**1. Compile-time polymorphism — method overloading:**
 
 ```cs
 public class Printer
@@ -10310,7 +9670,7 @@ p.Print("Hello"); // string: Hello
 p.Print(3.14);    // double: 3.14
 ```
 
-**2. Runtime polymorphism â€” method overriding (`virtual`/`override`):**
+**2. Runtime polymorphism — method overriding (`virtual`/`override`):**
 
 ```cs
 public abstract class Shape
@@ -10334,7 +9694,7 @@ public class Triangle(double b, double height) : Shape
     public override double Area() => 0.5 * b * height;
 }
 
-// All three accessed through Shape reference â€” runtime decides which Area() to call
+// All three accessed through Shape reference — runtime decides which Area() to call
 Shape[] shapes = [new Circle(5), new Rectangle(4, 6), new Triangle(3, 8)];
 
 foreach (var shape in shapes)
@@ -10369,9 +9729,6 @@ static double GetArea(Shape shape) => shape switch
 };
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can you use inheritance and polymorphism together to achieve dynamic dispatch in C#?
 
@@ -10383,14 +9740,14 @@ public abstract class Notification
     public string Recipient { get; }
     protected Notification(string recipient) => Recipient = recipient;
 
-    // virtual method â€” subclasses override; dispatch is dynamic
+    // virtual method — subclasses override; dispatch is dynamic
     public abstract Task SendAsync(string message);
 
-    // Template method pattern â€” fixed algorithm, dynamic steps
+    // Template method pattern — fixed algorithm, dynamic steps
     public async Task NotifyAsync(string message)
     {
         Console.WriteLine($"Preparing notification for {Recipient}...");
-        await SendAsync(message); // dynamic dispatch â€” runtime type decides
+        await SendAsync(message); // dynamic dispatch — runtime type decides
         Console.WriteLine("Done.");
     }
 }
@@ -10400,7 +9757,7 @@ public class EmailNotification(string recipient, string smtpServer)
 {
     public override Task SendAsync(string message)
     {
-        Console.WriteLine($"[SMTP:{smtpServer}] Email â†’ {Recipient}: {message}");
+        Console.WriteLine($"[SMTP:{smtpServer}] Email → {Recipient}: {message}");
         return Task.CompletedTask;
     }
 }
@@ -10410,7 +9767,7 @@ public class SmsNotification(string recipient, string phoneNumber)
 {
     public override Task SendAsync(string message)
     {
-        Console.WriteLine($"[SMS:{phoneNumber}] â†’ {Recipient}: {message}");
+        Console.WriteLine($"[SMS:{phoneNumber}] → {Recipient}: {message}");
         return Task.CompletedTask;
     }
 }
@@ -10420,12 +9777,12 @@ public class PushNotification(string recipient, string deviceToken)
 {
     public override Task SendAsync(string message)
     {
-        Console.WriteLine($"[Push:{deviceToken}] â†’ {Recipient}: {message}");
+        Console.WriteLine($"[Push:{deviceToken}] → {Recipient}: {message}");
         return Task.CompletedTask;
     }
 }
 
-// Dynamic dispatch â€” all through the Notification base reference
+// Dynamic dispatch — all through the Notification base reference
 Notification[] notifications =
 [
     new EmailNotification("alice@example.com", "smtp.gmail.com"),
@@ -10440,21 +9797,18 @@ foreach (var n in notifications)
 **Output:**
 ```
 Preparing notification for alice@example.com...
-[SMTP:smtp.gmail.com] Email â†’ alice@example.com: Your order has shipped!
+[SMTP:smtp.gmail.com] Email → alice@example.com: Your order has shipped!
 Done.
 Preparing notification for Bob...
-[SMS:+1-555-1234] â†’ Bob: Your order has shipped!
+[SMS:+1-555-1234] → Bob: Your order has shipped!
 Done.
 Preparing notification for Carol...
-[Push:tok_abc123] â†’ Carol: Your order has shipped!
+[Push:tok_abc123] → Carol: Your order has shipped!
 Done.
 ```
 
 **Key point:** `NotifyAsync` is defined once in the base class. It calls `SendAsync`, which is dispatched dynamically to whichever derived class is actually stored in `n` at runtime. Adding a new notification type (e.g., `SlackNotification`) requires zero changes to `NotifyAsync`.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the base keyword in C#, and how is it used in inheritance?
 
@@ -10480,11 +9834,11 @@ public class Employee : Person
         Department = department;
     }
 
-    public override string ToString() => $"{Name} ({Age}) â€” {Department}";
+    public override string ToString() => $"{Name} ({Age}) — {Department}";
 }
 
 Console.WriteLine(new Employee("Pradeep", 30, "Engineering"));
-// Output: Pradeep (30) â€” Engineering
+// Output: Pradeep (30) — Engineering
 ```
 
 **2. Call a base class method from an overriding method (`base.Method()`):**
@@ -10537,28 +9891,25 @@ Console.WriteLine(new Circle(5) { Color = "Red" });
 **What `base` cannot do:**
 - Access members more than one level up (only the **immediate** parent).
 - Be used in static methods (no instance context).
-- Call `base.base` â€” to reach grandparent, restructure the class hierarchy.
+- Call `base.base` — to reach grandparent, restructure the class hierarchy.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the differences between virtual methods and abstract methods in C#, and when each should be used?
 
 | Feature | `virtual` | `abstract` |
 |---------|-----------|------------|
-| Has a body | âœ… Yes â€” provides a default implementation | âŒ No body (in non-default-interface scenarios) |
-| Must be overridden | âŒ Optional | âœ… Mandatory in concrete derived classes |
+| Has a body | ✅ Yes — provides a default implementation | ❌ No body (in non-default-interface scenarios) |
+| Must be overridden | ❌ Optional | ✅ Mandatory in concrete derived classes |
 | Class requirement | Can be in any non-sealed class | Class **must** be `abstract` |
-| Can be instantiated directly | âœ… (if class is concrete) | âŒ Abstract class cannot be instantiated |
+| Can be instantiated directly | ✅ (if class is concrete) | ❌ Abstract class cannot be instantiated |
 | Purpose | Provide sensible default, allow customisation | Define a contract with no default |
 
-**`virtual` â€” default behavior, optionally overridden:**
+**`virtual` — default behavior, optionally overridden:**
 
 ```cs
 public class Animal
 {
-    // Provides a default â€” derived classes may or may not override
+    // Provides a default — derived classes may or may not override
     public virtual string Sound() => "...";
     public virtual string Describe() => $"I am a {GetType().Name}";
 }
@@ -10566,7 +9917,7 @@ public class Animal
 public class Dog : Animal
 {
     public override string Sound() => "Woof"; // overrides
-    // Describe() not overridden â€” uses base default
+    // Describe() not overridden — uses base default
 }
 
 public class Cat : Animal
@@ -10577,18 +9928,18 @@ public class Cat : Animal
 
 Animal[] animals = [new Dog(), new Cat(), new Animal()];
 foreach (var a in animals)
-    Console.WriteLine($"{a.Describe()} â€” {a.Sound()}");
-// I am a Dog â€” Woof
-// I am a mysterious cat â€” Meow
-// I am a Animal â€” ...
+    Console.WriteLine($"{a.Describe()} — {a.Sound()}");
+// I am a Dog — Woof
+// I am a mysterious cat — Meow
+// I am a Animal — ...
 ```
 
-**`abstract` â€” no default, must be implemented:**
+**`abstract` — no default, must be implemented:**
 
 ```cs
 public abstract class Shape
 {
-    // No default â€” every concrete shape must provide its own Area
+    // No default — every concrete shape must provide its own Area
     public abstract double Area();
     public abstract double Perimeter();
 
@@ -10620,9 +9971,6 @@ foreach (var s in shapes)
 - Use `virtual` when there is a **sensible default** and derived classes may optionally specialise.
 - Use `abstract` when **no meaningful default exists** and every subclass must provide its own implementation.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle constructor inheritance in C#, and what is the role of the base keyword in constructor inheritance?
 
@@ -10636,7 +9984,7 @@ public class Vehicle
     public string Brand { get; }
     public int Year { get; }
 
-    // No parameterless constructor â€” derived class MUST call base(...)
+    // No parameterless constructor — derived class MUST call base(...)
     public Vehicle(string brand, int year)
     {
         Brand = brand;
@@ -10650,12 +9998,12 @@ public class Car : Vehicle
 
     // Must chain to Vehicle(string, int) via base(...)
     public Car(string brand, int year, int doors)
-        : base(brand, year)             // â† base constructor called first
+        : base(brand, year)             // ← base constructor called first
     {
         Doors = doors;
     }
 
-    // Convenience overload â€” chains through Car\'s own constructors
+    // Convenience overload — chains through Car\'s own constructors
     public Car(string brand, int year) : this(brand, year, 4) { }
 }
 
@@ -10664,7 +10012,7 @@ public class ElectricCar : Car
     public int RangeKm { get; }
 
     public ElectricCar(string brand, int year, int doors, int rangeKm)
-        : base(brand, year, doors)      // â† calls Car â†’ Vehicle
+        : base(brand, year, doors)      // ← calls Car → Vehicle
     {
         RangeKm = rangeKm;
     }
@@ -10675,7 +10023,7 @@ Console.WriteLine($"{ec.Brand} {ec.Year}, {ec.Doors}d, {ec.RangeKm}km");
 // Output: Tesla 2025, 4d, 500km
 ```
 
-**Execution order â€” always base first:**
+**Execution order — always base first:**
 
 ```cs
 public class A { public A() => Console.WriteLine("A"); }
@@ -10684,9 +10032,9 @@ public class C : B { public C() => Console.WriteLine("C"); }
 
 new C();
 // Output:
-// A   â† grandparent first
+// A   ← grandparent first
 // B
-// C   â† derived last
+// C   ← derived last
 ```
 
 **Primary constructors (C# 12) with base:**
@@ -10699,13 +10047,10 @@ public class Employee(string name, string dept) : Person(name)
 }
 
 var e = new Employee("Pradeep", "Engineering");
-Console.WriteLine($"{e.Name} â€” {e.Department}");
-// Output: Pradeep â€” Engineering
+Console.WriteLine($"{e.Name} — {e.Department}");
+// Output: Pradeep — Engineering
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between inheritance and composition in C# and when should you use each one?
 
@@ -10716,7 +10061,7 @@ Console.WriteLine($"{e.Name} â€” {e.Department}");
 | Aspect | Inheritance | Composition |
 |--------|-------------|-------------|
 | Relationship | "is-a" | "has-a" |
-| Coupling | Tight â€” derived depends on base internals | Loose â€” depends on a public interface/contract |
+| Coupling | Tight — derived depends on base internals | Loose — depends on a public interface/contract |
 | Flexibility | Base changes affect all derived classes | Composed behavior can be swapped at runtime |
 | Reuse | Reuse via subclassing | Reuse via delegation |
 | Polymorphism | Achieved via `virtual`/`override` | Achieved via interface + injection |
@@ -10731,7 +10076,7 @@ public class Animal(string name)
     public virtual string Sound() => "...";
 }
 
-public class Dog(string name) : Animal(name)       // Dog IS-A Animal âœ…
+public class Dog(string name) : Animal(name)       // Dog IS-A Animal ✅
 {
     public override string Sound() => "Woof";
 }
@@ -10753,10 +10098,10 @@ public class ConsoleLogger : ILogger
 public class SmtpEmailSender : IEmailSender
 {
     public void Send(string to, string body) =>
-        Console.WriteLine($"[SMTP] â†’ {to}: {body}");
+        Console.WriteLine($"[SMTP] → {to}: {body}");
 }
 
-// OrderService HAS-A logger and emailer â€” not inheriting from them
+// OrderService HAS-A logger and emailer — not inheriting from them
 public class OrderService(ILogger logger, IEmailSender emailSender)
 {
     public void PlaceOrder(string item, string customerEmail)
@@ -10769,13 +10114,13 @@ public class OrderService(ILogger logger, IEmailSender emailSender)
 var service = new OrderService(new ConsoleLogger(), new SmtpEmailSender());
 service.PlaceOrder("Laptop", "pradeep@example.com");
 // [LOG] Order placed: Laptop
-// [SMTP] â†’ pradeep@example.com: Your order for Laptop is confirmed!
+// [SMTP] → pradeep@example.com: Your order for Laptop is confirmed!
 ```
 
 **Swapping behavior at runtime (composition wins):**
 
 ```cs
-// For tests â€” swap to a no-op logger without changing OrderService
+// For tests — swap to a no-op logger without changing OrderService
 public class NullLogger : ILogger { public void Log(string msg) { } }
 
 var testService = new OrderService(new NullLogger(), new SmtpEmailSender());
@@ -10783,9 +10128,6 @@ var testService = new OrderService(new NullLogger(), new SmtpEmailSender());
 
 **Rule:** Prefer composition over inheritance (Effective Java principle applies equally in C#). Use inheritance only when the "is-a" relationship is stable and meaningful across the hierarchy.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you override private virtual methods?
 
@@ -10794,7 +10136,7 @@ var testService = new OrderService(new NullLogger(), new SmtpEmailSender());
 ```cs
 public class Base
 {
-    // âŒ Compile error CS0621: 'Base.DoWork()' cannot be declared virtual
+    // ❌ Compile error CS0621: 'Base.DoWork()' cannot be declared virtual
     // because it is private
     // private virtual void DoWork() { }
 
@@ -10810,14 +10152,14 @@ public class Derived : Base
 
 **Why:** `private` means "visible only in this class". Since derived classes cannot see it, they have no way to provide an overriding implementation. The C# compiler enforces this at compile time.
 
-**What you can do instead â€” Template Method Pattern:**
+**What you can do instead — Template Method Pattern:**
 
 If you want a private step to be "customisable" while keeping it hidden, expose a `protected virtual` hook and call it from a private or public method:
 
 ```cs
 public class DataProcessor
 {
-    // Public entry point â€” not overridable
+    // Public entry point — not overridable
     public void Process(string data)
     {
         Validate(data);
@@ -10834,7 +10176,7 @@ public class DataProcessor
     private static void Save(string data) =>
         Console.WriteLine($"Saved: {data}");
 
-    // Protected virtual â€” derived classes customise only this step
+    // Protected virtual — derived classes customise only this step
     protected virtual void Transform(string data) =>
         Console.WriteLine($"Default transform: {data}");
 }
@@ -10850,21 +10192,18 @@ new UpperCaseProcessor().Process("hello");
 // Upper transform: HELLO
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What does the keyword virtual mean in the method definition?
 
-The `virtual` keyword marks a method as **overridable** â€” derived classes may provide their own implementation using the `override` keyword. Without `virtual`, the method is non-virtual and cannot be overridden (only hidden with `new`).
+The `virtual` keyword marks a method as **overridable** — derived classes may provide their own implementation using the `override` keyword. Without `virtual`, the method is non-virtual and cannot be overridden (only hidden with `new`).
 
 ```cs
 public class Shape
 {
-    // virtual â€” derived classes can replace this implementation
+    // virtual — derived classes can replace this implementation
     public virtual double Area() => 0;
 
-    // non-virtual â€” cannot be overridden, only hidden
+    // non-virtual — cannot be overridden, only hidden
     public string TypeName() => "Shape";
 }
 
@@ -10875,15 +10214,15 @@ public class Circle(double radius) : Shape
 }
 
 Shape s = new Circle(5);
-Console.WriteLine(s.Area());     // Output: 78.54... (Circle.Area â€” override wins)
-Console.WriteLine(s.TypeName()); // Output: Shape (non-virtual â€” base always called)
+Console.WriteLine(s.Area());     // Output: 78.54... (Circle.Area — override wins)
+Console.WriteLine(s.TypeName()); // Output: Shape (non-virtual — base always called)
 ```
 
 **Key properties of `virtual`:**
-- Enables **runtime polymorphism (dynamic dispatch)** â€” the actual method called is determined at runtime based on the object\'s type, not the reference type.
+- Enables **runtime polymorphism (dynamic dispatch)** — the actual method called is determined at runtime based on the object\'s type, not the reference type.
 - A `virtual` method may have a body (default implementation). Derived classes call `base.Method()` to access it.
 - Can be sealed in a derived class to prevent further overriding: `public sealed override double Area()`.
-- `abstract` methods are implicitly virtual â€” they also participate in dynamic dispatch but have no body.
+- `abstract` methods are implicitly virtual — they also participate in dynamic dispatch but have no body.
 
 **Sealing a virtual override:**
 
@@ -10896,13 +10235,10 @@ public class Square(double side) : Shape
 
 // public class SpecialSquare : Square
 // {
-//     public override double Area() => 999; // âŒ compile error â€” sealed
+//     public override double Area() => 999; // ❌ compile error — sealed
 // }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a Virtual Method in C#?
 
@@ -10932,10 +10268,10 @@ public class Eagle : Animal
 
 public class Fish : Animal
 {
-    // Does NOT override â€” uses base default
+    // Does NOT override — uses base default
 }
 
-// Dynamic dispatch â€” runtime picks the right MakeSound()
+// Dynamic dispatch — runtime picks the right MakeSound()
 Animal[] animals = [new Dog(), new Eagle(), new Fish()];
 
 foreach (var a in animals)
@@ -10952,13 +10288,13 @@ foreach (var a in animals)
 ```cs
 public abstract class Report
 {
-    // abstract â€” must be implemented (no default)
+    // abstract — must be implemented (no default)
     public abstract string GenerateContent();
 
-    // virtual â€” default header, can be customised
+    // virtual — default header, can be customised
     public virtual string GenerateHeader() => $"=== Report ({DateTime.Today:d}) ===";
 
-    // non-virtual â€” fixed footer, never changes
+    // non-virtual — fixed footer, never changes
     public string GenerateFooter() => "=== End of Report ===";
 
     public void Print()
@@ -10971,56 +10307,53 @@ public abstract class Report
 
 public class SalesReport : Report
 {
-    public override string GenerateContent() => "Sales: Â£50,000 this month";
+    public override string GenerateContent() => "Sales: £50,000 this month";
     // Uses default header (virtual, not overridden)
 }
 
 public class AnnualReport : Report
 {
-    public override string GenerateContent() => "Annual Revenue: Â£600,000";
+    public override string GenerateContent() => "Annual Revenue: £600,000";
     public override string GenerateHeader()  => "=== Annual Report 2025 ===";
 }
 
 new SalesReport().Print();
 // === Report (19/04/2026) ===
-// Sales: Â£50,000 this month
+// Sales: £50,000 this month
 // === End of Report ===
 
 new AnnualReport().Print();
 // === Annual Report 2025 ===
-// Annual Revenue: Â£600,000
+// Annual Revenue: £600,000
 // === End of Report ===
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Why a private virtual method cannot be overridden in C#?
 
-A `private virtual` method is a **contradiction** â€” and the C# compiler rejects it with **CS0621**.
+A `private virtual` method is a **contradiction** — and the C# compiler rejects it with **CS0621**.
 
 **Two reasons:**
 
-**1. Accessibility:** `private` means the method is visible **only within the declaring class**. Derived classes cannot see private members â€” they cannot reference them, let alone override them.
+**1. Accessibility:** `private` means the method is visible **only within the declaring class**. Derived classes cannot see private members — they cannot reference them, let alone override them.
 
 **2. Virtual dispatch requires visibility:** For `override` to work, the derived class must be able to see the method signature and declare it with `override`. Since `private` blocks that visibility, override is impossible.
 
 ```cs
 public class Base
 {
-    // âŒ CS0621 â€” cannot be both private and virtual
+    // ❌ CS0621 — cannot be both private and virtual
     // private virtual void Compute() { }
 
-    // âœ… To be overridable, minimum access is protected
+    // ✅ To be overridable, minimum access is protected
     protected virtual void Compute() => Console.WriteLine("Base.Compute");
 
-    // âœ… Private method can be called via a protected/public virtual hook
+    // ✅ Private method can be called via a protected/public virtual hook
     private void InternalWork() => Console.WriteLine("Internal work");
 
     protected virtual void DoWork()
     {
-        InternalWork(); // private helper â€” called from overridable method
+        InternalWork(); // private helper — called from overridable method
         Compute();
     }
 }
@@ -11028,7 +10361,7 @@ public class Base
 public class Derived : Base
 {
     protected override void Compute() => Console.WriteLine("Derived.Compute");
-    // Cannot access InternalWork â€” it\'s private to Base
+    // Cannot access InternalWork — it\'s private to Base
 }
 ```
 
@@ -11036,15 +10369,12 @@ public class Derived : Base
 
 | Access modifier | Can be `virtual`? |
 |---|---|
-| `private` | âŒ No (CS0621) |
-| `protected` | âœ… Yes |
-| `internal` | âœ… Yes |
-| `protected internal` | âœ… Yes |
-| `public` | âœ… Yes |
+| `private` | ❌ No (CS0621) |
+| `protected` | ✅ Yes |
+| `internal` | ✅ Yes |
+| `protected internal` | ✅ Yes |
+| `public` | ✅ Yes |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you override a method in C#?
 
@@ -11057,19 +10387,19 @@ To override a method:
 ```cs
 public class Animal
 {
-    public virtual string Speak() => "...";               // virtual â€” can be overridden
+    public virtual string Speak() => "...";               // virtual — can be overridden
     public virtual string Describe() => $"I am an Animal";
 }
 
 public class Dog : Animal
 {
     public override string Speak() => "Woof!";             // overrides Animal.Speak
-    // Describe() not overridden â€” Dog uses Animal\'s version
+    // Describe() not overridden — Dog uses Animal\'s version
 }
 
 public class GoldenRetriever : Dog
 {
-    // Override again â€” must still match signature
+    // Override again — must still match signature
     public override string Speak() => "Woof Woof!";
     public override string Describe() => "I am a Golden Retriever";
 }
@@ -11107,7 +10437,7 @@ new PrefixLogger().Log("App started");
 ```cs
 public class SpecialDog : Dog
 {
-    // sealed â€” no class deriving from SpecialDog can override Speak again
+    // sealed — no class deriving from SpecialDog can override Speak again
     public sealed override string Speak() => "Bark Bark!";
 }
 ```
@@ -11117,7 +10447,7 @@ public class SpecialDog : Dog
 ```cs
 public abstract class Shape
 {
-    public abstract double Area(); // no body â€” must be overridden
+    public abstract double Area(); // no body — must be overridden
 }
 
 public class Circle(double r) : Shape
@@ -11126,9 +10456,6 @@ public class Circle(double r) : Shape
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `override` and `new` keywords in C#?
 
@@ -11137,9 +10464,9 @@ Both `override` and `new` let a derived class define a method with the same name
 | Aspect | `override` | `new` (hiding) |
 |--------|-----------|----------------|
 | Base requirement | Base method must be `virtual`/`abstract`/`override` | Any base method |
-| Polymorphism | âœ… Yes â€” runtime type decides | âŒ No â€” reference type decides |
+| Polymorphism | ✅ Yes — runtime type decides | ❌ No — reference type decides |
 | Dispatch | Dynamic (runtime) | Static (compile-time) |
-| LSP compliance | âœ… | âŒ (often breaks it) |
+| LSP compliance | ✅ | ❌ (often breaks it) |
 | Compiler warning if omitted | Error | Warning CS0108 (shadowing) |
 
 ```cs
@@ -11159,10 +10486,10 @@ public class Dog : Animal
 Animal a = new Dog();
 
 // override: runtime type (Dog) decides
-Console.WriteLine(a.Sound());    // Output: Woof   â† Dog.Sound
+Console.WriteLine(a.Sound());    // Output: Woof   ← Dog.Sound
 
 // new (hiding): reference type (Animal) decides
-Console.WriteLine(a.Category()); // Output: Animal â† Animal.Category (NOT Dog!)
+Console.WriteLine(a.Category()); // Output: Animal ← Animal.Category (NOT Dog!)
 
 // ---- Test via derived reference ----
 Dog d = new Dog();
@@ -11170,7 +10497,7 @@ Console.WriteLine(d.Sound());    // Output: Woof
 Console.WriteLine(d.Category()); // Output: Dog
 ```
 
-**Practical impact â€” hiding breaks polymorphism:**
+**Practical impact — hiding breaks polymorphism:**
 
 ```cs
 void Describe(Animal a)
@@ -11179,21 +10506,18 @@ void Describe(Animal a)
 }
 
 Describe(new Dog());
-// Sound: Woof       â† override works correctly (Dog\'s Sound)
-// Category: Animal  â† hiding is wrong here (expected "Dog", got "Animal")
+// Sound: Woof       ← override works correctly (Dog\'s Sound)
+// Category: Animal  ← hiding is wrong here (expected "Dog", got "Animal")
 ```
 
-**Rule:** Use `override` for polymorphic behavior. Use `new` only for intentional version breaking (e.g., a base class added a method that conflicts with an existing derived method) â€” and document it clearly.
+**Rule:** Use `override` for polymorphic behavior. Use `new` only for intentional version breaking (e.g., a base class added a method that conflicts with an existing derived method) — and document it clearly.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How does inheritance promote code reusability?
 
-Inheritance promotes reusability by allowing derived classes to **inherit and reuse** all non-private members from the base class without rewriting them â€” while adding or customising only what differs.
+Inheritance promotes reusability by allowing derived classes to **inherit and reuse** all non-private members from the base class without rewriting them — while adding or customising only what differs.
 
-**1. Shared implementation â€” write once, reuse many times:**
+**1. Shared implementation — write once, reuse many times:**
 
 ```cs
 public class Vehicle
@@ -11209,7 +10533,7 @@ public class Vehicle
         Registration = reg;
     }
 
-    // Shared behavior â€” ALL vehicles log the same way
+    // Shared behavior — ALL vehicles log the same way
     public void LogUsage(string action) =>
         Console.WriteLine($"[{Registration}] {Brand} ({Year}): {action}");
 
@@ -11239,7 +10563,7 @@ Console.WriteLine(car.FuelType); // Petrol
 Console.WriteLine(ev.FuelType);  // Electric
 ```
 
-**2. Hierarchical reuse â€” build progressively:**
+**2. Hierarchical reuse — build progressively:**
 
 ```cs
 public class Employee(string name, decimal salary)
@@ -11273,20 +10597,17 @@ Employee[] staff =
 
 foreach (var e in staff)
     Console.WriteLine(e); // uses reused ToString + polymorphic CalculatePay
-// Alice: Â£4,000.00
-// Bob: Â£5,000.00
-// Carol: Â£5,000.00
+// Alice: £4,000.00
+// Bob: £5,000.00
+// Carol: £5,000.00
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the potential pitfalls of using inheritance?
 
 Inheritance is powerful but easily misused. Common pitfalls:
 
-**1. Fragile base class problem â€” base changes break derived classes:**
+**1. Fragile base class problem — base changes break derived classes:**
 
 ```cs
 public class Collection
@@ -11307,11 +10628,11 @@ public class InstrumentedCollection : Collection
     private int _count = 0;
     public override void Add(string item)    { _count++; base.Add(item); }
     public override void AddAll(string[] items) { _count += items.Length; base.AddAll(items); }
-    // AddAll calls base.AddAll which calls virtual Add â†’ _count incremented TWICE per item!
+    // AddAll calls base.AddAll which calls virtual Add → _count incremented TWICE per item!
 }
 ```
 
-**2. Tight coupling â€” derived depends on base internals:**
+**2. Tight coupling — derived depends on base internals:**
 
 ```cs
 // If Base changes internal logic, Derived silently breaks
@@ -11324,7 +10645,7 @@ public class Base
 public class Derived : Base
 {
     public override void Set(int v) { base.Set(v); Console.WriteLine(_value); }
-    // Derived assumes _value == v, but gets v*2 â€” unexpected dependency
+    // Derived assumes _value == v, but gets v*2 — unexpected dependency
 }
 ```
 
@@ -11338,7 +10659,7 @@ public class Rectangle
     public int Area() => Width * Height;
 }
 
-public class Square : Rectangle // âŒ Square IS-NOT substitutable for Rectangle
+public class Square : Rectangle // ❌ Square IS-NOT substitutable for Rectangle
 {
     public override int Width  { set { base.Width  = value; base.Height = value; } }
     public override int Height { set { base.Height = value; base.Width  = value; } }
@@ -11346,37 +10667,34 @@ public class Square : Rectangle // âŒ Square IS-NOT substitutable for Rectan
 
 Rectangle r = new Square();
 r.Width = 4; r.Height = 5;
-Console.WriteLine(r.Area()); // Expected 20, got 25 â€” LSP violated!
+Console.WriteLine(r.Area()); // Expected 20, got 25 — LSP violated!
 ```
 
-**4. Deep inheritance hierarchies â€” hard to understand and maintain:**
+**4. Deep inheritance hierarchies — hard to understand and maintain:**
 
 ```cs
-// 6-level hierarchy â€” changing Animal ripples through everything
-Animal â†’ Vertebrate â†’ Mammal â†’ Carnivore â†’ Feline â†’ Cat
+// 6-level hierarchy — changing Animal ripples through everything
+Animal → Vertebrate → Mammal → Carnivore → Feline → Cat
 ```
 
 **5. Inheritance for code reuse only (not "is-a"):**
 
 ```cs
-// âŒ Stack should NOT inherit List just to reuse its storage
-public class Stack<T> : List<T> // exposes Add, Remove, Insert â€” breaks Stack semantics
+// ❌ Stack should NOT inherit List just to reuse its storage
+public class Stack<T> : List<T> // exposes Add, Remove, Insert — breaks Stack semantics
 ```
 
 **Mitigations:**
 - Prefer **composition over inheritance** for behavior reuse.
-- Follow **LSP** â€” a derived class must be fully substitutable for its base.
+- Follow **LSP** — a derived class must be fully substitutable for its base.
 - Seal classes or methods when the hierarchy is intended to be closed.
 - Keep hierarchies shallow (2-3 levels max).
 - Program to interfaces, not concrete base classes.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you prevent a class from being inherited in C#?
 
-Apply the `sealed` keyword to the class. A sealed class cannot be used as a base class â€” any attempt to inherit from it is a **compile error (CS0509)**.
+Apply the `sealed` keyword to the class. A sealed class cannot be used as a base class — any attempt to inherit from it is a **compile error (CS0509)**.
 
 ```cs
 public sealed class DatabaseConnection
@@ -11394,7 +10712,7 @@ public sealed class DatabaseConnection
     public void Close() => Console.WriteLine("Connection closed");
 }
 
-// âŒ CS0509: 'MyConnection' cannot derive from sealed type 'DatabaseConnection'
+// ❌ CS0509: 'MyConnection' cannot derive from sealed type 'DatabaseConnection'
 // public class MyConnection : DatabaseConnection { }
 ```
 
@@ -11408,32 +10726,29 @@ public class Animal
 
 public class Dog : Animal
 {
-    // sealed on the override â€” Dog can be inherited, but Sound() cannot be overridden further
+    // sealed on the override — Dog can be inherited, but Sound() cannot be overridden further
     public sealed override string Sound() => "Woof";
 }
 
 public class GoldenRetriever : Dog
 {
-    // âŒ CS0239: cannot override inherited member 'Dog.Sound()' because it is sealed
+    // ❌ CS0239: cannot override inherited member 'Dog.Sound()' because it is sealed
     // public override string Sound() => "Woof Woof";
 }
 ```
 
 **Why seal a class?**
-- Security â€” prevent subclasses from altering security-critical behaviour.
-- Performance â€” the JIT compiler can optimise sealed class method calls (devirtualisation).
-- Design intent â€” signal that the type is complete and not designed for extension.
-- Immutability â€” `record` types in C# seal `==` and `Equals` by design; adding `sealed` to a record prevents positional cloning surprises.
+- Security — prevent subclasses from altering security-critical behaviour.
+- Performance — the JIT compiler can optimise sealed class method calls (devirtualisation).
+- Design intent — signal that the type is complete and not designed for extension.
+- Immutability — `record` types in C# seal `==` and `Equals` by design; adding `sealed` to a record prevents positional cloning surprises.
 
 **Common examples of sealed classes in .NET:**
-- `System.String` â€” `sealed` to protect immutability guarantees.
-- `System.Int32`, `System.Boolean` â€” value types are implicitly sealed.
+- `System.String` — `sealed` to protect immutability guarantees.
+- `System.Int32`, `System.Boolean` — value types are implicitly sealed.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 5. COLLECTIONS
+## 5. Collections
 
 <br/>
 
@@ -11442,10 +10757,10 @@ public class GoldenRetriever : Dog
 Collections are data structures that store, manage, and manipulate groups of related objects. Unlike arrays (fixed size), most .NET collections resize dynamically and provide rich APIs for searching, sorting, filtering, and thread-safe access.
 
 **Main collection namespaces:**
-- `System.Collections.Generic` â€” strongly typed, preferred in modern .NET
-- `System.Collections.Concurrent` â€” thread-safe collections
-- `System.Collections.Immutable` â€” immutable collections (.NET 5+)
-- `System.Collections.Frozen` â€” read-optimized frozen sets/dictionaries (.NET 8+)
+- `System.Collections.Generic` — strongly typed, preferred in modern .NET
+- `System.Collections.Concurrent` — thread-safe collections
+- `System.Collections.Immutable` — immutable collections (.NET 5+)
+- `System.Collections.Frozen` — read-optimized frozen sets/dictionaries (.NET 8+)
 
 **Commonly used collections:**
 
@@ -11462,7 +10777,7 @@ Collections are data structures that store, manage, and manipulate groups of rel
 | `ImmutableList<T>`       | Immutable, safe to share across threads     |
 | `FrozenDictionary<K,V>`  | Optimized read-only dictionary (.NET 8+)    |
 
-**Example â€” List<T>:**
+**Example — List<T>:**
 
 ```cs
 var names = new List<string> { "Alice", "Bob", "Carol" };
@@ -11474,7 +10789,7 @@ foreach (var name in names)
 // Output: Alice Carol Dave
 ```
 
-**Example â€” Dictionary<K,V>:**
+**Example — Dictionary<K,V>:**
 
 ```cs
 var scores = new Dictionary<string, int>
@@ -11489,7 +10804,7 @@ if (scores.TryGetValue("Alice", out int score))
     Console.WriteLine($"Alice: {score}"); // Alice: 95
 ```
 
-**Example â€” FrozenDictionary (.NET 8+) for read-heavy scenarios:**
+**Example — FrozenDictionary (.NET 8+) for read-heavy scenarios:**
 
 ```cs
 using System.Collections.Frozen;
@@ -11504,16 +10819,13 @@ var lookup = new Dictionary<string, int>
 Console.WriteLine(lookup["red"].ToString("X")); // FF0000
 ```
 
-**Example â€” Collection expressions (C# 12):**
+**Example — Collection expressions (C# 12):**
 
 ```cs
 List<int> numbers = [1, 2, 3, 4, 5];
 int[] arr = [.. numbers, 6, 7];  // spread operator
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between an array and a collection in C#?
 
@@ -11527,12 +10839,12 @@ int[] arr = [.. numbers, 6, 7];  // spread operator
 | Null safety | Length is always known | `Count` property |
 
 ```cs
-// Array â€” fixed size, fast direct access
+// Array — fixed size, fast direct access
 int[] scores = [10, 20, 30, 40, 50];
 Console.WriteLine(scores[2]); // 30
-// scores.Add(60); // âŒ arrays have no Add â€” fixed size
+// scores.Add(60); // ❌ arrays have no Add — fixed size
 
-// List<T> â€” dynamic size, full API
+// List<T> — dynamic size, full API
 var names = new List<string> { "Alice", "Bob" };
 names.Add("Carol");
 names.Remove("Bob");
@@ -11552,15 +10864,12 @@ int[] arr     = [.. nums, 4, 5]; // spread into array
 - Size is unknown or changes at runtime.
 - You need built-in searching, sorting, filtering, or thread-safety.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different types of collections available in C#?
 
 .NET provides collections across several namespaces:
 
-**`System.Collections.Generic` (strongly typed â€” preferred):**
+**`System.Collections.Generic` (strongly typed — preferred):**
 
 | Type | Description |
 |------|-------------|
@@ -11590,7 +10899,7 @@ int[] arr     = [.. nums, 4, 5]; // spread into array
 
 **`System.Collections.Frozen` (.NET 8+):**
 
-`FrozenDictionary<K,V>`, `FrozenSet<T>` â€” read-optimized, ideal for static lookup tables.
+`FrozenDictionary<K,V>`, `FrozenSet<T>` — read-optimized, ideal for static lookup tables.
 
 ```cs
 // Generic
@@ -11598,7 +10907,7 @@ var list  = new List<int> { 1, 2, 3 };
 var dict  = new Dictionary<string, int> { ["a"] = 1 };
 var set   = new HashSet<string> { "x", "y", "z" };
 
-// Frozen (read-only optimized â€” .NET 8+)
+// Frozen (read-only optimized — .NET 8+)
 using System.Collections.Frozen;
 var frozen = new Dictionary<string, int> { ["one"] = 1, ["two"] = 2 }
     .ToFrozenDictionary();
@@ -11612,9 +10921,6 @@ Console.WriteLine(immList.Count); // 3 (original unchanged)
 Console.WriteLine(added.Count);   // 4
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are Concurrent Collection Classes?
 
@@ -11629,7 +10935,7 @@ Concurrent collection classes in the `System.Collections.Concurrent` namespace a
 | `BlockingCollection<T>` | Bounded producer-consumer | `Add`, `Take` (blocks when empty/full) |
 
 ```cs
-// ConcurrentDictionary â€” safe multi-threaded add/update
+// ConcurrentDictionary — safe multi-threaded add/update
 var cache = new ConcurrentDictionary<string, int>();
 
 // Multiple threads can add/read simultaneously
@@ -11638,14 +10944,14 @@ await Task.WhenAll(Enumerable.Range(0, 10).Select(i =>
 
 Console.WriteLine(cache.Count); // 10 (always correct, no race conditions)
 
-// GetOrAdd â€” atomic: get existing or add new
+// GetOrAdd — atomic: get existing or add new
 int val = cache.GetOrAdd("key5", k => 99);
 Console.WriteLine(val); // 5 (already existed)
 
-// AddOrUpdate â€” atomic increment
+// AddOrUpdate — atomic increment
 cache.AddOrUpdate("counter", 1, (_, existing) => existing + 1);
 
-// ConcurrentQueue â€” thread-safe producer/consumer
+// ConcurrentQueue — thread-safe producer/consumer
 var queue = new ConcurrentQueue<string>();
 queue.Enqueue("task1");
 queue.Enqueue("task2");
@@ -11653,7 +10959,7 @@ queue.Enqueue("task2");
 if (queue.TryDequeue(out string? item))
     Console.WriteLine(item); // task1
 
-// BlockingCollection â€” bounded buffer (blocks producer when full)
+// BlockingCollection — bounded buffer (blocks producer when full)
 var buffer = new BlockingCollection<int>(boundedCapacity: 5);
 
 var producer = Task.Run(() =>
@@ -11675,9 +10981,6 @@ var consumer = Task.Run(() =>
 await Task.WhenAll(producer, consumer);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain Hashtable in C#?
 
@@ -11693,7 +10996,7 @@ table["active"]  = true;
 
 Console.WriteLine(table["name"]); // Pradeep
 
-// Iteration â€” key order is not guaranteed
+// Iteration — key order is not guaranteed
 foreach (DictionaryEntry entry in table)
     Console.WriteLine($"{entry.Key}: {entry.Value}");
 
@@ -11709,14 +11012,14 @@ Console.WriteLine(table.Count); // 2
 
 | Feature | `Hashtable` | `Dictionary<K,V>` |
 |---------|------------|-------------------|
-| Type safety | âŒ `object` â€” boxing/unboxing | âœ… Strongly typed |
+| Type safety | ❌ `object` — boxing/unboxing | ✅ Strongly typed |
 | Performance | Slower (boxing overhead) | Faster (no boxing for value types) |
-| Null keys | âŒ Not allowed | âŒ Not allowed (same) |
+| Null keys | ❌ Not allowed | ❌ Not allowed (same) |
 | Thread safety | Thread-safe for reads only | Use `ConcurrentDictionary` for writes |
-| Recommended | Legacy code only | âœ… Always prefer |
+| Recommended | Legacy code only | ✅ Always prefer |
 
 ```cs
-// Modern equivalent â€” Dictionary<K,V>
+// Modern equivalent — Dictionary<K,V>
 var dict = new Dictionary<string, object?>
 {
     ["name"]   = "Pradeep",
@@ -11728,9 +11031,6 @@ if (dict.TryGetValue("age", out object? age))
     Console.WriteLine((int)age); // 30
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is IEnumerable<> in C#?
 
@@ -11745,8 +11045,8 @@ public interface IEnumerable<out T> : IEnumerable
 ```
 
 **Key characteristics:**
-- **Forward-only, read-only** â€” no index access, no mutation.
-- **Deferred execution** â€” LINQ queries on `IEnumerable<T>` are not evaluated until iterated.
+- **Forward-only, read-only** — no index access, no mutation.
+- **Deferred execution** — LINQ queries on `IEnumerable<T>` are not evaluated until iterated.
 - All .NET collections implement it (`List<T>`, `Array`, `Dictionary<K,V>`, etc.).
 - `yield return` creates custom `IEnumerable<T>` iterators.
 
@@ -11755,8 +11055,8 @@ public interface IEnumerable<out T> : IEnumerable
 IEnumerable<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 var evens = numbers
-    .Where(n => n % 2 == 0)   // deferred â€” not executed yet
-    .Select(n => n * n);       // deferred â€” not executed yet
+    .Where(n => n % 2 == 0)   // deferred — not executed yet
+    .Select(n => n * n);       // deferred — not executed yet
 
 foreach (var n in evens)       // execution happens here
     Console.Write($"{n} ");    // 4 16 36 64 100
@@ -11775,7 +11075,7 @@ IEnumerable<int> FibonacciSequence(int count)
 foreach (var f in FibonacciSequence(8))
     Console.Write($"{f} "); // 0 1 1 2 3 5 8 13
 
-// IAsyncEnumerable<T> â€” async streaming (C# 8+)
+// IAsyncEnumerable<T> — async streaming (C# 8+)
 async IAsyncEnumerable<int> GetDataAsync()
 {
     for (int i = 0; i < 5; i++)
@@ -11794,32 +11094,29 @@ await foreach (var item in GetDataAsync())
 - Accept it as a parameter when you only need to iterate (most flexible).
 - Return `IReadOnlyList<T>` or `IReadOnlyCollection<T>` when callers need `Count` or index access.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between a BlockingCollection and a ConcurrentQueue or ConcurrentStack? In which scenarios would you choose to use the BlockingCollection, and why?
 
 | Feature | `ConcurrentQueue<T>` / `ConcurrentStack<T>` | `BlockingCollection<T>` |
 |---------|----------------------------------------------|------------------------|
-| Blocking | âŒ Non-blocking (`TryDequeue` returns false) | âœ… Blocks consumer until item available |
-| Bounded capacity | âŒ Unlimited | âœ… Optional upper bound |
-| Completion signal | âŒ No | âœ… `CompleteAdding()` signals end-of-stream |
+| Blocking | ❌ Non-blocking (`TryDequeue` returns false) | ✅ Blocks consumer until item available |
+| Bounded capacity | ❌ Unlimited | ✅ Optional upper bound |
+| Completion signal | ❌ No | ✅ `CompleteAdding()` signals end-of-stream |
 | Ordering | Queue=FIFO, Stack=LIFO | Wraps any `IProducerConsumerCollection<T>` |
 | Use case | Fire-and-forget, polling | Classic producer-consumer pipelines |
 
-**`ConcurrentQueue` â€” non-blocking, just thread-safe:**
+**`ConcurrentQueue` — non-blocking, just thread-safe:**
 
 ```cs
 var queue = new ConcurrentQueue<int>();
 queue.Enqueue(1);
 
-// Returns false immediately if empty â€” caller must handle
+// Returns false immediately if empty — caller must handle
 if (!queue.TryDequeue(out int item))
-    Console.WriteLine("Queue empty â€” try again later");
+    Console.WriteLine("Queue empty — try again later");
 ```
 
-**`BlockingCollection` â€” blocks consumer, supports bounded buffer and completion:**
+**`BlockingCollection` — blocks consumer, supports bounded buffer and completion:**
 
 ```cs
 // Bounded buffer: producer blocks when capacity reached
@@ -11860,9 +11157,6 @@ var lifoCollection = new BlockingCollection<int>(new ConcurrentStack<int>(), bou
 - You need a **completion signal** (`CompleteAdding`).
 - You want to swap the underlying data structure (FIFO/LIFO/Bag).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the difference between IQueryable, ICollection, IList & IDictionary interfaces?
 
@@ -11872,21 +11166,21 @@ var lifoCollection = new BlockingCollection<int>(new ConcurrentStack<int>(), bou
 | `ICollection<T>` | `System.Collections.Generic` | Count + Add/Remove | `Count`, `Add`, `Remove`, `Contains` |
 | `IList<T>` | `System.Collections.Generic` | Index access | `this[index]`, `Insert`, `RemoveAt` |
 | `IDictionary<K,V>` | `System.Collections.Generic` | Key-value mapping | `this[key]`, `Keys`, `Values`, `TryGetValue` |
-| `IQueryable<T>` | `System.Linq` | Remote/deferred queries | `Expression`, `Provider` â€” translates to SQL/etc. |
+| `IQueryable<T>` | `System.Linq` | Remote/deferred queries | `Expression`, `Provider` — translates to SQL/etc. |
 
 ```cs
-// ICollection<T> â€” knows its count, can add/remove
+// ICollection<T> — knows its count, can add/remove
 ICollection<string> col = new List<string> { "a", "b" };
 col.Add("c");
 Console.WriteLine(col.Count); // 3
 
-// IList<T> â€” index access + ordered insertion
+// IList<T> — index access + ordered insertion
 IList<int> list = new List<int> { 10, 20, 30 };
 Console.WriteLine(list[1]); // 20
 list.Insert(1, 15);         // [10, 15, 20, 30]
 list.RemoveAt(0);            // [15, 20, 30]
 
-// IDictionary<K,V> â€” key-value access
+// IDictionary<K,V> — key-value access
 IDictionary<string, int> dict = new Dictionary<string, int>
 {
     ["apple"] = 3,
@@ -11898,7 +11192,7 @@ Console.WriteLine(dict["banana"]); // 5
 if (dict.TryGetValue("apple", out int count))
     Console.WriteLine($"apple: {count}"); // apple: 3
 
-// IQueryable<T> â€” translates to SQL via EF Core
+// IQueryable<T> — translates to SQL via EF Core
 // (requires a DbContext)
 // IQueryable<Product> query = dbContext.Products
 //     .Where(p => p.Price > 100)   // translated to SQL WHERE clause
@@ -11908,33 +11202,30 @@ if (dict.TryGetValue("apple", out int count))
 
 **`IQueryable<T>` vs `IEnumerable<T>` key distinction:**
 - `IEnumerable<T>`: executes in-memory (C# code runs).
-- `IQueryable<T>`: translates expression tree to the remote query language (SQL, OData) â€” filtering happens at the database, not in memory.
+- `IQueryable<T>`: translates expression tree to the remote query language (SQL, OData) — filtering happens at the database, not in memory.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is difference between Hashtable and Dictionary?
 
 | Feature | `Hashtable` | `Dictionary<K,V>` |
 |---------|------------|-------------------|
 | Namespace | `System.Collections` | `System.Collections.Generic` |
-| Type safety | âŒ Non-generic (`object`) | âœ… Generic â€” strongly typed |
+| Type safety | ❌ Non-generic (`object`) | ✅ Generic — strongly typed |
 | Performance | Slower (boxing for value types) | Faster (no boxing) |
-| Null key | âŒ Not allowed | âŒ Not allowed |
-| Null value | âœ… Allowed | âœ… Allowed |
+| Null key | ❌ Not allowed | ❌ Not allowed |
+| Null value | ✅ Allowed | ✅ Allowed |
 | Thread safety | Thread-safe for multiple readers | Not thread-safe (use `ConcurrentDictionary`) |
 | Ordering | Not guaranteed | Not guaranteed (insertion order in .NET 5+) |
 | Introduced | .NET 1.0 | .NET 2.0 (generics era) |
 
 ```cs
-// Hashtable â€” non-generic, stores object/object
+// Hashtable — non-generic, stores object/object
 var ht = new Hashtable();
 ht["name"] = "Pradeep"; // boxing if value type
 ht[1]      = 42;
 Console.WriteLine((string)ht["name"]!); // requires cast
 
-// Dictionary<K,V> â€” generic, type-safe, faster
+// Dictionary<K,V> — generic, type-safe, faster
 var dict = new Dictionary<string, int>
 {
     ["apples"]  = 5,
@@ -11957,9 +11248,6 @@ safe.TryAdd("x", 1);
 
 **Rule:** Always use `Dictionary<K,V>` in new code. Use `Hashtable` only when maintaining legacy code.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is difference between SortedList and SortedDictionary in C#?
 
@@ -11969,13 +11257,13 @@ Both maintain key-value pairs **sorted by key**, but differ in their internal da
 |---------|-------------------|------------------------|
 | Internal structure | Two parallel arrays (keys + values) | Red-black BST |
 | Memory | Lower (arrays are compact) | Higher (BST nodes have overhead) |
-| Lookup by index | âœ… `Keys[i]`, `Values[i]` | âŒ Not supported |
-| Insert / Remove | O(n) â€” shifts array | O(log n) â€” BST rebalance |
+| Lookup by index | ✅ `Keys[i]`, `Values[i]` | ❌ Not supported |
+| Insert / Remove | O(n) — shifts array | O(log n) — BST rebalance |
 | Lookup by key | O(log n) binary search | O(log n) BST traversal |
 | Best for | Read-heavy, sorted enumeration | Frequent insert/delete |
 
 ```cs
-// SortedList<K,V> â€” array-backed, index access
+// SortedList<K,V> — array-backed, index access
 var sortedList = new SortedList<string, int>
 {
     ["banana"] = 3,
@@ -11994,7 +11282,7 @@ foreach (var (k, v) in sortedList)
 Console.WriteLine(sortedList.Keys[0]);   // apple
 Console.WriteLine(sortedList.Values[0]); // 5
 
-// SortedDictionary<K,V> â€” BST-backed, faster insert/delete
+// SortedDictionary<K,V> — BST-backed, faster insert/delete
 var sortedDict = new SortedDictionary<string, int>
 {
     ["banana"] = 3,
@@ -12002,7 +11290,7 @@ var sortedDict = new SortedDictionary<string, int>
     ["cherry"] = 2,
 };
 
-sortedDict.Add("date", 7); // O(log n) â€” faster than SortedList for frequent inserts
+sortedDict.Add("date", 7); // O(log n) — faster than SortedList for frequent inserts
 
 foreach (var (k, v) in sortedDict)
     Console.WriteLine($"{k}: {v}");
@@ -12010,62 +11298,56 @@ foreach (var (k, v) in sortedDict)
 ```
 
 **Decision guide:**
-- Many reads, few insertions, need index access â†’ `SortedList<K,V>`
-- Frequent insertions/deletions â†’ `SortedDictionary<K,V>`
+- Many reads, few insertions, need index access → `SortedList<K,V>`
+- Frequent insertions/deletions → `SortedDictionary<K,V>`
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between Array and ArrayList?
 
 | Feature | `Array` (`T[]`) | `ArrayList` |
 |---------|----------------|-------------|
-| Type safety | âœ… Strongly typed | âŒ Stores `object` â€” no type safety |
+| Type safety | ✅ Strongly typed | ❌ Stores `object` — no type safety |
 | Size | Fixed | Dynamic |
-| Performance | Fast â€” no boxing for value types | Slower â€” boxing/unboxing for value types |
+| Performance | Fast — no boxing for value types | Slower — boxing/unboxing for value types |
 | Namespace | Built-in | `System.Collections` |
-| Generics | N/A | Non-generic â€” superseded by `List<T>` |
-| LINQ support | âœ… | âœ… (via cast to `IEnumerable`) |
+| Generics | N/A | Non-generic — superseded by `List<T>` |
+| LINQ support | ✅ | ✅ (via cast to `IEnumerable`) |
 
 ```cs
-// Array â€” fixed size, typed
+// Array — fixed size, typed
 int[] arr = new int[3] { 1, 2, 3 };
 arr[0] = 10;
 Console.WriteLine(arr.Length); // 3
-// arr[3] = 4; // âŒ IndexOutOfRangeException
+// arr[3] = 4; // ❌ IndexOutOfRangeException
 
-// ArrayList â€” dynamic, but loses type safety
+// ArrayList — dynamic, but loses type safety
 var al = new System.Collections.ArrayList();
-al.Add(1);        // boxing int â†’ object
-al.Add("hello");  // mixes types â€” no compile error!
+al.Add(1);        // boxing int → object
+al.Add("hello");  // mixes types — no compile error!
 al.Add(3.14);
 
 foreach (object item in al)
     Console.WriteLine(item); // 1 / hello / 3.14
 
-// âŒ Runtime error possible:
-// int x = (int)al[1]; // InvalidCastException â€” "hello" is not int
+// ❌ Runtime error possible:
+// int x = (int)al[1]; // InvalidCastException — "hello" is not int
 
-// âœ… Modern replacement â€” List<T>
+// ✅ Modern replacement — List<T>
 var list = new List<int> { 1, 2, 3 };
 list.Add(4);
 Console.WriteLine(list.Count); // 4
 ```
 
-**Rule:** Never use `ArrayList` in new code. Use `List<T>` â€” it is type-safe, faster (no boxing), and has a richer API.
+**Rule:** Never use `ArrayList` in new code. Use `List<T>` — it is type-safe, faster (no boxing), and has a richer API.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Whose performance is better array or arraylist?
 
 **Array (`T[]`) is significantly faster than `ArrayList`** for value types because:
 
-1. **No boxing** â€” arrays store value types directly; `ArrayList` boxes every value type into `object` (heap allocation per element).
-2. **No casting** â€” array element access is typed; `ArrayList` requires a cast on retrieval.
-3. **Better cache locality** â€” typed arrays are contiguous memory; `ArrayList` elements are object references scattered on the heap.
+1. **No boxing** — arrays store value types directly; `ArrayList` boxes every value type into `object` (heap allocation per element).
+2. **No casting** — array element access is typed; `ArrayList` requires a cast on retrieval.
+3. **Better cache locality** — typed arrays are contiguous memory; `ArrayList` elements are object references scattered on the heap.
 
 ```cs
 using System.Diagnostics;
@@ -12090,7 +11372,7 @@ foreach (object x in al) sum2 += (int)x;        // unboxing!
 sw.Stop();
 Console.WriteLine($"ArrayList: {sw.ElapsedMilliseconds}ms, Sum={sum2}");
 
-// List<int> â€” same speed as array (no boxing)
+// List<int> — same speed as array (no boxing)
 sw.Restart();
 var list = new List<int>(N);
 for (int i = 0; i < N; i++) list.Add(i);
@@ -12098,24 +11380,21 @@ long sum3 = 0;
 foreach (int x in list) sum3 += x;
 sw.Stop();
 Console.WriteLine($"List<int>: {sw.ElapsedMilliseconds}ms, Sum={sum3}");
-// Typical: Array â‰ˆ List<int> >> ArrayList
+// Typical: Array ≈ List<int> >> ArrayList
 ```
 
-**Performance ranking (value types):** `T[]` â‰ˆ `List<T>` >> `ArrayList`
+**Performance ranking (value types):** `T[]` ≈ `List<T>` >> `ArrayList`
 
-For **reference types** (classes), the boxing penalty disappears, so the gap narrows â€” but `List<T>` is still preferred for type safety.
+For **reference types** (classes), the boxing penalty disappears, so the gap narrows — but `List<T>` is still preferred for type safety.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What class is underneath the Sorted List class?
 
-`SortedList<K,V>` is backed internally by **two parallel arrays**: one for keys and one for values. It is not backed by a separate public class â€” it manages the arrays directly.
+`SortedList<K,V>` is backed internally by **two parallel arrays**: one for keys and one for values. It is not backed by a separate public class — it manages the arrays directly.
 
 The internal implementation uses:
-- `TKey[] keys` â€” sorted array of keys (binary search for lookups).
-- `TValue[] values` â€” parallel array of corresponding values.
+- `TKey[] keys` — sorted array of keys (binary search for lookups).
+- `TValue[] values` — parallel array of corresponding values.
 
 ```cs
 var sl = new SortedList<string, int>
@@ -12126,14 +11405,14 @@ var sl = new SortedList<string, int>
 };
 
 // Internally, after insertion:
-// keys:   ["apple", "banana", "cherry"]   â† sorted array
-// values: [1,       2,        3]           â† parallel array
+// keys:   ["apple", "banana", "cherry"]   ← sorted array
+// values: [1,       2,        3]           ← parallel array
 
 // You can directly access the underlying key/value collections
 IList<string> keys   = sl.Keys;    // IList<TKey> view of the key array
 IList<int>    values = sl.Values;  // IList<TValue> view of the value array
 
-Console.WriteLine(sl.Keys[0]);   // apple   (index access â€” unique to SortedList)
+Console.WriteLine(sl.Keys[0]);   // apple   (index access — unique to SortedList)
 Console.WriteLine(sl.Values[0]); // 1
 
 // Index of a key
@@ -12143,45 +11422,42 @@ Console.WriteLine(sl.Keys[idx]);   // banana
 
 **Consequence of the array backing:**
 - Lookup: O(log n) binary search.
-- Insert/Remove: O(n) â€” elements must be shifted.
+- Insert/Remove: O(n) — elements must be shifted.
 - Memory: efficient, compact (no BST node overhead).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. IEnumerable vs List - What to Use? How do they work?
 
-**`IEnumerable<T>`** â€” the minimal interface for any forward-only sequence. Provides `GetEnumerator()` only. May be lazy (deferred execution).
+**`IEnumerable<T>`** — the minimal interface for any forward-only sequence. Provides `GetEnumerator()` only. May be lazy (deferred execution).
 
-**`List<T>`** â€” a concrete, in-memory, ordered, resizable collection implementing `IList<T>`, `ICollection<T>`, and `IEnumerable<T>`. All items are materialised in memory immediately.
+**`List<T>`** — a concrete, in-memory, ordered, resizable collection implementing `IList<T>`, `ICollection<T>`, and `IEnumerable<T>`. All items are materialised in memory immediately.
 
 | Aspect | `IEnumerable<T>` | `List<T>` |
 |--------|-----------------|-----------|
-| Memory | Lazy â€” items produced on demand | Eager â€” all items in memory |
+| Memory | Lazy — items produced on demand | Eager — all items in memory |
 | Execution | Deferred (LINQ queries) | Immediate |
-| `Count` / `Length` | âŒ Not available (enumerate to count) | âœ… O(1) `.Count` |
-| Index access | âŒ | âœ… `list[i]` |
-| Mutation | âŒ | âœ… `Add`, `Remove`, `Sort` |
-| Re-enumeration | May re-execute the query | âœ… Safe â€” always same data |
+| `Count` / `Length` | ❌ Not available (enumerate to count) | ✅ O(1) `.Count` |
+| Index access | ❌ | ✅ `list[i]` |
+| Mutation | ❌ | ✅ `Add`, `Remove`, `Sort` |
+| Re-enumeration | May re-execute the query | ✅ Safe — always same data |
 | Best for | Method parameters (widest compatibility) | In-memory data management |
 
 ```cs
-// IEnumerable<T> â€” lazy, deferred
+// IEnumerable<T> — lazy, deferred
 IEnumerable<int> LazySquares(int n)
 {
     for (int i = 1; i <= n; i++)
     {
-        Console.WriteLine($"Computing {i}Â²");
+        Console.WriteLine($"Computing {i}²");
         yield return i * i;
     }
 }
 
 var seq = LazySquares(5); // nothing computed yet
-var first = seq.First();   // computes 1Â² only, stops
+var first = seq.First();   // computes 1² only, stops
 Console.WriteLine(first);  // 1
 
-// List<T> â€” eager, in-memory
+// List<T> — eager, in-memory
 List<int> squares = LazySquares(5).ToList(); // ALL 5 computed immediately
 Console.WriteLine(squares[2]); // 9 (O(1) index access)
 squares.Add(36);
@@ -12204,9 +11480,6 @@ PrintAll(Enumerable.Range(1, 3)); // works (query)
 - Use `List<T>` when you need **mutation, indexing, or multiple iterations**.
 - Call `.ToList()` to materialise a lazy query into a concrete list.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. When to use ArrayList over array[] in C#?
 
@@ -12216,19 +11489,19 @@ PrintAll(Enumerable.Range(1, 3)); // works (query)
 
 | Scenario | Recommendation |
 |----------|---------------|
-| New code â€” heterogeneous types | Use `List<object>` or a discriminated union/interface |
-| New code â€” homogeneous types | Use `List<T>` or `T[]` |
+| New code — heterogeneous types | Use `List<object>` or a discriminated union/interface |
+| New code — homogeneous types | Use `List<T>` or `T[]` |
 | Interop with very old APIs expecting `ArrayList` | Use `ArrayList` only at the boundary |
 | Legacy maintenance | Keep `ArrayList`, refactor when possible |
 
 ```cs
-// âŒ Old approach â€” ArrayList loses type safety
+// ❌ Old approach — ArrayList loses type safety
 var al = new System.Collections.ArrayList();
 al.Add(42);       // boxing
-al.Add("hello");  // mixed types â€” no compile error
-int x = (int)al[0]; // unboxing â€” runtime error if wrong type
+al.Add("hello");  // mixed types — no compile error
+int x = (int)al[0]; // unboxing — runtime error if wrong type
 
-// âœ… Modern replacement
+// ✅ Modern replacement
 var list = new List<int> { 42, 99 };
 list.Add(100); // type-safe, no boxing
 
@@ -12241,19 +11514,16 @@ sealed record StringValue(string Value);
 var typed = new List<object> { new IntValue(42), new StringValue("hi") };
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the differences between IEnumerable and IQueryable?
 
 | Feature | `IEnumerable<T>` | `IQueryable<T>` |
 |---------|-----------------|----------------|
 | Execution location | **In-memory** (C# code) | **Remote** (SQL, OData, etc.) |
-| Query translation | No â€” LINQ methods run as C# delegates | Yes â€” expression trees translated to SQL |
+| Query translation | No — LINQ methods run as C# delegates | Yes — expression trees translated to SQL |
 | Data retrieval | Pulls all data from source first | Sends only necessary query to the data source |
 | Provider | None (local iteration) | Requires a `QueryProvider` (e.g., EF Core) |
-| Filtering | After fetching (expensive for large data) | At the source (efficient â€” WHERE in SQL) |
+| Filtering | After fetching (expensive for large data) | At the source (efficient — WHERE in SQL) |
 | Inherits from | `IEnumerable` | `IEnumerable<T>` + `IQueryable` |
 | Use case | In-memory collections (List, Array) | ORM queries (EF Core, LINQ to SQL) |
 
@@ -12266,16 +11536,16 @@ var products = new List<Product>
     new("Keyboard",75m),
 };
 
-// IEnumerable<T> â€” filters IN MEMORY (all 4 rows loaded first)
+// IEnumerable<T> — filters IN MEMORY (all 4 rows loaded first)
 IEnumerable<Product> expensiveEnum = products
     .Where(p => p.Price > 100); // C# delegate, runs in-memory
 
-// IQueryable<T> â€” with EF Core, WHERE translated to SQL (only matching rows fetched)
+// IQueryable<T> — with EF Core, WHERE translated to SQL (only matching rows fetched)
 // IQueryable<Product> expensiveQuery = dbContext.Products
 //     .Where(p => p.Price > 100); // becomes: SELECT * FROM Products WHERE Price > 100
 // var result = await expensiveQuery.ToListAsync(); // SQL executes here
 
-// Mixing: IQueryable â†’ AsEnumerable() forces in-memory from that point
+// Mixing: IQueryable → AsEnumerable() forces in-memory from that point
 // dbContext.Products
 //     .Where(p => p.Price > 100)   // SQL
 //     .AsEnumerable()              // switch to in-memory
@@ -12284,11 +11554,8 @@ IEnumerable<Product> expensiveEnum = products
 record Product(string Name, decimal Price);
 ```
 
-**Key rule:** Use `IQueryable<T>` when the data lives in a remote store (database). Use `IEnumerable<T>` for in-memory data. Never filter a large database table with `IEnumerable` â€” it loads every row into memory before filtering.
+**Key rule:** Use `IQueryable<T>` when the data lives in a remote store (database). Use `IEnumerable<T>` for in-memory data. Never filter a large database table with `IEnumerable` — it loads every row into memory before filtering.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to sort the generic SortedList in the descending order?
 
@@ -12306,7 +11573,7 @@ var ascending = new SortedList<int, string>
 foreach (var (k, v) in ascending)
     Console.WriteLine($"{k}: {v}"); // 1 / 2 / 3
 
-// Descending â€” use Comparer<T>.Create with reversed comparison
+// Descending — use Comparer<T>.Create with reversed comparison
 var descending = new SortedList<int, string>(
     Comparer<int>.Create((a, b) => b.CompareTo(a))); // reverse!
 
@@ -12317,7 +11584,7 @@ descending[2] = "two";
 foreach (var (k, v) in descending)
     Console.WriteLine($"{k}: {v}"); // 3 / 2 / 1
 
-// For strings â€” descending alphabetically
+// For strings — descending alphabetically
 var names = new SortedList<string, int>(
     StringComparer.OrdinalIgnoreCase, // case-insensitive
     Comparer<string>.Create((a, b) => string.Compare(b, a, StringComparison.OrdinalIgnoreCase)));
@@ -12330,9 +11597,6 @@ foreach (var (k, v) in sortedDesc)
     Console.WriteLine($"{k}: {v}"); // 3 / 2 / 1
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `HashSet` and when would you use it?
 
@@ -12346,46 +11610,43 @@ foreach (var (k, v) in sortedDesc)
 ```cs
 // Basic usage
 var fruits = new HashSet<string> { "apple", "banana", "cherry" };
-fruits.Add("apple");    // âŒ duplicate ignored â€” returns false
-fruits.Add("date");     // âœ… added
+fruits.Add("apple");    // ❌ duplicate ignored — returns false
+fruits.Add("date");     // ✅ added
 
-Console.WriteLine(fruits.Contains("banana")); // True  â€” O(1)
+Console.WriteLine(fruits.Contains("banana")); // True  — O(1)
 Console.WriteLine(fruits.Count);              // 4
 
 // Set operations
 var a = new HashSet<int> { 1, 2, 3, 4, 5 };
 var b = new HashSet<int> { 3, 4, 5, 6, 7 };
 
-// Union â€” all elements from both
+// Union — all elements from both
 var union = new HashSet<int>(a);
 union.UnionWith(b);
 Console.WriteLine(string.Join(",", union)); // 1,2,3,4,5,6,7
 
-// Intersection â€” elements in both
+// Intersection — elements in both
 var intersection = new HashSet<int>(a);
 intersection.IntersectWith(b);
 Console.WriteLine(string.Join(",", intersection)); // 3,4,5
 
-// Difference â€” elements in a but not b
+// Difference — elements in a but not b
 var diff = new HashSet<int>(a);
 diff.ExceptWith(b);
 Console.WriteLine(string.Join(",", diff)); // 1,2
 
-// Remove duplicates from a list â€” common pattern
+// Remove duplicates from a list — common pattern
 var withDuplicates = new List<int> { 1, 2, 2, 3, 3, 3, 4 };
 var unique = new HashSet<int>(withDuplicates);
 Console.WriteLine(string.Join(",", unique)); // 1,2,3,4
 
-// Frozen variant (.NET 8+) â€” for read-only lookup tables
+// Frozen variant (.NET 8+) — for read-only lookup tables
 using System.Collections.Frozen;
 FrozenSet<string> reserved = FrozenSet.ToFrozenSet(
     new[] { "class", "void", "public", "private" });
 Console.WriteLine(reserved.Contains("void")); // True
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How is LinkedList used in C#?
 
@@ -12412,7 +11673,7 @@ Console.WriteLine(string.Join(" -> ", ll)); // A -> A.5 -> B -> B.5 -> C
 
 // Remove by value or node
 ll.Remove("A.5");
-ll.Remove(nodeB); // O(1) â€” already have the node reference
+ll.Remove(nodeB); // O(1) — already have the node reference
 Console.WriteLine(string.Join(" -> ", ll)); // A -> B.5 -> C
 
 // Traverse forward and backward
@@ -12442,9 +11703,6 @@ while (node is not null)
 - Random index access is needed (O(n) vs O(1) for arrays).
 - Cache performance matters (non-contiguous memory, poor locality).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is difference between Stack and Heap?
 
@@ -12453,7 +11711,7 @@ In .NET, **stack** and **heap** are the two primary memory regions used during p
 | Aspect | Stack | Heap |
 |--------|-------|------|
 | Contents | Value types, method call frames, local variable references | Reference type objects, boxed values |
-| Allocation | Automatic â€” push on call, pop on return | Managed by garbage collector |
+| Allocation | Automatic — push on call, pop on return | Managed by garbage collector |
 | Access speed | Very fast (contiguous, CPU-cached) | Slower (random access, GC overhead) |
 | Size | Limited (~1 MB per thread) | Large (limited by available RAM) |
 | Lifetime | Limited to the scope/method | Until GC collects it |
@@ -12463,14 +11721,14 @@ In .NET, **stack** and **heap** are the two primary memory regions used during p
 ```cs
 void Method()
 {
-    int x = 42;              // value type â€” stored on stack
-    double y = 3.14;         // value type â€” stored on stack
+    int x = 42;              // value type — stored on stack
+    double y = 3.14;         // value type — stored on stack
 
-    var list = new List<int>(); // reference type â€” object on heap
+    var list = new List<int>(); // reference type — object on heap
                                 // `list` variable (reference) on stack
 
-    var point = new Point(1, 2); // struct â€” on stack (value type)
-    var obj   = new object();    // class  â€” on heap (reference type)
+    var point = new Point(1, 2); // struct — on stack (value type)
+    var obj   = new object();    // class  — on heap (reference type)
 }
 
 public record struct Point(int X, int Y); // struct = value type
@@ -12480,41 +11738,38 @@ public record struct Point(int X, int Y); // struct = value type
 
 ```
 STACK (per thread)            HEAP (shared)
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”           â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ x = 42          â”‚           â”‚ List<int> object        â”‚
-â”‚ y = 3.14        â”‚           â”‚  [_items array, Count]  â”‚
-â”‚ list â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–ºâ”‚                         â”‚
-â”‚ point = (1,2)   â”‚           â”‚ object {}               â”‚
-â”‚ obj â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º                         â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜           â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌─────────────────┐           ┌────────────────────────┐
+│ x = 42          │           │ List<int> object        │
+│ y = 3.14        │           │  [_items array, Count]  │
+│ list ──────────────────────►│                         │
+│ point = (1,2)   │           │ object {}               │
+│ obj ────────────────────────►                         │
+└─────────────────┘           └────────────────────────┘
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Are string allocated on stack or heap?
 
-**Strings are reference types â€” their content is allocated on the heap.** The variable holding the reference lives on the stack (or inline in an object), but the actual string data is on the heap.
+**Strings are reference types — their content is allocated on the heap.** The variable holding the reference lives on the stack (or inline in an object), but the actual string data is on the heap.
 
 However, `string` has special behavior:
-- **String interning** â€” the CLR interns string literals; identical literals share the same heap object.
-- **Immutability** â€” strings are immutable; every "modification" creates a new heap object.
+- **String interning** — the CLR interns string literals; identical literals share the same heap object.
+- **Immutability** — strings are immutable; every "modification" creates a new heap object.
 
 ```cs
-string s1 = "hello"; // literal â€” interned on heap, reference on stack
-string s2 = "hello"; // same interned object â€” s1 and s2 point to same heap address
+string s1 = "hello"; // literal — interned on heap, reference on stack
+string s2 = "hello"; // same interned object — s1 and s2 point to same heap address
 
 Console.WriteLine(object.ReferenceEquals(s1, s2)); // True (interned)
 
-string s3 = new string("hello".ToCharArray()); // forced new object â€” NOT interned
+string s3 = new string("hello".ToCharArray()); // forced new object — NOT interned
 Console.WriteLine(object.ReferenceEquals(s1, s3)); // False
 
 // Manual interning
 string s4 = string.Intern(s3); // returns the interned version
 Console.WriteLine(object.ReferenceEquals(s1, s4)); // True
 
-// String immutability â€” each operation allocates a new heap object
+// String immutability — each operation allocates a new heap object
 string original = "Hello";
 string modified = original + " World"; // new heap string
 Console.WriteLine(object.ReferenceEquals(original, modified)); // False
@@ -12526,11 +11781,8 @@ for (int i = 0; i < 1000; i++)
 string result = sb.ToString(); // single heap allocation
 ```
 
-**Summary:** String variable â†’ stack (or field in object); String content â†’ always heap.
+**Summary:** String variable → stack (or field in object); String content → always heap.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How many stack and heaps are created for an application?
 
@@ -12538,9 +11790,9 @@ string result = sb.ToString(); // single heap allocation
 - **Heap:** One **managed heap** per **process** (AppDomain), shared across all threads.
 
 .NET\'s managed heap is internally divided into:
-- **Small Object Heap (SOH)** â€” Generation 0, 1, 2 for objects < 85,000 bytes.
-- **Large Object Heap (LOH)** â€” objects â‰¥ 85,000 bytes (arrays, large strings).
-- **Pinned Object Heap (POH)** â€” .NET 5+ â€” pinned objects that must not be moved by GC.
+- **Small Object Heap (SOH)** — Generation 0, 1, 2 for objects < 85,000 bytes.
+- **Large Object Heap (LOH)** — objects ≥ 85,000 bytes (arrays, large strings).
+- **Pinned Object Heap (POH)** — .NET 5+ — pinned objects that must not be moved by GC.
 
 ```cs
 // Each new thread = new stack
@@ -12552,30 +11804,27 @@ var t1 = new Thread(() =>
 
 var t2 = new Thread(() =>
 {
-    int x = 20; // on t2\'s own stack â€” different from t1\'s x
+    int x = 20; // on t2\'s own stack — different from t1\'s x
     Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId}: x={x}");
 });
 
 t1.Start(); t2.Start();
 t1.Join();  t2.Join();
 
-// Heap is shared â€” reference types visible across threads
+// Heap is shared — reference types visible across threads
 var shared = new List<int>();
 var t3 = new Thread(() => shared.Add(1)); // modifies shared heap object
 var t4 = new Thread(() => shared.Add(2)); // same heap object
 t3.Start(); t4.Start();
 t3.Join();  t4.Join();
 Console.WriteLine(shared.Count); // 2 (both threads wrote to same heap list)
-// Note: List<T> is NOT thread-safe â€” use ConcurrentBag or lock in production
+// Note: List<T> is NOT thread-safe — use ConcurrentBag or lock in production
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How are stack and heap memory deallocated?
 
-**Stack deallocation â€” automatic and immediate:**
+**Stack deallocation — automatic and immediate:**
 
 Stack memory is released as soon as a method returns. The stack pointer moves back (stack "unwinds"). No GC involvement.
 
@@ -12590,10 +11839,10 @@ void Inner()
 {
     int a = 10;       // allocated on stack
     double b = 3.14;  // allocated on stack
-} // stack frame released here â€” a and b are gone
+} // stack frame released here — a and b are gone
 ```
 
-**Heap deallocation â€” by the Garbage Collector (GC):**
+**Heap deallocation — by the Garbage Collector (GC):**
 
 Objects on the heap are not freed immediately. The GC traces live references and collects unreachable objects in generations (Gen 0, 1, 2).
 
@@ -12602,19 +11851,19 @@ void CreateObject()
 {
     var obj = new byte[1000]; // allocated on heap
     // use obj...
-} // obj reference is gone from stack â€” object is GC-eligible
+} // obj reference is gone from stack — object is GC-eligible
 // GC may collect it at any later point
 
-// Force collection (for demonstration only â€” avoid in production)
+// Force collection (for demonstration only — avoid in production)
 GC.Collect();
 GC.WaitForPendingFinalizers();
 ```
 
-**`IDisposable` / `using` â€” release unmanaged resources deterministically:**
+**`IDisposable` / `using` — release unmanaged resources deterministically:**
 
 ```cs
 using var stream = new FileStream("file.txt", FileMode.OpenOrCreate);
-// stream is disposed (file handle released) here â€” deterministic, not waiting for GC
+// stream is disposed (file handle released) here — deterministic, not waiting for GC
 ```
 
 | Memory | Released by | When |
@@ -12623,9 +11872,6 @@ using var stream = new FileStream("file.txt", FileMode.OpenOrCreate);
 | Heap (managed) | GC | Non-deterministically (Gen 0/1/2 collections) |
 | Heap (unmanaged) | `Dispose()` / finalizer | `using` block or GC finalizer queue |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Who clears the heap memory?
 
@@ -12633,7 +11879,7 @@ The **.NET Garbage Collector (GC)** is responsible for clearing heap memory. It:
 
 1. **Traces** all live object references starting from GC roots (static fields, local variables, CPU registers, GC handles).
 2. **Marks** reachable objects as alive.
-3. **Collects** (sweeps) objects not marked â€” their memory is reclaimed.
+3. **Collects** (sweeps) objects not marked — their memory is reclaimed.
 4. **Compacts** the heap to remove fragmentation (for Gen 0/1/2; LOH is not compacted by default).
 
 ```cs
@@ -12642,13 +11888,13 @@ public class Resource
     private readonly string _name;
     public Resource(string name) => _name = name;
 
-    // Finalizer â€” called by GC on a separate finalizer thread
+    // Finalizer — called by GC on a separate finalizer thread
     ~Resource() => Console.WriteLine($"GC collected: {_name}");
 }
 
 // Demonstrate GC collection
 var r = new Resource("MyResource");
-r = null!; // remove the only reference â€” object becomes unreachable
+r = null!; // remove the only reference — object becomes unreachable
 
 GC.Collect();               // request a GC (not guaranteed immediate)
 GC.WaitForPendingFinalizers(); // wait for finalizer to run
@@ -12675,18 +11921,15 @@ using var res = new ManagedResource(); // Dispose called at end of using block
 ```
 
 **GC generations:**
-- **Gen 0** â€” short-lived objects (most common). Collected frequently.
-- **Gen 1** â€” survived Gen 0. Buffer between Gen 0 and Gen 2.
-- **Gen 2** â€” long-lived objects. Collected infrequently (full GC).
-- **LOH** â€” large objects (â‰¥ 85 KB). Collected with Gen 2.
+- **Gen 0** — short-lived objects (most common). Collected frequently.
+- **Gen 1** — survived Gen 0. Buffer between Gen 0 and Gen 2.
+- **Gen 2** — long-lived objects. Collected infrequently (full GC).
+- **LOH** — large objects (≥ 85 KB). Collected with Gen 2.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Where is structure allocated Stack or Heap?
 
-**It depends on context** â€” not always the stack:
+**It depends on context** — not always the stack:
 
 | Where struct is used | Allocation location |
 |---------------------|---------------------|
@@ -12698,23 +11941,23 @@ using var res = new ManagedResource(); // Dispose called at end of using block
 
 ```cs
 public struct Point { public int X, Y; }
-public class Container { public Point Location; } // Point field â€” on heap inside Container
+public class Container { public Point Location; } // Point field — on heap inside Container
 
 void Demo()
 {
-    Point p1 = new Point { X = 1, Y = 2 }; // local var â€” STACK
+    Point p1 = new Point { X = 1, Y = 2 }; // local var — STACK
 
     var c = new Container();
-    c.Location = new Point { X = 3, Y = 4 }; // field in class â€” HEAP
+    c.Location = new Point { X = 3, Y = 4 }; // field in class — HEAP
 
-    Point[] points = [new(1, 2), new(3, 4)]; // array â€” HEAP (contiguous)
+    Point[] points = [new(1, 2), new(3, 4)]; // array — HEAP (contiguous)
 
-    // Boxing â€” struct moved to heap
+    // Boxing — struct moved to heap
     object boxed = p1;               // heap allocation!
     Point unboxed = (Point)boxed;    // copy back from heap
 }
 
-// readonly record struct (C# 10) â€” best practice for immutable value types
+// readonly record struct (C# 10) — best practice for immutable value types
 public readonly record struct Vector2D(double X, double Y)
 {
     public double Length => Math.Sqrt(X * X + Y * Y);
@@ -12722,48 +11965,45 @@ public readonly record struct Vector2D(double X, double Y)
 
 void VectorDemo()
 {
-    Vector2D v = new(3, 4); // STACK â€” local variable
+    Vector2D v = new(3, 4); // STACK — local variable
     Console.WriteLine(v.Length); // 5
 }
 ```
 
 **Key point:** The common saying "structs are on the stack" is an oversimplification. Structs follow the same allocation rules as their container.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can structures get created on Heap?
 
 **Yes.** Structs can live on the heap in several scenarios:
 
-1. **Boxed** â€” cast to `object` or an interface.
-2. **Field of a class** â€” embedded in the class object\'s heap memory.
-3. **Element of an array** â€” arrays are reference types (heap).
-4. **Captured by a closure** â€” if a struct local variable is captured by a lambda/delegate, it may be promoted to the heap.
-5. **`async` state machine** â€” local struct variables in async methods are stored in the heap-allocated state machine object.
+1. **Boxed** — cast to `object` or an interface.
+2. **Field of a class** — embedded in the class object\'s heap memory.
+3. **Element of an array** — arrays are reference types (heap).
+4. **Captured by a closure** — if a struct local variable is captured by a lambda/delegate, it may be promoted to the heap.
+5. **`async` state machine** — local struct variables in async methods are stored in the heap-allocated state machine object.
 
 ```cs
 public struct Counter { public int Value; }
 
-// 1. Boxing â€” struct moves to heap
+// 1. Boxing — struct moves to heap
 Counter c = new Counter { Value = 5 };
 object boxed = c;  // heap allocation, copy of c
 
-// 2. Class field â€” struct embedded in heap object
+// 2. Class field — struct embedded in heap object
 public class Wrapper { public Counter Counter; }
 var w = new Wrapper(); // w.Counter lives on heap (inside Wrapper)
 
-// 3. Array â€” heap
+// 3. Array — heap
 Counter[] arr = new Counter[3]; // 3 Counter structs, all on heap
 
 // 4. Closure capture
-int x = 10; // local int (struct) captured by lambda â†’ promoted to heap
+int x = 10; // local int (struct) captured by lambda → promoted to heap
 Action inc = () => x++; // x is now on the heap inside a display class
 inc();
 Console.WriteLine(x); // 11
 
-// 5. async method â€” locals stored in heap state machine
+// 5. async method — locals stored in heap state machine
 async Task AsyncDemo()
 {
     Counter local = new Counter { Value = 1 }; // stored in async state machine (heap)
@@ -12772,15 +12012,12 @@ async Task AsyncDemo()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is there a way we can see this Heap memory?
 
-Yes â€” several tools and APIs expose the managed heap:
+Yes — several tools and APIs expose the managed heap:
 
-**1. Via code â€” `GC` APIs:**
+**1. Via code — `GC` APIs:**
 
 ```cs
 // Total memory currently used by managed heap
@@ -12808,11 +12045,11 @@ Console.WriteLine($"obj is in Gen{GC.GetGeneration(obj)}"); // 1 (survived colle
 ```
 
 **2. External tools:**
-- **dotMemory** (JetBrains) â€” heap snapshots, object retention paths.
-- **Visual Studio Diagnostic Tools** â€” heap allocation timeline, snapshot comparison.
-- **PerfView** â€” GC events, allocation stacks.
-- **dotnet-dump** â€” capture and analyze memory dumps (`dotnet-dump collect`, `dotnet-dump analyze`).
-- **dotnet-gcdump** â€” GC heap dump in `.gcdump` format.
+- **dotMemory** (JetBrains) — heap snapshots, object retention paths.
+- **Visual Studio Diagnostic Tools** — heap allocation timeline, snapshot comparison.
+- **PerfView** — GC events, allocation stacks.
+- **dotnet-dump** — capture and analyze memory dumps (`dotnet-dump collect`, `dotnet-dump analyze`).
+- **dotnet-gcdump** — GC heap dump in `.gcdump` format.
 
 ```powershell
 # Capture a GC heap dump from command line
@@ -12820,9 +12057,6 @@ dotnet-gcdump collect -p <pid>
 # Open in Visual Studio or dotnet-gcdump report for analysis
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain stack and Heap?
 
@@ -12832,16 +12066,16 @@ dotnet-gcdump collect -p <pid>
 
 ```
  Stack (per thread)                  Heap (shared, GC managed)
- â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
- â”‚ Main() frame            â”‚         â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
- â”‚   args reference â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º â”‚ â”‚ string[] args       â”‚ â”‚
- â”‚   person ref â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
- â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤         â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
- â”‚ CreatePerson() frame    â”‚         â”‚ â”‚ Person object       â”‚ â”‚
- â”‚   name = "Pradeep"      â”‚         â”‚ â”‚  Name: "Pradeep"    â”‚ â”‚
- â”‚   age  = 30             â”‚         â”‚ â”‚  Age:  30           â”‚ â”‚
- â”‚   p ref â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
- â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+ ┌─────────────────────────┐         ┌─────────────────────────┐
+ │ Main() frame            │         │ ┌─────────────────────┐ │
+ │   args reference ───────────────► │ │ string[] args       │ │
+ │   person ref ───────────────────► │ └─────────────────────┘ │
+ ├─────────────────────────┤         │ ┌─────────────────────┐ │
+ │ CreatePerson() frame    │         │ │ Person object       │ │
+ │   name = "Pradeep"      │         │ │  Name: "Pradeep"    │ │
+ │   age  = 30             │         │ │  Age:  30           │ │
+ │   p ref ────────────────────────► │ └─────────────────────┘ │
+ └─────────────────────────┘         └─────────────────────────┘
 ```
 
 ```cs
@@ -12849,11 +12083,11 @@ class Person { public string Name { get; } = ""; public int Age; }
 
 void Demo()
 {
-    int age = 30;                  // value type â†’ stack
-    string name = "Pradeep";      // reference â†’ stack, content â†’ heap
-    Person p = new Person();       // reference â†’ stack, object â†’ heap
+    int age = 30;                  // value type → stack
+    string name = "Pradeep";      // reference → stack, content → heap
+    Person p = new Person();       // reference → stack, object → heap
 
-    Console.WriteLine(GC.GetGeneration(p)); // 0 â€” just allocated
+    Console.WriteLine(GC.GetGeneration(p)); // 0 — just allocated
 } // stack frame released; p reference gone; Person object GC-eligible
 ```
 
@@ -12867,16 +12101,13 @@ void Demo()
 | Limited size (~1 MB) | Large (GB range) |
 | No fragmentation | Can fragment (GC compacts) |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Where are stack and heap stored?
 
 Both stack and heap are stored in **RAM (physical and virtual memory)**, managed by the OS and the .NET runtime:
 
-- **Stack** â€” each thread\'s stack is allocated as a contiguous block of virtual memory by the OS when the thread is created. The CPU\'s stack pointer register (`RSP` on x64) tracks the current top.
-- **Managed heap** â€” the .NET runtime requests virtual memory pages from the OS via VirtualAlloc (Windows) or mmap (Linux/macOS). The GC manages segments within this virtual memory.
+- **Stack** — each thread\'s stack is allocated as a contiguous block of virtual memory by the OS when the thread is created. The CPU\'s stack pointer register (`RSP` on x64) tracks the current top.
+- **Managed heap** — the .NET runtime requests virtual memory pages from the OS via VirtualAlloc (Windows) or mmap (Linux/macOS). The GC manages segments within this virtual memory.
 
 ```cs
 // You can observe memory allocations via the Environment class
@@ -12896,20 +12127,17 @@ Console.WriteLine($"Total heap committed: {info.TotalCommittedBytes / 1_048_576}
 **Conceptually:**
 ```
 Physical RAM
-  â”œâ”€â”€ OS kernel code + data
-  â”œâ”€â”€ Thread 1 stack (virtual address range, ~1 MB reserved)
-  â”œâ”€â”€ Thread 2 stack (separate range)
-  â”œâ”€â”€ Managed heap segments (GC-managed, can grow)
-  â”‚     â”œâ”€â”€ Gen 0 segment
-  â”‚     â”œâ”€â”€ Gen 1 segment
-  â”‚     â”œâ”€â”€ Gen 2 segment
-  â”‚     â””â”€â”€ LOH segment
-  â””â”€â”€ Native heaps (unmanaged, DLL code, etc.)
+  ├── OS kernel code + data
+  ├── Thread 1 stack (virtual address range, ~1 MB reserved)
+  ├── Thread 2 stack (separate range)
+  ├── Managed heap segments (GC-managed, can grow)
+  │     ├── Gen 0 segment
+  │     ├── Gen 1 segment
+  │     ├── Gen 2 segment
+  │     └── LOH segment
+  └── Native heaps (unmanaged, DLL code, etc.)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What goes on stack and what goes on heap?
 
@@ -12923,7 +12151,7 @@ Physical RAM
 - All reference type objects (`class`, `string`, `array`, `delegate`, `interface` instances)
 - Static fields (stored in a special "high-frequency heap" / static area)
 - Boxed value types
-- Large objects (â‰¥ 85,000 bytes go to LOH)
+- Large objects (≥ 85,000 bytes go to LOH)
 
 ```cs
 public struct Point { public int X, Y; }   // value type
@@ -12931,21 +12159,21 @@ public class Circle { public double R; }   // reference type
 
 void Example()
 {
-    // â”€â”€ STACK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    int age     = 30;          // int â†’ stack
-    bool active = true;        // bool â†’ stack
-    Point pt    = new(3, 4);   // struct â†’ stack (inline)
-    Circle c    = new() { R = 5 }; // c (reference) â†’ stack; object â†’ heap
+    // ── STACK ──────────────────────────────────────────
+    int age     = 30;          // int → stack
+    bool active = true;        // bool → stack
+    Point pt    = new(3, 4);   // struct → stack (inline)
+    Circle c    = new() { R = 5 }; // c (reference) → stack; object → heap
 
-    // â”€â”€ HEAP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── HEAP ───────────────────────────────────────────
     // new Circle() object is on heap, 'c' on stack points to it
     var list = new List<int>(); // List object on heap; 'list' ref on stack
     list.Add(42);               // int 42 stored inside the List\'s backing array (heap)
 
-    // Boxing â€” value type moved to heap
+    // Boxing — value type moved to heap
     object boxed = age;         // new heap allocation; 'boxed' ref on stack
 
-    // Array â€” always heap (array is a reference type)
+    // Array — always heap (array is a reference type)
     int[] arr = [1, 2, 3];      // array object on heap; 'arr' ref on stack
 }
 ```
@@ -12961,9 +12189,6 @@ void Example()
 | `array` | Heap |
 | Reference variable | Stack |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How is the stack memory address arranged?
 
@@ -12971,22 +12196,22 @@ The stack grows **downward** in memory on x86/x64 architectures. When a new meth
 
 ```
 High addresses
-  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â† Stack base (thread start)
-  â”‚ Main() frame            â”‚
-  â”‚   [return address]      â”‚
-  â”‚   [saved registers]     â”‚
-  â”‚   args = ...            â”‚ RSP points here when in Main()
-  â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-  â”‚ Method1() frame         â”‚ â† RSP decremented when Method1() called
-  â”‚   [return address]      â”‚
-  â”‚   local int a = 10      â”‚
-  â”‚   local double b = 3.14 â”‚
-  â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-  â”‚ Method2() frame         â”‚ â† RSP decremented again
-  â”‚   [return address]      â”‚
-  â”‚   local int x = 5       â”‚ â† RSP points here (top of stack)
-  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-Low addresses (stack grows downward â†“)
+  ┌─────────────────────────┐ ← Stack base (thread start)
+  │ Main() frame            │
+  │   [return address]      │
+  │   [saved registers]     │
+  │   args = ...            │ RSP points here when in Main()
+  ├─────────────────────────┤
+  │ Method1() frame         │ ← RSP decremented when Method1() called
+  │   [return address]      │
+  │   local int a = 10      │
+  │   local double b = 3.14 │
+  ├─────────────────────────┤
+  │ Method2() frame         │ ← RSP decremented again
+  │   [return address]      │
+  │   local int x = 5       │ ← RSP points here (top of stack)
+  └─────────────────────────┘
+Low addresses (stack grows downward ↓)
 ```
 
 ```cs
@@ -12995,7 +12220,7 @@ void InnerMethod()
 {
     var trace = new System.Diagnostics.StackTrace(fNeedFileInfo: true);
     Console.WriteLine(trace);
-    // Output shows call stack: InnerMethod â†’ OuterMethod â†’ Main
+    // Output shows call stack: InnerMethod → OuterMethod → Main
 }
 
 void OuterMethod() => InnerMethod();
@@ -13003,17 +12228,14 @@ OuterMethod();
 ```
 
 **Key points:**
-- Stack memory is **contiguous** â€” excellent CPU cache behavior.
+- Stack memory is **contiguous** — excellent CPU cache behavior.
 - **Stack overflow** occurs when too many frames are pushed (e.g., infinite recursion) and RSP goes past the stack\'s reserved limit.
-- Each thread\'s stack is independent â€” different threads have stacks at different address ranges.
+- Each thread\'s stack is independent — different threads have stacks at different address ranges.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How is stack memory deallocated LIFO or FIFO?
 
-**LIFO (Last-In, First-Out).** Stack memory deallocation is strictly LIFO â€” the most recently pushed frame is always released first (when its method returns).
+**LIFO (Last-In, First-Out).** Stack memory deallocation is strictly LIFO — the most recently pushed frame is always released first (when its method returns).
 
 ```cs
 void A()
@@ -13022,7 +12244,7 @@ void A()
     Console.WriteLine("A: entered");
     B();       // B\'s frame pushed ON TOP of A\'s frame
     Console.WriteLine("A: B returned"); // A\'s frame still alive
-} // A\'s frame popped â€” x released
+} // A\'s frame popped — x released
 
 void B()
 {
@@ -13030,29 +12252,26 @@ void B()
     Console.WriteLine("B: entered");
     C();       // C\'s frame pushed on top
     Console.WriteLine("B: C returned");
-} // B\'s frame popped â€” y released
+} // B\'s frame popped — y released
 
 void C()
 {
     int z = 3; // pushed last
     Console.WriteLine("C: entered");
-} // C\'s frame popped FIRST â€” z released first (LIFO)
+} // C\'s frame popped FIRST — z released first (LIFO)
 
 A();
 // Output:
 // A: entered
 // B: entered
-// C: entered   â† C allocated last
+// C: entered   ← C allocated last
 // B: C returned
 // A: B returned
 // Stack release order: C first, then B, then A (LIFO)
 ```
 
-**Why LIFO works:** Methods call each other in a nested (tree) structure. A callee always returns before its caller â€” so the callee\'s frame is always on top and is always freed first. This makes a simple stack pointer increment sufficient for deallocation â€” no GC, no scanning, no bookkeeping.
+**Why LIFO works:** Methods call each other in a nested (tree) structure. A callee always returns before its caller — so the callee\'s frame is always on top and is always freed first. This makes a simple stack pointer increment sufficient for deallocation — no GC, no scanning, no bookkeeping.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you choose between `List<T>` and `ArrayList` in C#?
 
@@ -13060,20 +12279,20 @@ A();
 
 | Decision factor | `ArrayList` | `List<T>` |
 |----------------|------------|-----------|
-| Type safety | âŒ Stores `object` â€” runtime cast errors | âœ… Compile-time type checking |
-| Performance (value types) | âŒ Boxing/unboxing on every operation | âœ… No boxing â€” direct storage |
-| IntelliSense / tooling | âŒ All methods return `object` | âœ… Full typed IntelliSense |
-| LINQ | Requires cast | âœ… Native LINQ support |
-| Recommended | Legacy code only | âœ… Always |
+| Type safety | ❌ Stores `object` — runtime cast errors | ✅ Compile-time type checking |
+| Performance (value types) | ❌ Boxing/unboxing on every operation | ✅ No boxing — direct storage |
+| IntelliSense / tooling | ❌ All methods return `object` | ✅ Full typed IntelliSense |
+| LINQ | Requires cast | ✅ Native LINQ support |
+| Recommended | Legacy code only | ✅ Always |
 
 ```cs
-// âŒ ArrayList â€” avoid in new code
+// ❌ ArrayList — avoid in new code
 var al = new System.Collections.ArrayList();
-al.Add(42);       // boxing int â†’ object
-al.Add("mixed");  // no compile error â€” mixed types allowed
+al.Add(42);       // boxing int → object
+al.Add("mixed");  // no compile error — mixed types allowed
 int n = (int)al[0]; // unboxing, runtime error if wrong type
 
-// âœ… List<T> â€” always prefer
+// ✅ List<T> — always prefer
 var list = new List<int> { 1, 2, 3 };
 list.Add(4);         // no boxing
 list.Add(5);
@@ -13086,36 +12305,33 @@ Console.WriteLine(string.Join(",", evens)); // 2,4
 // List<T> capacity pre-allocation for performance
 var large = new List<int>(capacity: 1_000_000);
 for (int i = 0; i < 1_000_000; i++)
-    large.Add(i); // no re-allocation needed â€” capacity was pre-set
+    large.Add(i); // no re-allocation needed — capacity was pre-set
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you iterate over a collection in C#?
 
 ```cs
 var numbers = new List<int> { 1, 2, 3, 4, 5 };
 
-// 1. foreach â€” simplest, works on any IEnumerable<T>
+// 1. foreach — simplest, works on any IEnumerable<T>
 foreach (int n in numbers)
     Console.Write($"{n} "); // 1 2 3 4 5
 
-// 2. for loop â€” when you need the index
+// 2. for loop — when you need the index
 for (int i = 0; i < numbers.Count; i++)
     Console.Write($"[{i}]={numbers[i]} ");
 
-// 3. LINQ â€” declarative, composable
+// 3. LINQ — declarative, composable
 numbers.ForEach(Console.WriteLine);    // List<T>.ForEach
 var doubled = numbers.Select(n => n * 2).ToList();
 
-// 4. while with enumerator â€” manual control
+// 4. while with enumerator — manual control
 using var enumerator = numbers.GetEnumerator();
 while (enumerator.MoveNext())
     Console.Write($"{enumerator.Current} ");
 
-// 5. Span<T> / ReadOnlySpan<T> â€” zero-allocation iteration (C# 7.2+)
+// 5. Span<T> / ReadOnlySpan<T> — zero-allocation iteration (C# 7.2+)
 int[] arr = [10, 20, 30, 40];
 ReadOnlySpan<int> span = arr;
 foreach (ref readonly int item in span)
@@ -13129,7 +12345,7 @@ foreach (var (key, value) in dict) // deconstruction (C# 7+)
 // 7. Parallel iteration (CPU-bound work)
 Parallel.ForEach(numbers, n => Console.Write($"{n * n} ")); // order not guaranteed
 
-// 8. Async iteration â€” IAsyncEnumerable<T> (C# 8+)
+// 8. Async iteration — IAsyncEnumerable<T> (C# 8+)
 async IAsyncEnumerable<int> GetAsync()
 {
     foreach (var n in numbers)
@@ -13143,9 +12359,6 @@ await foreach (int n in GetAsync())
     Console.Write($"{n} ");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `IEnumerable` and `ICollection` in C#?
 
@@ -13153,23 +12366,23 @@ await foreach (int n in GetAsync())
 
 | Member | `IEnumerable<T>` | `ICollection<T>` |
 |--------|-----------------|-----------------|
-| `GetEnumerator()` | âœ… | âœ… (inherited) |
-| `Count` | âŒ | âœ… |
-| `IsReadOnly` | âŒ | âœ… |
-| `Add(T)` | âŒ | âœ… |
-| `Remove(T)` | âŒ | âœ… |
-| `Contains(T)` | âŒ | âœ… |
-| `Clear()` | âŒ | âœ… |
-| `CopyTo(T[], int)` | âŒ | âœ… |
+| `GetEnumerator()` | ✅ | ✅ (inherited) |
+| `Count` | ❌ | ✅ |
+| `IsReadOnly` | ❌ | ✅ |
+| `Add(T)` | ❌ | ✅ |
+| `Remove(T)` | ❌ | ✅ |
+| `Contains(T)` | ❌ | ✅ |
+| `Clear()` | ❌ | ✅ |
+| `CopyTo(T[], int)` | ❌ | ✅ |
 
 ```cs
-// IEnumerable<T> â€” iterate only
+// IEnumerable<T> — iterate only
 IEnumerable<int> seq = [1, 2, 3, 4, 5];
 foreach (var n in seq) Console.Write($"{n} ");
 // seq.Count(); // works via LINQ extension, but O(n)
-// seq.Add(6);  // âŒ no Add on IEnumerable
+// seq.Add(6);  // ❌ no Add on IEnumerable
 
-// ICollection<T> â€” add, remove, count
+// ICollection<T> — add, remove, count
 ICollection<string> col = new List<string> { "Alice", "Bob" };
 col.Add("Carol");
 col.Remove("Bob");
@@ -13203,19 +12416,16 @@ public class FixedSizeCollection<T> : ICollection<T>
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you sort a collection in C#?
 
 ```cs
-// 1. List<T>.Sort() â€” in-place, uses default comparer
+// 1. List<T>.Sort() — in-place, uses default comparer
 var numbers = new List<int> { 5, 3, 1, 4, 2 };
 numbers.Sort();
 Console.WriteLine(string.Join(",", numbers)); // 1,2,3,4,5
 
-// 2. List<T>.Sort() with custom comparer â€” descending
+// 2. List<T>.Sort() with custom comparer — descending
 numbers.Sort((a, b) => b.CompareTo(a));
 Console.WriteLine(string.Join(",", numbers)); // 5,4,3,2,1
 
@@ -13224,7 +12434,7 @@ int[] arr = [5, 3, 1, 4, 2];
 Array.Sort(arr);
 Console.WriteLine(string.Join(",", arr)); // 1,2,3,4,5
 
-// 4. LINQ OrderBy / OrderByDescending â€” returns new sequence (non-destructive)
+// 4. LINQ OrderBy / OrderByDescending — returns new sequence (non-destructive)
 var names = new List<string> { "Charlie", "Alice", "Bob" };
 var sorted = names.OrderBy(n => n).ToList();
 var desc   = names.OrderByDescending(n => n).ToList();
@@ -13253,33 +12463,30 @@ var sorted2 = products
 foreach (var p in byPrice)
     Console.WriteLine($"{p.Name}: {p.Price:C}");
 
-// 6. IComparer<T> â€” reusable custom sort logic
+// 6. IComparer<T> — reusable custom sort logic
 var byNameDesc = new List<string> { "Charlie", "Alice", "Bob" };
 byNameDesc.Sort(StringComparer.OrdinalIgnoreCase); // case-insensitive ascending
 
-// 7. CollectionsMarshal / Span sort (.NET 5+) â€” zero-allocation in-place
+// 7. CollectionsMarshal / Span sort (.NET 5+) — zero-allocation in-place
 var span = System.Runtime.InteropServices.CollectionsMarshal.AsSpan(numbers);
 span.Sort(); // sorts the List\'s backing array directly
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you remove duplicates from a collection in C#?
 
 ```cs
 var withDups = new List<int> { 1, 2, 2, 3, 3, 3, 4, 4, 5 };
 
-// 1. HashSet<T> â€” fastest, loses order
+// 1. HashSet<T> — fastest, loses order
 var unique1 = new HashSet<int>(withDups);
 Console.WriteLine(string.Join(",", unique1)); // 1,2,3,4,5 (order may vary)
 
-// 2. LINQ Distinct() â€” preserves first occurrence order
+// 2. LINQ Distinct() — preserves first occurrence order
 var unique2 = withDups.Distinct().ToList();
 Console.WriteLine(string.Join(",", unique2)); // 1,2,3,4,5 (ordered)
 
-// 3. LINQ DistinctBy (C# 6 / .NET 6+) â€” by property
+// 3. LINQ DistinctBy (C# 6 / .NET 6+) — by property
 record Product(string Name, decimal Price);
 
 var products = new List<Product>
@@ -13293,34 +12500,31 @@ var products = new List<Product>
 var distinctByName = products.DistinctBy(p => p.Name).ToList();
 foreach (var p in distinctByName)
     Console.WriteLine($"{p.Name}: {p.Price:C}");
-// Laptop: Â£999.00, Mouse: Â£25.00, Monitor: Â£400.00
+// Laptop: £999.00, Mouse: £25.00, Monitor: £400.00
 
-// 4. GroupBy â€” group then take first (more control)
+// 4. GroupBy — group then take first (more control)
 var deduplicated = products
     .GroupBy(p => p.Name)
     .Select(g => g.OrderBy(p => p.Price).First()) // take cheapest per name
     .ToList();
 
-// 5. ToHashSet() extension â€” convenient
+// 5. ToHashSet() extension — convenient
 var strings = new[] { "apple", "banana", "apple", "cherry", "banana" };
 var uniqueStrings = strings.ToHashSet();
 Console.WriteLine(string.Join(",", uniqueStrings)); // apple,banana,cherry
 
-// 6. Custom equality â€” using IEqualityComparer
+// 6. Custom equality — using IEqualityComparer
 var uniqueIgnoreCase = strings
     .Distinct(StringComparer.OrdinalIgnoreCase)
     .ToList();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Queue` and `Stack` in C#?
 
 | Feature | `Queue<T>` | `Stack<T>` |
 |---------|-----------|-----------|
-| Order | **FIFO** â€” First In, First Out | **LIFO** â€” Last In, First Out |
+| Order | **FIFO** — First In, First Out | **LIFO** — Last In, First Out |
 | Add | `Enqueue(item)` | `Push(item)` |
 | Remove | `Dequeue()` | `Pop()` |
 | Peek (no remove) | `Peek()` | `Peek()` |
@@ -13328,14 +12532,14 @@ var uniqueIgnoreCase = strings
 | Use case | Task queues, BFS, print spoolers | Undo/redo, call stack simulation, DFS |
 
 ```cs
-// Queue<T> â€” FIFO
+// Queue<T> — FIFO
 var queue = new Queue<string>();
 queue.Enqueue("First");
 queue.Enqueue("Second");
 queue.Enqueue("Third");
 
-Console.WriteLine(queue.Dequeue()); // First  â† oldest item out
-Console.WriteLine(queue.Peek());    // Second â† next without removing
+Console.WriteLine(queue.Dequeue()); // First  ← oldest item out
+Console.WriteLine(queue.Peek());    // Second ← next without removing
 Console.WriteLine(queue.Count);     // 2
 
 // Practical: task processing queue
@@ -13346,14 +12550,14 @@ taskQueue.Enqueue(() => Task.Run(() => Console.WriteLine("Task B")));
 while (taskQueue.TryDequeue(out var task))
     await task();
 
-// Stack<T> â€” LIFO
+// Stack<T> — LIFO
 var stack = new Stack<string>();
 stack.Push("First");
 stack.Push("Second");
 stack.Push("Third");
 
-Console.WriteLine(stack.Pop());  // Third  â† most recent item out
-Console.WriteLine(stack.Peek()); // Second â† next without removing
+Console.WriteLine(stack.Pop());  // Third  ← most recent item out
+Console.WriteLine(stack.Peek()); // Second ← next without removing
 Console.WriteLine(stack.Count);  // 2
 
 // Practical: undo history
@@ -13366,9 +12570,6 @@ Console.WriteLine($"Undo: {undoStack.Pop()}"); // Undo: Delete 'World'
 Console.WriteLine($"Undo: {undoStack.Pop()}"); // Undo: Type ' World'
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you convert an array to a collection in C#?
 
@@ -13376,11 +12577,11 @@ Console.WriteLine($"Undo: {undoStack.Pop()}"); // Undo: Type ' World'
 int[] arr = [1, 2, 3, 4, 5];
 
 // 1. To List<T>
-var list = arr.ToList();             // LINQ extension â€” O(n) copy
+var list = arr.ToList();             // LINQ extension — O(n) copy
 var list2 = new List<int>(arr);      // constructor overload
 Console.WriteLine(list.GetType().Name); // List`1
 
-// 2. To HashSet<T> â€” deduplicate while converting
+// 2. To HashSet<T> — deduplicate while converting
 var set = arr.ToHashSet();
 int[] withDups = [1, 2, 2, 3, 3];
 var uniqueSet = withDups.ToHashSet(); // { 1, 2, 3 }
@@ -13401,26 +12602,23 @@ using System.Collections.Immutable;
 var immutable = arr.ToImmutableList();
 var added = immutable.Add(6); // returns new list; original unchanged
 
-// 7. To Span<T> / Memory<T> â€” zero-copy (for performance-sensitive code)
+// 7. To Span<T> / Memory<T> — zero-copy (for performance-sensitive code)
 Span<int> span     = arr.AsSpan();
 Memory<int> memory = arr.AsMemory();
 span[0] = 99; // modifies the original array
 
-// 8. Collection expressions (C# 12) â€” spread operator
+// 8. Collection expressions (C# 12) — spread operator
 List<int> merged = [.. arr, 6, 7, 8]; // spread arr + append literals
 
-// 9. As IEnumerable<T> â€” no copy (already implements it)
+// 9. As IEnumerable<T> — no copy (already implements it)
 IEnumerable<int> enumerable = arr;
 foreach (var n in enumerable) Console.Write($"{n} ");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the thread-safe collection classes available in C#?
 
-Thread-safe collections in `System.Collections.Concurrent` use fine-grained locking or lock-free algorithms (CAS â€” compare-and-swap) instead of requiring external `lock` statements.
+Thread-safe collections in `System.Collections.Concurrent` use fine-grained locking or lock-free algorithms (CAS — compare-and-swap) instead of requiring external `lock` statements.
 
 | Class | Thread-safe equivalent of | Key operations |
 |-------|--------------------------|----------------|
@@ -13431,7 +12629,7 @@ Thread-safe collections in `System.Collections.Concurrent` use fine-grained lock
 | `BlockingCollection<T>` | (producer-consumer) | `Add`, `Take`, `GetConsumingEnumerable` |
 
 ```cs
-// ConcurrentDictionary â€” atomic operations
+// ConcurrentDictionary — atomic operations
 var counter = new ConcurrentDictionary<string, int>();
 
 await Task.WhenAll(Enumerable.Range(0, 1000).Select(_ =>
@@ -13439,7 +12637,7 @@ await Task.WhenAll(Enumerable.Range(0, 1000).Select(_ =>
 
 Console.WriteLine(counter["hits"]); // 1000 (always correct)
 
-// ConcurrentQueue â€” thread-safe task distribution
+// ConcurrentQueue — thread-safe task distribution
 var workQueue = new ConcurrentQueue<int>();
 for (int i = 0; i < 10; i++) workQueue.Enqueue(i);
 
@@ -13451,22 +12649,19 @@ var workers = Enumerable.Range(0, 3).Select(_ => Task.Run(() =>
 
 await Task.WhenAll(workers);
 
-// ConcurrentBag â€” unordered, thread-local storage (good for object pools)
+// ConcurrentBag — unordered, thread-local storage (good for object pools)
 var bag = new ConcurrentBag<int>();
 await Task.WhenAll(Enumerable.Range(0, 5).Select(i =>
     Task.Run(() => bag.Add(i))));
 Console.WriteLine(bag.Count); // 5
 
-// ImmutableList â€” safe to share across threads (read-only after creation)
+// ImmutableList — safe to share across threads (read-only after creation)
 using System.Collections.Immutable;
 var shared = ImmutableList.Create(1, 2, 3);
-// Any thread can read â€” no synchronisation needed (immutable)
+// Any thread can read — no synchronisation needed (immutable)
 var modified = shared.Add(4); // returns NEW list, original unchanged
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use LINQ with collections in C#?
 
@@ -13511,7 +12706,7 @@ var byCategory = products
     .ToList();
 
 foreach (var g in byCategory)
-    Console.WriteLine($"{g.Category}: {g.Count} items, Â£{g.TotalValue}");
+    Console.WriteLine($"{g.Category}: {g.Count} items, £{g.TotalValue}");
 
 // Flat map (SelectMany)
 var tags = new[] { new[] { "a", "b" }, new[] { "c", "d" } };
@@ -13541,32 +12736,29 @@ foreach (var p in expensiveElectronics)
     Console.WriteLine($"{p.Name}: {p.Price:C}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Array` and `List` in C#?
 
 | Feature | `T[]` (Array) | `List<T>` |
 |---------|--------------|-----------|
 | Size | Fixed at creation | Dynamic (auto-resizes) |
-| Type | Value/reference â€” contiguous memory | Backed by `T[]`, resized on demand |
-| Index access | âœ… O(1) | âœ… O(1) |
-| Add / Remove | âŒ Not supported | âœ… `Add`, `Remove`, `Insert` |
+| Type | Value/reference — contiguous memory | Backed by `T[]`, resized on demand |
+| Index access | ✅ O(1) | ✅ O(1) |
+| Add / Remove | ❌ Not supported | ✅ `Add`, `Remove`, `Insert` |
 | `Length` / `Count` | `Length` | `Count` |
 | Memory | Slightly more efficient (no metadata) | Small overhead for capacity tracking |
-| Multi-dimensional | âœ… (`int[,]`, `int[][]`) | âŒ (use `List<List<T>>` instead) |
-| LINQ | âœ… | âœ… |
-| Span/Memory | âœ… `AsSpan()` | âœ… `CollectionsMarshal.AsSpan()` |
-| Interop (P/Invoke, etc.) | âœ… Preferred | âŒ Usually requires `.ToArray()` |
+| Multi-dimensional | ✅ (`int[,]`, `int[][]`) | ❌ (use `List<List<T>>` instead) |
+| LINQ | ✅ | ✅ |
+| Span/Memory | ✅ `AsSpan()` | ✅ `CollectionsMarshal.AsSpan()` |
+| Interop (P/Invoke, etc.) | ✅ Preferred | ❌ Usually requires `.ToArray()` |
 
 ```cs
-// Array â€” fixed size
+// Array — fixed size
 int[] arr = new int[5];
 arr[0] = 10;
-// arr[5] = 60; // âŒ IndexOutOfRangeException
+// arr[5] = 60; // ❌ IndexOutOfRangeException
 
-// List<T> â€” dynamic
+// List<T> — dynamic
 var list = new List<int> { 1, 2, 3 };
 list.Add(4);          // grows automatically
 list.Insert(0, 0);    // [0, 1, 2, 3, 4]
@@ -13579,7 +12771,7 @@ Console.WriteLine(list.Count); // 3
 int[] fromList = list.ToArray();
 List<int> fromArr = arr.ToList();
 
-// Performance â€” pre-allocate List capacity to avoid re-allocations
+// Performance — pre-allocate List capacity to avoid re-allocations
 var preAllocated = new List<int>(capacity: 1_000_000);
 for (int i = 0; i < 1_000_000; i++)
     preAllocated.Add(i); // no re-allocations needed
@@ -13587,9 +12779,6 @@ for (int i = 0; i < 1_000_000; i++)
 
 **Decision:** Use `T[]` when size is fixed and performance/interop is critical. Use `List<T>` when you need dynamic sizing and rich collection APIs.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between Array and Collections?
 
@@ -13597,58 +12786,55 @@ for (int i = 0; i < 1_000_000; i++)
 |--------|--------------|--------------------------------------------------|
 | Size | Fixed | Dynamic |
 | Type | Single type, contiguous memory | Generic (strongly typed), backed by arrays/BSTs |
-| Flexibility | Minimal â€” only index access | Rich API: search, sort, filter, thread-safe variants |
+| Flexibility | Minimal — only index access | Rich API: search, sort, filter, thread-safe variants |
 | Interfaces | `IList<T>`, `IEnumerable<T>` | Same + `ICollection<T>` and more |
 | Overhead | Minimal | Small metadata overhead |
-| Multi-dim | âœ… (`int[,]`) | âŒ (nest collections) |
+| Multi-dim | ✅ (`int[,]`) | ❌ (nest collections) |
 | Nullability | Can hold nulls | Depends on type |
 
 ```cs
-// Array â€” tight, fixed, minimal API
+// Array — tight, fixed, minimal API
 int[] arr = [10, 20, 30];
 Console.WriteLine(arr.Length); // 3
-// arr[3] = 40; // âŒ cannot resize
+// arr[3] = 40; // ❌ cannot resize
 
-// List<T> â€” flexible, rich
+// List<T> — flexible, rich
 var list = new List<int>([10, 20, 30]);
 list.Add(40);
 list.Remove(20);
 list.Sort();
 Console.WriteLine(list.Count); // 3
 
-// Dictionary<K,V> â€” key-value, O(1) lookup
+// Dictionary<K,V> — key-value, O(1) lookup
 var dict = new Dictionary<string, int>
 {
     ["one"] = 1, ["two"] = 2, ["three"] = 3,
 };
 Console.WriteLine(dict["two"]); // 2
 
-// HashSet<T> â€” unique values, O(1) membership
+// HashSet<T> — unique values, O(1) membership
 var set = new HashSet<int> { 1, 2, 3, 2, 1 };
 Console.WriteLine(set.Count); // 3 (duplicates removed)
 ```
 
 **In summary:** Arrays are the primitive building block. Collections are higher-level abstractions that wrap arrays (or other structures) and add functionality. Most collections internally use arrays.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are generic collections?
 
 **Generic collections** are type-parameterised collection classes in `System.Collections.Generic` that enforce type safety at compile time and avoid boxing/unboxing for value types. They were introduced in .NET 2.0 and replaced the non-generic collections (`ArrayList`, `Hashtable`, etc.).
 
 **Benefits:**
-- Compile-time type checking â€” no accidental mixing of types.
-- Better performance â€” no boxing for value types.
-- Cleaner API â€” all methods are typed.
+- Compile-time type checking — no accidental mixing of types.
+- Better performance — no boxing for value types.
+- Cleaner API — all methods are typed.
 - IntelliSense works correctly.
 
 ```cs
 // Generic List<T>
 var numbers = new List<int> { 1, 2, 3 };
 numbers.Add(4);
-// numbers.Add("text"); // âŒ compile error â€” type-safe
+// numbers.Add("text"); // ❌ compile error — type-safe
 
 // Generic Dictionary<K,V>
 var scores = new Dictionary<string, int>
@@ -13688,9 +12874,6 @@ repo.Add("world");
 Console.WriteLine(repo.GetAll().Count); // 2
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can you optimize memory usage and performance when working with large data collections in C#?
 
@@ -13699,11 +12882,11 @@ Console.WriteLine(repo.GetAll().Count); // 2
 **1. Pre-allocate capacity:**
 
 ```cs
-// âŒ No capacity â€” triggers multiple re-allocations as list grows
+// ❌ No capacity — triggers multiple re-allocations as list grows
 var list = new List<int>();
 for (int i = 0; i < 1_000_000; i++) list.Add(i);
 
-// âœ… Pre-allocate â€” single backing array allocation
+// ✅ Pre-allocate — single backing array allocation
 var list2 = new List<int>(capacity: 1_000_000);
 for (int i = 0; i < 1_000_000; i++) list2.Add(i);
 ```
@@ -13713,10 +12896,10 @@ for (int i = 0; i < 1_000_000; i++) list2.Add(i);
 ```cs
 int[] arr = Enumerable.Range(0, 1_000_000).ToArray();
 
-// âŒ Creates a new array copy
+// ❌ Creates a new array copy
 int[] slice = arr[100..200];
 
-// âœ… Zero-copy view
+// ✅ Zero-copy view
 ReadOnlySpan<int> span = arr.AsSpan(100, 100);
 int sum = 0;
 foreach (ref readonly int n in span) sum += n;
@@ -13727,10 +12910,10 @@ foreach (ref readonly int n in span) sum += n;
 ```cs
 using System.Buffers;
 
-// âŒ Allocates a new array each time (GC pressure)
+// ❌ Allocates a new array each time (GC pressure)
 void ProcessData(byte[] data) { /* ... */ }
 
-// âœ… Rent from pool â€” no GC allocation
+// ✅ Rent from pool — no GC allocation
 byte[] buffer = ArrayPool<byte>.Shared.Rent(4096);
 try
 {
@@ -13746,10 +12929,10 @@ finally
 **4. Use `IEnumerable<T>` with `yield` for streaming (avoid loading all data):**
 
 ```cs
-// âŒ Loads all 10M records into memory
+// ❌ Loads all 10M records into memory
 List<int> LoadAll() => Enumerable.Range(0, 10_000_000).ToList();
 
-// âœ… Streams one at a time â€” O(1) memory
+// ✅ Streams one at a time — O(1) memory
 IEnumerable<int> StreamAll()
 {
     for (int i = 0; i < 10_000_000; i++)
@@ -13766,11 +12949,11 @@ foreach (var item in StreamAll().Where(n => n % 1000 == 0))
 ```cs
 using System.Collections.Frozen;
 
-// FrozenDictionary is optimised for frequent reads â€” faster than Dictionary for lookups
+// FrozenDictionary is optimised for frequent reads — faster than Dictionary for lookups
 var lookup = new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
     .ToFrozenDictionary();
 
-// Very fast Contains/lookup â€” ideal for static configuration, keyword lists
+// Very fast Contains/lookup — ideal for static configuration, keyword lists
 Console.WriteLine(lookup.ContainsKey("a")); // True
 ```
 
@@ -13781,7 +12964,7 @@ var allItems = Enumerable.Range(1, 100_000);
 
 foreach (var batch in allItems.Chunk(1000))
 {
-    // Process 1000 items at a time â€” limits peak memory
+    // Process 1000 items at a time — limits peak memory
     await ProcessBatchAsync(batch);
 }
 ```
@@ -13789,18 +12972,15 @@ foreach (var batch in allItems.Chunk(1000))
 **7. Avoid LINQ materialisation when not needed:**
 
 ```cs
-// âŒ Materialises to List unnecessarily
+// ❌ Materialises to List unnecessarily
 var list = items.Where(x => x > 0).ToList().Count;
 
-// âœ… Count without materialising
+// ✅ Count without materialising
 var count = items.Count(x => x > 0); // single pass, no intermediate list
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 6. MULTITHREADING
+## 6. Multithreading
 
 <br/>
 
@@ -13813,7 +12993,7 @@ var count = items.Count(x => x > 0); // single pass, no intermediate list
 - Maximizes CPU utilization on multi-core processors.
 - Enables concurrent I/O (e.g., multiple HTTP requests simultaneously).
 
-**1. `Task.Run` â€” run CPU-bound work on the thread pool:**
+**1. `Task.Run` — run CPU-bound work on the thread pool:**
 
 ```cs
 var result = await Task.Run(() =>
@@ -13824,7 +13004,7 @@ var result = await Task.Run(() =>
 Console.WriteLine(result); // Output: 500000500000
 ```
 
-**2. `async`/`await` â€” non-blocking async I/O (preferred for I/O-bound):**
+**2. `async`/`await` — non-blocking async I/O (preferred for I/O-bound):**
 
 ```cs
 public async Task<string[]> FetchAllAsync(string[] urls)
@@ -13835,7 +13015,7 @@ public async Task<string[]> FetchAllAsync(string[] urls)
 }
 ```
 
-**3. `Parallel.ForEachAsync` (.NET 6+) â€” async parallel processing:**
+**3. `Parallel.ForEachAsync` (.NET 6+) — async parallel processing:**
 
 ```cs
 var urls = new[] { "https://api1.example.com", "https://api2.example.com" };
@@ -13859,9 +13039,6 @@ await Task.WhenAll(Enumerable.Range(0, 100).Select(_ =>
 Console.WriteLine(counter); // Output: 100 (always correct)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is Multithreading with .NET, and what is a thread in C#?
 
@@ -13882,16 +13059,16 @@ Console.WriteLine($"State: {Thread.CurrentThread.ThreadState}");
 **Ways to implement multithreading in .NET 10:**
 
 ```cs
-// 1. Thread (low-level â€” use only for dedicated long-running work)
+// 1. Thread (low-level — use only for dedicated long-running work)
 var t = new Thread(() => Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId}"));
 t.IsBackground = true;
 t.Start();
 t.Join();
 
-// 2. ThreadPool (managed pool â€” underlying mechanism for Tasks)
+// 2. ThreadPool (managed pool — underlying mechanism for Tasks)
 ThreadPool.QueueUserWorkItem(_ => Console.WriteLine("ThreadPool work item"));
 
-// 3. Task (preferred â€” async, return values, exception propagation)
+// 3. Task (preferred — async, return values, exception propagation)
 await Task.Run(() => Console.WriteLine("Task on thread pool"));
 
 // 4. Parallel class (data parallelism)
@@ -13908,9 +13085,6 @@ async Task<string> FetchDataAsync(string url)
 var results = Enumerable.Range(1, 100).AsParallel().Where(n => n % 2 == 0).ToList();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between a thread and a process?
 
@@ -13918,7 +13092,7 @@ var results = Enumerable.Range(1, 100).AsParallel().Where(n => n % 2 == 0).ToLis
 |-|------------|-----------|
 | Definition | An isolated running instance of a program | A unit of execution within a process |
 | Memory | Has its own address space | Shares the process address space |
-| Communication | IPC (pipes, sockets, shared memory) | Shared memory â€” fast but needs synchronization |
+| Communication | IPC (pipes, sockets, shared memory) | Shared memory — fast but needs synchronization |
 | Isolation | Crash in one process doesn\'t affect others | Crash in one thread can crash the whole process |
 | Creation cost | High (separate memory, handles, etc.) | Lower (shares process resources) |
 | Switching cost | Expensive (context switch across processes) | Less expensive (same address space) |
@@ -13952,9 +13126,6 @@ thread.Start();
 thread.Join();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a new thread in C#?
 
@@ -13962,7 +13133,7 @@ thread.Join();
 // 1. Thread with ThreadStart delegate (no parameters)
 var t1 = new Thread(DoWork);
 t1.Name         = "WorkerThread";
-t1.IsBackground = true; // daemon â€” terminates when main thread exits
+t1.IsBackground = true; // daemon — terminates when main thread exits
 t1.Priority     = ThreadPriority.Normal;
 t1.Start();
 t1.Join(); // block caller until t1 finishes
@@ -13977,7 +13148,7 @@ var t2 = new Thread(() =>
 });
 t2.Start();
 
-// 3. ParameterizedThreadStart â€” pass a single object parameter
+// 3. ParameterizedThreadStart — pass a single object parameter
 var t3 = new Thread(param =>
 {
     string msg = (string)param!;
@@ -13990,7 +13161,7 @@ int workerId = 42;
 string taskName = "ImportJob";
 var t4 = new Thread(() =>
 {
-    // captures workerId and taskName â€” fully type-safe
+    // captures workerId and taskName — fully type-safe
     Console.WriteLine($"Worker {workerId}: {taskName}");
 });
 t4.Start();
@@ -14005,42 +13176,39 @@ var bg = new Thread(() => Thread.Sleep(5000)) { IsBackground = true  }; // doesn
 await Task.Run(() => Console.WriteLine("Preferred: Task on thread pool"));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Why does a delegate need to be passed to the Thread constructor, and how do you pass parameters type-safely?
 
 The `Thread` constructor requires a **delegate** (`ThreadStart` or `ParameterizedThreadStart`) because a thread needs to know *which method to execute*. The delegate is the entry point.
 
 ```cs
-// ThreadStart â€” no parameters, no return value
+// ThreadStart — no parameters, no return value
 ThreadStart start = DoWork;
 var t1 = new Thread(start);
 t1.Start();
 
 void DoWork() => Console.WriteLine("No params");
 
-// ParameterizedThreadStart â€” one object parameter (not type-safe)
+// ParameterizedThreadStart — one object parameter (not type-safe)
 ParameterizedThreadStart paramStart = obj =>
 {
-    int value = (int)obj!; // manual cast â€” runtime error if wrong type
+    int value = (int)obj!; // manual cast — runtime error if wrong type
     Console.WriteLine($"Value: {value}");
 };
 var t2 = new Thread(paramStart);
 t2.Start(100); // pass object
 
-// âœ… Type-safe approach â€” closure over strongly-typed variables
+// ✅ Type-safe approach — closure over strongly-typed variables
 int id    = 7;
 string name = "Alice";
 var t3 = new Thread(() =>
 {
-    // id and name captured by reference â€” fully type-safe, no casting
+    // id and name captured by reference — fully type-safe, no casting
     Console.WriteLine($"Worker {id}: {name}");
 });
 t3.Start();
 
-// âœ… Pass a typed object via closure
+// ✅ Pass a typed object via closure
 record WorkItem(int Id, string Name, DateTime Due);
 var item = new WorkItem(1, "Report", DateTime.Today);
 var t4 = new Thread(() =>
@@ -14050,7 +13218,7 @@ var t4 = new Thread(() =>
 t4.Start();
 t4.Join();
 
-// Retrieving data from a thread â€” use a shared variable + lock, or Task<T>
+// Retrieving data from a thread — use a shared variable + lock, or Task<T>
 int result = 0;
 var t5 = new Thread(() => result = Compute()); // write result inside thread
 t5.Start();
@@ -14059,14 +13227,11 @@ Console.WriteLine($"Result: {result}"); // safe to read after Join()
 
 int Compute() => 42;
 
-// âœ… Preferred: Task<T> â€” return values built-in, no shared variable needed
+// ✅ Preferred: Task<T> — return values built-in, no shared variable needed
 int taskResult = await Task.Run(() => Compute());
 Console.WriteLine($"Task result: {taskResult}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Thread.Join` and `Thread.Sleep`? What are `Thread.IsAlive` and `Thread.Join`?
 
@@ -14088,33 +13253,30 @@ var worker = new Thread(() =>
 worker.Start();
 Console.WriteLine($"Worker alive: {worker.IsAlive}"); // true
 
-// Join() â€” main thread blocks here until worker finishes
+// Join() — main thread blocks here until worker finishes
 bool finished = worker.Join(timeout: TimeSpan.FromSeconds(2));
 Console.WriteLine($"Finished in time: {finished}");   // true
 Console.WriteLine($"Worker alive: {worker.IsAlive}"); // false
 
-// Thread.Sleep(0) â€” yield to other threads of equal or higher priority
+// Thread.Sleep(0) — yield to other threads of equal or higher priority
 Thread.Sleep(0);
 
-// Thread.Sleep(Timeout.Infinite) â€” sleep until interrupted
-// Thread.Interrupt() â€” throws ThreadInterruptedException in sleeping/waiting thread
+// Thread.Sleep(Timeout.Infinite) — sleep until interrupted
+// Thread.Interrupt() — throws ThreadInterruptedException in sleeping/waiting thread
 
-// IsAlive â€” true after Start() and before the thread method returns
+// IsAlive — true after Start() and before the thread method returns
 var t = new Thread(() => Thread.Sleep(200));
-Console.WriteLine(t.IsAlive); // false â€” not started yet
+Console.WriteLine(t.IsAlive); // false — not started yet
 t.Start();
-Console.WriteLine(t.IsAlive); // true  â€” running
+Console.WriteLine(t.IsAlive); // true  — running
 t.Join();
-Console.WriteLine(t.IsAlive); // false â€” completed
+Console.WriteLine(t.IsAlive); // false — completed
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different states of a Thread in C#?
 
-`Thread.ThreadState` is a flags enum â€” a thread can be in multiple states simultaneously.
+`Thread.ThreadState` is a flags enum — a thread can be in multiple states simultaneously.
 
 | State | Meaning |
 |-------|---------|
@@ -14145,16 +13307,13 @@ Console.WriteLine(t.ThreadState); // Stopped
 // ThreadState is mostly useful for diagnostics
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `ThreadPool` class and how is it used?
 
 The **ThreadPool** is a pool of pre-created worker threads managed by the CLR. It avoids the overhead of creating and destroying threads for each short-lived task.
 
 ```cs
-// 1. QueueUserWorkItem â€” fire and forget (avoid in modern code)
+// 1. QueueUserWorkItem — fire and forget (avoid in modern code)
 ThreadPool.QueueUserWorkItem(_ => Console.WriteLine("Pool work item"));
 
 // 2. Get/set pool limits
@@ -14165,7 +13324,7 @@ Console.WriteLine($"Min workers: {minWorker}, Max workers: {maxWorker}");
 // Set minimum threads (pre-warm the pool to avoid ramp-up latency)
 ThreadPool.SetMinThreads(workerThreads: 8, completionPortThreads: 8);
 
-// 3. Task.Run â€” the modern way to queue work on the thread pool
+// 3. Task.Run — the modern way to queue work on the thread pool
 var task = Task.Run(() =>
 {
     Console.WriteLine($"Pool thread: {Thread.CurrentThread.IsThreadPoolThread}"); // true
@@ -14173,7 +13332,7 @@ var task = Task.Run(() =>
 });
 int result = await task;
 
-// 4. Parallel.ForEach â€” distributes iterations across pool threads
+// 4. Parallel.ForEach — distributes iterations across pool threads
 Parallel.ForEach(Enumerable.Range(1, 10), i =>
     Console.WriteLine($"Item {i} on thread {Thread.CurrentThread.ManagedThreadId}"));
 
@@ -14185,28 +13344,25 @@ var longTask = Task.Factory.StartNew(() =>
 }, TaskCreationOptions.LongRunning);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are `Task` and `async/await` in C#?
 
 A **`Task`** represents an asynchronous operation that may return a value (`Task<T>`). **`async/await`** is syntactic sugar that lets you write asynchronous code in a sequential, readable style.
 
 ```cs
-// Task â€” represents an ongoing or completed operation
+// Task — represents an ongoing or completed operation
 Task t = Task.Run(() => Console.WriteLine("Fire and forget"));
 Task<int> t2 = Task.Run(() => 42);
 int value = await t2; // await suspends the caller, not the thread
 
-// async/await â€” I/O-bound (no thread blocked)
+// async/await — I/O-bound (no thread blocked)
 async Task<string> GetDataAsync(string url)
 {
     using var client = new HttpClient();
     return await client.GetStringAsync(url); // no thread blocked during HTTP call
 }
 
-// CPU-bound â€” offload to thread pool via Task.Run
+// CPU-bound — offload to thread pool via Task.Run
 async Task<int> ComputeAsync(int n)
 {
     return await Task.Run(() =>
@@ -14221,15 +13377,15 @@ async Task<int> ComputeAsync(int n)
 var tasks = new[] { GetDataAsync("https://httpbin.org/get"), GetDataAsync("https://example.com") };
 string[] results = await Task.WhenAll(tasks);
 
-// Task.WhenAny â€” proceed when the first completes
+// Task.WhenAny — proceed when the first completes
 Task<string> first = await Task.WhenAny(tasks);
 Console.WriteLine("First done");
 
 // Return types
-// Task        â€” async void equivalent (no result)
-// Task<T>     â€” async with result
-// ValueTask<T>â€” struct, avoids heap alloc for hot paths that often complete synchronously
-// IAsyncEnumerable<T> â€” async stream
+// Task        — async void equivalent (no result)
+// Task<T>     — async with result
+// ValueTask<T>— struct, avoids heap alloc for hot paths that often complete synchronously
+// IAsyncEnumerable<T> — async stream
 
 async IAsyncEnumerable<int> GenerateAsync()
 {
@@ -14244,23 +13400,20 @@ await foreach (int n in GenerateAsync())
     Console.Write($"{n} "); // 0 1 2 3 4
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Task.Run` and `Task.Factory.StartNew`?
 
 | | `Task.Run` | `Task.Factory.StartNew` |
 |-|-----------|------------------------|
 | **Introduced** | .NET 4.5 | .NET 4.0 |
-| **Unwraps nested tasks** | âœ… Automatically | âŒ Must call `.Unwrap()` manually |
+| **Unwraps nested tasks** | ✅ Automatically | ❌ Must call `.Unwrap()` manually |
 | **Default scheduler** | `ThreadPool` | Current `TaskScheduler` |
-| **LongRunning option** | âŒ Not supported | âœ… `TaskCreationOptions.LongRunning` |
+| **LongRunning option** | ❌ Not supported | ✅ `TaskCreationOptions.LongRunning` |
 | **Recommended for** | CPU-bound short tasks | Long-running or custom scheduler tasks |
 | **Simplicity** | Simpler, safer | More flexible but verbose |
 
 ```cs
-// Task.Run â€” preferred for CPU-bound work on the thread pool
+// Task.Run — preferred for CPU-bound work on the thread pool
 int result = await Task.Run(() =>
 {
     int sum = Enumerable.Range(1, 1_000_000).Sum();
@@ -14268,7 +13421,7 @@ int result = await Task.Run(() =>
 });
 Console.WriteLine(result);
 
-// Task.Factory.StartNew â€” needed for LongRunning
+// Task.Factory.StartNew — needed for LongRunning
 var longTask = Task.Factory.StartNew(() =>
 {
     while (true)
@@ -14278,34 +13431,31 @@ var longTask = Task.Factory.StartNew(() =>
     }
 }, TaskCreationOptions.LongRunning | TaskCreationOptions.DenyChildAttach);
 
-// Task.Run + async lambda â€” automatically unwraps Task<Task>
+// Task.Run + async lambda — automatically unwraps Task<Task>
 int asyncResult = await Task.Run(async () =>
 {
     await Task.Delay(100);
     return 42;
 });
 
-// Task.Factory.StartNew + async lambda â€” must unwrap manually
+// Task.Factory.StartNew + async lambda — must unwrap manually
 int manualResult = await await Task.Factory.StartNew(async () =>
 {
     await Task.Delay(100);
     return 42;
 }); // double-await because StartNew returns Task<Task<int>>
 
-// Custom TaskScheduler (advanced â€” e.g., UI thread, limited concurrency)
+// Custom TaskScheduler (advanced — e.g., UI thread, limited concurrency)
 var scheduler = new LimitedConcurrencyLevelTaskScheduler(maxDegreeOfParallelism: 2);
 var factory   = new TaskFactory(scheduler);
 await factory.StartNew(() => Console.WriteLine("Limited concurrency task"));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle exceptions in multithreaded applications?
 
 ```cs
-// 1. await â€” exceptions propagate naturally
+// 1. await — exceptions propagate naturally
 async Task ProcessAsync()
 {
     try
@@ -14319,7 +13469,7 @@ async Task ProcessAsync()
 }
 await ProcessAsync();
 
-// 2. Task.WhenAll â€” AggregateException wraps all exceptions
+// 2. Task.WhenAll — AggregateException wraps all exceptions
 var tasks = new[]
 {
     Task.Run(() => throw new Exception("Error 1")),
@@ -14337,7 +13487,7 @@ catch // await unwraps first exception
         Console.WriteLine(t.Exception!.InnerException!.Message);
 }
 
-// 3. Unhandled exceptions on raw Thread â€” must catch inside the thread
+// 3. Unhandled exceptions on raw Thread — must catch inside the thread
 var thread = new Thread(() =>
 {
     try
@@ -14361,7 +13511,7 @@ TaskScheduler.UnobservedTaskException += (_, e) =>
     e.SetObserved(); // prevent crash
 };
 
-// 5. CancellationToken â€” not an exception per se, but related
+// 5. CancellationToken — not an exception per se, but related
 var cts = new CancellationTokenSource();
 try
 {
@@ -14376,9 +13526,6 @@ catch (OperationCanceledException)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a deadlock and how can it be avoided? What are the four necessary conditions for deadlock?
 
@@ -14394,7 +13541,7 @@ A **deadlock** occurs when two or more threads are permanently blocked, each wai
 | **Circular Wait** | Thread A waits for Thread B, which waits for Thread A |
 
 ```cs
-// Classic deadlock â€” two threads lock in opposite orders
+// Classic deadlock — two threads lock in opposite orders
 object lockA = new(), lockB = new();
 
 var t1 = new Thread(() =>
@@ -14409,12 +13556,12 @@ var t2 = new Thread(() =>
 
 // Prevention strategies:
 
-// 1. Consistent lock ordering â€” always acquire locks in the same order
+// 1. Consistent lock ordering — always acquire locks in the same order
 var t3 = new Thread(() => { lock (lockA) { lock (lockB) { Console.WriteLine("T3 done"); } } });
 var t4 = new Thread(() => { lock (lockA) { lock (lockB) { Console.WriteLine("T4 done"); } } });
 t3.Start(); t4.Start();
 
-// 2. Monitor.TryEnter with timeout â€” fail fast instead of blocking forever
+// 2. Monitor.TryEnter with timeout — fail fast instead of blocking forever
 bool got = false;
 Monitor.TryEnter(lockA, TimeSpan.FromSeconds(1), ref got);
 if (got)
@@ -14424,25 +13571,22 @@ if (got)
 }
 else
 {
-    Console.WriteLine("Could not acquire lock â€” skip or retry");
+    Console.WriteLine("Could not acquire lock — skip or retry");
 }
 
-// 3. Avoid nested locks â€” redesign to use a single lock or lock-free structures
+// 3. Avoid nested locks — redesign to use a single lock or lock-free structures
 
-// 4. Use async/await â€” no thread is blocked waiting; deadlock risk eliminated
+// 4. Use async/await — no thread is blocked waiting; deadlock risk eliminated
 await Task.Run(() => { /* lock-free async work */ });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is LiveLock?
 
-A **livelock** occurs when two or more threads keep reacting to each other\'s actions â€” they are actively executing but making no progress. Unlike a deadlock, threads are not blocked; they just keep changing state in response to each other indefinitely.
+A **livelock** occurs when two or more threads keep reacting to each other\'s actions — they are actively executing but making no progress. Unlike a deadlock, threads are not blocked; they just keep changing state in response to each other indefinitely.
 
 ```cs
-// Simulated livelock â€” two threads keep "politely yielding" to each other
+// Simulated livelock — two threads keep "politely yielding" to each other
 int sharedFlag = 0;
 bool thread1Done = false, thread2Done = false;
 
@@ -14486,17 +13630,14 @@ var t2 = new Thread(() =>
 
 // Prevention:
 // - Add randomized back-off delays (Thread.Sleep(Random.Next(10, 100)))
-// - Use a priority scheme â€” one thread gets precedence
+// - Use a priority scheme — one thread gets precedence
 // - Use proper lock-free algorithms (e.g., Interlocked operations)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `lock` statement in C#? What is the difference between `lock` and `Interlocked`?
 
-The `lock` statement ensures **mutual exclusion** â€” only one thread can execute a guarded block at a time. It is syntactic sugar over `Monitor.Enter` / `Monitor.Exit`.
+The `lock` statement ensures **mutual exclusion** — only one thread can execute a guarded block at a time. It is syntactic sugar over `Monitor.Enter` / `Monitor.Exit`.
 
 ```cs
 public class SafeCounter
@@ -14527,7 +13668,7 @@ Console.WriteLine(counter.Count); // always 1000
 // Monitor.Enter(obj, ref lockTaken);
 // try { ... } finally { if (lockTaken) Monitor.Exit(obj); }
 
-// âš ï¸ Rules:
+// ⚠️ Rules:
 // - Lock on a private readonly object, never on 'this', string literals, or Type objects
 // - Keep locked sections short
 // - Never call unknown code inside a lock (can cause deadlock)
@@ -14542,14 +13683,14 @@ Console.WriteLine(counter.Count); // always 1000
 | **Operations** | Any code | `Increment`, `Decrement`, `Add`, `Exchange`, `CompareExchange`, `Read` |
 
 ```cs
-// Interlocked â€” atomic operations, no lock needed for single-variable updates
+// Interlocked — atomic operations, no lock needed for single-variable updates
 int value = 0;
 
 await Task.WhenAll(Enumerable.Range(0, 1000).Select(_ =>
     Task.Run(() => Interlocked.Increment(ref value))));
 Console.WriteLine(value); // always 1000
 
-// CompareExchange â€” optimistic locking / spin loop
+// CompareExchange — optimistic locking / spin loop
 int current, updated;
 do
 {
@@ -14559,9 +13700,6 @@ do
 Console.WriteLine(value);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Monitor` and `lock` in C#? How do you use the `Monitor` class?
 
@@ -14573,7 +13711,7 @@ object sync = new();
 // lock (compiles to Monitor internally)
 lock (sync) { /* critical section */ }
 
-// Monitor.Enter / Exit â€” explicit equivalent of lock
+// Monitor.Enter / Exit — explicit equivalent of lock
 bool lockTaken = false;
 try
 {
@@ -14585,7 +13723,7 @@ finally
     if (lockTaken) Monitor.Exit(sync);
 }
 
-// Monitor.TryEnter â€” non-blocking, with timeout
+// Monitor.TryEnter — non-blocking, with timeout
 bool acquired = Monitor.TryEnter(sync, TimeSpan.FromMilliseconds(500));
 if (acquired)
 {
@@ -14593,7 +13731,7 @@ if (acquired)
     finally { Monitor.Exit(sync); }
 }
 
-// Monitor.Wait / Pulse â€” producer-consumer signalling
+// Monitor.Wait / Pulse — producer-consumer signalling
 object buffer = new();
 Queue<int> queue = new();
 
@@ -14630,78 +13768,72 @@ consumer.Start(); producer.Start();
 consumer.Join(); producer.Join();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the Race condition?
 
 A **race condition** occurs when the outcome of a program depends on the timing or ordering of thread execution. When two or more threads access shared data concurrently and at least one modifies it, without proper synchronization, the result is unpredictable.
 
 ```cs
-// Race condition â€” unsynchronized increment
+// Race condition — unsynchronized increment
 int counter = 0;
 
 var tasks = Enumerable.Range(0, 1000)
     .Select(_ => Task.Run(() => counter++)) // NOT atomic: read + add + write
     .ToArray();
 await Task.WhenAll(tasks);
-Console.WriteLine(counter); // may be < 1000 â€” race condition!
+Console.WriteLine(counter); // may be < 1000 — race condition!
 
 // Strategies to prevent race conditions:
 
-// 1. lock â€” guard the critical section
+// 1. lock — guard the critical section
 int safeCounter = 0;
 object sync = new();
 await Task.WhenAll(Enumerable.Range(0, 1000)
     .Select(_ => Task.Run(() => { lock (sync) safeCounter++; })));
 Console.WriteLine(safeCounter); // always 1000
 
-// 2. Interlocked â€” atomic update for simple variables
+// 2. Interlocked — atomic update for simple variables
 int atomicCounter = 0;
 await Task.WhenAll(Enumerable.Range(0, 1000)
     .Select(_ => Task.Run(() => Interlocked.Increment(ref atomicCounter))));
 Console.WriteLine(atomicCounter); // always 1000
 
-// 3. Concurrent collections â€” thread-safe without manual locking
+// 3. Concurrent collections — thread-safe without manual locking
 var bag = new System.Collections.Concurrent.ConcurrentBag<int>();
 await Task.WhenAll(Enumerable.Range(0, 1000)
     .Select(i => Task.Run(() => bag.Add(i))));
 Console.WriteLine(bag.Count); // always 1000
 
-// 4. Immutable data / local variables â€” no sharing = no race
+// 4. Immutable data / local variables — no sharing = no race
 var results = await Task.WhenAll(
     Enumerable.Range(1, 4).Select(i => Task.Run(() => i * i)));
 Console.WriteLine(string.Join(", ", results)); // 1, 4, 9, 16
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What happens if shared resources are not protected from concurrent access? How do you protect shared resources?
 
 **Without protection:** data corruption, torn reads/writes, stale caches, non-deterministic results.
 
 ```cs
-// Unprotected â€” torn write (int64 may not be atomically written on 32-bit)
+// Unprotected — torn write (int64 may not be atomically written on 32-bit)
 long shared = 0;
 // multiple threads writing concurrently = undefined behavior
 
 // Protection options (choose based on scenario):
 
-// 1. lock â€” simplest, general purpose
+// 1. lock — simplest, general purpose
 private readonly object _lock = new();
 private int _state;
 public void Update(int value) { lock (_lock) { _state = value; } }
 public int  Read()            { lock (_lock) { return _state;  } }
 
-// 2. Interlocked â€” atomic single-variable ops (fastest)
+// 2. Interlocked — atomic single-variable ops (fastest)
 private int _count;
 public void Increment() => Interlocked.Increment(ref _count);
 public int  Count       => Interlocked.CompareExchange(ref _count, 0, 0); // atomic read
 
-// 3. ReaderWriterLockSlim â€” multiple readers OR one writer
+// 3. ReaderWriterLockSlim — multiple readers OR one writer
 private readonly ReaderWriterLockSlim _rwLock = new();
 private Dictionary<int, string> _cache = new();
 
@@ -14718,25 +13850,22 @@ public void Set(int key, string val)
     finally { _rwLock.ExitWriteLock(); }
 }
 
-// 4. Concurrent collections â€” thread-safe without explicit locks
+// 4. Concurrent collections — thread-safe without explicit locks
 var dict  = new System.Collections.Concurrent.ConcurrentDictionary<int, string>();
 var queue = new System.Collections.Concurrent.ConcurrentQueue<int>();
 var stack = new System.Collections.Concurrent.ConcurrentStack<int>();
 var bag   = new System.Collections.Concurrent.ConcurrentBag<int>();
 
-// 5. Volatile â€” prevent CPU/compiler reordering for simple flags
+// 5. Volatile — prevent CPU/compiler reordering for simple flags
 private volatile bool _running = true;
 public void Stop() => _running = false; // visible immediately to all threads
 
-// 6. Channels (System.Threading.Channels) â€” async-friendly message passing
+// 6. Channels (System.Threading.Channels) — async-friendly message passing
 var channel = System.Threading.Channels.Channel.CreateBounded<int>(100);
 await channel.Writer.WriteAsync(42);
 int item = await channel.Reader.ReadAsync();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is synchronization and why is it important? Can you name the synchronization primitives in .NET?
 
@@ -14760,21 +13889,21 @@ int item = await channel.Reader.ReadAsync();
 | `SpinWait` | Spinning with back-off before yielding |
 | `Interlocked` | Atomic operations on primitive variables |
 | `volatile` | Visibility guarantee for simple flags |
-| `SemaphoreSlim` (async) | `WaitAsync()` â€” async-friendly throttling |
+| `SemaphoreSlim` (async) | `WaitAsync()` — async-friendly throttling |
 | `Channel<T>` | Async-safe producer/consumer messaging |
 
 ```cs
 // Choosing the right primitive:
-// Short critical section on same machine â†’ lock
-// Need timeout / TryEnter             â†’ Monitor.TryEnter
-// Limit concurrency (e.g., DB pool)   â†’ SemaphoreSlim
-// Signal all waiting threads           â†’ ManualResetEventSlim
-// Signal one thread, auto-reset        â†’ AutoResetEvent
-// Count-down to zero                   â†’ CountdownEvent
-// Phase-by-phase parallel work         â†’ Barrier
-// Concurrent reads, rare writes        â†’ ReaderWriterLockSlim
-// Nanosecond-critical inner loops      â†’ SpinLock
-// Cross-process lock                   â†’ Mutex
+// Short critical section on same machine → lock
+// Need timeout / TryEnter             → Monitor.TryEnter
+// Limit concurrency (e.g., DB pool)   → SemaphoreSlim
+// Signal all waiting threads           → ManualResetEventSlim
+// Signal one thread, auto-reset        → AutoResetEvent
+// Count-down to zero                   → CountdownEvent
+// Phase-by-phase parallel work         → Barrier
+// Concurrent reads, rare writes        → ReaderWriterLockSlim
+// Nanosecond-critical inner loops      → SpinLock
+// Cross-process lock                   → Mutex
 
 using var slim = new SemaphoreSlim(initialCount: 3, maxCount: 3);
 var tasks = Enumerable.Range(0, 10).Select(async i =>
@@ -14790,9 +13919,6 @@ var tasks = Enumerable.Range(0, 10).Select(async i =>
 await Task.WhenAll(tasks);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is AutoResetEvent and how is it different from ManualResetEvent?
 
@@ -14802,11 +13928,11 @@ Both derive from `EventWaitHandle` and allow threads to signal each other.
 |-|-----------------|---------------------------------------------|
 | **Reset** | Automatically after releasing **one** waiting thread | Must call `Reset()` manually |
 | **Releases** | Exactly **one** thread per `Set()` call | **All** waiting threads when `Set()` is called |
-| **State** | Like a turnstile â€” one thread passes, gate closes | Like a gate â€” open for all until closed |
+| **State** | Like a turnstile — one thread passes, gate closes | Like a gate — open for all until closed |
 | **Use case** | Worker thread signalling (one-at-a-time) | Broadcast event (all threads proceed) |
 
 ```cs
-// AutoResetEvent â€” one producer signals one consumer at a time
+// AutoResetEvent — one producer signals one consumer at a time
 using var are = new AutoResetEvent(initialState: false);
 
 var producer = new Thread(() =>
@@ -14823,7 +13949,7 @@ var consumer = new Thread(() =>
 {
     for (int i = 0; i < 3; i++)
     {
-        are.WaitOne(); // blocks until Set() â€” auto-resets after waking
+        are.WaitOne(); // blocks until Set() — auto-resets after waking
         Console.WriteLine($"Consumed {i}");
     }
 });
@@ -14831,7 +13957,7 @@ var consumer = new Thread(() =>
 producer.Start(); consumer.Start();
 producer.Join();  consumer.Join();
 
-// ManualResetEventSlim â€” broadcast to ALL waiting threads
+// ManualResetEventSlim — broadcast to ALL waiting threads
 using var mre = new ManualResetEventSlim(initialState: false);
 
 var workers = Enumerable.Range(0, 4).Select(i => new Thread(() =>
@@ -14847,9 +13973,6 @@ mre.Reset(); // close gate again for next round
 workers.ForEach(w => w.Join());
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the Semaphore? What is Mutex and how does it differ from other synchronization mechanisms?
 
@@ -14858,7 +13981,7 @@ workers.ForEach(w => w.Join());
 **Mutex** is like a `lock` but works **across processes** and is owned by the thread that acquired it.
 
 ```cs
-// SemaphoreSlim â€” limit concurrency to N threads (async-friendly)
+// SemaphoreSlim — limit concurrency to N threads (async-friendly)
 using var sem = new SemaphoreSlim(initialCount: 2, maxCount: 2);
 
 var tasks = Enumerable.Range(0, 6).Select(async i =>
@@ -14880,7 +14003,7 @@ kernelSem.WaitOne();
 try { /* exclusive access */ }
 finally { kernelSem.Release(); }
 
-// Mutex â€” cross-process mutual exclusion
+// Mutex — cross-process mutual exclusion
 using var mutex = new Mutex(initiallyOwned: false, name: "Global\\MyAppMutex");
 
 // Single-instance app pattern
@@ -14900,20 +14023,17 @@ if (!createdNew)
 |-|--------|---------|----------------|
 | **Scope** | In-process | Cross-process | In-process |
 | **Max holders** | 1 | 1 | N (configurable) |
-| **Async** | âŒ | âŒ | âœ… `WaitAsync` |
+| **Async** | ❌ | ❌ | ✅ `WaitAsync` |
 | **Overhead** | Low | High (kernel) | Low |
 | **Thread-affinity** | Yes | Yes | No |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `volatile` keyword?
 
 `volatile` tells the compiler and CPU that a field may be changed by multiple threads, preventing **caching** of the variable in a CPU register and disabling certain compiler/CPU **reordering** optimisations.
 
 ```cs
-// Without volatile â€” compiler may cache _running in a register
+// Without volatile — compiler may cache _running in a register
 // and the loop never sees the update from another thread
 public class Processor
 {
@@ -14936,15 +14056,15 @@ public class Processor
 // - Sentinel values checked in a spin loop
 
 // volatile is NOT appropriate for:
-// - Compound operations (check + set, read + increment) â€” use Interlocked or lock
-// - Complex objects â€” use lock or Concurrent collections
+// - Compound operations (check + set, read + increment) — use Interlocked or lock
+// - Complex objects — use lock or Concurrent collections
 
 // Difference: volatile vs Interlocked vs lock
 //   volatile: prevents caching/reordering; does NOT make compound ops atomic
 //   Interlocked: atomic operations on single primitives (Increment, CompareExchange)
-//   lock: exclusive section â€” any code, any type, highest overhead
+//   lock: exclusive section — any code, any type, highest overhead
 
-// Thread.MemoryBarrier â€” explicit full memory fence (advanced, rarely needed)
+// Thread.MemoryBarrier — explicit full memory fence (advanced, rarely needed)
 private int _data;
 private volatile bool _ready;
 
@@ -14963,37 +14083,34 @@ public int Consumer()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the Interlocked functions?
 
-`Interlocked` provides **atomic** operations on shared variables â€” safe without `lock` and with minimal overhead (single CPU instruction).
+`Interlocked` provides **atomic** operations on shared variables — safe without `lock` and with minimal overhead (single CPU instruction).
 
 ```cs
 int counter = 0;
 long total   = 0;
 
-// Increment / Decrement â€” thread-safe ++ and --
+// Increment / Decrement — thread-safe ++ and --
 Interlocked.Increment(ref counter);       // counter++
 Interlocked.Decrement(ref counter);       // counter--
 Console.WriteLine(counter);               // 0
 
-// Add â€” thread-safe +=
+// Add — thread-safe +=
 Interlocked.Add(ref counter, 10);
 Console.WriteLine(counter);               // 10
 
-// Exchange â€” atomically sets value, returns old value
+// Exchange — atomically sets value, returns old value
 int previous = Interlocked.Exchange(ref counter, 100);
 Console.WriteLine($"Was {previous}, now {counter}"); // Was 10, now 100
 
-// CompareExchange â€” atomically: if (counter == expected) counter = newValue
+// CompareExchange — atomically: if (counter == expected) counter = newValue
 // Returns the original value
 int original = Interlocked.CompareExchange(ref counter, newValue: 200, comparand: 100);
 Console.WriteLine($"Original: {original}, Counter: {counter}"); // Original: 100, Counter: 200
 
-// Read â€” atomic read of a long on 32-bit systems
+// Read — atomic read of a long on 32-bit systems
 long atomicRead = Interlocked.Read(ref total);
 
 // Or (C# 9+)
@@ -15016,14 +14133,11 @@ string? old = Interlocked.Exchange(ref sharedRef, "updated");
 Console.WriteLine($"Was '{old}', now '{sharedRef}'");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can you share data between multiple threads?
 
 ```cs
-// 1. Shared field with lock â€” simplest and most common
+// 1. Shared field with lock — simplest and most common
 public class SharedState
 {
     private readonly object _lock = new();
@@ -15033,7 +14147,7 @@ public class SharedState
     public List<string> Snapshot()  { lock (_lock) { return [.._items]; } }
 }
 
-// 2. Concurrent collections â€” no manual lock needed
+// 2. Concurrent collections — no manual lock needed
 var dict  = new System.Collections.Concurrent.ConcurrentDictionary<string, int>();
 var queue = new System.Collections.Concurrent.ConcurrentQueue<string>();
 var bag   = new System.Collections.Concurrent.ConcurrentBag<int>();
@@ -15042,7 +14156,7 @@ await Task.WhenAll(
     Task.Run(() => dict.TryAdd("key1", 1)),
     Task.Run(() => dict.TryAdd("key2", 2)));
 
-// 3. Channel<T> â€” async-safe producer/consumer (preferred in .NET 5+)
+// 3. Channel<T> — async-safe producer/consumer (preferred in .NET 5+)
 var channel = System.Threading.Channels.Channel.CreateUnbounded<int>();
 
 var producer = Task.Run(async () =>
@@ -15063,28 +14177,25 @@ var consumer = Task.Run(async () =>
 
 await Task.WhenAll(producer, consumer);
 
-// 4. ThreadLocal<T> â€” per-thread copy (not shared, but partitions data)
+// 4. ThreadLocal<T> — per-thread copy (not shared, but partitions data)
 var localRng = new ThreadLocal<Random>(() => new Random());
 await Task.WhenAll(Enumerable.Range(0, 4).Select(_ =>
     Task.Run(() => Console.WriteLine(localRng.Value!.Next(100)))));
 
-// 5. Immutable shared data â€” safest (no synchronization needed)
+// 5. Immutable shared data — safest (no synchronization needed)
 // Prefer record types and ImmutableList<T>, ImmutableDictionary<T,V>
 using System.Collections.Immutable;
 ImmutableList<int> immutable = ImmutableList<int>.Empty.Add(1).Add(2);
 // Any thread can read immutable safely; Add() returns a new list
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you implement a producer-consumer scenario in C#?
 
 ```cs
 using System.Threading.Channels;
 
-// âœ… Modern approach: Channel<T> (preferred in .NET 5+)
+// ✅ Modern approach: Channel<T> (preferred in .NET 5+)
 var channel = Channel.CreateBounded<int>(capacity: 10);
 
 async Task ProduceAsync()
@@ -15135,13 +14246,10 @@ var consumer = Task.Run(() =>
 await Task.WhenAll(producer, consumer);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `CancellationToken` and how is it used in multithreading?
 
-`CancellationToken` provides a cooperative cancellation model â€” the producer (caller) signals cancellation; the consumer (worker) checks and responds to it. No thread is forcibly aborted.
+`CancellationToken` provides a cooperative cancellation model — the producer (caller) signals cancellation; the consumer (worker) checks and responds to it. No thread is forcibly aborted.
 
 ```cs
 // 1. Basic usage
@@ -15166,7 +14274,7 @@ catch (OperationCanceledException) { Console.WriteLine("Task cancelled"); }
 
 // 2. Timeout cancellation
 using var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
-// CancellationTokenSource.CreateLinkedTokenSource â€” combine multiple tokens
+// CancellationTokenSource.CreateLinkedTokenSource — combine multiple tokens
 using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
     cts.Token, timeoutCts.Token);
 
@@ -15180,7 +14288,7 @@ if (token.IsCancellationRequested)
     return;
 }
 
-// 5. Pass to .NET APIs â€” most async methods accept CancellationToken
+// 5. Pass to .NET APIs — most async methods accept CancellationToken
 using var httpClient = new HttpClient();
 try
 {
@@ -15200,9 +14308,6 @@ void LongWork(CancellationToken ct)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use `Concurrent` collections in C#?
 
@@ -15218,25 +14323,25 @@ dict.AddOrUpdate("Alice", 100, (key, old) => old + 50); // atomic update
 int val = dict.GetOrAdd("Bob", key => 200);             // atomic get-or-add
 Console.WriteLine(dict["Alice"]); // 150
 
-// ConcurrentQueue<T> â€” FIFO, lock-free
+// ConcurrentQueue<T> — FIFO, lock-free
 var queue = new ConcurrentQueue<int>();
 Parallel.For(0, 10, i => queue.Enqueue(i));
 while (queue.TryDequeue(out int item))
     Console.Write($"{item} ");
 Console.WriteLine();
 
-// ConcurrentStack<T> â€” LIFO
+// ConcurrentStack<T> — LIFO
 var stack = new ConcurrentStack<int>();
 stack.PushRange([1, 2, 3, 4, 5]);
 if (stack.TryPop(out int top)) Console.WriteLine($"Popped: {top}"); // 5
 
-// ConcurrentBag<T> â€” unordered, optimised for same-thread add/take
+// ConcurrentBag<T> — unordered, optimised for same-thread add/take
 var bag = new ConcurrentBag<int>();
 await Task.WhenAll(Enumerable.Range(0, 100).Select(i =>
     Task.Run(() => bag.Add(i))));
 Console.WriteLine($"Bag count: {bag.Count}"); // 100
 
-// BlockingCollection<T> â€” bounded buffer with blocking Add/Take
+// BlockingCollection<T> — bounded buffer with blocking Add/Take
 var bounded = new BlockingCollection<int>(boundedCapacity: 5);
 
 var prod = Task.Run(() =>
@@ -15258,22 +14363,19 @@ var cons = Task.Run(() =>
 await Task.WhenAll(prod, cons);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Parallel.For` and `Task.Run`?
 
 | | `Parallel.For` / `Parallel.ForEach` | `Task.Run` |
 |-|-------------------------------------|-----------|
-| **Purpose** | Data parallelism â€” divide a collection across cores | Run a single unit of work asynchronously |
-| **Blocking** | Blocks the calling thread until all iterations complete | Non-blocking â€” returns a `Task` |
+| **Purpose** | Data parallelism — divide a collection across cores | Run a single unit of work asynchronously |
+| **Blocking** | Blocks the calling thread until all iterations complete | Non-blocking — returns a `Task` |
 | **Partitioning** | Automatic (Partitioner) | Manual |
 | **Degree of parallelism** | `MaxDegreeOfParallelism` option | Manual via `SemaphoreSlim` |
 | **Use case** | CPU-bound loops over data | Single async or CPU-bound job |
 
 ```cs
-// Parallel.For â€” best for CPU-bound data processing
+// Parallel.For — best for CPU-bound data processing
 var results = new int[10];
 Parallel.For(0, 10, new ParallelOptions { MaxDegreeOfParallelism = 4 }, i =>
 {
@@ -15290,7 +14392,7 @@ Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 2 }, file
     Console.WriteLine($"{Path.GetFileName(file)}: {lines} lines");
 });
 
-// Task.Run â€” single async unit of work
+// Task.Run — single async unit of work
 var task = Task.Run(() =>
 {
     long sum = 0;
@@ -15299,7 +14401,7 @@ var task = Task.Run(() =>
 });
 Console.WriteLine(await task);
 
-// âš ï¸ Parallel.For with async â€” use Parallel.ForEachAsync (.NET 6+)
+// ⚠️ Parallel.For with async — use Parallel.ForEachAsync (.NET 6+)
 await Parallel.ForEachAsync(files, new ParallelOptions { MaxDegreeOfParallelism = 4 },
     async (file, ct) =>
     {
@@ -15308,9 +14410,6 @@ await Parallel.ForEachAsync(files, new ParallelOptions { MaxDegreeOfParallelism 
     });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the advantages and disadvantages of multithreading?
 
@@ -15337,31 +14436,28 @@ await Parallel.ForEachAsync(files, new ParallelOptions { MaxDegreeOfParallelism 
 
 ```cs
 // When to use multithreading:
-// âœ… CPU-bound: image processing, data crunching, compression
-// âœ… Parallel independent tasks: batch file processing
-// âœ… Background work: keep UI responsive
-// âœ… I/O-bound: async/await without dedicated threads
+// ✅ CPU-bound: image processing, data crunching, compression
+// ✅ Parallel independent tasks: batch file processing
+// ✅ Background work: keep UI responsive
+// ✅ I/O-bound: async/await without dedicated threads
 
 // When to AVOID:
-// âŒ Simple sequential logic â€” adds complexity with no benefit
-// âŒ Shared state that\'s complex to synchronize
-// âŒ Very short tasks â€” thread creation overhead exceeds benefit
+// ❌ Simple sequential logic — adds complexity with no benefit
+// ❌ Shared state that\'s complex to synchronize
+// ❌ Very short tasks — thread creation overhead exceeds benefit
 
 // Modern guideline:
 // CPU-bound: Parallel.For, Parallel.ForEachAsync, Task.Run
 // I/O-bound: async/await (no extra threads needed)
 // Producer/consumer: Channel<T>
-// Avoid raw Thread() â€” use Task-based APIs instead
+// Avoid raw Thread() — use Task-based APIs instead
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How does multithreading improve performance over a single-threaded solution?
 
 ```cs
-// Single-threaded: tasks run sequentially â€” total time = sum of each
+// Single-threaded: tasks run sequentially — total time = sum of each
 var sw = System.Diagnostics.Stopwatch.StartNew();
 
 int r1 = HeavyCompute(1);
@@ -15372,7 +14468,7 @@ int r4 = HeavyCompute(4);
 sw.Stop();
 Console.WriteLine($"Sequential: {sw.ElapsedMilliseconds} ms, results: {r1+r2+r3+r4}");
 
-// Multi-threaded: tasks run in parallel â€” total time â‰ˆ max of each
+// Multi-threaded: tasks run in parallel — total time ≈ max of each
 sw.Restart();
 
 int[] results = await Task.WhenAll(
@@ -15404,32 +14500,29 @@ Console.WriteLine($"Async I/O: {sw.ElapsedMilliseconds} ms"); // ~300 ms
 // If 20% of code is sequential, max speedup = 1 / 0.2 = 5x regardless of cores
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. When should multithreading be used and when should it be avoided in C#?
 
 ```cs
-// âœ… USE multithreading when:
+// ✅ USE multithreading when:
 
-// 1. CPU-bound parallel work â€” multiple independent CPU-intensive tasks
+// 1. CPU-bound parallel work — multiple independent CPU-intensive tasks
 var primes = await Task.Run(() =>
     Enumerable.Range(2, 1_000_000)
               .AsParallel()
               .Where(IsPrime)
               .Count());
 
-// 2. UI responsiveness â€” background work while UI stays responsive
+// 2. UI responsiveness — background work while UI stays responsive
 // (WPF/MAUI: always run long work off the UI thread)
 await Task.Run(() => ProcessLargeFile("data.csv")); // off UI thread
 
-// 3. I/O-bound parallelism â€” multiple concurrent HTTP/DB calls
+// 3. I/O-bound parallelism — multiple concurrent HTTP/DB calls
 var responses = await Task.WhenAll(
     httpClient.GetStringAsync("https://api1.example.com"),
     httpClient.GetStringAsync("https://api2.example.com"));
 
-// 4. Background services â€” polling, cleanup, monitoring
+// 4. Background services — polling, cleanup, monitoring
 var cts = new CancellationTokenSource();
 Task bgService = Task.Factory.StartNew(async () =>
 {
@@ -15440,22 +14533,22 @@ Task bgService = Task.Factory.StartNew(async () =>
     }
 }, TaskCreationOptions.LongRunning);
 
-// âŒ AVOID multithreading when:
+// ❌ AVOID multithreading when:
 
-// 1. Simple sequential logic â€” no gain, only complexity
+// 1. Simple sequential logic — no gain, only complexity
 // BAD:
 int badResult = await Task.Run(() => 2 + 2);
 
 // GOOD:
 int goodResult = 2 + 2;
 
-// 2. Tasks are too short â€” thread overhead > benefit
-// BAD: threading a 1 Âµs operation
+// 2. Tasks are too short — thread overhead > benefit
+// BAD: threading a 1 µs operation
 // GOOD: batch small items, then parallelize the batch
 
-// 3. Heavy shared state â€” if everything needs a lock, parallelism is lost
+// 3. Heavy shared state — if everything needs a lock, parallelism is lost
 
-// 4. Ordering matters â€” parallel tasks don\'t preserve order
+// 4. Ordering matters — parallel tasks don\'t preserve order
 
 bool IsPrime(int n)
 {
@@ -15466,30 +14559,27 @@ bool IsPrime(int n)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can you ensure mutual exclusion without using `lock` or `Monitor`?
 
 ```cs
-// 1. SemaphoreSlim(1,1) â€” async-compatible mutual exclusion
+// 1. SemaphoreSlim(1,1) — async-compatible mutual exclusion
 var sem = new SemaphoreSlim(1, 1);
 
 async Task CriticalSectionAsync()
 {
-    await sem.WaitAsync(); // async â€” doesn\'t block a thread
+    await sem.WaitAsync(); // async — doesn\'t block a thread
     try { /* exclusive work */ await Task.Delay(100); }
     finally { sem.Release(); }
 }
 
-// 2. Mutex â€” cross-process mutual exclusion
+// 2. Mutex — cross-process mutual exclusion
 using var mutex = new Mutex(false, "Global\\MyAppMutex");
 mutex.WaitOne();
 try { /* exclusive work */ }
 finally { mutex.ReleaseMutex(); }
 
-// 3. SpinLock â€” busy-wait for very short sections (no kernel transition)
+// 3. SpinLock — busy-wait for very short sections (no kernel transition)
 var spinLock = new SpinLock(enableThreadOwnerTracking: false);
 bool taken = false;
 try
@@ -15500,14 +14590,14 @@ try
 }
 finally { if (taken) spinLock.Exit(); }
 
-// 4. Interlocked.CompareExchange â€” optimistic lock-free CAS
+// 4. Interlocked.CompareExchange — optimistic lock-free CAS
 int lockFlag = 0;
 while (Interlocked.CompareExchange(ref lockFlag, 1, 0) != 0)
-    Thread.SpinWait(1); // spin until we set flag 0â†’1
+    Thread.SpinWait(1); // spin until we set flag 0→1
 try { /* exclusive work */ }
 finally { Interlocked.Exchange(ref lockFlag, 0); }
 
-// 5. ReaderWriterLockSlim â€” multiple readers, exclusive writer
+// 5. ReaderWriterLockSlim — multiple readers, exclusive writer
 var rwLock = new ReaderWriterLockSlim();
 // Writer
 rwLock.EnterWriteLock();
@@ -15519,21 +14609,18 @@ try { /* concurrent reads */ }
 finally { rwLock.ExitReadLock(); }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the difference between `Barrier` and `CountdownEvent`. Provide a real-world scenario for each.
 
 | | `Barrier` | `CountdownEvent` |
 |-|-----------|-----------------|
 | **Purpose** | Synchronize N threads at each **phase boundary** | Wait until N operations have signalled completion |
-| **Reusable** | âœ… Automatically resets for each phase | âŒ One-shot (or manually reset) |
+| **Reusable** | ✅ Automatically resets for each phase | ❌ One-shot (or manually reset) |
 | **Participants** | Fixed at creation (can be added/removed) | Count set at creation |
 | **Direction** | All threads wait for each other | One thread waits; many threads signal |
 
 ```cs
-// Barrier â€” pipeline with phases
+// Barrier — pipeline with phases
 // Real-world: parallel rendering pipeline where all threads must finish
 // Phase 1 (geometry) before any starts Phase 2 (shading)
 
@@ -15555,7 +14642,7 @@ var tasks = Enumerable.Range(0, workers).Select(id => Task.Run(() =>
 }));
 await Task.WhenAll(tasks);
 
-// CountdownEvent â€” wait for N async completions
+// CountdownEvent — wait for N async completions
 // Real-world: download N files concurrently; proceed only when all are done
 
 int fileCount = 5;
@@ -15573,23 +14660,20 @@ for (int i = 0; i < fileCount; i++)
 }
 
 countdown.Wait(); // block until count reaches 0
-Console.WriteLine("All files downloaded â€” proceeding with processing");
+Console.WriteLine("All files downloaded — proceeding with processing");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the issues with `Thread.Abort()`? How do you gracefully stop a thread?
 
 **`Thread.Abort()` is removed in .NET Core / .NET 5+.** It was unsafe because it injected a `ThreadAbortException` at an arbitrary point, potentially corrupting state, leaving locks acquired, or skipping `finally` blocks.
 
 ```cs
-// âŒ Thread.Abort â€” NOT available in .NET 5+
+// ❌ Thread.Abort — NOT available in .NET 5+
 // var t = new Thread(...);
 // t.Abort(); // throws PlatformNotSupportedException on .NET 5+
 
-// âœ… Graceful cancellation via CancellationToken (recommended)
+// ✅ Graceful cancellation via CancellationToken (recommended)
 using var cts = new CancellationTokenSource();
 
 var worker = Task.Run(async () =>
@@ -15607,7 +14691,7 @@ cts.Cancel(); // cooperative cancellation
 try   { await worker; }
 catch (OperationCanceledException) { Console.WriteLine("Task cancelled"); }
 
-// âœ… Volatile flag â€” simple polling (no Task)
+// ✅ Volatile flag — simple polling (no Task)
 public class BackgroundWorker
 {
     private volatile bool _stop;
@@ -15640,9 +14724,6 @@ await Task.Delay(700);
 bw.Stop();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you achieve thread synchronization using `ReaderWriterLockSlim`? What are its advantages over `ReaderWriterLock`?
 
@@ -15652,8 +14733,8 @@ bw.Stop();
 |-|-------------------|----------------------|
 | **Performance** | Slower | Faster (optimised internals) |
 | **Recursive support** | Via flags | Opt-in (`LockRecursionPolicy`) |
-| **Upgradeable read lock** | âŒ | âœ… `EnterUpgradeableReadLock` |
-| **Recommendation** | Legacy (avoid) | âœ… Use this |
+| **Upgradeable read lock** | ❌ | ✅ `EnterUpgradeableReadLock` |
+| **Recommendation** | Legacy (avoid) | ✅ Use this |
 
 ```cs
 public class ThreadSafeCache<TKey, TValue> where TKey : notnull
@@ -15673,12 +14754,12 @@ public class ThreadSafeCache<TKey, TValue> where TKey : notnull
 
     public void Set(TKey key, TValue value)
     {
-        _lock.EnterWriteLock(); // exclusive â€” blocks all readers and writers
+        _lock.EnterWriteLock(); // exclusive — blocks all readers and writers
         try { _dict[key] = value; }
         finally { _lock.ExitWriteLock(); }
     }
 
-    // Upgradeable lock â€” check then conditionally write (no double-locking)
+    // Upgradeable lock — check then conditionally write (no double-locking)
     public TValue GetOrAdd(TKey key, Func<TKey, TValue> factory)
     {
         _lock.EnterUpgradeableReadLock();
@@ -15709,22 +14790,19 @@ await Task.WhenAll(
     Task.Run(() => Console.WriteLine(cache.GetOrAdd("y", _ => 99))));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Discuss the differences between `volatile`, `Interlocked`, and `Thread.MemoryBarrier`. When should each be used?
 
 | | `volatile` | `Interlocked` | `Thread.MemoryBarrier` |
 |-|-----------|--------------|----------------------|
-| **Prevents caching** | âœ… | âœ… (implicit) | âœ… (explicit fence) |
-| **Prevents reordering** | Partial (acquire/release) | âœ… | âœ… (full fence) |
-| **Atomic compound ops** | âŒ | âœ… | âŒ |
-| **Overhead** | Minimal | Low (single CPU instruction) | Lowâ€“Medium |
+| **Prevents caching** | ✅ | ✅ (implicit) | ✅ (explicit fence) |
+| **Prevents reordering** | Partial (acquire/release) | ✅ | ✅ (full fence) |
+| **Atomic compound ops** | ❌ | ✅ | ❌ |
+| **Overhead** | Minimal | Low (single CPU instruction) | Low–Medium |
 | **Use case** | Simple flags; visibility | Atomic read/modify/write | Custom lock-free algorithms |
 
 ```cs
-// volatile â€” prevent caching of a simple flag
+// volatile — prevent caching of a simple flag
 private volatile bool _shutdown = false;
 
 void Worker()
@@ -15733,13 +14811,13 @@ void Worker()
 }
 void Stop() => _shutdown = true; // immediately visible
 
-// Interlocked â€” atomic compound operation on a single variable
+// Interlocked — atomic compound operation on a single variable
 int counter = 0;
 Interlocked.Increment(ref counter);               // atomic read + add + write
 int old = Interlocked.Exchange(ref counter, 100); // atomic swap
 int orig = Interlocked.CompareExchange(ref counter, 200, 100); // CAS
 
-// Thread.MemoryBarrier â€” full memory fence in custom lock-free code
+// Thread.MemoryBarrier — full memory fence in custom lock-free code
 private int _data;
 private int _flag;
 
@@ -15757,32 +14835,29 @@ int Consume()
     return _data; // guaranteed to see 99
 }
 
-// Volatile.Read / Volatile.Write â€” explicit volatile semantics without field keyword
+// Volatile.Read / Volatile.Write — explicit volatile semantics without field keyword
 int val = Volatile.Read(ref _flag);
 Volatile.Write(ref _flag, 1);
 
 // Rule of thumb:
-// One thread writes, one thread reads a simple flag  â†’ volatile
-// Atomic increment / compare-and-swap               â†’ Interlocked
-// Custom lock-free algorithm with ordering needs    â†’ MemoryBarrier / Volatile.Read/Write
+// One thread writes, one thread reads a simple flag  → volatile
+// Atomic increment / compare-and-swap               → Interlocked
+// Custom lock-free algorithm with ordering needs    → MemoryBarrier / Volatile.Read/Write
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain thread-local storage and data partitioning in C# multithreading.
 
-**Thread-local storage (TLS)** gives each thread its own private copy of a variable â€” no sharing, no synchronization needed.  
+**Thread-local storage (TLS)** gives each thread its own private copy of a variable — no sharing, no synchronization needed.  
 **Data partitioning** divides a dataset into independent chunks and assigns each chunk to a separate thread.
 
 ```cs
-// 1. ThreadLocal<T> â€” per-thread instance
+// 1. ThreadLocal<T> — per-thread instance
 var localRng = new ThreadLocal<Random>(() => new Random(), trackAllValues: true);
 
 await Task.WhenAll(Enumerable.Range(0, 4).Select(i => Task.Run(() =>
 {
-    // Each thread has its own Random â€” no lock needed
+    // Each thread has its own Random — no lock needed
     int roll = localRng.Value!.Next(1, 7);
     Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId}: rolled {roll}");
 })));
@@ -15791,10 +14866,10 @@ await Task.WhenAll(Enumerable.Range(0, 4).Select(i => Task.Run(() =>
 Console.WriteLine($"Instances created: {localRng.Values.Count}");
 localRng.Dispose();
 
-// 2. [ThreadStatic] â€” simpler but no initializer
+// 2. [ThreadStatic] — simpler but no initializer
 [ThreadStatic] private static int _threadId;
 
-// 3. Data partitioning â€” PLINQ
+// 3. Data partitioning — PLINQ
 var numbers = Enumerable.Range(1, 10_000_000);
 long sum = numbers.AsParallel()
                   .WithDegreeOfParallelism(4)
@@ -15803,7 +14878,7 @@ long sum = numbers.AsParallel()
                   .Sum();
 Console.WriteLine($"Sum of evens: {sum}");
 
-// 4. Data partitioning â€” Parallel.For with thread-local accumulator (no shared state)
+// 4. Data partitioning — Parallel.For with thread-local accumulator (no shared state)
 long total = 0;
 Parallel.For(
     fromInclusive: 0L,
@@ -15814,7 +14889,7 @@ Parallel.For(
 );
 Console.WriteLine($"Parallel total: {total}");
 
-// 5. Partitioner â€” custom partition strategy
+// 5. Partitioner — custom partition strategy
 var partitioner = Partitioner.Create(0, 10_000_000, rangeSize: 500_000);
 Parallel.ForEach(partitioner, range =>
 {
@@ -15824,13 +14899,10 @@ Parallel.ForEach(partitioner, range =>
 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you combine async/await with multithreading? How does `TaskScheduler` fit in?
 
-`async/await` is primarily an **I/O-bound** model â€” it doesn\'t create new threads. When you need CPU-bound work alongside async, combine `Task.Run` with `await`. `TaskScheduler` controls *where* tasks execute.
+`async/await` is primarily an **I/O-bound** model — it doesn\'t create new threads. When you need CPU-bound work alongside async, combine `Task.Run` with `await`. `TaskScheduler` controls *where* tasks execute.
 
 ```cs
 // 1. CPU-bound work + async I/O together
@@ -15850,7 +14922,7 @@ var tasks = Directory.GetFiles(".", "*.cs")
 int[] counts = await Task.WhenAll(tasks);
 Console.WriteLine($"Total words: {counts.Sum()}");
 
-// 3. TaskScheduler â€” controls execution context
+// 3. TaskScheduler — controls execution context
 // Default: ThreadPoolTaskScheduler (Task.Run uses this)
 // CurrentThread: runs on the current thread (synchronous; testing)
 // LimitedConcurrency: caps concurrent tasks
@@ -15899,9 +14971,6 @@ await Task.WhenAll(Enumerable.Range(0, 6)
     })));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is parallelism? How do you control the degree of parallelism using the `Parallel` class?
 
@@ -15923,12 +14992,12 @@ Parallel.For(0, 20, options, i =>
 });
 Console.WriteLine(string.Join(", ", results));
 
-// Parallel.ForEach â€” over collections
+// Parallel.ForEach — over collections
 var files = Directory.EnumerateFiles(".", "*.cs").ToList();
 Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 2 }, file =>
-    Console.WriteLine($"{Path.GetFileName(file)} â€” {new FileInfo(file).Length} bytes"));
+    Console.WriteLine($"{Path.GetFileName(file)} — {new FileInfo(file).Length} bytes"));
 
-// Parallel.ForEachAsync â€” async-compatible (.NET 6+)
+// Parallel.ForEachAsync — async-compatible (.NET 6+)
 await Parallel.ForEachAsync(files, new ParallelOptions { MaxDegreeOfParallelism = 3 },
     async (file, ct) =>
     {
@@ -15936,7 +15005,7 @@ await Parallel.ForEachAsync(files, new ParallelOptions { MaxDegreeOfParallelism 
         Console.WriteLine($"{Path.GetFileName(file)}: {content.Length} chars");
     });
 
-// PLINQ â€” parallel LINQ
+// PLINQ — parallel LINQ
 long sum = Enumerable.Range(1, 10_000_000)
     .AsParallel()
     .WithDegreeOfParallelism(Environment.ProcessorCount)
@@ -15948,21 +15017,18 @@ Console.WriteLine($"Sum: {sum}");
 // Choosing DOP:
 // CPU-bound: Environment.ProcessorCount  (fully utilise all cores)
 // I/O-bound: higher than CPU count is fine (threads spend time waiting)
-// Mixed:     experiment; start with 2 Ã— ProcessorCount for I/O
+// Mixed:     experiment; start with 2 × ProcessorCount for I/O
 
 Console.WriteLine($"CPU cores: {Environment.ProcessorCount}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Describe lock contention and how to mitigate it.
 
-**Lock contention** occurs when multiple threads compete to acquire the same lock. The thread that can\'t acquire the lock blocks, waiting â€” wasting CPU time and reducing throughput.
+**Lock contention** occurs when multiple threads compete to acquire the same lock. The thread that can\'t acquire the lock blocks, waiting — wasting CPU time and reducing throughput.
 
 ```cs
-// High contention â€” all threads fight for one lock
+// High contention — all threads fight for one lock
 object sharedLock = new();
 int counter = 0;
 
@@ -15970,12 +15036,12 @@ int counter = 0;
 await Task.WhenAll(Enumerable.Range(0, 1000).Select(_ =>
     Task.Run(() => { lock (sharedLock) counter++; })));
 
-// âœ… Mitigation 1: Interlocked â€” no lock needed for simple atomic ops
+// ✅ Mitigation 1: Interlocked — no lock needed for simple atomic ops
 int atomicCounter = 0;
 await Task.WhenAll(Enumerable.Range(0, 1000).Select(_ =>
     Task.Run(() => Interlocked.Increment(ref atomicCounter))));
 
-// âœ… Mitigation 2: Lock striping â€” partition data across multiple locks
+// ✅ Mitigation 2: Lock striping — partition data across multiple locks
 const int Stripes = 16;
 var locks    = Enumerable.Range(0, Stripes).Select(_ => new object()).ToArray();
 var counters = new int[Stripes];
@@ -15988,7 +15054,7 @@ await Task.WhenAll(Enumerable.Range(0, 1000).Select(i =>
     })));
 Console.WriteLine($"Total: {counters.Sum()}"); // 1000
 
-// âœ… Mitigation 3: ReaderWriterLockSlim â€” allow concurrent reads
+// ✅ Mitigation 3: ReaderWriterLockSlim — allow concurrent reads
 var rwl = new ReaderWriterLockSlim();
 var dict = new Dictionary<string, int> { ["key"] = 0 };
 
@@ -16000,12 +15066,12 @@ await Task.WhenAll(Enumerable.Range(0, 100).Select(_ => Task.Run(() =>
     finally { rwl.ExitReadLock(); }
 })));
 
-// âœ… Mitigation 4: Reduce lock scope â€” keep critical section minimal
+// ✅ Mitigation 4: Reduce lock scope — keep critical section minimal
 int result;
 lock (sharedLock) result = counter; // read fast under lock
 Console.WriteLine(ExpensiveProcess(result)); // heavy work OUTSIDE lock
 
-// âœ… Mitigation 5: ConcurrentDictionary â€” built-in lock striping
+// ✅ Mitigation 5: ConcurrentDictionary — built-in lock striping
 var cd = new System.Collections.Concurrent.ConcurrentDictionary<int, int>();
 await Task.WhenAll(Enumerable.Range(0, 1000).Select(i =>
     Task.Run(() => cd.AddOrUpdate(i % 10, 1, (_, v) => v + 1))));
@@ -16013,16 +15079,13 @@ await Task.WhenAll(Enumerable.Range(0, 1000).Select(i =>
 int ExpensiveProcess(int v) => v * 2;
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is lazy initialization in C# multithreading and how does it affect startup performance?
 
 **Lazy initialization** defers the creation of an expensive object until it is first accessed. This reduces startup time and avoids allocating resources that may never be needed.
 
 ```cs
-// 1. Lazy<T> â€” thread-safe by default (LazyThreadSafetyMode.ExecutionAndPublication)
+// 1. Lazy<T> — thread-safe by default (LazyThreadSafetyMode.ExecutionAndPublication)
 var heavyService = new Lazy<DatabaseService>(() =>
 {
     Console.WriteLine("Initializing DatabaseService...");
@@ -16036,11 +15099,11 @@ Console.WriteLine(heavyService.Value.Query("SELECT 2")); // reuses same instance
 
 // 2. Thread-safety modes
 var lazy1 = new Lazy<int>(() => 42,
-    LazyThreadSafetyMode.ExecutionAndPublication); // default â€” safe, single init
+    LazyThreadSafetyMode.ExecutionAndPublication); // default — safe, single init
 var lazy2 = new Lazy<int>(() => 42,
     LazyThreadSafetyMode.PublicationOnly);          // allows multiple inits, first wins
 var lazy3 = new Lazy<int>(() => 42,
-    LazyThreadSafetyMode.None);                     // no thread safety â€” fastest, single-thread only
+    LazyThreadSafetyMode.None);                     // no thread safety — fastest, single-thread only
 
 // 3. Lazy<T> in a service / singleton
 public sealed class AppServices
@@ -16055,14 +15118,14 @@ public sealed class AppServices
 
 AppServices.Instance.DoWork(); // initialized on first access
 
-// 4. LazyInitializer â€” static helper, struct-friendly (no wrapper object)
+// 4. LazyInitializer — static helper, struct-friendly (no wrapper object)
 DatabaseService? _db = null;
 DatabaseService db = LazyInitializer.EnsureInitialized(
     ref _db, () => new DatabaseService("Server=prod;"));
 
 // 5. Impact on startup
-// Without lazy: all services created at startup â€” slow, wastes memory for unused services
-// With lazy:    only what\'s needed is created â€” faster startup, lower memory footprint
+// Without lazy: all services created at startup — slow, wastes memory for unused services
+// With lazy:    only what\'s needed is created — faster startup, lower memory footprint
 
 class DatabaseService(string connStr)
 {
@@ -16074,21 +15137,18 @@ class DatabaseService(string connStr)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain `SpinLock` in C# multithreading. How does it differ from `lock` / `Monitor`?
 
-`SpinLock` is a mutual exclusion primitive that **busy-waits** (spins) in a tight loop rather than yielding the thread to the OS. This avoids kernel transitions, making it faster for **very short** critical sections â€” but wasteful for longer ones.
+`SpinLock` is a mutual exclusion primitive that **busy-waits** (spins) in a tight loop rather than yielding the thread to the OS. This avoids kernel transitions, making it faster for **very short** critical sections — but wasteful for longer ones.
 
 | | `lock` / `Monitor` | `SpinLock` |
 |-|-------------------|-----------|
 | **Blocking** | Suspends thread (kernel sleep) | Busy-wait (CPU spinning) |
-| **Best for** | Sections taking > ~1 Âµs | Sections taking < ~1 Âµs |
+| **Best for** | Sections taking > ~1 µs | Sections taking < ~1 µs |
 | **CPU usage while waiting** | Low (thread suspended) | High (continuous spin) |
 | **Overhead per acquire** | Higher (kernel transition) | Lower (no kernel call) |
-| **Struct** | Class | `struct` â€” avoid copying |
+| **Struct** | Class | `struct` — avoid copying |
 | **Thread affinity** | No | Must release on same thread |
 
 ```cs
@@ -16112,7 +15172,7 @@ await Task.WhenAll(Enumerable.Range(0, 1000).Select(_ => Task.Run(() =>
 
 Console.WriteLine(sharedCounter); // 1000
 
-// SpinWait â€” adaptive spinning with back-off (yield after many spins)
+// SpinWait — adaptive spinning with back-off (yield after many spins)
 var sw = new SpinWait();
 volatile bool ready = false;
 Task.Run(() => { Thread.Sleep(100); ready = true; });
@@ -16121,7 +15181,7 @@ while (!ready)
     sw.SpinOnce(); // spins first, then yields, then sleeps
 Console.WriteLine("Ready!");
 
-// TryEnter â€” non-blocking
+// TryEnter — non-blocking
 bool acquired = false;
 spinLock.TryEnter(ref acquired);
 if (acquired)
@@ -16130,23 +15190,20 @@ if (acquired)
     finally { spinLock.Exit(); }
 }
 
-// âš ï¸ Rules:
+// ⚠️ Rules:
 // - Never use SpinLock for I/O-bound or blocking code
 // - Never await inside a SpinLock (deadlock risk on thread pool)
-// - Don\'t copy the SpinLock struct â€” always pass by ref
+// - Don\'t copy the SpinLock struct — always pass by ref
 // - Use Interlocked instead when operating on a single variable
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How are threads different from TPL?
 
 | | Raw `Thread` | Task Parallel Library (TPL) |
 |-|-------------|----------------------------|
 | **Abstraction** | Low-level OS thread | High-level task abstraction |
-| **Thread reuse** | No â€” new thread each time | Yes â€” reuses thread pool threads |
+| **Thread reuse** | No — new thread each time | Yes — reuses thread pool threads |
 | **Return values** | Not built-in | `Task<T>` returns results |
 | **Exception handling** | Manual (inside thread body) | Propagated via `await` / `.Result` |
 | **Cancellation** | Manual flag/volatile | `CancellationToken` built-in |
@@ -16156,7 +15213,7 @@ if (acquired)
 | **Best for** | Long-running, dedicated background threads | Everything else |
 
 ```cs
-// Thread â€” low-level, full control
+// Thread — low-level, full control
 var thread = new Thread(() =>
 {
     Console.WriteLine($"Raw thread: {Thread.CurrentThread.ManagedThreadId}");
@@ -16167,7 +15224,7 @@ thread.IsBackground = true;
 thread.Start();
 thread.Join();
 
-// TPL â€” high-level, composable, async-friendly
+// TPL — high-level, composable, async-friendly
 int result = await Task.Run(() =>
 {
     Console.WriteLine($"TPL thread: {Thread.CurrentThread.ManagedThreadId}");
@@ -16182,7 +15239,7 @@ var pipeline = Task.Run(() => "raw data")
     .ContinueWith(t => $"Processed: {t.Result}");
 Console.WriteLine(await pipeline);
 
-// TPL: parallel loop â€” 4 cores, no manual thread management
+// TPL: parallel loop — 4 cores, no manual thread management
 await Parallel.ForEachAsync(Enumerable.Range(0, 8), async (i, ct) =>
 {
     await Task.Delay(100, ct);
@@ -16233,11 +15290,8 @@ var longRunning = Task.Factory.StartNew(() =>
 }, TaskCreationOptions.LongRunning);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 7. FILE HANDLING
+## 7. File Handling
 
 <br/>
 
@@ -16255,7 +15309,7 @@ var longRunning = Task.Factory.StartNew(() =>
 // Quick overview of the main file API
 using System.IO;
 
-// Static helper class â€” convenient for one-off operations
+// Static helper class — convenient for one-off operations
 File.WriteAllText("note.txt", "Hello, .NET 10!");
 string content = File.ReadAllText("note.txt");
 Console.WriteLine(content); // Hello, .NET 10!
@@ -16269,34 +15323,31 @@ if (File.Exists("note.txt"))
     File.Delete("note.txt");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you read a file in C#?
 
 ```cs
-// 1. File.ReadAllText â€” small files, reads entire file as one string
+// 1. File.ReadAllText — small files, reads entire file as one string
 string text = await File.ReadAllTextAsync("data.txt");
 
-// 2. File.ReadAllLines â€” reads into string array (one element per line)
+// 2. File.ReadAllLines — reads into string array (one element per line)
 string[] lines = await File.ReadAllLinesAsync("data.txt");
 foreach (string line in lines) Console.WriteLine(line);
 
-// 3. File.ReadAllBytes â€” binary content
+// 3. File.ReadAllBytes — binary content
 byte[] bytes = await File.ReadAllBytesAsync("image.png");
 
-// 4. StreamReader â€” large files, line-by-line streaming (low memory)
+// 4. StreamReader — large files, line-by-line streaming (low memory)
 await using var reader = new StreamReader("large.csv");
 string? line;
 while ((line = await reader.ReadLineAsync()) is not null)
     Console.WriteLine(line);
 
-// 5. File.ReadLines â€” lazy IEnumerable<string>, never loads entire file
+// 5. File.ReadLines — lazy IEnumerable<string>, never loads entire file
 foreach (string l in File.ReadLines("data.txt"))
     Console.WriteLine(l); // reads one line at a time
 
-// 6. FileStream with buffer â€” lowest level, maximum control
+// 6. FileStream with buffer — lowest level, maximum control
 await using var fs = new FileStream("data.bin",
     FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true);
 byte[] buf = new byte[4096];
@@ -16304,7 +15355,7 @@ int bytesRead;
 while ((bytesRead = await fs.ReadAsync(buf)) > 0)
     Console.WriteLine($"Read {bytesRead} bytes");
 
-// 7. Pipes â€” zero-copy for high-throughput reading (.NET 5+)
+// 7. Pipes — zero-copy for high-throughput reading (.NET 5+)
 using System.IO.Pipelines;
 await using var pipeFs = File.OpenRead("data.bin");
 var reader2 = PipeReader.Create(pipeFs);
@@ -16316,50 +15367,44 @@ while (true)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you write to a file in C#?
 
 ```cs
-// 1. File.WriteAllText â€” overwrites (or creates) the file
+// 1. File.WriteAllText — overwrites (or creates) the file
 await File.WriteAllTextAsync("output.txt", "Hello, .NET 10!");
 
-// 2. File.WriteAllLines â€” writes each string as a line
+// 2. File.WriteAllLines — writes each string as a line
 string[] lines = ["Line 1", "Line 2", "Line 3"];
 await File.WriteAllLinesAsync("output.txt", lines);
 
-// 3. File.WriteAllBytes â€” binary data
+// 3. File.WriteAllBytes — binary data
 byte[] data = [0x50, 0x4B, 0x03, 0x04]; // ZIP magic bytes
 await File.WriteAllBytesAsync("archive.bin", data);
 
-// 4. StreamWriter â€” write line-by-line (useful for logging)
+// 4. StreamWriter — write line-by-line (useful for logging)
 await using var writer = new StreamWriter("log.txt", append: false);
 await writer.WriteLineAsync($"{DateTime.UtcNow:O} - App started");
 await writer.WriteLineAsync("Processing...");
 // Flushed and closed at end of using block
 
-// 5. FileStream â€” raw bytes, full control
+// 5. FileStream — raw bytes, full control
 await using var fs = new FileStream("data.bin",
     FileMode.Create, FileAccess.Write, FileShare.None, 4096, useAsync: true);
 byte[] bytes = System.Text.Encoding.UTF8.GetBytes("Hello binary world");
 await fs.WriteAsync(bytes);
 
-// 6. File.OpenWrite / File.Create â€” quick FileStream shortcuts
+// 6. File.OpenWrite / File.Create — quick FileStream shortcuts
 await using var quick = File.Create("temp.txt");
 await quick.WriteAsync("quick write"u8.ToArray());
 
-// 7. Atomic write pattern â€” write to temp, then rename (avoids partial writes)
+// 7. Atomic write pattern — write to temp, then rename (avoids partial writes)
 string target = "config.json";
 string temp   = target + ".tmp";
 await File.WriteAllTextAsync(temp, System.Text.Json.JsonSerializer.Serialize(new { key = "val" }));
 File.Move(temp, target, overwrite: true); // atomic on same volume
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `File.ReadAllText` and `File.ReadAllLines` in C#?
 
@@ -16374,40 +15419,37 @@ File.Move(temp, target, overwrite: true); // atomic on same volume
 ```cs
 // File content: "Hello\nWorld\nFoo"
 
-// ReadAllText â€” one string with newlines intact
+// ReadAllText — one string with newlines intact
 string all = await File.ReadAllTextAsync("data.txt");
 Console.WriteLine(all.Length);      // includes \n characters
 Console.WriteLine(all.Contains('\n')); // true
 
-// ReadAllLines â€” array, newlines stripped
+// ReadAllLines — array, newlines stripped
 string[] lines = await File.ReadAllLinesAsync("data.txt");
 Console.WriteLine(lines.Length);    // 3
 Console.WriteLine(lines[0]);        // Hello
 Console.WriteLine(lines[1]);        // World
 
-// File.ReadLines â€” lazy (no full load) â€” best for large files
+// File.ReadLines — lazy (no full load) — best for large files
 int lineCount = 0;
 foreach (string line in File.ReadLines("data.txt"))
     lineCount++;
 Console.WriteLine(lineCount); // 3
 
 // When to choose:
-// ReadAllText  â†’ parse JSON/XML/config as a whole string
-// ReadAllLines â†’ process CSV/log line by line but file fits in memory
-// ReadLines    â†’ large files that don\'t fit in memory (streaming)
+// ReadAllText  → parse JSON/XML/config as a whole string
+// ReadAllLines → process CSV/log line by line but file fits in memory
+// ReadLines    → large files that don\'t fit in memory (streaming)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you append text to an existing file in C#?
 
 ```cs
-// 1. File.AppendAllText â€” simplest
+// 1. File.AppendAllText — simplest
 await File.AppendAllTextAsync("log.txt", $"{DateTime.UtcNow:O} - event\n");
 
-// 2. File.AppendAllLines â€” appends multiple lines
+// 2. File.AppendAllLines — appends multiple lines
 string[] newLines = ["Entry 1", "Entry 2"];
 await File.AppendAllLinesAsync("log.txt", newLines);
 
@@ -16421,7 +15463,7 @@ await using var fs = new FileStream("log.txt",
 byte[] entry = System.Text.Encoding.UTF8.GetBytes("appended line\n");
 await fs.WriteAsync(entry);
 
-// 5. High-frequency logging â€” keep StreamWriter open (don\'t reopen each write)
+// 5. High-frequency logging — keep StreamWriter open (don\'t reopen each write)
 public sealed class FileLogger : IAsyncDisposable
 {
     private readonly StreamWriter _writer;
@@ -16441,14 +15483,11 @@ await using var logger = new FileLogger("app.log");
 await logger.LogAsync("Server started");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you check if a file exists in C#?
 
 ```cs
-// 1. File.Exists â€” synchronous check (thread-safe to call)
+// 1. File.Exists — synchronous check (thread-safe to call)
 if (File.Exists("config.json"))
 {
     string config = await File.ReadAllTextAsync("config.json");
@@ -16459,16 +15498,16 @@ else
     Console.WriteLine("Config not found, using defaults");
 }
 
-// 2. Directory.Exists â€” for directories
+// 2. Directory.Exists — for directories
 if (!Directory.Exists("logs"))
     Directory.CreateDirectory("logs");
 
-// 3. FileInfo.Exists â€” when you need other file metadata too
+// 3. FileInfo.Exists — when you need other file metadata too
 var fi = new FileInfo("data.csv");
 if (fi.Exists)
     Console.WriteLine($"Size: {fi.Length} bytes, Modified: {fi.LastWriteTimeUtc}");
 
-// 4. âš ï¸ TOCTOU race condition â€” check-then-use is not atomic
+// 4. ⚠️ TOCTOU race condition — check-then-use is not atomic
 // Between Exists() check and the Open(), file could be deleted.
 // Safer: just open and handle the exception
 try
@@ -16478,30 +15517,27 @@ try
 }
 catch (FileNotFoundException)
 {
-    Console.WriteLine("File not found â€” skipping");
+    Console.WriteLine("File not found — skipping");
 }
 catch (UnauthorizedAccessException)
 {
     Console.WriteLine("No permission to read file");
 }
 
-// 5. Path combiners â€” avoid hardcoded separators
+// 5. Path combiners — avoid hardcoded separators
 string basePath = AppContext.BaseDirectory;
 string filePath = Path.Combine(basePath, "data", "config.json");
 bool exists     = File.Exists(filePath);
 Console.WriteLine($"{filePath} exists: {exists}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `StreamReader` and `StreamWriter` classes in C#?
 
 `StreamReader` and `StreamWriter` are text-oriented wrappers around a `Stream` that handle **character encoding** automatically. They read/write decoded text rather than raw bytes.
 
 ```cs
-// StreamReader â€” read text from any Stream
+// StreamReader — read text from any Stream
 // 1. From file path (convenience constructor)
 await using var reader = new StreamReader("data.txt", System.Text.Encoding.UTF8);
 
@@ -16521,7 +15557,7 @@ using var response = await new HttpClient().GetStreamAsync("https://example.com"
 using var sr       = new StreamReader(response);
 string html        = await sr.ReadToEndAsync();
 
-// StreamWriter â€” write text to any Stream
+// StreamWriter — write text to any Stream
 // 1. To file
 await using var writer = new StreamWriter("output.txt",
     append: false,
@@ -16532,7 +15568,7 @@ await writer.WriteLineAsync("World");
 await writer.WriteLineAsync($"Time: {DateTime.UtcNow}");
 // writer.FlushAsync() called automatically on dispose
 
-// 2. AutoFlush â€” flush after every write (useful for log files)
+// 2. AutoFlush — flush after every write (useful for log files)
 var logWriter = new StreamWriter("log.txt", append: true) { AutoFlush = true };
 await logWriter.WriteLineAsync("Started");
 await logWriter.DisposeAsync();
@@ -16547,20 +15583,17 @@ using var msReader = new StreamReader(ms);
 Console.WriteLine(await msReader.ReadToEndAsync()); // in-memory text
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle exceptions when working with files in C#?
 
 ```cs
 // Common file I/O exceptions:
-// FileNotFoundException    â€” file does not exist
-// DirectoryNotFoundException â€” directory does not exist
-// UnauthorizedAccessException â€” no read/write permission
-// IOException              â€” disk full, file locked, I/O error
-// PathTooLongException     â€” path exceeds OS limit
-// NotSupportedException    â€” invalid path format
+// FileNotFoundException    — file does not exist
+// DirectoryNotFoundException — directory does not exist
+// UnauthorizedAccessException — no read/write permission
+// IOException              — disk full, file locked, I/O error
+// PathTooLongException     — path exceeds OS limit
+// NotSupportedException    — invalid path format
 
 public async Task<string?> ReadFileSafeAsync(string path)
 {
@@ -16585,14 +15618,14 @@ public async Task<string?> ReadFileSafeAsync(string path)
     }
 }
 
-// Ensure streams are always closed â€” use 'await using' or 'using'
+// Ensure streams are always closed — use 'await using' or 'using'
 public async Task WriteFileSafeAsync(string path, string content)
 {
     await using var writer = new StreamWriter(path); // disposed even on exception
     await writer.WriteAsync(content);
 }
 
-// File sharing conflicts â€” retry with backoff
+// File sharing conflicts — retry with backoff
 public async Task<string> ReadWithRetryAsync(string path, int maxAttempts = 3)
 {
     for (int attempt = 1; attempt <= maxAttempts; attempt++)
@@ -16613,28 +15646,25 @@ public async Task<string> ReadWithRetryAsync(string path, int maxAttempts = 3)
 public void DeleteIfExists(string path)
 {
     try { File.Delete(path); }
-    catch (FileNotFoundException) { /* already gone â€” fine */ }
+    catch (FileNotFoundException) { /* already gone — fine */ }
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you delete a file in C#?
 
 ```cs
-// 1. File.Delete â€” throws if path is a directory or access denied; silent if not found
+// 1. File.Delete — throws if path is a directory or access denied; silent if not found
 File.Delete("temp.txt");
 
-// 2. Safe delete â€” suppress FileNotFoundException
+// 2. Safe delete — suppress FileNotFoundException
 public static void DeleteIfExists(string path)
 {
     try { File.Delete(path); }
     catch (FileNotFoundException) { }
 }
 
-// 3. Check + delete (note: TOCTOU race â€” prefer try/catch above)
+// 3. Check + delete (note: TOCTOU race — prefer try/catch above)
 if (File.Exists("temp.txt"))
     File.Delete("temp.txt");
 
@@ -16648,7 +15678,7 @@ Directory.Delete("emptyFolder");
 // 6. Delete directory and all contents recursively
 Directory.Delete("outputFolder", recursive: true);
 
-// 7. Move to recycle bin (Windows only â€” via P/Invoke or FileSystem.DeleteFile)
+// 7. Move to recycle bin (Windows only — via P/Invoke or FileSystem.DeleteFile)
 // dotnet add package Microsoft.VisualBasic (included in .NET)
 Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(
     "file.txt",
@@ -16665,9 +15695,6 @@ Directory.EnumerateFiles("logs", "*.tmp")
          .ForEach(File.Delete);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `FileStream` and `MemoryStream` in C#?
 
@@ -16677,12 +15704,12 @@ Directory.EnumerateFiles("logs", "*.tmp")
 | **Persistence** | Data persists after app exits | Lost when stream is disposed/app exits |
 | **Size limit** | Disk capacity | Available RAM |
 | **Performance** | Slower (disk I/O) | Very fast (RAM) |
-| **Async** | âœ… `useAsync: true` | âœ… (but completes synchronously) |
+| **Async** | ✅ `useAsync: true` | ✅ (but completes synchronously) |
 | **Use case** | Read/write actual files | Temporary buffers, unit testing, serialisation |
-| **Seek** | âœ… (seekable) | âœ… (seekable) |
+| **Seek** | ✅ (seekable) | ✅ (seekable) |
 
 ```cs
-// FileStream â€” backed by disk
+// FileStream — backed by disk
 await using var fs = new FileStream("data.bin",
     FileMode.Create, FileAccess.ReadWrite, FileShare.None, 4096, useAsync: true);
 await fs.WriteAsync("Hello file"u8.ToArray());
@@ -16691,7 +15718,7 @@ var buf = new byte[10];
 await fs.ReadAsync(buf);
 Console.WriteLine(System.Text.Encoding.UTF8.GetString(buf)); // Hello file
 
-// MemoryStream â€” in-memory, no file
+// MemoryStream — in-memory, no file
 await using var ms = new MemoryStream(capacity: 256);
 await ms.WriteAsync("Hello memory"u8.ToArray());
 ms.Position = 0;
@@ -16707,19 +15734,16 @@ output.Position = 0;
 await using var file = File.Create("person.json");
 await output.CopyToAsync(file);
 
-// MemoryStream.ToArray() â€” get all bytes
+// MemoryStream.ToArray() — get all bytes
 byte[] allBytes = ms.ToArray(); // independent copy
-// GetBuffer() â€” get underlying buffer (may have extra bytes past Length)
+// GetBuffer() — get underlying buffer (may have extra bytes past Length)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you copy a file in C#?
 
 ```cs
-// 1. File.Copy â€” simplest
+// 1. File.Copy — simplest
 File.Copy("source.txt", "destination.txt", overwrite: true);
 
 // 2. Async copy via streams (for large files with progress)
@@ -16760,14 +15784,11 @@ static void CopyDirectory(string src, string dst)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you move a file in C#?
 
 ```cs
-// 1. File.Move â€” rename or move; throws if destination exists (use overwrite param)
+// 1. File.Move — rename or move; throws if destination exists (use overwrite param)
 File.Move("old.txt", "new.txt");                     // error if new.txt exists
 File.Move("old.txt", "new.txt", overwrite: true);    // overwrites if exists
 
@@ -16781,9 +15802,9 @@ fi.MoveTo("archive/data.csv", overwrite: true);
 // 4. Move directory
 Directory.Move("OldFolder", "NewFolder"); // must be on same volume
 
-// 5. Atomic move (same volume â€” rename is atomic on Windows/Linux)
+// 5. Atomic move (same volume — rename is atomic on Windows/Linux)
 File.Move("config.json.tmp", "config.json", overwrite: true);
-// On same filesystem this is a rename â€” atomic, no partial-write window
+// On same filesystem this is a rename — atomic, no partial-write window
 
 // 6. Cross-volume move (copy + delete)
 public static async Task MoveAcrossVolumesAsync(string src, string dst, CancellationToken ct = default)
@@ -16803,18 +15824,15 @@ foreach (string file in Directory.EnumerateFiles("reports", "*.txt"))
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `FileInfo` class and how is it used?
 
-`FileInfo` provides **instance-based** file operations and rich metadata about a single file. Unlike the static `File` class, it performs only one security check at construction time â€” useful when you need to perform multiple operations on the same file.
+`FileInfo` provides **instance-based** file operations and rich metadata about a single file. Unlike the static `File` class, it performs only one security check at construction time — useful when you need to perform multiple operations on the same file.
 
 ```cs
 var fi = new FileInfo("report.csv");
 
-// Metadata â€” no security check on each property
+// Metadata — no security check on each property
 Console.WriteLine($"Name:       {fi.Name}");           // report.csv
 Console.WriteLine($"Full path:  {fi.FullName}");
 Console.WriteLine($"Directory:  {fi.DirectoryName}");
@@ -16850,27 +15868,24 @@ await using FileStream fs = fi.Open(FileMode.OpenOrCreate, FileAccess.ReadWrite)
 fi.Refresh();
 Console.WriteLine($"Updated size: {fi.Length}");
 
-// DirectoryInfo â€” same concept for directories
+// DirectoryInfo — same concept for directories
 var di = new DirectoryInfo("logs");
 di.Create(); // no-op if already exists
 foreach (FileInfo logFile in di.GetFiles("*.log"))
     Console.WriteLine($"{logFile.Name}: {logFile.Length} bytes");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you read and write binary files in C#?
 
 ```cs
-// â”€â”€ Writing binary data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Writing binary data ──────────────────────────────────────────────
 
 // 1. File.WriteAllBytes
 byte[] raw = [0x89, 0x50, 0x4E, 0x47]; // PNG magic bytes
 await File.WriteAllBytesAsync("header.bin", raw);
 
-// 2. BinaryWriter â€” write typed primitives
+// 2. BinaryWriter — write typed primitives
 await using var fs     = new FileStream("data.bin", FileMode.Create, FileAccess.Write, FileShare.None, 4096, true);
 await using var writer = new BinaryWriter(fs, System.Text.Encoding.UTF8, leaveOpen: true);
 
@@ -16886,12 +15901,12 @@ Span<byte> span = stackalloc byte[8];
 System.Buffers.Binary.BinaryPrimitives.WriteInt64LittleEndian(span, 123456789L);
 await write.WriteAsync(span.ToArray());
 
-// â”€â”€ Reading binary data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Reading binary data ──────────────────────────────────────────────
 
 // 1. File.ReadAllBytes
 byte[] bytes = await File.ReadAllBytesAsync("data.bin");
 
-// 2. BinaryReader â€” read matching typed data
+// 2. BinaryReader — read matching typed data
 await using var rfs    = new FileStream("data.bin", FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true);
 await using var reader = new BinaryReader(rfs, System.Text.Encoding.UTF8, leaveOpen: true);
 
@@ -16915,9 +15930,6 @@ Header header = System.Runtime.InteropServices.MemoryMarshal
     .Read<Header>(hbuf);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you work with directories in C#?
 
@@ -16973,14 +15985,11 @@ string name    = Path.GetFileNameWithoutExtension(combined); // 2026
 string ext     = Path.GetExtension(combined);                // .csv
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you get the size of a file in C#?
 
 ```cs
-// 1. FileInfo.Length â€” most common
+// 1. FileInfo.Length — most common
 var fi = new FileInfo("video.mp4");
 Console.WriteLine($"Size: {fi.Length:N0} bytes");
 Console.WriteLine($"Size: {fi.Length / 1_048_576.0:F2} MB");
@@ -17015,13 +16024,10 @@ if (info.Length > MaxAllowedBytes)
 string content = await File.ReadAllTextAsync(info.FullName);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are DLL files, and what are the advantages of using them?
 
-A **DLL (Dynamic Link Library)** is a compiled binary (`.dll`) containing reusable code â€” types, methods, resources â€” that can be loaded and used by multiple applications at runtime.
+A **DLL (Dynamic Link Library)** is a compiled binary (`.dll`) containing reusable code — types, methods, resources — that can be loaded and used by multiple applications at runtime.
 
 In .NET, every class library project compiles to a DLL. The runtime loads assemblies on demand via the CLR.
 
@@ -17061,18 +16067,15 @@ method.Invoke(instance, null);
 | **Code reuse** | Share library across multiple apps without copying source |
 | **Separation of concerns** | Isolate layers (data, business, UI) into separate assemblies |
 | **Versioning** | Update a DLL independently without rebuilding all consumers |
-| **Lazy loading** | CLR loads DLLs on first use â€” faster startup |
+| **Lazy loading** | CLR loads DLLs on first use — faster startup |
 | **Plugin architecture** | Load DLLs dynamically at runtime |
 | **Reduced memory** | OS can share pages of the same DLL across processes |
 | **Encapsulation** | `internal` types hidden from consumers |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `MemoryStream` in C#?
 
-`MemoryStream` is a `Stream` implementation that stores data in **in-memory byte arrays** â€” no file system or network I/O. It is seekable, readable, and writable.
+`MemoryStream` is a `Stream` implementation that stores data in **in-memory byte arrays** — no file system or network I/O. It is seekable, readable, and writable.
 
 ```cs
 // 1. Basic write and read
@@ -17087,7 +16090,7 @@ ms.Position = 0;
 using var reader = new StreamReader(ms, leaveOpen: true);
 Console.WriteLine(await reader.ReadToEndAsync()); // Hello MemoryStream!
 
-// 2. Pre-populated (wraps existing byte array â€” read-only)
+// 2. Pre-populated (wraps existing byte array — read-only)
 byte[] existing = [1, 2, 3, 4, 5];
 using var ro = new MemoryStream(existing);
 Console.WriteLine(ro.ReadByte()); // 1
@@ -17110,16 +16113,13 @@ await using (var gzip = new System.IO.Compression.GZipStream(
 Console.WriteLine($"Compressed: {compressed.Length} bytes");
 
 // 5. ToArray vs GetBuffer
-// ToArray()  â€” allocates a new byte[] trimmed to Length
-// GetBuffer()â€” returns internal buffer (may have excess capacity, no copy)
+// ToArray()  — allocates a new byte[] trimmed to Length
+// GetBuffer()— returns internal buffer (may have excess capacity, no copy)
 byte[] trimmed  = ms.ToArray();          // safe, trimmed
 byte[] raw      = ms.GetBuffer();        // fast, may be larger than ms.Length
 long   capacity = ms.Capacity;
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `FileStream` class in C#?
 
@@ -17155,7 +16155,7 @@ Console.WriteLine($"CanRead:  {fs.CanRead}");
 Console.WriteLine($"CanWrite: {fs.CanWrite}");
 Console.WriteLine($"CanSeek:  {fs.CanSeek}");
 
-// Flush to disk â€” ensure OS buffers are written
+// Flush to disk — ensure OS buffers are written
 await fs.FlushAsync();
 
 // Practical: copy file with progress
@@ -17175,9 +16175,6 @@ static async Task CopyWithProgressAsync(string src, string dst, IProgress<double
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `StreamReader` and `StreamWriter`?
 
@@ -17187,11 +16184,11 @@ static async Task CopyWithProgressAsync(string src, string dst, IProgress<double
 | **Base class** | `TextReader` | `TextWriter` |
 | **Key methods** | `Read`, `ReadLine`, `ReadToEnd`, `ReadLineAsync` | `Write`, `WriteLine`, `WriteAsync`, `WriteLineAsync` |
 | **Encoding** | Detects BOM or uses specified encoding | Uses specified encoding (default UTF-8 with BOM) |
-| **AutoFlush** | N/A | `AutoFlush` property â€” flush on every write |
+| **AutoFlush** | N/A | `AutoFlush` property — flush on every write |
 | **EndOfStream** | `EndOfStream` property | N/A |
 
 ```cs
-// StreamReader â€” reading
+// StreamReader — reading
 await using var reader = new StreamReader("data.txt", System.Text.Encoding.UTF8);
 
 // Read one character
@@ -17207,7 +16204,7 @@ string all = await reader.ReadToEndAsync();
 while (!reader.EndOfStream)
     Console.WriteLine(await reader.ReadLineAsync());
 
-// StreamWriter â€” writing
+// StreamWriter — writing
 await using var writer = new StreamWriter("output.txt",
     append: false, encoding: System.Text.Encoding.UTF8)
 {
@@ -17229,13 +16226,10 @@ using var sr = new StreamReader(shared, leaveOpen: true);
 Console.WriteLine(await sr.ReadToEndAsync()); // written
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `BinaryReader` in C#?
 
-`BinaryReader` reads **primitive types** from a stream in binary format â€” the exact byte representation of `int`, `double`, `string`, `bool`, etc. It is the reading counterpart of `BinaryWriter`.
+`BinaryReader` reads **primitive types** from a stream in binary format — the exact byte representation of `int`, `double`, `string`, `bool`, etc. It is the reading counterpart of `BinaryWriter`.
 
 ```cs
 // Typical workflow: write with BinaryWriter, read with BinaryReader
@@ -17243,13 +16237,13 @@ Console.WriteLine(await sr.ReadToEndAsync()); // written
 await using var writeFs = new FileStream("record.bin", FileMode.Create);
 using var bw = new BinaryWriter(writeFs, System.Text.Encoding.UTF8);
 
-bw.Write(1001);             // int   â€” 4 bytes
-bw.Write("Alice");          // string â€” length prefix + UTF-8 bytes
-bw.Write(95_000.50m);       // decimal â€” 16 bytes
-bw.Write(true);             // bool   â€” 1 byte
+bw.Write(1001);             // int   — 4 bytes
+bw.Write("Alice");          // string — length prefix + UTF-8 bytes
+bw.Write(95_000.50m);       // decimal — 16 bytes
+bw.Write(true);             // bool   — 1 byte
 bw.Write(new byte[] { 0xDE, 0xAD, 0xBE, 0xEF }); // raw bytes
 
-// Reading â€” must read in the SAME order as written
+// Reading — must read in the SAME order as written
 await using var readFs = new FileStream("record.bin", FileMode.Open);
 using var br = new BinaryReader(readFs, System.Text.Encoding.UTF8);
 
@@ -17270,20 +16264,17 @@ Console.WriteLine($"Id={id}, Name={name}, Salary={salary:C}, Active={active}");
 // ReadBoolean
 // ReadChar / ReadChars(n)
 // ReadString (length-prefixed)
-// PeekChar â€” look without advancing position
+// PeekChar — look without advancing position
 
 // Safe read with bounds check
 try { int val = br.ReadInt32(); }
 catch (EndOfStreamException) { Console.WriteLine("Unexpected end of file"); }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `BinaryWriter` class in C#?
 
-`BinaryWriter` writes **primitive types** to a stream as their raw binary representation â€” compact, fast, and order-dependent. Ideal for custom binary file formats and inter-process/network protocols.
+`BinaryWriter` writes **primitive types** to a stream as their raw binary representation — compact, fast, and order-dependent. Ideal for custom binary file formats and inter-process/network protocols.
 
 ```cs
 await using var fs = new FileStream("data.bin", FileMode.Create, FileAccess.Write);
@@ -17292,13 +16283,13 @@ using var bw = new BinaryWriter(fs, System.Text.Encoding.UTF8, leaveOpen: false)
 // Write different types
 bw.Write((byte)0xFF);          // 1 byte
 bw.Write((short)32767);        // 2 bytes
-bw.Write(42);                  // int â€” 4 bytes
-bw.Write(123456789L);          // long â€” 8 bytes
-bw.Write(3.14f);               // float â€” 4 bytes
-bw.Write(3.141592653589793);   // double â€” 8 bytes
-bw.Write(9999.99m);            // decimal â€” 16 bytes
-bw.Write(true);                // bool â€” 1 byte
-bw.Write('A');                 // char â€” 2 bytes (UTF-16)
+bw.Write(42);                  // int — 4 bytes
+bw.Write(123456789L);          // long — 8 bytes
+bw.Write(3.14f);               // float — 4 bytes
+bw.Write(3.141592653589793);   // double — 8 bytes
+bw.Write(9999.99m);            // decimal — 16 bytes
+bw.Write(true);                // bool — 1 byte
+bw.Write('A');                 // char — 2 bytes (UTF-16)
 bw.Write("Hello");             // length-prefixed string
 bw.Write(new byte[] { 1, 2, 3 }); // raw byte array (no length prefix)
 bw.Write(new byte[] { 10, 20, 30 }, offset: 0, count: 2); // partial array
@@ -17323,9 +16314,6 @@ public static void WriteFileHeader(BinaryWriter bw, int version, int recordCount
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `TextReader` and `TextWriter`?
 
@@ -17340,7 +16328,7 @@ public static void WriteFileHeader(BinaryWriter bw, int version, int recordCount
 | **Null** | `TextReader.Null` (discards reads) | `TextWriter.Null` (discards writes) |
 
 ```cs
-// TextReader â€” accept any source
+// TextReader — accept any source
 static async Task ProcessTextAsync(TextReader reader)
 {
     string? line;
@@ -17356,7 +16344,7 @@ await ProcessTextAsync(fileReader);
 using var stringReader = new StringReader("Hello\nWorld\n.NET 10");
 await ProcessTextAsync(stringReader);
 
-// TextWriter â€” accept any destination
+// TextWriter — accept any destination
 static async Task WriteOutputAsync(TextWriter writer, IEnumerable<string> lines)
 {
     foreach (var line in lines)
@@ -17378,9 +16366,6 @@ await WriteOutputAsync(Console.Out, ["Hello console"]);
 await ProcessTextAsync(Console.In); // reads from stdin
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `StringReader` in C#?
 
@@ -17398,7 +16383,7 @@ while ((line = reader.ReadLine()) is not null)
 // Line 2
 // Line 3
 
-// 2. Use async API (StringReader.ReadLineAsync returns immediately â€” no I/O)
+// 2. Use async API (StringReader.ReadLineAsync returns immediately — no I/O)
 using var asyncReader = new StringReader("Hello\nWorld");
 while ((line = await asyncReader.ReadLineAsync()) is not null)
     Console.WriteLine(line);
@@ -17409,10 +16394,10 @@ int ch;
 while ((ch = cr.Read()) != -1)
     Console.Write((char)ch); // A B C
 
-// 4. PeekChar â€” look without advancing
+// 4. PeekChar — look without advancing
 using var pr = new StringReader("XYZ");
-Console.WriteLine((char)pr.Peek()); // X â€” not consumed
-Console.WriteLine((char)pr.Read()); // X â€” consumed
+Console.WriteLine((char)pr.Peek()); // X — not consumed
+Console.WriteLine((char)pr.Read()); // X — consumed
 
 // 5. Parse CSV-like content without creating a temp file
 static IEnumerable<string[]> ParseCsv(string csv)
@@ -17434,9 +16419,6 @@ while (xmlReader.Read())
         Console.WriteLine(xmlReader.Value); // 1
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `StringWriter` class in C#?
 
@@ -17492,9 +16474,6 @@ sbw.GetStringBuilder().Append(" World"); // direct access
 Console.WriteLine(sbw.ToString()); // Hello World
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `XmlReader` and `XmlWriter`?
 
@@ -17502,12 +16481,12 @@ Console.WriteLine(sbw.ToString()); // Hello World
 |-|------------|-------------|
 | **Direction** | Forward-only read | Forward-only write |
 | **Model** | Pull-parser (streaming, low memory) | Streaming writer |
-| **Memory** | O(1) â€” reads one node at a time | O(1) â€” writes one node at a time |
-| **Random access** | âŒ â€” forward only | âŒ â€” forward only |
+| **Memory** | O(1) — reads one node at a time | O(1) — writes one node at a time |
+| **Random access** | ❌ — forward only | ❌ — forward only |
 | **Alternatives** | `XDocument.Load` (LINQ to XML, in-memory) | `XDocument.Save` (LINQ to XML) |
 
 ```cs
-// XmlWriter â€” generate XML
+// XmlWriter — generate XML
 var settings = new System.Xml.XmlWriterSettings
 {
     Indent     = true,
@@ -17533,7 +16512,7 @@ await using (var xw = System.Xml.XmlWriter.Create(sw, settings))
 }
 Console.WriteLine(sw.ToString());
 
-// XmlReader â€” parse XML (streaming, low memory)
+// XmlReader — parse XML (streaming, low memory)
 string xml = """
     <catalog>
       <product id="1"><name>Laptop</name><price>1200</price></product>
@@ -17561,18 +16540,15 @@ var names = doc.Descendants("name").Select(e => e.Value);
 foreach (var n in names) Console.WriteLine(n); // Laptop, Phone
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `JsonReader` in C#?
 
-In modern .NET 10, the JSON reader is **`System.Text.Json.Utf8JsonReader`** â€” a high-performance, forward-only, ref struct that parses UTF-8 JSON without allocations. (`Newtonsoft.Json.JsonReader` is the legacy alternative.)
+In modern .NET 10, the JSON reader is **`System.Text.Json.Utf8JsonReader`** — a high-performance, forward-only, ref struct that parses UTF-8 JSON without allocations. (`Newtonsoft.Json.JsonReader` is the legacy alternative.)
 
 ```cs
 using System.Text.Json;
 
-// 1. Utf8JsonReader â€” low-level, zero-allocation streaming
+// 1. Utf8JsonReader — low-level, zero-allocation streaming
 byte[] jsonBytes = """{"id":1,"name":"Alice","scores":[95,87,92]}"""u8.ToArray();
 var reader = new Utf8JsonReader(jsonBytes, isFinalBlock: true, state: default);
 
@@ -17598,12 +16574,12 @@ while (reader.Read())
     }
 }
 
-// 2. JsonSerializer.Deserialize â€” high-level (most common)
+// 2. JsonSerializer.Deserialize — high-level (most common)
 string json = """{"id":1,"name":"Alice"}""";
 var person = JsonSerializer.Deserialize<Person>(json);
 Console.WriteLine($"{person!.Id}: {person.Name}"); // 1: Alice
 
-// 3. JsonDocument â€” DOM-style read without strong typing
+// 3. JsonDocument — DOM-style read without strong typing
 using var doc = JsonDocument.Parse(json);
 JsonElement root = doc.RootElement;
 Console.WriteLine(root.GetProperty("name").GetString()); // Alice
@@ -17617,18 +16593,15 @@ record Person(int Id, string Name);
 record Product(int Id, string Name, decimal Price);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `JsonWriter` class in C#?
 
-In .NET 10, the JSON writer is **`System.Text.Json.Utf8JsonWriter`** â€” a high-performance, forward-only writer that produces UTF-8 JSON directly into a buffer or stream without intermediate string allocations.
+In .NET 10, the JSON writer is **`System.Text.Json.Utf8JsonWriter`** — a high-performance, forward-only writer that produces UTF-8 JSON directly into a buffer or stream without intermediate string allocations.
 
 ```cs
 using System.Text.Json;
 
-// 1. Utf8JsonWriter â€” low-level, high-performance
+// 1. Utf8JsonWriter — low-level, high-performance
 await using var ms = new System.IO.MemoryStream();
 await using var writer = new Utf8JsonWriter(ms,
     new JsonWriterOptions { Indented = true });
@@ -17656,13 +16629,13 @@ await writer.FlushAsync();
 string json = System.Text.Encoding.UTF8.GetString(ms.ToArray());
 Console.WriteLine(json);
 
-// 2. JsonSerializer.Serialize â€” high-level (most common)
+// 2. JsonSerializer.Serialize — high-level (most common)
 var person = new { Id = 42, Name = "Alice", Scores = new[] { 95, 87, 92 } };
 string json2 = JsonSerializer.Serialize(person,
     new JsonSerializerOptions { WriteIndented = true });
 Console.WriteLine(json2);
 
-// 3. Source-generated serialiser (.NET 10) â€” best performance, trimming-safe
+// 3. Source-generated serialiser (.NET 10) — best performance, trimming-safe
 [JsonSerializable(typeof(Product))]
 internal partial class ProductContext : JsonSerializerContext { }
 
@@ -17681,9 +16654,6 @@ await fw.FlushAsync();
 record Product(int Id, string Name, decimal Price);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `DataContractSerializer` and `XmlSerializer`?
 
@@ -17691,19 +16661,19 @@ record Product(int Id, string Name, decimal Price);
 |-|----------------|--------------------------|
 | **Namespace** | `System.Xml.Serialization` | `System.Runtime.Serialization` |
 | **Opt-in/out** | Opt-out (`[XmlIgnore]`) | Opt-in (`[DataMember]`) |
-| **Private members** | âŒ Not serialised | âœ… With `[DataMember]` |
+| **Private members** | ❌ Not serialised | ✅ With `[DataMember]` |
 | **Inheritance** | Uses `[XmlInclude]` | Uses `[KnownType]` |
 | **XML output** | More customisable (element names, attributes) | Less customisable, more strict |
 | **Performance** | Slower (reflection-based) | Faster (generated code) |
 | **Null handling** | Omits null elements by default | Serialises null with `xsi:nil="true"` |
-| **Interfaces** | âŒ Cannot serialise | âŒ Cannot serialise |
+| **Interfaces** | ❌ Cannot serialise | ❌ Cannot serialise |
 | **Modern recommendation** | Use `System.Text.Json` instead | Use `System.Text.Json` instead |
 
 ```cs
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
-// XmlSerializer â€” attribute-heavy, customisable output
+// XmlSerializer — attribute-heavy, customisable output
 [Serializable]
 public class ProductXml
 {
@@ -17718,13 +16688,13 @@ xmlSer.Serialize(sw, new ProductXml { Id = 1, Name = "Laptop" });
 Console.WriteLine(sw.ToString());
 // <ProductXml product-id="1"><product-name>Laptop</product-name></ProductXml>
 
-// DataContractSerializer â€” WCF-style, opt-in
+// DataContractSerializer — WCF-style, opt-in
 [DataContract]
 public class ProductDcs
 {
     [DataMember(Order = 1)] public int    Id   { get; set; }
     [DataMember(Order = 2)] public string Name { get; set; } = "";
-    /* Not decorated â€” NOT serialised */   public string Internal { get; set; } = "";
+    /* Not decorated — NOT serialised */   public string Internal { get; set; } = "";
 }
 
 var dcSer = new DataContractSerializer(typeof(ProductDcs));
@@ -17734,40 +16704,37 @@ ms.Position = 0;
 var restored = (ProductDcs)dcSer.ReadObject(ms)!;
 Console.WriteLine($"{restored.Id}: {restored.Name}");
 
-// âœ… Modern recommendation: use System.Text.Json for new code
+// ✅ Modern recommendation: use System.Text.Json for new code
 var json = System.Text.Json.JsonSerializer.Serialize(new { Id = 1, Name = "Laptop" });
 Console.WriteLine(json); // {"Id":1,"Name":"Laptop"}
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `BinaryFormatter` in C#?
 
-> âš ï¸ **`BinaryFormatter` is obsolete and disabled by default since .NET 5, removed in .NET 9.** It had critical security vulnerabilities (arbitrary code execution via deserialization gadget chains). Do not use it in new or existing code.
+> ⚠️ **`BinaryFormatter` is obsolete and disabled by default since .NET 5, removed in .NET 9.** It had critical security vulnerabilities (arbitrary code execution via deserialization gadget chains). Do not use it in new or existing code.
 
 ```cs
-// âŒ BinaryFormatter â€” OBSOLETE, INSECURE, REMOVED in .NET 9
+// ❌ BinaryFormatter — OBSOLETE, INSECURE, REMOVED in .NET 9
 // DO NOT USE:
 // var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 // formatter.Serialize(stream, obj);   // throws NotSupportedException in .NET 9
 
-// âœ… Modern replacements:
+// ✅ Modern replacements:
 
-// 1. System.Text.Json â€” JSON (recommended for most scenarios)
+// 1. System.Text.Json — JSON (recommended for most scenarios)
 var obj = new { Id = 1, Name = "Alice" };
 string json = System.Text.Json.JsonSerializer.Serialize(obj);
 byte[] jsonBytes = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(obj);
 
-// 2. MessagePack â€” binary, compact, fast
+// 2. MessagePack — binary, compact, fast
 // dotnet add package MessagePack
 // byte[] msgpack = MessagePackSerializer.Serialize(obj);
 
 // 3. System.Runtime.Serialization with DataContractSerializer (XML or JSON)
-// (still available but verbose â€” prefer System.Text.Json)
+// (still available but verbose — prefer System.Text.Json)
 
-// 4. MemoryPack â€” zero-encoding binary (.NET 10 friendly)
+// 4. MemoryPack — zero-encoding binary (.NET 10 friendly)
 // dotnet add package MemoryPack
 // byte[] packed = MemoryPackSerializer.Serialize(obj);
 
@@ -17782,36 +16749,33 @@ using var br = new BinaryReader(ms);
 Console.WriteLine($"{br.ReadInt32()}: {br.ReadString()}"); // 1: Alice
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `SoapFormatter` class in C#?
 
-> âš ï¸ **`SoapFormatter` is obsolete and removed in .NET Core / .NET 5+.** It was a WCF/SOAP-era serialiser that formatted object graphs as SOAP XML. Like `BinaryFormatter`, it had security vulnerabilities.
+> ⚠️ **`SoapFormatter` is obsolete and removed in .NET Core / .NET 5+.** It was a WCF/SOAP-era serialiser that formatted object graphs as SOAP XML. Like `BinaryFormatter`, it had security vulnerabilities.
 
 ```cs
-// âŒ SoapFormatter â€” .NET Framework only, OBSOLETE
+// ❌ SoapFormatter — .NET Framework only, OBSOLETE
 // System.Runtime.Serialization.Formatters.Soap.SoapFormatter
 // Not available in .NET 5+ / .NET Core at all
 
-// âœ… Modern alternatives for SOAP/XML scenarios:
+// ✅ Modern alternatives for SOAP/XML scenarios:
 
-// 1. XmlSerializer â€” clean XML output (see above)
+// 1. XmlSerializer — clean XML output (see above)
 var ser = new System.Xml.Serialization.XmlSerializer(typeof(MyDto));
 await using var sw = new StringWriter();
 ser.Serialize(sw, new MyDto { Id = 1, Name = "Alice" });
 Console.WriteLine(sw.ToString());
 
-// 2. DataContractSerializer â€” WCF-compatible XML
+// 2. DataContractSerializer — WCF-compatible XML
 var dcSer = new System.Runtime.Serialization.DataContractSerializer(typeof(MyDto));
 await using var ms = new MemoryStream();
 dcSer.WriteObject(ms, new MyDto { Id = 1, Name = "Alice" });
 
-// 3. System.Text.Json â€” modern preferred serialiser
+// 3. System.Text.Json — modern preferred serialiser
 string json = System.Text.Json.JsonSerializer.Serialize(new MyDto { Id = 1, Name = "Alice" });
 
-// 4. gRPC (Protobuf) â€” for service-to-service communication replacing SOAP
+// 4. gRPC (Protobuf) — for service-to-service communication replacing SOAP
 // dotnet add package Google.Protobuf Grpc.AspNetCore
 
 public class MyDto
@@ -17821,9 +16785,6 @@ public class MyDto
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `BinaryFormatter` and `SoapFormatter`?
 
@@ -17832,22 +16793,22 @@ public class MyDto
 | **Format** | Compact binary (proprietary) | SOAP XML (verbose) |
 | **Interop** | .NET only | Somewhat interoperable via SOAP |
 | **Performance** | Faster, smaller payload | Slower, larger payload |
-| **Security** | âŒ Critical vulnerabilities | âŒ Critical vulnerabilities |
+| **Security** | ❌ Critical vulnerabilities | ❌ Critical vulnerabilities |
 | **Status in .NET 9+** | Removed | Removed (never in .NET Core) |
 | **Replacement** | `System.Text.Json`, `BinaryWriter`, MessagePack | `XmlSerializer`, `DataContractSerializer`, gRPC |
 
 ```cs
-// âŒ Both are obsolete â€” DO NOT USE in new code.
+// ❌ Both are obsolete — DO NOT USE in new code.
 
-// âœ… Choose the right modern serialiser based on needs:
+// ✅ Choose the right modern serialiser based on needs:
 
-// Scenario â†’ Recommended serialiser
-// REST API payloads         â†’ System.Text.Json
-// Configuration files       â†’ System.Text.Json / YAML
-// Compact binary IPC        â†’ MessagePack / MemoryPack
-// Custom binary protocol    â†’ BinaryWriter + BinaryReader
-// XML interop / SOAP legacy â†’ XmlSerializer / DataContractSerializer
-// Service-to-service RPC    â†’ gRPC (Protobuf)
+// Scenario → Recommended serialiser
+// REST API payloads         → System.Text.Json
+// Configuration files       → System.Text.Json / YAML
+// Compact binary IPC        → MessagePack / MemoryPack
+// Custom binary protocol    → BinaryWriter + BinaryReader
+// XML interop / SOAP legacy → XmlSerializer / DataContractSerializer
+// Service-to-service RPC    → gRPC (Protobuf)
 
 // Example: MessagePack (compact binary, fast, secure)
 // dotnet add package MessagePack
@@ -17863,16 +16824,13 @@ public class MyDto
 // Console.WriteLine($"{person.Id}: {person.Name}"); // 1: Alice
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is Serialization?
 
-**Serialization** is the process of converting an object\'s state into a format (bytes, JSON, XML, binary) that can be stored or transmitted. **Deserialization** is the reverse â€” reconstructing the object from that format.
+**Serialization** is the process of converting an object\'s state into a format (bytes, JSON, XML, binary) that can be stored or transmitted. **Deserialization** is the reverse — reconstructing the object from that format.
 
 ```cs
-// â”€â”€ JSON Serialization (recommended in .NET 10) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── JSON Serialization (recommended in .NET 10) ────────────────────
 using System.Text.Json;
 
 record Person(int Id, string Name, DateTime BirthDate, List<string> Hobbies);
@@ -17894,7 +16852,7 @@ Console.WriteLine(json);
 Person restored = JsonSerializer.Deserialize<Person>(json)!;
 Console.WriteLine($"{restored.Id}: {restored.Name}");
 
-// Serialise to bytes (more efficient â€” no intermediate string)
+// Serialise to bytes (more efficient — no intermediate string)
 byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(person);
 Person fromBytes = JsonSerializer.Deserialize<Person>(bytes)!;
 
@@ -17906,7 +16864,7 @@ await JsonSerializer.SerializeAsync(file, person);
 await using var readFile = File.OpenRead("person.json");
 Person fromFile = (await JsonSerializer.DeserializeAsync<Person>(readFile))!;
 
-// â”€â”€ XML Serialization â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── XML Serialization ───────────────────────────────────────────────
 [Serializable]
 public class ProductXml { public int Id; public string Name = ""; }
 
@@ -17915,7 +16873,7 @@ await using var sw = new StringWriter();
 xmlSer.Serialize(sw, new ProductXml { Id = 1, Name = "Laptop" });
 Console.WriteLine(sw.ToString());
 
-// â”€â”€ Custom binary (no third-party, no security risk) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Custom binary (no third-party, no security risk) ────────────────
 await using var ms = new MemoryStream();
 using var bw = new BinaryWriter(ms);
 bw.Write(person.Id);
@@ -17937,17 +16895,14 @@ Console.WriteLine($"Restored: {id} {name} [{string.Join(", ", hobbies)}]");
 
 | Type | Format | Use case |
 |------|--------|---------|
-| JSON (`System.Text.Json`) | Text â€” human readable | REST APIs, config, storage |
-| XML (`XmlSerializer`) | Text â€” human readable | Interop, legacy SOAP |
-| Binary (`BinaryWriter`) | Binary â€” compact | Custom protocols, file formats |
-| MessagePack | Binary â€” compact | High-performance IPC, game data |
-| Protobuf (gRPC) | Binary â€” compact | Service-to-service communication |
+| JSON (`System.Text.Json`) | Text — human readable | REST APIs, config, storage |
+| XML (`XmlSerializer`) | Text — human readable | Interop, legacy SOAP |
+| Binary (`BinaryWriter`) | Binary — compact | Custom protocols, file formats |
+| MessagePack | Binary — compact | High-performance IPC, game data |
+| Protobuf (gRPC) | Binary — compact | Service-to-service communication |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 8. REGULAR EXPRESSION
+## 8. Regular Expression
 
 <br/>
 
@@ -17989,9 +16944,6 @@ string cleaned = Regex.Replace(text, @"\$[\d.]+", "[PRICE]");
 Console.WriteLine(cleaned); // Order #1234 placed on 2026-04-19 for [PRICE]
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `Regex` class in C#? How do you create and use a regular expression?
 
@@ -18000,35 +16952,32 @@ The `Regex` class in `System.Text.RegularExpressions` is the primary API for wor
 ```cs
 using System.Text.RegularExpressions;
 
-// 1. Static methods â€” convenient for one-off patterns
-bool isMatch   = Regex.IsMatch("hello123", @"\d+");          // true â€” contains digits
+// 1. Static methods — convenient for one-off patterns
+bool isMatch   = Regex.IsMatch("hello123", @"\d+");          // true — contains digits
 Match match    = Regex.Match("hello123", @"\d+");             // first match
 MatchCollection all = Regex.Matches("a1 b2 c3", @"\d");      // all matches
 string replaced = Regex.Replace("foo bar", @"\s+", "_");      // foo_bar
 string[] parts  = Regex.Split("one,two,,three", @",+");       // ["one","two","three"]
 
-// 2. Instance Regex â€” reuse compiled pattern (faster for repeated use)
+// 2. Instance Regex — reuse compiled pattern (faster for repeated use)
 var re = new Regex(@"\d{4}-\d{2}-\d{2}", RegexOptions.Compiled);
 Console.WriteLine(re.IsMatch("Today is 2026-04-19")); // true
 
-// 3. Source-generated Regex â€” best performance (.NET 7+, AOT-safe)
+// 3. Source-generated Regex — best performance (.NET 7+, AOT-safe)
 // Place in a partial class:
 Console.WriteLine(DatePattern().IsMatch("2026-04-19")); // true
 
 // Key methods summary:
-// IsMatch(input)       â†’ bool â€” does pattern occur?
-// Match(input)         â†’ Match â€” first occurrence
-// Matches(input)       â†’ MatchCollection â€” all occurrences
-// Replace(input, repl) â†’ string â€” replace matches
-// Split(input)         â†’ string[] â€” split on pattern
+// IsMatch(input)       → bool — does pattern occur?
+// Match(input)         → Match — first occurrence
+// Matches(input)       → MatchCollection — all occurrences
+// Replace(input, repl) → string — replace matches
+// Split(input)         → string[] — split on pattern
 
 [GeneratedRegex(@"\d{4}-\d{2}-\d{2}", RegexOptions.None)]
 static partial Regex DatePattern();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you match a pattern in a string using regular expressions in C#?
 
@@ -18037,22 +16986,22 @@ using System.Text.RegularExpressions;
 
 string input = "Phone: +44-20-7946-0958, Alt: 01632-960-500";
 
-// 1. IsMatch â€” check if pattern exists anywhere
+// 1. IsMatch — check if pattern exists anywhere
 bool found = Regex.IsMatch(input, @"\d{4}");
 Console.WriteLine(found); // true
 
-// 2. Match â€” get the FIRST match
+// 2. Match — get the FIRST match
 Match first = Regex.Match(input, @"\d[\d\-]+\d");
 if (first.Success)
     Console.WriteLine($"First: {first.Value}"); // 44-20-7946-0958
 
-// 3. Matches â€” get ALL matches (lazy enumeration)
+// 3. Matches — get ALL matches (lazy enumeration)
 foreach (Match m in Regex.Matches(input, @"\d[\d\-]+\d"))
     Console.WriteLine(m.Value);
 // 44-20-7946-0958
 // 01632-960-500
 
-// 4. NextMatch â€” iterate manually
+// 4. NextMatch — iterate manually
 Match m2 = Regex.Match(input, @"\+?\d[\d\-]+\d");
 while (m2.Success)
 {
@@ -18065,9 +17014,9 @@ Match pos = Regex.Match(input, @"\d{4,}");
 Console.WriteLine($"Value='{pos.Value}' at index {pos.Index}, length {pos.Length}");
 // Value='7946' at index ...
 
-// 6. Anchors â€” ^ (start), $ (end), \b (word boundary)
-Console.WriteLine(Regex.IsMatch("hello", @"^\w+$")); // true â€” entire string is word chars
-Console.WriteLine(Regex.IsMatch("hello world", @"^\w+$")); // false â€” contains space
+// 6. Anchors — ^ (start), $ (end), \b (word boundary)
+Console.WriteLine(Regex.IsMatch("hello", @"^\w+$")); // true — entire string is word chars
+Console.WriteLine(Regex.IsMatch("hello world", @"^\w+$")); // false — contains space
 
 // 7. Multiline matching
 string multiline = "line1\nline2\nline3";
@@ -18075,9 +17024,6 @@ var lines = Regex.Matches(multiline, @"^\w+$", RegexOptions.Multiline);
 foreach (Match l in lines) Console.WriteLine(l.Value); // line1, line2, line3
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you replace text in a string using regular expressions in C#?
 
@@ -18089,9 +17035,9 @@ string text = "The price is $12.50 and $7.99";
 string result = Regex.Replace(text, @"\$[\d.]+", "[PRICE]");
 Console.WriteLine(result); // The price is [PRICE] and [PRICE]
 
-// 2. Back-references â€” reuse matched groups in replacement
+// 2. Back-references — reuse matched groups in replacement
 string csv = "Smith, John; Doe, Jane";
-// Reorder "Last, First" â†’ "First Last"
+// Reorder "Last, First" → "First Last"
 string reordered = Regex.Replace(csv, @"(\w+),\s*(\w+)", "$2 $1");
 Console.WriteLine(reordered); // John Smith; Jane Doe
 
@@ -18102,7 +17048,7 @@ string reformatted = Regex.Replace(log,
     "${day}/${month}/${year}");
 Console.WriteLine(reformatted); // 19/04/2026 ERROR something failed
 
-// 4. MatchEvaluator â€” dynamic replacement via delegate
+// 4. MatchEvaluator — dynamic replacement via delegate
 string sentence = "hello world foo bar";
 string titleCase = Regex.Replace(sentence, @"\b\w+\b", m =>
     char.ToUpper(m.Value[0]) + m.Value[1..]);
@@ -18121,9 +17067,6 @@ Console.WriteLine(masked); // Card: ****-****-****-****
 static partial Regex MaskDigits();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are some common use cases for regular expressions in C#?
 
@@ -18177,19 +17120,16 @@ foreach (Match m in Regex.Matches(dupes, @"\b(\w+)\s+\1\b", RegexOptions.IgnoreC
     Console.WriteLine($"Duplicate: '{m.Value}'");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you validate an email address using regular expressions in C#?
 
 ```cs
 using System.Text.RegularExpressions;
 
-// 1. Source-generated (best â€” .NET 7+, AOT-safe, zero overhead)
+// 1. Source-generated (best — .NET 7+, AOT-safe, zero overhead)
 public static partial class EmailValidator
 {
-    // RFC 5322 simplified â€” covers >99% of real-world addresses
+    // RFC 5322 simplified — covers >99% of real-world addresses
     [GeneratedRegex(
         @"^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$",
         RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture)]
@@ -18202,26 +17142,26 @@ public static partial class EmailValidator
 // Test
 string[] emails =
 [
-    "user@example.com",        // âœ…
-    "user.name+tag@domain.co", // âœ…
-    "user@sub.domain.org",     // âœ…
-    "bad@.com",                // âŒ
-    "@nodomain",               // âŒ
-    "noDomainExtension@abc",   // âŒ
-    "spaces in@email.com",     // âŒ
+    "user@example.com",        // ✅
+    "user.name+tag@domain.co", // ✅
+    "user@sub.domain.org",     // ✅
+    "bad@.com",                // ❌
+    "@nodomain",               // ❌
+    "noDomainExtension@abc",   // ❌
+    "spaces in@email.com",     // ❌
 ];
 
 foreach (string email in emails)
-    Console.WriteLine($"{email,-35} â†’ {(EmailValidator.IsValid(email) ? "âœ…" : "âŒ")}");
+    Console.WriteLine($"{email,-35} → {(EmailValidator.IsValid(email) ? "✅" : "❌")}");
 
-// 2. Static Regex (cached instance â€” fine for most code)
+// 2. Static Regex (cached instance — fine for most code)
 var emailRegex = new Regex(
     @"^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$",
     RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
 bool valid = emailRegex.IsMatch("user@example.com");
 
-// 3. MailAddress parse â€” .NET built-in alternative (handles more edge cases)
+// 3. MailAddress parse — .NET built-in alternative (handles more edge cases)
 static bool IsValidEmail2(string email)
 {
     try
@@ -18235,15 +17175,12 @@ Console.WriteLine(IsValidEmail2("user@example.com")); // true
 Console.WriteLine(IsValidEmail2("notanemail"));        // false
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Regex.Match` and `Regex.IsMatch` in C#?
 
 | | `Regex.IsMatch` | `Regex.Match` |
 |-|----------------|--------------|
-| **Returns** | `bool` â€” does pattern exist? | `Match` object â€” first occurrence |
+| **Returns** | `bool` — does pattern exist? | `Match` object — first occurrence |
 | **Performance** | Slightly faster (stops at first match, no object) | Allocates a `Match` object |
 | **Use when** | You only need yes/no | You need position, value, or groups |
 | **No match** | Returns `false` | Returns `Match` with `Success = false` |
@@ -18253,11 +17190,11 @@ using System.Text.RegularExpressions;
 
 string input = "Order #4271 shipped on 2026-04-19";
 
-// IsMatch â€” fastest, just need to know if pattern exists
+// IsMatch — fastest, just need to know if pattern exists
 bool hasOrder = Regex.IsMatch(input, @"#\d+");
 Console.WriteLine(hasOrder); // true
 
-// Match â€” need the actual value or position
+// Match — need the actual value or position
 Match m = Regex.Match(input, @"#(\d+)");
 if (m.Success)
 {
@@ -18267,34 +17204,31 @@ if (m.Success)
     Console.WriteLine($"Length:      {m.Length}");
 }
 
-// Match with no match â€” always check Success before accessing Value
+// Match with no match — always check Success before accessing Value
 Match noMatch = Regex.Match(input, @"\d{8}");
 Console.WriteLine(noMatch.Success); // false
-// Console.WriteLine(noMatch.Value); // "" â€” safe to call but meaningless
+// Console.WriteLine(noMatch.Value); // "" — safe to call but meaningless
 
-// Matches â€” all occurrences
+// Matches — all occurrences
 MatchCollection all = Regex.Matches(input, @"\d+");
 foreach (Match each in all)
     Console.Write($"{each.Value} "); // 4271 2026 04 19
 Console.WriteLine();
 
 // Rule of thumb:
-// Just validating?        â†’ IsMatch
-// Need value/groups?      â†’ Match
-// Need all occurrences?   â†’ Matches
-// Need replace/transform? â†’ Replace + MatchEvaluator
+// Just validating?        → IsMatch
+// Need value/groups?      → Match
+// Need all occurrences?   → Matches
+// Need replace/transform? → Replace + MatchEvaluator
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you extract groups from a match using regular expressions in C#?
 
 ```cs
 using System.Text.RegularExpressions;
 
-// 1. Numbered capture groups â€” ()
+// 1. Numbered capture groups — ()
 string log = "2026-04-19 14:32:05 ERROR NullReferenceException";
 Match m = Regex.Match(log, @"(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2}) (\w+) (.+)");
 
@@ -18306,7 +17240,7 @@ if (m.Success)
     Console.WriteLine($"Message: {m.Groups[4].Value}"); // NullReferenceException
 }
 
-// 2. Named capture groups â€” (?<name>...)  â† recommended
+// 2. Named capture groups — (?<name>...)  ← recommended
 Match named = Regex.Match(log,
     @"(?<date>\d{4}-\d{2}-\d{2}) (?<time>[\d:]+) (?<level>\w+) (?<msg>.+)");
 
@@ -18324,23 +17258,20 @@ foreach (Match person in Regex.Matches(data, @"(?<name>[A-Z]\w+):(?<age>\d+)"))
 // Bob is 25
 // Carol is 35
 
-// 4. Optional groups â€” check Success on the group
+// 4. Optional groups — check Success on the group
 Match optional = Regex.Match("+44 20 7946 0958",
     @"(?<country>\+\d{1,3})?\s?(?<number>[\d\s]{7,})");
 Console.WriteLine(optional.Groups["country"].Success
     ? optional.Groups["country"].Value
     : "(no country code)");
 
-// 5. Non-capturing group â€” (?:...) â€” group without capturing
+// 5. Non-capturing group — (?:...) — group without capturing
 // Used for alternation or quantifiers without a group slot
 Match nc = Regex.Match("colour or color",
-    @"colo(?:u)?r"); // (?:u)? â€” optional 'u', not captured
+    @"colo(?:u)?r"); // (?:u)? — optional 'u', not captured
 Console.WriteLine(nc.Value); // colour
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle case sensitivity in regular expressions in C#?
 
@@ -18351,18 +17282,18 @@ string input = "Hello WORLD hello world";
 
 // 1. Case-sensitive by default
 MatchCollection sensitive = Regex.Matches(input, @"hello");
-Console.WriteLine(sensitive.Count); // 1 â€” only lowercase "hello"
+Console.WriteLine(sensitive.Count); // 1 — only lowercase "hello"
 
 // 2. Case-insensitive via RegexOptions.IgnoreCase
 MatchCollection insensitive = Regex.Matches(input, @"hello", RegexOptions.IgnoreCase);
-Console.WriteLine(insensitive.Count); // 2 â€” "Hello" and "hello" (lowercase only, HELLO matches too)
+Console.WriteLine(insensitive.Count); // 2 — "Hello" and "hello" (lowercase only, HELLO matches too)
 
-// Wait â€” actually "Hello" and "hello" and "HELLO" would all match
+// Wait — actually "Hello" and "hello" and "HELLO" would all match
 MatchCollection all = Regex.Matches(input, @"hello", RegexOptions.IgnoreCase);
 foreach (Match m in all)
     Console.WriteLine($"'{m.Value}' at {m.Index}"); // Hello, hello
 
-// 3. Inline flag (?i) â€” embed in pattern (useful for partial case-insensitivity)
+// 3. Inline flag (?i) — embed in pattern (useful for partial case-insensitivity)
 Match m1 = Regex.Match("HTTP/1.1 200 OK", @"(?i)http");
 Console.WriteLine(m1.Success); // true
 
@@ -18370,7 +17301,7 @@ Console.WriteLine(m1.Success); // true
 Match m2 = Regex.Match("fooBAR", @"(?i)foo(?-i)BAR"); // foo case-insensitive, BAR must be exact
 Console.WriteLine(m2.Success); // true
 Match m3 = Regex.Match("foobar", @"(?i)foo(?-i)BAR");
-Console.WriteLine(m3.Success); // false â€” "bar" doesn\'t match "BAR"
+Console.WriteLine(m3.Success); // false — "bar" doesn\'t match "BAR"
 
 // 4. Source-generated with IgnoreCase
 string email = "User@Example.COM";
@@ -18385,9 +17316,6 @@ var re = new Regex(@"hello\s+world",
 Console.WriteLine(re.IsMatch("HELLO\nWORLD")); // true (Singleline: . matches \n)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a precompiled Regex object in .NET?
 
@@ -18395,14 +17323,14 @@ There are three levels of "precompiled" regex in modern .NET:
 
 | Approach | Compilation | Performance | AOT-safe |
 |----------|------------|-------------|----------|
-| `new Regex(pattern)` | Interpreted (default) | Baseline | âœ… |
-| `new Regex(pattern, RegexOptions.Compiled)` | JIT-compiled to IL | ~2â€“3Ã— faster | âœ… |
-| `[GeneratedRegex]` source generator (.NET 7+) | Compiled at build time | Fastest, no startup cost | âœ… |
+| `new Regex(pattern)` | Interpreted (default) | Baseline | ✅ |
+| `new Regex(pattern, RegexOptions.Compiled)` | JIT-compiled to IL | ~2–3× faster | ✅ |
+| `[GeneratedRegex]` source generator (.NET 7+) | Compiled at build time | Fastest, no startup cost | ✅ |
 
 ```cs
 using System.Text.RegularExpressions;
 
-// 1. RegexOptions.Compiled â€” JIT-compiles to IL on first use
+// 1. RegexOptions.Compiled — JIT-compiles to IL on first use
 // Best for patterns used many times in a hot path
 private static readonly Regex _emailRegex = new Regex(
     @"^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$",
@@ -18411,8 +17339,8 @@ private static readonly Regex _emailRegex = new Regex(
 // Store as static readonly so compilation happens once per AppDomain
 Console.WriteLine(_emailRegex.IsMatch("user@example.com")); // true
 
-// 2. Source-generated Regex â€” [GeneratedRegex] (.NET 7+)
-// Generates optimised C# code at BUILD TIME â€” no runtime compilation
+// 2. Source-generated Regex — [GeneratedRegex] (.NET 7+)
+// Generates optimised C# code at BUILD TIME — no runtime compilation
 // AOT-compatible, trim-safe, zero startup cost
 public static partial class Patterns
 {
@@ -18439,15 +17367,12 @@ Console.WriteLine(url.Groups["host"].Value);   // example.com
 Console.WriteLine(url.Groups["path"].Value);   // /path?q=1
 
 // 3. Performance comparison
-// Interpreted (~1Ã—) â†’ Compiled (~3Ã—) â†’ GeneratedRegex (~5Ã—+)
+// Interpreted (~1×) → Compiled (~3×) → GeneratedRegex (~5×+)
 // Use GeneratedRegex for new code targeting .NET 7+
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 9. EXCEPTION HANDLING
+## 9. Exception Handling
 
 <br/>
 
@@ -18462,10 +17387,10 @@ Console.WriteLine(url.Groups["path"].Value);   // /path?q=1
 - Enables resource cleanup via `finally` / `using`
 
 ```cs
-// Without exception handling â€” crash on bad input
-int.Parse("abc"); // FormatException â€” app crashes
+// Without exception handling — crash on bad input
+int.Parse("abc"); // FormatException — app crashes
 
-// With exception handling â€” graceful degradation
+// With exception handling — graceful degradation
 try
 {
     int value = int.Parse("abc");
@@ -18477,20 +17402,17 @@ catch (FormatException ex)
 }
 finally
 {
-    Console.WriteLine("Always runs â€” clean up resources here");
+    Console.WriteLine("Always runs — clean up resources here");
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle exceptions in C#? What is the difference between `try`, `catch`, and `finally` blocks?
 
 ```cs
-// try   â€” code that might throw
-// catch â€” handles a specific exception type
-// finally â€” always runs (cleanup), whether or not an exception occurred
+// try   — code that might throw
+// catch — handles a specific exception type
+// finally — always runs (cleanup), whether or not an exception occurred
 
 try
 {
@@ -18510,17 +17432,17 @@ catch (IOException ex)
 {
     Console.WriteLine($"I/O error: {ex.Message}");
 }
-catch (Exception ex) // catch-all â€” least specific last
+catch (Exception ex) // catch-all — least specific last
 {
-    Console.WriteLine($"Unexpected: {ex.GetType().Name} â€” {ex.Message}");
+    Console.WriteLine($"Unexpected: {ex.GetType().Name} — {ex.Message}");
 }
 finally
 {
-    // always executed â€” even if return or exception in catch
+    // always executed — even if return or exception in catch
     Console.WriteLine("Cleanup complete");
 }
 
-// Exception filters â€” when clause (.NET 6+ idiomatic)
+// Exception filters — when clause (.NET 6+ idiomatic)
 try
 {
     using var client = new HttpClient();
@@ -18540,9 +17462,6 @@ catch (TaskCanceledException)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `Exception` class, its key properties, and which class is the base for all exceptions?
 
@@ -18550,20 +17469,20 @@ catch (TaskCanceledException)
 
 ```
 System.Exception
-â”œâ”€â”€ System.SystemException          (CLR/runtime exceptions)
-â”‚   â”œâ”€â”€ NullReferenceException
-â”‚   â”œâ”€â”€ IndexOutOfRangeException
-â”‚   â”œâ”€â”€ InvalidOperationException
-â”‚   â”œâ”€â”€ ArgumentException
-â”‚   â”‚   â”œâ”€â”€ ArgumentNullException
-â”‚   â”‚   â””â”€â”€ ArgumentOutOfRangeException
-â”‚   â”œâ”€â”€ IOException
-â”‚   â”‚   â””â”€â”€ FileNotFoundException
-â”‚   â”œâ”€â”€ OverflowException
-â”‚   â”œâ”€â”€ FormatException
-â”‚   â”œâ”€â”€ StackOverflowException
-â”‚   â””â”€â”€ OutOfMemoryException
-â””â”€â”€ System.ApplicationException     (user/app exceptions â€” rarely used directly)
+├── System.SystemException          (CLR/runtime exceptions)
+│   ├── NullReferenceException
+│   ├── IndexOutOfRangeException
+│   ├── InvalidOperationException
+│   ├── ArgumentException
+│   │   ├── ArgumentNullException
+│   │   └── ArgumentOutOfRangeException
+│   ├── IOException
+│   │   └── FileNotFoundException
+│   ├── OverflowException
+│   ├── FormatException
+│   ├── StackOverflowException
+│   └── OutOfMemoryException
+└── System.ApplicationException     (user/app exceptions — rarely used directly)
 ```
 
 **Key properties:**
@@ -18595,9 +17514,6 @@ ex2.Data["Timestamp"] = DateTime.UtcNow;
 throw ex2;
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `InnerException` property in C#?
 
@@ -18649,38 +17565,35 @@ catch (AggregateException ae)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `throw` keyword? What is the difference between `throw`, `throw ex`, and `throw new`?
 
 | | `throw` | `throw ex` | `throw new ExType(...)` |
 |-|---------|-----------|------------------------|
-| **Stack trace** | Preserved âœ… | Reset to current line âŒ | New exception, new trace |
-| **Use when** | Re-throwing the same exception | âŒ Avoid â€” loses origin | Wrapping with context |
+| **Stack trace** | Preserved ✅ | Reset to current line ❌ | New exception, new trace |
+| **Use when** | Re-throwing the same exception | ❌ Avoid — loses origin | Wrapping with context |
 | **InnerException** | N/A | N/A | Preserve original as inner |
 
 ```cs
-// throw â€” re-throw preserving original stack trace (ALWAYS prefer this)
+// throw — re-throw preserving original stack trace (ALWAYS prefer this)
 try
 {
     await File.ReadAllTextAsync("missing.txt");
 }
 catch (FileNotFoundException)
 {
-    // log, then re-throw â€” stack trace points to the original throw site
+    // log, then re-throw — stack trace points to the original throw site
     Console.WriteLine("Logged the error");
-    throw; // âœ… preserves full stack trace
+    throw; // ✅ preserves full stack trace
 }
 
-// throw ex â€” resets stack trace (AVOID)
+// throw ex — resets stack trace (AVOID)
 // catch (FileNotFoundException ex)
 // {
-//     throw ex; // âŒ stack trace now starts HERE, original location lost
+//     throw ex; // ❌ stack trace now starts HERE, original location lost
 // }
 
-// throw new â€” wrap with context (preserve original as InnerException)
+// throw new — wrap with context (preserve original as InnerException)
 try
 {
     await LoadConfigAsync("appsettings.json");
@@ -18688,17 +17601,17 @@ try
 catch (IOException ex)
 {
     // Add domain context while preserving original exception
-    throw new ApplicationException("Failed to start: config unavailable.", innerException: ex); // âœ…
+    throw new ApplicationException("Failed to start: config unavailable.", innerException: ex); // ✅
 }
 
-// throw new without inner â€” only use when starting a fresh exception
+// throw new without inner — only use when starting a fresh exception
 static void ValidateAge(int age)
 {
     if (age < 0) throw new ArgumentOutOfRangeException(nameof(age), "Age cannot be negative.");
     if (age > 150) throw new ArgumentOutOfRangeException(nameof(age), "Age is unrealistically large.");
 }
 
-// ExceptionDispatchInfo â€” re-throw from a different context preserving stack trace
+// ExceptionDispatchInfo — re-throw from a different context preserving stack trace
 using System.Runtime.ExceptionServices;
 
 Exception? captured = null;
@@ -18713,14 +17626,11 @@ if (captured is not null)
     ExceptionDispatchInfo.Capture(captured).Throw(); // re-throws with original stack trace
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a custom exception in C#?
 
 ```cs
-// Best practice custom exception â€” sealed, with standard constructors
+// Best practice custom exception — sealed, with standard constructors
 [Serializable]
 public sealed class OrderNotFoundException : Exception
 {
@@ -18780,14 +17690,11 @@ catch (DomainException ex)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle multiple exceptions in a single `catch` block in C#?
 
 ```cs
-// 1. Multiple catch blocks â€” most specific first
+// 1. Multiple catch blocks — most specific first
 try
 {
     ProcessData();
@@ -18809,7 +17716,7 @@ catch (IOException ex)
     Console.WriteLine($"I/O error: {ex.Message}");
 }
 
-// 2. Multi-catch (C# 6+) â€” handle multiple types with the same logic
+// 2. Multi-catch (C# 6+) — handle multiple types with the same logic
 try
 {
     ProcessData();
@@ -18824,7 +17731,7 @@ catch (Exception ex) when (ex is FormatException or OverflowException or Invalid
     Console.WriteLine($"Conversion error: {ex.Message}");
 }
 
-// 3. Exception filter with when â€” handle subset of one type
+// 3. Exception filter with when — handle subset of one type
 try
 {
     using var client = new HttpClient();
@@ -18832,18 +17739,18 @@ try
 }
 catch (HttpRequestException ex) when ((int?)ex.StatusCode >= 500)
 {
-    Console.WriteLine("Server error â€” retry later");
+    Console.WriteLine("Server error — retry later");
 }
 catch (HttpRequestException ex) when ((int?)ex.StatusCode is 400 or 404)
 {
-    Console.WriteLine("Client error â€” check the request");
+    Console.WriteLine("Client error — check the request");
 }
 
 // 4. Catch-all (use sparingly)
 try { ProcessData(); }
 catch (Exception ex)
 {
-    Console.WriteLine($"Unhandled: {ex.GetType().Name} â€” {ex.Message}");
+    Console.WriteLine($"Unhandled: {ex.GetType().Name} — {ex.Message}");
     // log and possibly rethrow
     throw;
 }
@@ -18851,14 +17758,11 @@ catch (Exception ex)
 void ProcessData() => throw new FormatException("Bad data format");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you log exceptions in C#?
 
 ```cs
-// 1. Microsoft.Extensions.Logging (recommended â€” built into ASP.NET Core)
+// 1. Microsoft.Extensions.Logging (recommended — built into ASP.NET Core)
 public class OrderService(ILogger<OrderService> logger)
 {
     public async Task<Order?> GetOrderAsync(int id, CancellationToken ct = default)
@@ -18922,13 +17826,10 @@ TaskScheduler.UnobservedTaskException += (_, e) =>
 };
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use the `using` statement to handle exceptions in C#?
 
-The `using` statement ensures `IDisposable.Dispose()` is called even if an exception is thrown â€” equivalent to a `try/finally` block.
+The `using` statement ensures `IDisposable.Dispose()` is called even if an exception is thrown — equivalent to a `try/finally` block.
 
 ```cs
 // 1. Classic using block
@@ -18939,12 +17840,12 @@ using (var reader = new BinaryReader(stream))
     Console.WriteLine(value);
 } // Dispose called here, even if ReadInt32 throws
 
-// 2. Using declaration (C# 8+) â€” disposed at end of enclosing scope
+// 2. Using declaration (C# 8+) — disposed at end of enclosing scope
 await using var writer = new StreamWriter("output.txt");
 await writer.WriteLineAsync("Hello");
 // writer.Dispose() called when scope exits (exception or normal)
 
-// 3. Using + try/catch â€” handle exception AND ensure disposal
+// 3. Using + try/catch — handle exception AND ensure disposal
 StreamReader? reader2 = null;
 try
 {
@@ -18972,7 +17873,7 @@ catch (FileNotFoundException ex)
     Console.WriteLine($"Missing: {ex.Message}");
 }
 
-// 4. IAsyncDisposable â€” await using
+// 4. IAsyncDisposable — await using
 public class AsyncResource : IAsyncDisposable
 {
     public async ValueTask DisposeAsync()
@@ -18989,9 +17890,6 @@ await using var res = new AsyncResource();
 void ProcessContent(string s) { }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between checked and unchecked exceptions in C#?
 
@@ -19000,7 +17898,7 @@ void ProcessContent(string s) { }
 ```cs
 int max = int.MaxValue; // 2,147,483,647
 
-// checked â€” throws OverflowException on arithmetic overflow
+// checked — throws OverflowException on arithmetic overflow
 try
 {
     checked
@@ -19017,7 +17915,7 @@ catch (OverflowException ex)
 // checked expression
 int safe = checked(max + 1); // also throws OverflowException
 
-// unchecked â€” wraps around silently (default behaviour)
+// unchecked — wraps around silently (default behaviour)
 unchecked
 {
     int wrapped = max + 1;
@@ -19027,25 +17925,22 @@ unchecked
 int wrapped2 = unchecked(max + 1); // expression form
 
 // Default is unchecked for performance
-int x = int.MaxValue + 1; // silently wraps to int.MinValue â€” no exception
+int x = int.MaxValue + 1; // silently wraps to int.MinValue — no exception
 
 // Enable checked globally via project setting:
 // <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow> in .csproj
 
-// For floating point â€” overflow produces Infinity, not an exception
+// For floating point — overflow produces Infinity, not an exception
 double bigDouble = double.MaxValue * 2;
 Console.WriteLine(bigDouble);          // Infinity (no exception)
 Console.WriteLine(double.IsInfinity(bigDouble)); // true
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle exceptions in asynchronous methods and in methods that return a Task?
 
 ```cs
-// 1. async/await â€” exceptions propagate naturally via await
+// 1. async/await — exceptions propagate naturally via await
 async Task<string> LoadDataAsync(string url, CancellationToken ct = default)
 {
     try
@@ -19075,7 +17970,7 @@ catch (Exception ex)
     Console.WriteLine($"Outer catch: {ex.Message}");
 }
 
-// 2. Task.WhenAll â€” AggregateException wraps all failures
+// 2. Task.WhenAll — AggregateException wraps all failures
 Task[] tasks =
 [
     Task.Run(() => throw new Exception("T1 failed")),
@@ -19095,7 +17990,7 @@ catch (Exception ex)
         Console.WriteLine($"  {t.Exception!.InnerException!.Message}");
 }
 
-// 3. Task returning method â€” exception stored in Task, thrown on await
+// 3. Task returning method — exception stored in Task, thrown on await
 Task<int> ComputeAsync()
 {
     return Task.Run(() =>
@@ -19105,11 +18000,11 @@ Task<int> ComputeAsync()
     });
 }
 
-var task = ComputeAsync(); // exception not thrown yet â€” stored in task
+var task = ComputeAsync(); // exception not thrown yet — stored in task
 try { int r = await task; } // exception thrown here
 catch (InvalidOperationException ex) { Console.WriteLine(ex.Message); }
 
-// 4. Fire-and-forget â€” must handle internally (no await = no propagation)
+// 4. Fire-and-forget — must handle internally (no await = no propagation)
 _ = Task.Run(async () =>
 {
     try { await SomeBackgroundWorkAsync(); }
@@ -19119,16 +18014,13 @@ _ = Task.Run(async () =>
 async Task SomeBackgroundWorkAsync() => await Task.Delay(100);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `AggregateException` class and when is it used?
 
 `AggregateException` wraps one or more exceptions that occur during parallel or multi-task operations. It is thrown by `Task.WaitAll`, `Task.WhenAll` (when not awaited), and `Parallel.For` / `Parallel.ForEach`.
 
 ```cs
-// 1. Task.WhenAll â€” use await to get individual exceptions via faulted tasks
+// 1. Task.WhenAll — use await to get individual exceptions via faulted tasks
 Task[] tasks = [
     Task.Run(() => throw new ArgumentException("Bad arg")),
     Task.Run(() => throw new IOException("Disk error")),
@@ -19139,7 +18031,7 @@ try
 {
     await Task.WhenAll(tasks);
 }
-catch // await re-throws first exception â€” check all tasks for the rest
+catch // await re-throws first exception — check all tasks for the rest
 {
     var allErrors = tasks
         .Where(t => t.IsFaulted)
@@ -19150,7 +18042,7 @@ catch // await re-throws first exception â€” check all tasks for the rest
         Console.WriteLine($"{ex.GetType().Name}: {ex.Message}");
 }
 
-// 2. Task.WaitAll (synchronous) â€” throws AggregateException directly
+// 2. Task.WaitAll (synchronous) — throws AggregateException directly
 try
 {
     Task.WaitAll(tasks);
@@ -19168,7 +18060,7 @@ catch (AggregateException ae)
     });
 }
 
-// 3. Flatten â€” collapse nested AggregateExceptions
+// 3. Flatten — collapse nested AggregateExceptions
 try { Task.WaitAll(tasks); }
 catch (AggregateException ae)
 {
@@ -19176,7 +18068,7 @@ catch (AggregateException ae)
         Console.WriteLine($"  {inner.GetType().Name}: {inner.Message}");
 }
 
-// 4. Parallel.For â€” wraps iteration exceptions in AggregateException
+// 4. Parallel.For — wraps iteration exceptions in AggregateException
 try
 {
     Parallel.For(0, 5, i =>
@@ -19191,17 +18083,14 @@ catch (AggregateException ae)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Will the `finally` block execute if an exception has not occurred? What is the C# syntax to catch any possible exception?
 
 ```cs
-// finally ALWAYS runs â€” whether or not an exception occurred
+// finally ALWAYS runs — whether or not an exception occurred
 // Exceptions: StackOverflowException, process kill, Environment.FailFast
 
-// Case 1: No exception â€” finally still runs
+// Case 1: No exception — finally still runs
 try
 {
     Console.WriteLine("try: no exception");
@@ -19212,10 +18101,10 @@ catch (Exception ex)
 }
 finally
 {
-    Console.WriteLine("finally: always runs"); // âœ… runs
+    Console.WriteLine("finally: always runs"); // ✅ runs
 }
 
-// Case 2: Exception handled â€” finally runs after catch
+// Case 2: Exception handled — finally runs after catch
 try
 {
     throw new InvalidOperationException("oops");
@@ -19226,22 +18115,22 @@ catch (InvalidOperationException ex)
 }
 finally
 {
-    Console.WriteLine("finally: runs after catch"); // âœ… runs
+    Console.WriteLine("finally: runs after catch"); // ✅ runs
 }
 
-// Case 3: Exception NOT caught â€” finally still runs, then exception propagates
+// Case 3: Exception NOT caught — finally still runs, then exception propagates
 try
 {
     try { throw new Exception("unhandled"); }
-    finally { Console.WriteLine("finally: runs before propagation"); } // âœ… runs
+    finally { Console.WriteLine("finally: runs before propagation"); } // ✅ runs
 }
 catch (Exception ex) { Console.WriteLine($"outer catch: {ex.Message}"); }
 
-// Case 4: return in try â€” finally still runs before the method returns
+// Case 4: return in try — finally still runs before the method returns
 int Calculate()
 {
     try    { return 42; }
-    finally { Console.WriteLine("finally: runs even with return"); } // âœ…
+    finally { Console.WriteLine("finally: runs even with return"); } // ✅
 }
 Console.WriteLine(Calculate()); // finally runs first, then returns 42
 
@@ -19252,13 +18141,10 @@ catch (Exception ex) // catches all managed exceptions
     Console.WriteLine($"Caught: {ex.Message}");
 }
 
-// Or bare catch (legacy â€” don\'t use, doesn\'t capture exception reference):
+// Or bare catch (legacy — don\'t use, doesn\'t capture exception reference):
 // try { } catch { }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `System.ApplicationException` and `System.SystemException`?
 
@@ -19266,17 +18152,17 @@ catch (Exception ex) // catches all managed exceptions
 |-|-----------------|----------------------|
 | **Thrown by** | The CLR / .NET runtime | User / application code |
 | **Examples** | `NullReferenceException`, `IOException`, `OverflowException` | Custom exceptions (historically) |
-| **Modern guidance** | Do not catch directly â€” catch specific types | âš ï¸ **Obsolete pattern** â€” avoid |
+| **Modern guidance** | Do not catch directly — catch specific types | ⚠️ **Obsolete pattern** — avoid |
 | **Recommended now** | Catch specific `SystemException` subtypes | Derive directly from `Exception` |
 
 ```cs
-// âš ï¸ ApplicationException was originally meant as the base for app exceptions
-// â€” this guidance was ABANDONED in .NET 2.0 â€” the pattern is now discouraged
+// ⚠️ ApplicationException was originally meant as the base for app exceptions
+// — this guidance was ABANDONED in .NET 2.0 — the pattern is now discouraged
 
-// âŒ Old pattern (avoid)
+// ❌ Old pattern (avoid)
 // public class MyException : ApplicationException { }
 
-// âœ… Modern pattern â€” derive directly from Exception
+// ✅ Modern pattern — derive directly from Exception
 public sealed class OrderNotFoundException(int orderId)
     : Exception($"Order {orderId} not found.")
 {
@@ -19289,40 +18175,37 @@ try
     string? s = null;
     _ = s!.Length;                   // NullReferenceException : SystemException
 }
-catch (NullReferenceException ex)    // specific subtype â€” preferred
+catch (NullReferenceException ex)    // specific subtype — preferred
 {
     Console.WriteLine(ex.Message);
 }
 
-// Catching SystemException directly is an anti-pattern â€” too broad
-// catch (SystemException ex) { } â† catches way too much
+// Catching SystemException directly is an anti-pattern — too broad
+// catch (SystemException ex) { } ← catches way too much
 
 // Bottom line:
 // - Catching 'Exception' is the correct catch-all
-// - Catching 'systemException' or 'ApplicationException' directly â€” avoid
+// - Catching 'systemException' or 'ApplicationException' directly — avoid
 // - Derive custom exceptions from 'Exception' directly
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `StackOverflowException` and `OutOfMemoryException`?
 
 | | `StackOverflowException` | `OutOfMemoryException` |
 |-|------------------------|----------------------|
-| **Cause** | Call stack exhausted (infinite/deep recursion) | Heap exhausted â€” no memory for allocation |
-| **Recoverable** | âŒ Not catchable (terminates process in .NET) | âš ï¸ Sometimes catchable but rarely recoverable |
+| **Cause** | Call stack exhausted (infinite/deep recursion) | Heap exhausted — no memory for allocation |
+| **Recoverable** | ❌ Not catchable (terminates process in .NET) | ⚠️ Sometimes catchable but rarely recoverable |
 | **Common trigger** | Infinite recursion, very deep call chains | Large allocations, memory leaks, huge arrays |
 | **Prevention** | Add base cases, use iteration, `Span<T>` | Pool objects, use `ArrayPool`, reduce allocations |
 
 ```cs
-// StackOverflowException â€” infinite recursion
+// StackOverflowException — infinite recursion
 // int Factorial(int n) => n == 0 ? 1 : n * Factorial(n); // BUG: missing base case
-// â†’ StackOverflowException â€” process terminates, cannot be caught!
+// → StackOverflowException — process terminates, cannot be caught!
 
 // Correct: proper base case
-int Factorial(int n) => n <= 1 ? 1 : n * Factorial(n - 1); // âœ…
+int Factorial(int n) => n <= 1 ? 1 : n * Factorial(n - 1); // ✅
 
 // Better for deep recursion: iterative or explicit stack
 int FactorialIterative(int n)
@@ -19332,16 +18215,16 @@ int FactorialIterative(int n)
     return result;
 }
 
-// OutOfMemoryException â€” allocation failure
+// OutOfMemoryException — allocation failure
 try
 {
-    // Allocating 10 GB array â€” likely to fail
+    // Allocating 10 GB array — likely to fail
     var huge = new byte[10L * 1024 * 1024 * 1024];
 }
 catch (OutOfMemoryException ex)
 {
     Console.WriteLine($"OOM: {ex.Message}");
-    // Rarely recoverable â€” GC.Collect() + trim memory pools then retry
+    // Rarely recoverable — GC.Collect() + trim memory pools then retry
 }
 
 // Preventing OOM:
@@ -19355,9 +18238,6 @@ await foreach (string line in File.ReadLinesAsync("huge.csv"))
     Console.WriteLine(line); // never loads full file
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Name different types of errors that can occur during program execution.
 
@@ -19374,14 +18254,14 @@ await foreach (string line in File.ReadLinesAsync("huge.csv"))
 | **Configuration error** | Startup | Missing appsettings, bad connstr | Runtime |
 
 ```cs
-// Runtime exception â€” NullReferenceException
+// Runtime exception — NullReferenceException
 string? s = null;
 try { _ = s!.Length; }
 catch (NullReferenceException ex) { Console.WriteLine($"Runtime: {ex.Message}"); }
 
-// Logic error â€” no exception, wrong result
+// Logic error — no exception, wrong result
 int Average(int[] nums) => nums.Sum(); // BUG: forgot to divide by nums.Length
-Console.WriteLine(Average([1, 2, 3])); // 6 instead of 2 â€” logic error
+Console.WriteLine(Average([1, 2, 3])); // 6 instead of 2 — logic error
 
 // Arithmetic error
 try { int x = 10 / 0; }
@@ -19405,9 +18285,6 @@ try { File.ReadAllText("missing.txt"); }
 catch (FileNotFoundException ex) { Console.WriteLine($"File: {ex.Message}"); }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the difference between the `finally` block and the `Finalize` method.
 
@@ -19421,7 +18298,7 @@ catch (FileNotFoundException ex) { Console.WriteLine($"File: {ex.Message}"); }
 | **Preferred alternative** | Inherent to `try` structure | `IDisposable.Dispose` + `using` |
 
 ```cs
-// finally â€” deterministic cleanup, runs at end of try/catch
+// finally — deterministic cleanup, runs at end of try/catch
 void ReadFile(string path)
 {
     StreamReader? reader = null;
@@ -19441,22 +18318,22 @@ void ReadFile(string path)
     }
 }
 
-// Finalize / destructor â€” GC safety net for unmanaged resources
+// Finalize / destructor — GC safety net for unmanaged resources
 public class UnmanagedWrapper
 {
     private IntPtr _handle;
 
     public UnmanagedWrapper() => _handle = AllocateResource();
 
-    // Finalizer â€” called by GC if Dispose was not called
+    // Finalizer — called by GC if Dispose was not called
     ~UnmanagedWrapper()
     {
-        // Safety net only â€” do NOT rely on timing
+        // Safety net only — do NOT rely on timing
         FreeResource(_handle);
         Console.WriteLine("Finalizer ran");
     }
 
-    // âœ… Implement IDisposable for deterministic cleanup
+    // ✅ Implement IDisposable for deterministic cleanup
     public void Dispose()
     {
         FreeResource(_handle);
@@ -19468,17 +18345,14 @@ public class UnmanagedWrapper
     private static void FreeResource(IntPtr h) { }
 }
 
-// âœ… Always prefer using/Dispose over relying on finalizer
+// ✅ Always prefer using/Dispose over relying on finalizer
 using var wrapper = new UnmanagedWrapper(); // Dispose called deterministically
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can multiple catch blocks execute for a single exception in C#? What are the most commonly used exception types in .NET?
 
-**No.** Only **one** catch block executes per exception â€” the first matching block. Subsequent catch blocks are skipped.
+**No.** Only **one** catch block executes per exception — the first matching block. Subsequent catch blocks are skipped.
 
 ```cs
 // Only the FIRST matching catch block runs
@@ -19488,18 +18362,18 @@ try
 }
 catch (ArgumentNullException ex)
 {
-    Console.WriteLine($"1st: {ex.GetType().Name}"); // âœ… This runs
+    Console.WriteLine($"1st: {ex.GetType().Name}"); // ✅ This runs
 }
 catch (ArgumentException ex)
 {
-    Console.WriteLine($"2nd: {ex.GetType().Name}"); // âŒ NEVER reached
+    Console.WriteLine($"2nd: {ex.GetType().Name}"); // ❌ NEVER reached
 }
 catch (Exception ex)
 {
-    Console.WriteLine($"3rd: {ex.GetType().Name}"); // âŒ NEVER reached
+    Console.WriteLine($"3rd: {ex.GetType().Name}"); // ❌ NEVER reached
 }
 
-// Correct ordering: most specific â†’ most general
+// Correct ordering: most specific → most general
 try { /* ... */ }
 catch (FileNotFoundException ex) { /* most specific */ }
 catch (IOException ex)           { /* less specific */ }
@@ -19534,25 +18408,22 @@ catch (Exception ex)             { /* catch-all last */ }
 | `SqlException` | SQL Server error |
 | `AggregateException` | Multiple Task/Parallel exceptions |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different ways to handle errors in C#?
 
 ```cs
-// 1. try/catch/finally â€” standard structured handling
+// 1. try/catch/finally — standard structured handling
 try { ProcessOrder(order); }
 catch (OrderNotFoundException ex) { logger.LogWarning(ex, "Order not found"); }
 catch (Exception ex) { logger.LogError(ex, "Unexpected error"); throw; }
 finally { /* cleanup */ }
 
-// 2. Exception filters â€” when clause
+// 2. Exception filters — when clause
 try { await CallExternalApiAsync(); }
 catch (HttpRequestException ex) when ((int?)ex.StatusCode >= 500)
-    { Console.WriteLine("Server error â€” retry"); }
+    { Console.WriteLine("Server error — retry"); }
 
-// 3. Result pattern â€” no exceptions for expected failures (functional style)
+// 3. Result pattern — no exceptions for expected failures (functional style)
 public readonly record struct Result<T>(T? Value, string? Error, bool IsSuccess)
 {
     public static Result<T> Ok(T value)    => new(value, null, true);
@@ -19563,11 +18434,11 @@ Result<Order> result = TryGetOrder(id);
 if (result.IsSuccess) Process(result.Value!);
 else Console.WriteLine(result.Error);
 
-// 4. Nullable return / null-coalescing â€” for optional data
+// 4. Nullable return / null-coalescing — for optional data
 Order? order = await _repo.FindAsync(id);
 Order resolved = order ?? Order.Default;
 
-// 5. TryXxx pattern â€” like int.TryParse
+// 5. TryXxx pattern — like int.TryParse
 if (int.TryParse(input, out int value))
     Console.WriteLine(value);
 else
@@ -19583,7 +18454,7 @@ void Process(string name, IEnumerable<int> items, int count)
     ArgumentOutOfRangeException.ThrowIfGreaterThan(count, 1000);
 }
 
-// 7. Global handlers â€” last-resort logging
+// 7. Global handlers — last-resort logging
 AppDomain.CurrentDomain.UnhandledException += (_, e) =>
     Console.Error.WriteLine($"Fatal: {(e.ExceptionObject as Exception)?.Message}");
 
@@ -19593,7 +18464,7 @@ TaskScheduler.UnobservedTaskException += (_, e) =>
     e.SetObserved();
 };
 
-// 8. Polly â€” resilience policies (retry, circuit breaker, timeout)
+// 8. Polly — resilience policies (retry, circuit breaker, timeout)
 // dotnet add package Polly
 // var pipeline = new ResiliencePipelineBuilder()
 //     .AddRetry(new RetryStrategyOptions { MaxRetryAttempts = 3 })
@@ -19607,17 +18478,14 @@ void Process(Order o) { }
 record Order { public static Order Default { get; } = new(); }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 10. EVENTS AND DELEGATES
+## 10. Events and Delegates
 
 <br/>
 
 ## Q. What are delegates in C# and why are they used?
 
-A **delegate** is a type-safe function pointer â€” a reference to a method with a specific signature. It allows methods to be passed as parameters, stored as variables, and invoked dynamically.
+A **delegate** is a type-safe function pointer — a reference to a method with a specific signature. It allows methods to be passed as parameters, stored as variables, and invoked dynamically.
 
 ```cs
 // Declare a delegate type
@@ -19655,9 +18523,6 @@ print("Hello delegates");
 Console.WriteLine(isEven(4));       // True
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are Events? What is the difference between a delegate and an event?
 
@@ -19671,11 +18536,11 @@ An **event** is a mechanism for a class to notify subscribers when something hap
 | **Null check** | Caller\'s responsibility | Raised via `?.Invoke` pattern |
 
 ```cs
-// Delegate â€” anyone can invoke (no encapsulation)
+// Delegate — anyone can invoke (no encapsulation)
 public delegate void AlertHandler(string message);
-public AlertHandler OnAlert;  // public field delegate â€” not recommended
+public AlertHandler OnAlert;  // public field delegate — not recommended
 
-// Event â€” only the declaring class can invoke
+// Event — only the declaring class can invoke
 public class Button
 {
     // event keyword wraps the delegate with access restrictions
@@ -19698,18 +18563,15 @@ var btn = new Button();
 btn.Clicked += (sender, e) => Console.WriteLine($"Button clicked: {e.Button}");
 btn.Click(); // Button clicked: Left
 
-// btn.Clicked?.Invoke(...)  // âŒ compile error â€” external code cannot invoke event
-// btn.Clicked = null;       // âŒ compile error â€” cannot assign externally
+// btn.Clicked?.Invoke(...)  // ❌ compile error — external code cannot invoke event
+// btn.Clicked = null;       // ❌ compile error — cannot assign externally
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you declare and raise an event? What is the purpose of the `EventHandler` delegate? How do you subscribe and unsubscribe?
 
 ```cs
-// EventHandler<TEventArgs> â€” standard delegate for events:
+// EventHandler<TEventArgs> — standard delegate for events:
 //   void Handler(object? sender, TEventArgs e)
 
 public class OrderProcessor
@@ -19719,7 +18581,7 @@ public class OrderProcessor
     public event EventHandler<OrderEventArgs>? OrderFailed;
     public event EventHandler? ProcessingCompleted; // no custom args
 
-    // 2. Raise event â€” protected virtual method (allows derived class override)
+    // 2. Raise event — protected virtual method (allows derived class override)
     protected virtual void OnOrderPlaced(OrderEventArgs e)
         => OrderPlaced?.Invoke(this, e);
 
@@ -19776,9 +18638,6 @@ processor.OrderFailed -= failedHandler; // unsubscribe using reference
 record Order(int Id);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a multicast delegate (combinable delegate) in C#?
 
@@ -19811,12 +18670,12 @@ notify("Order delivered");
 // [Log] Order delivered
 // [SMS] Order delivered
 
-// Return value â€” only LAST invoked delegate\'s return value is returned
+// Return value — only LAST invoked delegate\'s return value is returned
 delegate int Transform(int x);
 Transform chain = x => x + 1;
 chain += x => x * 2;
 chain += x => x - 3;
-int result = chain(5); // (5+1)=6, (5*2)=10, (5-3)=2 â†’ only last: 2
+int result = chain(5); // (5+1)=6, (5*2)=10, (5-3)=2 → only last: 2
 Console.WriteLine(result); // 2
 
 // Combine with Delegate.Combine
@@ -19826,14 +18685,11 @@ Notify combined = (Notify)Delegate.Combine(a, b)!;
 combined("Test"); // Logger + Sms
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use anonymous methods with delegates in C#?
 
 ```cs
-// Anonymous method (C# 2.0 syntax â€” mostly replaced by lambdas)
+// Anonymous method (C# 2.0 syntax — mostly replaced by lambdas)
 Func<int, int, int> add = delegate(int a, int b) { return a + b; };
 Console.WriteLine(add(3, 4)); // 7
 
@@ -19852,23 +18708,20 @@ int multiplier = 3;
 Func<int, int> multiply = delegate(int x) { return x * multiplier; };
 Console.WriteLine(multiply(5)); // 15
 multiplier = 10;
-Console.WriteLine(multiply(5)); // 50 â€” captures reference, not value!
+Console.WriteLine(multiply(5)); // 50 — captures reference, not value!
 
-// Modern equivalent â€” lambda (preferred)
+// Modern equivalent — lambda (preferred)
 Func<int, int, int> addLambda = (a, b) => a + b;
 Action greetLambda = () => Console.WriteLine("Hello via lambda!");
 
 // Anonymous method vs lambda comparison
 Func<int, bool> isPositiveAnon   = delegate(int x) { return x > 0; };
-Func<int, bool> isPositiveLambda = x => x > 0; // â† preferred
+Func<int, bool> isPositiveLambda = x => x > 0; // ← preferred
 
 Button button = new();
 record Button { public event EventHandler? Clicked; }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the advantages of using events and delegates? What is the difference between Event and Method?
 
@@ -19877,13 +18730,13 @@ record Button { public event EventHandler? Clicked; }
 | Feature | Benefit |
 |---------|---------|
 | **Loose coupling** | Publisher doesn\'t know about subscribers |
-| **Multiple subscribers** | Multicast â€” many handlers for one event |
+| **Multiple subscribers** | Multicast — many handlers for one event |
 | **Type safety** | Delegate signature enforced at compile time |
 | **Extensibility** | Add/remove handlers without changing publisher |
 | **Callback pattern** | Pass methods as arguments (strategy pattern) |
 
 ```cs
-// Without delegates â€” tight coupling
+// Without delegates — tight coupling
 class OrderService
 {
     private readonly EmailService _email = new();
@@ -19896,7 +18749,7 @@ class OrderService
     }
 }
 
-// With delegates/events â€” loose coupling
+// With delegates/events — loose coupling
 class OrderServiceDecoupled
 {
     public event EventHandler<int>? OrderPlaced;
@@ -19911,26 +18764,23 @@ svc.OrderPlaced += (_, id) => new EmailService().Send($"Order {id}");
 svc.OrderPlaced += (_, id) => new SmsService().Send($"Order {id}");
 
 // Event vs Method
-// Method â€” direct call, caller knows callee
+// Method — direct call, caller knows callee
 void SendEmail(string msg) => Console.WriteLine($"Email: {msg}");
 SendEmail("Direct call"); // caller must know method exists
 
-// Event â€” indirect notification, publisher doesn\'t know subscribers
+// Event — indirect notification, publisher doesn\'t know subscribers
 svc.OrderPlaced += (_, id) => Console.WriteLine($"Notification: order {id}");
-svc.PlaceOrder(42); // publisher just fires â€” doesn\'t know who listens
+svc.PlaceOrder(42); // publisher just fires — doesn\'t know who listens
 
 class EmailService { public void Send(string m) => Console.WriteLine($"Email: {m}"); }
 class SmsService   { public void Send(string m) => Console.WriteLine($"SMS: {m}"); }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use lambda expressions with delegates in C#? What is the difference between lambdas and delegates?
 
 ```cs
-// Lambda IS a delegate â€” it satisfies any compatible delegate type
+// Lambda IS a delegate — it satisfies any compatible delegate type
 Func<int, int, int> sum      = (a, b) => a + b;
 Action<string>      log      = msg  => Console.WriteLine(msg);
 Predicate<string>   notEmpty = s   => !string.IsNullOrEmpty(s);
@@ -19950,12 +18800,12 @@ delegate bool Validator<T>(T value);
 Validator<string> lengthOk = s => s.Length <= 100;
 Console.WriteLine(lengthOk("hello")); // True
 
-// Differences â€” lambda vs delegate
+// Differences — lambda vs delegate
 // Delegate: named type declaration
 delegate int BinaryOp(int a, int b);
 BinaryOp multiply = (a, b) => a * b;
 
-// Lambda: anonymous inline expression â€” syntactic sugar over delegates
+// Lambda: anonymous inline expression — syntactic sugar over delegates
 Func<int, int, int> multiply2 = (a, b) => a * b; // same as above
 
 // Key differences:
@@ -19963,11 +18813,11 @@ Func<int, int, int> multiply2 = (a, b) => a * b; // same as above
 // 2. Lambdas can be expression trees (Expression<Func<...>>); anonymous methods cannot
 // 3. Lambdas are shorter and more readable
 
-// Expression tree â€” lambda captured as data (used by EF Core, etc.)
+// Expression tree — lambda captured as data (used by EF Core, etc.)
 using System.Linq.Expressions;
 Expression<Func<int, bool>> expr = x => x > 5;
 Console.WriteLine(expr);                  // x => (x > 5)
-Console.WriteLine(expr.Compile()(10));    // True â€” compile and invoke
+Console.WriteLine(expr.Compile()(10));    // True — compile and invoke
 
 // Lambdas passed to LINQ
 int[] numbers = [1, 2, 3, 4, 5, 6];
@@ -19975,20 +18825,17 @@ var evens = numbers.Where(n => n % 2 == 0).Select(n => n * n).ToList();
 Console.WriteLine(string.Join(", ", evens)); // 4, 16, 36
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Action`, `Func`, and `Predicate` delegates in C#?
 
 | Delegate | Signature | Returns | Use when |
 |----------|-----------|---------|----------|
-| `Action` | `Action<T1, T2, â€¦>` | `void` | Side-effect operations (print, log, update) |
-| `Func` | `Func<T1, T2, â€¦, TResult>` | `TResult` | Transformations, computations |
-| `Predicate<T>` | `Predicate<T>` | `bool` | Tests a condition â€” equivalent to `Func<T, bool>` |
+| `Action` | `Action<T1, T2, …>` | `void` | Side-effect operations (print, log, update) |
+| `Func` | `Func<T1, T2, …, TResult>` | `TResult` | Transformations, computations |
+| `Predicate<T>` | `Predicate<T>` | `bool` | Tests a condition — equivalent to `Func<T, bool>` |
 
 ```cs
-// Action â€” no return value
+// Action — no return value
 Action<string, int> repeat = (msg, n) =>
 {
     for (int i = 0; i < n; i++) Console.WriteLine(msg);
@@ -19998,7 +18845,7 @@ repeat("Hello", 3);
 Action<Exception> logError = ex => Console.Error.WriteLine(ex.Message);
 logError(new Exception("Oops"));
 
-// Func â€” returns a value (last type param is return type)
+// Func — returns a value (last type param is return type)
 Func<string, int>          length   = s => s.Length;
 Func<int, int, int>        add      = (a, b) => a + b;
 Func<string, string, bool> contains = (s, sub) => s.Contains(sub);
@@ -20007,7 +18854,7 @@ Console.WriteLine(length("dotnet")); // 6
 Console.WriteLine(add(3, 7));        // 10
 Console.WriteLine(contains("hello world", "world")); // True
 
-// Predicate<T> â€” equivalent to Func<T, bool>
+// Predicate<T> — equivalent to Func<T, bool>
 Predicate<string> isLong      = s => s.Length > 10;
 Predicate<int>    isPositive  = n => n > 0;
 
@@ -20020,32 +18867,29 @@ List<int> positives = numbers.FindAll(isPositive);
 Console.WriteLine(string.Join(", ", positives)); // 2, 5, 8
 
 // Func<string,string> vs custom delegate
-// Func<string,string> â€” generic, no custom type needed
+// Func<string,string> — generic, no custom type needed
 Func<string, string> toUpper = s => s.ToUpper();
 
-// Custom delegate â€” allows named type with documentation
+// Custom delegate — allows named type with documentation
 delegate string StringTransform(string input);
 StringTransform transform = s => s.Trim().ToLower();
 
-// Both work the same way â€” Func is preferred for brevity
+// Both work the same way — Func is preferred for brevity
 Console.WriteLine(toUpper("hello")); // HELLO
 Console.WriteLine(transform("  World  ")); // world
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you implement custom event accessors in C#?
 
-Custom event accessors (`add` / `remove`) give explicit control over subscription â€” useful for thread-safety, filtering, or backing stores.
+Custom event accessors (`add` / `remove`) give explicit control over subscription — useful for thread-safety, filtering, or backing stores.
 
 ```cs
 using System.Collections.Concurrent;
 
 public class EventBus
 {
-    // Custom backing store â€” thread-safe dictionary of handlers
+    // Custom backing store — thread-safe dictionary of handlers
     private readonly ConcurrentDictionary<string, EventHandler> _handlers = new();
 
     // Custom event accessor
@@ -20094,9 +18938,6 @@ btn.Click();
 // Safe click handler 2
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle events in a derived class in C#?
 
@@ -20137,7 +18978,7 @@ public class ShapeEventArgs(string shapeName) : EventArgs
     public string ShapeName { get; } = shapeName;
 }
 
-// Subscribe at base-class level â€” works for derived types too
+// Subscribe at base-class level — works for derived types too
 Shape shape = new Circle();
 shape.Drawn += (_, e) => Console.WriteLine($"Event: {e.ShapeName} was drawn");
 shape.Draw();
@@ -20147,22 +18988,19 @@ shape.Draw();
 // Event: Shape was drawn
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the best practices for using events and delegates in C#?
 
 ```cs
-// 1. Always use EventHandler<TEventArgs> â€” avoids custom delegate declarations
-public event EventHandler<OrderEventArgs>? OrderPlaced; // âœ…
-// public delegate void OrderHandler(Order o);          // âŒ unnecessary
+// 1. Always use EventHandler<TEventArgs> — avoids custom delegate declarations
+public event EventHandler<OrderEventArgs>? OrderPlaced; // ✅
+// public delegate void OrderHandler(Order o);          // ❌ unnecessary
 
-// 2. Null-conditional invoke â€” thread-safe raise
-OrderPlaced?.Invoke(this, new OrderEventArgs(1, "Placed")); // âœ…
-// if (OrderPlaced != null) OrderPlaced(this, ...);          // âŒ race condition
+// 2. Null-conditional invoke — thread-safe raise
+OrderPlaced?.Invoke(this, new OrderEventArgs(1, "Placed")); // ✅
+// if (OrderPlaced != null) OrderPlaced(this, ...);          // ❌ race condition
 
-// 3. Protected virtual raise method â€” enables derived class extension
+// 3. Protected virtual raise method — enables derived class extension
 protected virtual void OnOrderPlaced(OrderEventArgs e)
     => OrderPlaced?.Invoke(this, e);
 
@@ -20181,12 +19019,12 @@ class Subscriber : IDisposable
         => Console.WriteLine($"Order {e.OrderId}: {e.Message}");
 
     public void Dispose()
-        => _processor.OrderPlaced -= HandleOrderPlaced; // âœ… unsubscribe
+        => _processor.OrderPlaced -= HandleOrderPlaced; // ✅ unsubscribe
 }
 
 // 5. Prefer Func/Action over custom delegates for simple cases
-Func<int, bool>  isValid = x => x > 0;   // âœ… concise
-Action<string>   log     = Console.WriteLine; // âœ…
+Func<int, bool>  isValid = x => x > 0;   // ✅ concise
+Action<string>   log     = Console.WriteLine; // ✅
 
 // 6. Use weak event patterns for long-lived publishers / short-lived subscribers
 // (WeakEventManager in WPF; or manual WeakReference<T> in other scenarios)
@@ -20194,12 +19032,12 @@ Action<string>   log     = Console.WriteLine; // âœ…
 // 7. EventArgs should be immutable (read-only properties)
 public sealed class OrderEventArgs(int orderId, string message) : EventArgs
 {
-    public int OrderId    { get; } = orderId;   // âœ… read-only
+    public int OrderId    { get; } = orderId;   // ✅ read-only
     public string Message { get; } = message;
 }
 
-// 8. Do NOT raise events in constructors â€” subscribers may not be attached yet
-// 9. Do NOT throw exceptions in event handlers â€” use try/catch inside handler
+// 8. Do NOT raise events in constructors — subscribers may not be attached yet
+// 9. Do NOT throw exceptions in event handlers — use try/catch inside handler
 // 10. Name events with verb or verb-noun pairs: OrderPlaced, DataReceived, ErrorOccurred
 
 class OrderProcessor
@@ -20215,11 +19053,8 @@ class OrderEventArgs(int orderId, string message) : EventArgs
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 11. GARBAGE COLLECTION
+## 11. Garbage Collection
 
 <br/>
 
@@ -20230,20 +19065,20 @@ The **Garbage Collector (GC)** is an automatic memory manager in the .NET runtim
 **How it works:**
 1. Objects are allocated on the **managed heap**
 2. The GC periodically checks which objects are **reachable** (via roots: stack variables, static fields, GC handles)
-3. **Unreachable** objects are swept â€” their memory is reclaimed
+3. **Unreachable** objects are swept — their memory is reclaimed
 4. **Surviving** objects are **compacted** (defragmentation) and promoted to higher generations
 
 ```cs
-// Objects on managed heap â€” GC manages lifetime automatically
+// Objects on managed heap — GC manages lifetime automatically
 var list = new List<string>();          // heap allocation
 list.Add("item");                       // more heap
-list = null;                           // now unreachable â†’ eligible for GC
+list = null;                           // now unreachable → eligible for GC
 
-// You never need to free managed objects â€” GC handles it
+// You never need to free managed objects — GC handles it
 string s = new string('x', 1000);
 s = null; // GC will reclaim when it runs next collection
 
-// GC roots â€” objects reachable from these are NOT collected:
+// GC roots — objects reachable from these are NOT collected:
 // - Local variables on the stack
 // - Static fields
 // - CPU registers
@@ -20260,9 +19095,6 @@ GC.RegisterForFullGCNotification(10, 10);
 Console.WriteLine($"GC latency mode: {System.Runtime.GCSettings.LatencyMode}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are Generation 0, Generation 1, and Generation 2 in garbage collection? How does the GC know when to clean up?
 
@@ -20273,7 +19105,7 @@ The GC uses a **generational** model based on the observation that recently allo
 | **Gen 0** | Newly allocated objects | Very frequent (ms) | Cheapest collection |
 | **Gen 1** | Survived one Gen 0 | Less frequent | Buffer between Gen 0 and Gen 2 |
 | **Gen 2** | Long-lived objects | Infrequent (seconds) | Static fields, caches, singletons |
-| **LOH** | Objects â‰¥ 85,000 bytes | With Gen 2 | Large Object Heap â€” not compacted by default |
+| **LOH** | Objects ≥ 85,000 bytes | With Gen 2 | Large Object Heap — not compacted by default |
 
 ```cs
 // Objects start in Gen 0
@@ -20283,14 +19115,14 @@ Console.WriteLine(GC.GetGeneration(obj)); // 0
 // Force promotion for demonstration
 GC.Collect(0); // collect Gen 0
 GC.WaitForPendingFinalizers();
-Console.WriteLine(GC.GetGeneration(obj)); // 1 (survived â†’ promoted)
+Console.WriteLine(GC.GetGeneration(obj)); // 1 (survived → promoted)
 
 GC.Collect(1);
 GC.WaitForPendingFinalizers();
 Console.WriteLine(GC.GetGeneration(obj)); // 2 (survived again)
 
 // Large objects go straight to LOH (Gen 2)
-var large = new byte[100_000]; // â‰¥ 85KB â†’ LOH
+var large = new byte[100_000]; // ≥ 85KB → LOH
 Console.WriteLine(GC.GetGeneration(large)); // 2
 
 // How GC knows when to collect:
@@ -20299,10 +19131,10 @@ Console.WriteLine(GC.GetGeneration(large)); // 2
 // 3. Explicit GC.Collect() call
 // 4. AppDomain unload
 
-// GC phases: Mark â†’ Sweep â†’ Compact
-// Mark   â€” traverse from roots, mark all reachable objects
-// Sweep  â€” identify unreachable objects
-// Compact â€” slide live objects together, update references
+// GC phases: Mark → Sweep → Compact
+// Mark   — traverse from roots, mark all reachable objects
+// Sweep  — identify unreachable objects
+// Compact — slide live objects together, update references
 
 // Gen 0 metrics
 Console.WriteLine($"Gen 0 collections: {GC.CollectionCount(0)}");
@@ -20311,74 +19143,68 @@ Console.WriteLine($"Gen 2 collections: {GC.CollectionCount(2)}");
 Console.WriteLine($"Total memory: {GC.GetTotalMemory(false):N0} bytes");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Does the garbage collector clean up primitive types?
 
-**Primitive types** (value types like `int`, `double`, `bool`, `struct`) allocated on the **stack** are NOT managed by the GC â€” they are freed automatically when the stack frame is popped.
+**Primitive types** (value types like `int`, `double`, `bool`, `struct`) allocated on the **stack** are NOT managed by the GC — they are freed automatically when the stack frame is popped.
 
 Only **reference types** on the **managed heap** are managed by the GC.
 
 ```cs
-// Value types on the stack â€” NO GC involvement
-int x = 42;          // stack â€” freed when method returns
+// Value types on the stack — NO GC involvement
+int x = 42;          // stack — freed when method returns
 double d = 3.14;     // stack
 bool flag = true;    // stack
 
-// Value types inside a class â€” ON the heap (as part of the object)
+// Value types inside a class — ON the heap (as part of the object)
 class DataHolder
 {
     public int Count;     // on heap because DataHolder is a reference type
     public double Value;  // on heap
 }
-var holder = new DataHolder(); // holder reference on stack, object on heap â†’ GC manages
+var holder = new DataHolder(); // holder reference on stack, object on heap → GC manages
 
 // Struct on the stack
 struct Point { public int X, Y; }
-Point p = new Point { X = 1, Y = 2 }; // entirely on stack â€” NO GC
+Point p = new Point { X = 1, Y = 2 }; // entirely on stack — NO GC
 
 // Struct on the heap (boxed or inside a class/array)
-object boxed = p;          // boxing â€” copied to heap â†’ GC manages
+object boxed = p;          // boxing — copied to heap → GC manages
 Point[] points = new Point[10]; // array on heap, but Point values inline in array
 
 // Summary:
-// Primitive/value types on stack â†’ freed by stack unwind (no GC)
-// Reference types on heap â†’ GC manages
-// Boxed value types on heap â†’ GC manages
-// Value types as fields of heap objects â†’ GC manages (as part of parent object)
+// Primitive/value types on stack → freed by stack unwind (no GC)
+// Reference types on heap → GC manages
+// Boxed value types on heap → GC manages
+// Value types as fields of heap objects → GC manages (as part of parent object)
 
 Console.WriteLine($"Is value type: {typeof(int).IsValueType}");    // True
 Console.WriteLine($"Is value type: {typeof(string).IsValueType}"); // False
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How does the garbage collector behave when a class has a destructor (finalizer)?
 
 Objects with **finalizers** are placed on the **finalization queue** when they become unreachable. The GC must run the finalizer before reclaiming memory, which requires **at least two GC cycles**.
 
 ```cs
-// Object WITH finalizer â€” two-cycle collection
+// Object WITH finalizer — two-cycle collection
 public class ResourceWithFinalizer
 {
     public ResourceWithFinalizer() => Console.WriteLine("Created");
 
-    // Finalizer (destructor syntax) â€” called by GC on a dedicated finalizer thread
+    // Finalizer (destructor syntax) — called by GC on a dedicated finalizer thread
     ~ResourceWithFinalizer()
     {
         Console.WriteLine("Finalized by GC");
-        // GC thread â€” do NOT use Thread.CurrentThread, allocate large objects, etc.
+        // GC thread — do NOT use Thread.CurrentThread, allocate large objects, etc.
     }
 }
 
-// Cycle 1: object found unreachable â†’ moved to finalization queue (NOT reclaimed yet)
+// Cycle 1: object found unreachable → moved to finalization queue (NOT reclaimed yet)
 // Cycle 2: finalizer thread runs, GC reclaims memory
 
-// âœ… Dispose pattern â€” call GC.SuppressFinalize to skip the second cycle
+// ✅ Dispose pattern — call GC.SuppressFinalize to skip the second cycle
 public class ManagedResource : IDisposable
 {
     private bool _disposed;
@@ -20396,40 +19222,37 @@ public class ManagedResource : IDisposable
 
     ~ManagedResource()
     {
-        Dispose(disposing: false); // safety net â€” unmanaged only
+        Dispose(disposing: false); // safety net — unmanaged only
     }
 
     public void Dispose()
     {
         Dispose(disposing: true);
-        GC.SuppressFinalize(this); // remove from finalization queue â†’ single cycle
+        GC.SuppressFinalize(this); // remove from finalization queue → single cycle
     }
 }
 
 // Always use 'using' to call Dispose deterministically
 using var res = new ManagedResource();
-// Dispose called here â€” GC.SuppressFinalize prevents finalizer run
+// Dispose called here — GC.SuppressFinalize prevents finalizer run
 
 // Impact on GC:
 // Without Dispose: 2 GC cycles, finalizer thread overhead, delayed reclamation
 // With Dispose + SuppressFinalize: 1 GC cycle, no finalizer overhead
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can the garbage collector reclaim unmanaged resources? Can you force garbage collection? Is it a good practice?
 
 **Unmanaged resources** (file handles, sockets, native memory via `Marshal.AllocHGlobal`, COM objects) are **NOT managed by the GC**. They must be released explicitly via `IDisposable` / finalizers.
 
 ```cs
-// âŒ GC cannot free unmanaged resources â€” you must do it
+// ❌ GC cannot free unmanaged resources — you must do it
 var handle = System.Runtime.InteropServices.Marshal.AllocHGlobal(1024);
 // ... use handle
 System.Runtime.InteropServices.Marshal.FreeHGlobal(handle); // manual cleanup required
 
-// âœ… Wrap in SafeHandle or IDisposable for automatic cleanup
+// ✅ Wrap in SafeHandle or IDisposable for automatic cleanup
 public class NativeBuffer : IDisposable
 {
     private IntPtr _ptr;
@@ -20454,21 +19277,21 @@ public class NativeBuffer : IDisposable
 
 using var buf = new NativeBuffer(1024);
 
-// Forcing GC â€” GC.Collect()
+// Forcing GC — GC.Collect()
 GC.Collect();                         // collect all generations
 GC.Collect(0);                        // collect Gen 0 only
 GC.Collect(2, GCCollectionMode.Forced); // forced full collection
 GC.WaitForPendingFinalizers();        // wait for finalizer thread to complete
 GC.Collect();                         // collect finalizable objects
 
-// âš ï¸ Is it good practice to force GC?
-// âŒ Almost never â€” reasons:
-// - Promotes objects to higher generations unnecessarily (Gen 0 â†’ Gen 1 â†’ Gen 2)
+// ⚠️ Is it good practice to force GC?
+// ❌ Almost never — reasons:
+// - Promotes objects to higher generations unnecessarily (Gen 0 → Gen 1 → Gen 2)
 // - Disrupts GC\'s self-tuning heuristics
 // - Causes latency spikes (stop-the-world pause)
 // - Rarely improves performance; often makes it worse
 
-// âœ… Acceptable rare cases:
+// ✅ Acceptable rare cases:
 // 1. After a known large allocation is no longer needed
 // 2. In unit tests verifying finalizer behaviour
 // 3. Before performance-sensitive benchmarks (baseline memory)
@@ -20483,9 +19306,6 @@ void ProcessLargeBatch()
 void LoadLargeDataSet() { }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you detect memory leaks in .NET applications?
 
@@ -20497,7 +19317,7 @@ void LoadLargeDataSet() { }
 // 4. Closures capturing large objects
 // 5. Long-lived collections growing unbounded
 
-// 1. Event leak â€” subscriber held alive by publisher\'s event
+// 1. Event leak — subscriber held alive by publisher\'s event
 public class Publisher
 {
     public event EventHandler? Updated;
@@ -20521,7 +19341,7 @@ long after = GC.GetTotalMemory(false);
 Console.WriteLine($"Leaked: {(after - before) / 1024 / 1024} MB");
 list.Clear();
 
-// 3. WeakReference â€” holds reference without preventing GC
+// 3. WeakReference — holds reference without preventing GC
 var weakRef = new WeakReference<byte[]>(new byte[1024]);
 GC.Collect();
 if (weakRef.TryGetTarget(out var target))
@@ -20532,7 +19352,7 @@ else
 // 4. Tools for detecting leaks:
 // - dotnet-counters: dotnet counters monitor --process-id <pid>
 // - dotnet-dump:     dotnet dump collect --process-id <pid>
-// - Visual Studio Diagnostic Tools â†’ Memory Usage â†’ Snapshots
+// - Visual Studio Diagnostic Tools → Memory Usage → Snapshots
 // - JetBrains dotMemory, Redgate ANTS, PerfView
 
 // 5. MemoryDiagnoser in BenchmarkDotNet
@@ -20543,19 +19363,16 @@ else
 var pool = System.Buffers.ArrayPool<byte>.Shared;
 byte[] rented = pool.Rent(1024);
 try { /* use buffer */ }
-finally { pool.Return(rented); } // returned to pool â€” no GC pressure
+finally { pool.Return(rented); } // returned to pool — no GC pressure
 
 byte[] target2 = [];
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a finalizer in C#? What is `GC.SuppressFinalize` and when should you use it?
 
 ```cs
-// Finalizer â€” called by GC before reclaiming object memory
+// Finalizer — called by GC before reclaiming object memory
 // Syntax: ~ClassName() { }
 // - Runs on the dedicated finalizer thread
 // - Non-deterministic timing
@@ -20570,7 +19387,7 @@ public class FileWrapper : IDisposable
     public FileWrapper(string path)
         => _fileHandle = OpenFile(path); // OS handle
 
-    // Finalizer â€” safety net if Dispose was not called
+    // Finalizer — safety net if Dispose was not called
     ~FileWrapper()
     {
         Console.WriteLine("Finalizer: cleaning up (Dispose was not called!)");
@@ -20589,11 +19406,11 @@ public class FileWrapper : IDisposable
         _disposed = true;
     }
 
-    // GC.SuppressFinalize â€” tells GC: "finalizer not needed, skip finalization queue"
+    // GC.SuppressFinalize — tells GC: "finalizer not needed, skip finalization queue"
     public void Dispose()
     {
         Dispose(disposing: true);
-        GC.SuppressFinalize(this); // âœ… skip finalizer â€” memory reclaimed in ONE cycle
+        GC.SuppressFinalize(this); // ✅ skip finalizer — memory reclaimed in ONE cycle
     }
 
     private static IntPtr OpenFile(string path) => new(1);
@@ -20602,9 +19419,9 @@ public class FileWrapper : IDisposable
 
 // Always call Dispose with 'using'
 using var fw = new FileWrapper("data.bin");
-// Dispose called â†’ GC.SuppressFinalize â†’ no finalizer overhead
+// Dispose called → GC.SuppressFinalize → no finalizer overhead
 
-// GC.ReRegisterForFinalize â€” re-register for finalization (rare use: resurrection pattern)
+// GC.ReRegisterForFinalize — re-register for finalization (rare use: resurrection pattern)
 public class ResurrectableResource : IDisposable
 {
     ~ResurrectableResource() => Console.WriteLine("Finalized");
@@ -20621,7 +19438,7 @@ public class ResurrectableResource : IDisposable
     }
 }
 
-// GC.KeepAlive â€” prevents GC from collecting object before a certain point
+// GC.KeepAlive — prevents GC from collecting object before a certain point
 void UseHandle(IntPtr handle)
 {
     var resource = new FileWrapper("file");
@@ -20630,33 +19447,30 @@ void UseHandle(IntPtr handle)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is `GC.Collect` vs `GC.WaitForPendingFinalizers`?
 
 ```cs
-// GC.Collect â€” triggers a garbage collection
+// GC.Collect — triggers a garbage collection
 GC.Collect();         // collect all generations (0, 1, 2)
 GC.Collect(0);        // collect Gen 0 only
 GC.Collect(2, GCCollectionMode.Forced, blocking: true, compacting: true);
 // GCCollectionMode: Default, Forced, Optimized, Aggressive (.NET 6+)
 
-// GC.WaitForPendingFinalizers â€” blocks until finalizer thread completes all queued finalizers
+// GC.WaitForPendingFinalizers — blocks until finalizer thread completes all queued finalizers
 GC.WaitForPendingFinalizers();
 
 // Why use both together?
-// After Collect() â€” unreachable finalizable objects are queued for finalization
-// WaitForPendingFinalizers() â€” waits for finalizer thread to process that queue
-// Second Collect() â€” reclaims the now-finalized objects
+// After Collect() — unreachable finalizable objects are queued for finalization
+// WaitForPendingFinalizers() — waits for finalizer thread to process that queue
+// Second Collect() — reclaims the now-finalized objects
 
 // Standard pattern when you MUST force GC (tests, benchmarks):
 GC.Collect();
 GC.WaitForPendingFinalizers();
 GC.Collect(); // reclaim objects that were waiting for finalization
 
-// Example â€” verifying finalizer runs in tests
+// Example — verifying finalizer runs in tests
 bool finalized = false;
 
 void CreateObject()
@@ -20669,7 +19483,7 @@ GC.Collect();
 GC.WaitForPendingFinalizers();
 Console.WriteLine($"Finalized: {finalized}"); // True
 
-// GC.GetTotalMemory(forceFullCollection: true) â€” combines Collect + WaitForPendingFinalizers
+// GC.GetTotalMemory(forceFullCollection: true) — combines Collect + WaitForPendingFinalizers
 long memory = GC.GetTotalMemory(forceFullCollection: true);
 Console.WriteLine($"Memory after full GC: {memory:N0} bytes");
 
@@ -20679,16 +19493,13 @@ class FinalizableObj(Action onFinalize)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `WeakReference` in C#?
 
 A **`WeakReference<T>`** holds a reference to an object without preventing it from being garbage collected. Useful for caches and observer patterns where you don\'t want to force objects to stay alive.
 
 ```cs
-// WeakReference<T> â€” does NOT prevent GC collection
+// WeakReference<T> — does NOT prevent GC collection
 var data = new byte[1024 * 1024]; // 1 MB
 var weak = new WeakReference<byte[]>(data);
 
@@ -20700,7 +19511,7 @@ if (weak.TryGetTarget(out byte[]? target))
 else
     Console.WriteLine("Collected by GC");
 
-// WeakReference cache pattern â€” auto-evicts entries under memory pressure
+// WeakReference cache pattern — auto-evicts entries under memory pressure
 public class WeakCache<TKey, TValue> where TKey : notnull where TValue : class
 {
     private readonly Dictionary<TKey, WeakReference<TValue>> _cache = new();
@@ -20723,7 +19534,7 @@ cache.Set(1, "hello");
 string? val = cache.Get(1);
 Console.WriteLine(val ?? "not found"); // hello
 
-// WeakReference (non-generic, legacy) â€” avoid, use WeakReference<T> instead
+// WeakReference (non-generic, legacy) — avoid, use WeakReference<T> instead
 object obj = new { Name = "test" };
 var legacyWeak = new WeakReference(obj);
 Console.WriteLine(legacyWeak.IsAlive); // True
@@ -20732,16 +19543,13 @@ GC.Collect();
 Console.WriteLine(legacyWeak.IsAlive); // False
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `Lazy<T>` class? What is the difference between `Lazy` and `Lazy<T>`?
 
 `Lazy<T>` defers creation of an expensive object until it is first accessed. It is thread-safe by default.
 
 ```cs
-// Lazy<T> â€” deferred, thread-safe initialization
+// Lazy<T> — deferred, thread-safe initialization
 var lazyConfig = new Lazy<AppConfig>(() =>
 {
     Console.WriteLine("Loading config..."); // only runs on first access
@@ -20751,13 +19559,13 @@ var lazyConfig = new Lazy<AppConfig>(() =>
 // Value not yet created
 Console.WriteLine(lazyConfig.IsValueCreated); // False
 
-// First access â€” triggers initialization
+// First access — triggers initialization
 AppConfig config = lazyConfig.Value;           // "Loading config..."
 Console.WriteLine(lazyConfig.IsValueCreated); // True
-Console.WriteLine(lazyConfig.Value.Timeout);  // 30 â€” second access, no re-init
+Console.WriteLine(lazyConfig.Value.Timeout);  // 30 — second access, no re-init
 
 // Thread safety modes
-var lazy1 = new Lazy<ExpensiveObject>(LazyThreadSafetyMode.ExecutionAndPublication); // default â€” lock on init
+var lazy1 = new Lazy<ExpensiveObject>(LazyThreadSafetyMode.ExecutionAndPublication); // default — lock on init
 var lazy2 = new Lazy<ExpensiveObject>(LazyThreadSafetyMode.PublicationOnly);         // race: one winner
 var lazy3 = new Lazy<ExpensiveObject>(LazyThreadSafetyMode.None);                    // no thread safety
 
@@ -20775,11 +19583,11 @@ public class DataService
 
 DataService.Instance.Query();
 
-// Lazy (non-generic) â€” does NOT exist as a public API
-// 'Lazy' by itself is not a type â€” always use Lazy<T>
+// Lazy (non-generic) — does NOT exist as a public API
+// 'Lazy' by itself is not a type — always use Lazy<T>
 // The question likely refers to:
-// â€¢ Lazy<T>  â€” built-in BCL class
-// â€¢ Custom lazy patterns (lazy fields, lazy properties)
+// • Lazy<T>  — built-in BCL class
+// • Custom lazy patterns (lazy fields, lazy properties)
 
 // Lazy property pattern (no Lazy<T> class)
 private ExpensiveObject? _resource;
@@ -20789,9 +19597,6 @@ record AppConfig { public int Timeout { get; init; } }
 class ExpensiveObject { }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `MemoryCache` in C#?
 
@@ -20824,12 +19629,12 @@ cache.Set("session:abc", new SessionData(), new MemoryCacheEntryOptions
 if (cache.TryGetValue("user:1", out User? user))
     Console.WriteLine($"From cache: {user?.Name}");
 
-// GetOrCreate â€” atomic check-and-create
+// GetOrCreate — atomic check-and-create
 User cachedUser = cache.GetOrCreate("user:2", entry =>
 {
     entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10);
     entry.Size = 1;
-    return new User(2, "Bob"); // factory â€” called only on cache miss
+    return new User(2, "Bob"); // factory — called only on cache miss
 })!;
 
 // Async GetOrCreateAsync
@@ -20851,7 +19656,7 @@ cache.Set("temp:key", "value", new MemoryCacheEntryOptions
 // Remove manually
 cache.Remove("user:1");
 
-// In ASP.NET Core â€” register via DI
+// In ASP.NET Core — register via DI
 // services.AddMemoryCache();
 // Then inject IMemoryCache into your service
 
@@ -20860,16 +19665,13 @@ record User(int Id, string Name);
 record SessionData;
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a `Mutex` in C#?
 
 A `Mutex` (mutual exclusion) is a synchronization primitive that restricts access to a resource to **one thread at a time**, and uniquely supports **cross-process** synchronization via a named mutex.
 
 ```cs
-// 1. Local mutex â€” single-process synchronization
+// 1. Local mutex — single-process synchronization
 using var mutex = new Mutex();
 
 Thread t1 = new(() =>
@@ -20888,7 +19690,7 @@ Thread t2 = new(() =>
 
 t1.Start(); t2.Start(); t1.Join(); t2.Join();
 
-// 2. Named mutex â€” cross-process (e.g., single-instance application)
+// 2. Named mutex — cross-process (e.g., single-instance application)
 const string MutexName = "Global\\MyApp_SingleInstance";
 
 bool createdNew;
@@ -20924,29 +19726,26 @@ else
 }
 
 // Note: for single-process scenarios prefer lock/Monitor or SemaphoreSlim
-// Mutex is heavier â€” use only when cross-process sync is needed
+// Mutex is heavier — use only when cross-process sync is needed
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is `Semaphore` vs `SemaphoreSlim` in C#?
 
 | | `Semaphore` | `SemaphoreSlim` |
 |-|------------|----------------|
-| **Cross-process** | âœ… Named semaphores | âŒ In-process only |
-| **Async support** | âŒ | âœ… `WaitAsync()` |
+| **Cross-process** | ✅ Named semaphores | ❌ In-process only |
+| **Async support** | ❌ | ✅ `WaitAsync()` |
 | **Performance** | Heavier (OS kernel) | Lighter (user-mode) |
 | **Use when** | Cross-process throttling | In-process async throttling |
 
 ```cs
-// SemaphoreSlim â€” preferred for async in-process scenarios
+// SemaphoreSlim — preferred for async in-process scenarios
 var semaphore = new SemaphoreSlim(initialCount: 3, maxCount: 3); // allow 3 concurrent
 
 var tasks = Enumerable.Range(1, 10).Select(async i =>
 {
-    await semaphore.WaitAsync(); // acquire slot (async â€” no thread blocking)
+    await semaphore.WaitAsync(); // acquire slot (async — no thread blocking)
     try
     {
         Console.WriteLine($"Task {i} running (slots left: {semaphore.CurrentCount})");
@@ -20961,7 +19760,7 @@ var tasks = Enumerable.Range(1, 10).Select(async i =>
 
 await Task.WhenAll(tasks); // max 3 tasks run concurrently
 
-// Named Semaphore â€” cross-process throttling
+// Named Semaphore — cross-process throttling
 using var namedSemaphore = new Semaphore(initialCount: 2, maximumCount: 2, name: "Global\\MySemaphore");
 bool entered = namedSemaphore.WaitOne(TimeSpan.FromSeconds(5));
 if (entered)
@@ -20980,16 +19779,13 @@ async Task<string> FetchAsync(HttpClient client, string url)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a deadlock in C#?
 
 A **deadlock** occurs when two or more threads each hold a resource that the other needs, causing all threads to wait indefinitely.
 
 ```cs
-// Classic deadlock â€” two threads, two locks acquired in opposite order
+// Classic deadlock — two threads, two locks acquired in opposite order
 object lock1 = new();
 object lock2 = new();
 
@@ -21011,7 +19807,7 @@ Thread t2 = new(() =>
     }
 });
 
-// t1.Start(); t2.Start(); â† DEADLOCK! Both threads wait forever
+// t1.Start(); t2.Start(); ← DEADLOCK! Both threads wait forever
 
 // Prevention 1: consistent lock ordering
 Thread safe1 = new(() => { lock (lock1) { lock (lock2) { Console.WriteLine("safe1"); } } });
@@ -21030,7 +19826,7 @@ Thread tryLock = new(() =>
                 try { Console.WriteLine("Acquired both"); }
                 finally { Monitor.Exit(lock2); }
             }
-            else { Console.WriteLine("Could not acquire lock2 â€” backoff"); }
+            else { Console.WriteLine("Could not acquire lock2 — backoff"); }
         }
         finally { Monitor.Exit(lock1); }
     }
@@ -21042,21 +19838,18 @@ tryLock.Start(); tryLock.Join();
 // Prevention 5: use higher-level concurrency primitives (Channel<T>, Dataflow)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `Interlocked` class in C#?
 
-`Interlocked` provides **atomic** operations on shared variables â€” thread-safe without locks, using CPU atomic instructions.
+`Interlocked` provides **atomic** operations on shared variables — thread-safe without locks, using CPU atomic instructions.
 
 ```cs
-// Interlocked.Increment / Decrement â€” atomic ++ and --
+// Interlocked.Increment / Decrement — atomic ++ and --
 int counter = 0;
 var threads = Enumerable.Range(0, 10).Select(_ => new Thread(() =>
 {
     for (int i = 0; i < 1000; i++)
-        Interlocked.Increment(ref counter); // atomic â€” no race condition
+        Interlocked.Increment(ref counter); // atomic — no race condition
 })).ToList();
 
 threads.ForEach(t => t.Start());
@@ -21064,24 +19857,24 @@ threads.ForEach(t => t.Join());
 Console.WriteLine(counter); // always 10,000
 
 // Without Interlocked: counter++ is NOT atomic (read-modify-write race)
-// counter++ â†’ IL: ldloc, ldc.i4.1, add, stloc â€” three non-atomic operations
+// counter++ → IL: ldloc, ldc.i4.1, add, stloc — three non-atomic operations
 
-// Interlocked.Add â€” atomic addition
+// Interlocked.Add — atomic addition
 long total = 0;
 Interlocked.Add(ref total, 100);
 Console.WriteLine(total); // 100
 
-// Interlocked.Exchange â€” atomically set and return old value
+// Interlocked.Exchange — atomically set and return old value
 int state = 0;
 int oldState = Interlocked.Exchange(ref state, 1);
 Console.WriteLine($"Old: {oldState}, New: {state}"); // Old: 0, New: 1
 
-// Interlocked.CompareExchange â€” set if current value equals expected (CAS)
+// Interlocked.CompareExchange — set if current value equals expected (CAS)
 int value = 5;
 int original = Interlocked.CompareExchange(ref value, newValue: 10, comparand: 5);
 Console.WriteLine($"Original: {original}, Value: {value}"); // Original: 5, Value: 10
 
-// CAS loop â€” lock-free update pattern
+// CAS loop — lock-free update pattern
 long sharedLong = 0;
 void AddLockFree(long amount)
 {
@@ -21093,16 +19886,13 @@ void AddLockFree(long amount)
     } while (Interlocked.CompareExchange(ref sharedLong, updated, current) != current);
 }
 
-// Interlocked.Read â€” atomic 64-bit read on 32-bit systems
+// Interlocked.Read — atomic 64-bit read on 32-bit systems
 long safeRead = Interlocked.Read(ref sharedLong);
 
-// Interlocked.MemoryBarrier / MemoryBarrierProcessWide â€” memory fences
-Interlocked.MemoryBarrier(); // full fence â€” prevents CPU/compiler reordering
+// Interlocked.MemoryBarrier / MemoryBarrierProcessWide — memory fences
+Interlocked.MemoryBarrier(); // full fence — prevents CPU/compiler reordering
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Task` and `ValueTask`?
 
@@ -21114,18 +19904,18 @@ Interlocked.MemoryBarrier(); // full fence â€” prevents CPU/compiler reorde
 | **Use when** | General async work | High-throughput, often-sync methods |
 
 ```cs
-// Task â€” standard async, always allocates
+// Task — standard async, always allocates
 async Task<int> GetCountAsync()
 {
     await Task.Delay(100); // genuinely async
     return 42;
 }
 
-// ValueTask â€” avoids allocation when result is immediately available
+// ValueTask — avoids allocation when result is immediately available
 async ValueTask<int> GetCachedCountAsync()
 {
     if (_cache.TryGetValue("count", out int cached))
-        return cached; // synchronous fast path â€” NO Task allocation
+        return cached; // synchronous fast path — NO Task allocation
 
     int value = await LoadFromDbAsync(); // async slow path
     _cache["count"] = value;
@@ -21136,31 +19926,28 @@ async ValueTask<int> GetCachedCountAsync()
 int count = await GetCachedCountAsync();
 
 // Rules for ValueTask:
-// âœ… Await it exactly once
-// âœ… Don\'t store and await later (use AsTask() first)
-// âœ… Don\'t await from multiple consumers
-// âœ… Use when method frequently returns synchronously
+// ✅ Await it exactly once
+// ✅ Don\'t store and await later (use AsTask() first)
+// ✅ Don\'t await from multiple consumers
+// ✅ Use when method frequently returns synchronously
 
 // Converting ValueTask to Task when you need to share/store
 ValueTask<int> vt = GetCachedCountAsync();
-Task<int> task = vt.AsTask(); // convert â€” now safely multi-awaitable
+Task<int> task = vt.AsTask(); // convert — now safely multi-awaitable
 int r1 = await task;
-int r2 = await task; // âœ… safe after AsTask()
+int r2 = await task; // ✅ safe after AsTask()
 
-// IValueTaskSource â€” advanced: reuse ValueTask with pool (avoid this unless profiling shows need)
+// IValueTaskSource — advanced: reuse ValueTask with pool (avoid this unless profiling shows need)
 
 Dictionary<string, int> _cache = new();
 Task<int> LoadFromDbAsync() => Task.FromResult(100);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is `CancellationToken` and `CancellationTokenSource` in C#?
 
 ```cs
-// CancellationTokenSource â€” creates and controls cancellation
+// CancellationTokenSource — creates and controls cancellation
 using var cts = new CancellationTokenSource();
 CancellationToken token = cts.Token;
 
@@ -21173,11 +19960,11 @@ cts.CancelAfter(TimeSpan.FromSeconds(5));
 // Manual cancel
 // cts.Cancel(); // triggers cancellation
 
-// CancellationToken â€” passed to async methods to observe cancellation
+// CancellationToken — passed to async methods to observe cancellation
 async Task<string> FetchDataAsync(string url, CancellationToken ct = default)
 {
     using var client = new HttpClient();
-    // Pass token to async I/O â€” cancels automatically
+    // Pass token to async I/O — cancels automatically
     return await client.GetStringAsync(url, ct);
 }
 
@@ -21210,7 +19997,7 @@ catch (OperationCanceledException)
     Console.WriteLine("Task was cancelled gracefully");
 }
 
-// Linked tokens â€” cancel when ANY source fires
+// Linked tokens — cancel when ANY source fires
 using var userCts    = new CancellationTokenSource();
 using var timeoutCts2 = new CancellationTokenSource(TimeSpan.FromSeconds(30));
 using var linked     = CancellationTokenSource.CreateLinkedTokenSource(
@@ -21219,9 +20006,6 @@ using var linked     = CancellationTokenSource.CreateLinkedTokenSource(
 await FetchDataAsync("https://example.com", linked.Token);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `Task.WhenAll` and `Task.WhenAny`?
 
@@ -21232,7 +20016,7 @@ await FetchDataAsync("https://example.com", linked.Token);
 | **Use for** | Fan-out parallel work | Timeout, race, first-success patterns |
 
 ```cs
-// Task.WhenAll â€” wait for all, collect all results
+// Task.WhenAll — wait for all, collect all results
 async Task WhenAllExample()
 {
     Task<string> task1 = FetchAsync("https://api.example.com/users");
@@ -21244,7 +20028,7 @@ async Task WhenAllExample()
     Console.WriteLine($"Orders: {results[1].Length} chars");
 }
 
-// Task.WhenAny â€” first to complete wins
+// Task.WhenAny — first to complete wins
 async Task WhenAnyExample()
 {
     // Pattern 1: timeout
@@ -21267,7 +20051,7 @@ async Task WhenAnyExample()
     Console.WriteLine($"Fastest result: {(await winner).Length} chars");
 }
 
-// WhenAll exception handling â€” see all failures
+// WhenAll exception handling — see all failures
 Task[] failingTasks =
 [
     Task.Run(() => throw new Exception("Task 1")),
@@ -21285,9 +20069,6 @@ static Task<string> FetchAsync(string url) =>
     Task.FromResult($"data-from-{url}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is `ConcurrentDictionary` in C#?
 
@@ -21301,16 +20082,16 @@ var dict = new ConcurrentDictionary<string, int>(StringComparer.OrdinalIgnoreCas
 // Thread-safe add or update
 dict["count"] = 0;
 
-// TryAdd â€” adds only if key doesn\'t exist
+// TryAdd — adds only if key doesn\'t exist
 bool added = dict.TryAdd("item1", 10);
 
-// AddOrUpdate â€” atomic add-or-update
+// AddOrUpdate — atomic add-or-update
 dict.AddOrUpdate(
     key: "count",
     addValue: 1,
     updateValueFactory: (_, current) => current + 1);
 
-// GetOrAdd â€” atomic get-or-create
+// GetOrAdd — atomic get-or-create
 int value = dict.GetOrAdd("hits", key =>
 {
     Console.WriteLine($"Creating default for {key}");
@@ -21340,13 +20121,10 @@ dict.TryRemove("item1", out _);
 foreach (var (key, val) in dict)
     Console.WriteLine($"{key} = {val}");
 
-// Keys / Values â€” snapshot copies
+// Keys / Values — snapshot copies
 ICollection<string> keys = dict.Keys;
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is `BlockingCollection` in C#? What is the difference between `ConcurrentBag` and `ConcurrentQueue`?
 
@@ -21359,10 +20137,10 @@ ICollection<string> keys = dict.Keys;
 | **Thread affinity** | None | Optimized for thread-local access |
 
 ```cs
-// BlockingCollection â€” bounded producer-consumer queue
+// BlockingCollection — bounded producer-consumer queue
 var collection = new BlockingCollection<int>(boundedCapacity: 100);
 
-// Producer â€” blocks when collection is full
+// Producer — blocks when collection is full
 Task producer = Task.Run(() =>
 {
     for (int i = 0; i < 20; i++)
@@ -21373,7 +20151,7 @@ Task producer = Task.Run(() =>
     collection.CompleteAdding();           // signal no more items
 });
 
-// Consumer â€” blocks when collection is empty
+// Consumer — blocks when collection is empty
 Task consumer = Task.Run(() =>
 {
     foreach (int item in collection.GetConsumingEnumerable()) // blocks until item or completed
@@ -21382,7 +20160,7 @@ Task consumer = Task.Run(() =>
 
 await Task.WhenAll(producer, consumer);
 
-// ConcurrentQueue â€” FIFO, producer-consumer pipeline
+// ConcurrentQueue — FIFO, producer-consumer pipeline
 var queue = new ConcurrentQueue<string>();
 queue.Enqueue("first");
 queue.Enqueue("second");
@@ -21390,7 +20168,7 @@ queue.Enqueue("second");
 if (queue.TryDequeue(out string? item)) Console.WriteLine(item); // first
 if (queue.TryPeek(out string? next))    Console.WriteLine(next); // second
 
-// ConcurrentBag â€” unordered, thread-local optimization
+// ConcurrentBag — unordered, thread-local optimization
 var bag = new ConcurrentBag<int>();
 Parallel.For(0, 10, i => bag.Add(i)); // each thread adds to local bag
 
@@ -21398,15 +20176,12 @@ while (bag.TryTake(out int bagItem))
     Console.Write($"{bagItem} "); // unordered output
 Console.WriteLine();
 
-// ConcurrentStack â€” LIFO
+// ConcurrentStack — LIFO
 var stack = new ConcurrentStack<int>();
 stack.Push(1); stack.Push(2); stack.Push(3);
 if (stack.TryPop(out int top)) Console.WriteLine(top); // 3
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between server GC and workstation GC? How do you configure GC with `GCSettings`?
 
@@ -21426,16 +20201,16 @@ using System.Runtime;
 Console.WriteLine($"Server GC: {GCSettings.IsServerGC}");
 Console.WriteLine($"Latency mode: {GCSettings.LatencyMode}");
 
-// GCLatencyMode â€” balance throughput vs pause time
+// GCLatencyMode — balance throughput vs pause time
 // Configure for interactive/low-latency scenario
 GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
-// Minimizes Gen 2 collections â€” good for UI, real-time
+// Minimizes Gen 2 collections — good for UI, real-time
 
 // Briefly suppress GC during critical section
 GC.TryStartNoGCRegion(1024 * 1024 * 10); // request 10 MB no-GC region
 try
 {
-    // Critical path â€” GC will not run here if memory is available
+    // Critical path — GC will not run here if memory is available
     PerformLatencySensitiveWork();
 }
 finally
@@ -21460,22 +20235,19 @@ finally
 // <GarbageCollectionAdaptationMode>0</GarbageCollectionAdaptationMode>
 
 // Optimize GC in .NET:
-// 1. Reduce allocations â€” use stackalloc, Span<T>, ArrayPool<T>
-// 2. Avoid boxing â€” use generics instead of object
+// 1. Reduce allocations — use stackalloc, Span<T>, ArrayPool<T>
+// 2. Avoid boxing — use generics instead of object
 // 3. Dispose IDisposable objects promptly (using statement)
 // 4. Use object pooling for large, frequently-allocated objects
 // 5. Prefer value types (struct) for small, short-lived data
-// 6. Avoid large object heap (LOH) fragmentation â€” pool large arrays
+// 6. Avoid large object heap (LOH) fragmentation — pool large arrays
 
 void PerformLatencySensitiveWork() { }
 
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 12. LAMBDA EXPRESSIONS
+## 12. Lambda Expressions
 
 <br/>
 
@@ -21486,16 +20258,16 @@ A **lambda expression** is an anonymous inline function defined with the `=>` (g
 **Syntax forms:**
 
 ```cs
-// Expression lambda â€” single expression, implicit return
+// Expression lambda — single expression, implicit return
 (parameters) => expression
 
-// Statement lambda â€” block body with explicit return
+// Statement lambda — block body with explicit return
 (parameters) => { statements; return value; }
 
 // Zero parameters
 () => Console.WriteLine("Hello")
 
-// One parameter â€” parentheses optional
+// One parameter — parentheses optional
 x => x * x
 
 // Multiple parameters
@@ -21512,11 +20284,11 @@ x => x * x
 - Replaces verbose anonymous methods (C# 2.0 syntax)
 
 ```cs
-// Without lambda â€” verbose
+// Without lambda — verbose
 static bool IsEvenMethod(int n) => n % 2 == 0;
 var evens1 = new List<int> { 1, 2, 3, 4, 5 }.FindAll(IsEvenMethod);
 
-// With lambda â€” concise, inline
+// With lambda — concise, inline
 var evens2 = new List<int> { 1, 2, 3, 4, 5 }.FindAll(n => n % 2 == 0);
 
 // Delegate types satisfied by lambdas
@@ -21533,25 +20305,22 @@ Console.WriteLine(isShort("Hi")); // True
 var add = (int a, int b) => a + b; // inferred as Func<int,int,int>
 Console.WriteLine(add(3, 4));  // 7
 
-// Static lambda (.NET 5+) â€” prevents accidental capture
+// Static lambda (.NET 5+) — prevents accidental capture
 var multiplier = 10;
-Func<int, int> staticLambda = static x => x * 2; // âœ… cannot capture 'multiplier'
+Func<int, int> staticLambda = static x => x * 2; // ✅ cannot capture 'multiplier'
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between expression lambdas, statement lambdas, and anonymous methods?
 
 ```cs
-// 1. Expression lambda â€” single expression, implicit return
+// 1. Expression lambda — single expression, implicit return
 Func<int, int> square = x => x * x;
 Func<int, int, int> sum = (a, b) => a + b;
 Console.WriteLine(square(5));  // 25
 Console.WriteLine(sum(3, 4));  // 7
 
-// 2. Statement lambda â€” block body, explicit return
+// 2. Statement lambda — block body, explicit return
 Func<int, string> classify = n =>
 {
     if (n < 0) return "negative";
@@ -21560,41 +20329,38 @@ Func<int, string> classify = n =>
 };
 Console.WriteLine(classify(-5)); // negative
 
-// 3. Anonymous method (C# 2.0 â€” pre-lambda) â€” verbose, limited
+// 3. Anonymous method (C# 2.0 — pre-lambda) — verbose, limited
 Func<int, int> squareAnon = delegate(int x) { return x * x; };
 Console.WriteLine(squareAnon(5)); // 25
 
 // Key differences:
-// Expression lambda  â€” concise, can be used as Expression<Func<...>> (EF Core, etc.)
-// Statement lambda   â€” more complex logic, cannot be Expression<T>
-// Anonymous method   â€” legacy, no expression tree support, no implicit typing
+// Expression lambda  — concise, can be used as Expression<Func<...>> (EF Core, etc.)
+// Statement lambda   — more complex logic, cannot be Expression<T>
+// Anonymous method   — legacy, no expression tree support, no implicit typing
 
-// Expression tree â€” only expression lambdas work
+// Expression tree — only expression lambdas work
 using System.Linq.Expressions;
-Expression<Func<int, bool>> expr  = x => x > 5;   // âœ… expression lambda
-// Expression<Func<int, bool>> fail = x => { return x > 5; }; // âŒ compile error (statement)
+Expression<Func<int, bool>> expr  = x => x > 5;   // ✅ expression lambda
+// Expression<Func<int, bool>> fail = x => { return x > 5; }; // ❌ compile error (statement)
 
-Console.WriteLine(expr.Compile()(10)); // True â€” compiled and invoked
-Console.WriteLine(expr);              // x => (x > 5) â€” inspectable as data
+Console.WriteLine(expr.Compile()(10)); // True — compiled and invoked
+Console.WriteLine(expr);              // x => (x > 5) — inspectable as data
 
 // IQueryable uses expression trees to build SQL
 // var users = dbContext.Users.Where(u => u.Age > 18); // EF translates to SQL WHERE
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use lambda expressions with LINQ in C#?
 
 ```cs
 int[] numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-// Where â€” filter
+// Where — filter
 var evens = numbers.Where(n => n % 2 == 0);
 // [2, 4, 6, 8, 10]
 
-// Select â€” transform (map)
+// Select — transform (map)
 var squares = numbers.Select(n => n * n);
 // [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
@@ -21618,7 +20384,7 @@ foreach (var g in byLetter)
 int product = numbers.Aggregate(1, (acc, n) => acc * n);
 Console.WriteLine(product); // 3628800 (10!)
 
-// SelectMany â€” flatten nested sequences
+// SelectMany — flatten nested sequences
 string[] sentences = ["hello world", "foo bar baz"];
 var allWords = sentences.SelectMany(s => s.Split(' '));
 // [hello, world, foo, bar, baz]
@@ -21642,19 +20408,16 @@ foreach (var r in report)
 // Alice: $650.00 (2 orders)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the advantages of using lambda expressions in C#?
 
 | Advantage | Description |
 |-----------|-------------|
 | **Concise** | Eliminates boilerplate method declarations |
-| **Inline** | Logic defined at the usage site â€” easier to read |
+| **Inline** | Logic defined at the usage site — easier to read |
 | **Closure** | Captures surrounding variables naturally |
 | **LINQ** | Enables readable query composition |
-| **Expression trees** | Lambdas can be inspected/translated (EF Core â†’ SQL) |
+| **Expression trees** | Lambdas can be inspected/translated (EF Core → SQL) |
 | **First-class** | Passed as arguments, stored in variables, returned from methods |
 | **Composable** | Build pipelines with Func<T> chains |
 
@@ -21686,7 +20449,7 @@ string password = "MyPass1!";
 bool valid = validators.All(v => v(password));
 Console.WriteLine($"Password valid: {valid}"); // True
 
-// Lazy evaluation â€” lambda delays execution
+// Lazy evaluation — lambda delays execution
 Func<string> expensive = () =>
 {
     Thread.Sleep(1000); // only runs when called
@@ -21700,45 +20463,42 @@ if (ShouldCompute())
 static bool ShouldCompute() => true;
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you capture variables in a lambda expression (closures) in C#?
 
 Lambdas **capture variables by reference**, not by value. The lambda and outer code share the **same variable**.
 
 ```cs
-// Basic closure â€” captures outer variable
+// Basic closure — captures outer variable
 int multiplier = 3;
 Func<int, int> multiply = x => x * multiplier;
 Console.WriteLine(multiply(5)); // 15
 
 multiplier = 10; // change outer variable
-Console.WriteLine(multiply(5)); // 50 â€” lambda sees updated value!
+Console.WriteLine(multiply(5)); // 50 — lambda sees updated value!
 
-// âš ï¸ Classic closure trap in loops
+// ⚠️ Classic closure trap in loops
 var funcs = new List<Func<int>>();
 for (int i = 0; i < 5; i++)
     funcs.Add(() => i); // captures the VARIABLE i, not its current value
 
-funcs.ForEach(f => Console.Write(f() + " ")); // 5 5 5 5 5 â€” all see final i
+funcs.ForEach(f => Console.Write(f() + " ")); // 5 5 5 5 5 — all see final i
 
-// âœ… Fix: capture a copy with a local variable
+// ✅ Fix: capture a copy with a local variable
 funcs.Clear();
 for (int i = 0; i < 5; i++)
 {
     int copy = i;
-    funcs.Add(() => copy); // captures 'copy' â€” each iteration\'s own variable
+    funcs.Add(() => copy); // captures 'copy' — each iteration\'s own variable
 }
-funcs.ForEach(f => Console.Write(f() + " ")); // 0 1 2 3 4 â€” âœ… correct
+funcs.ForEach(f => Console.Write(f() + " ")); // 0 1 2 3 4 — ✅ correct
 
-// âœ… C# foreach â€” loop variable is NOT shared (safe by design)
+// ✅ C# foreach — loop variable is NOT shared (safe by design)
 int[] items = [10, 20, 30];
 var itemFuncs = items.Select(item => (Func<int>)(() => item)).ToList();
-itemFuncs.ForEach(f => Console.Write(f() + " ")); // 10 20 30 âœ…
+itemFuncs.ForEach(f => Console.Write(f() + " ")); // 10 20 30 ✅
 
-// Closure lifetime â€” captured variable stays alive as long as lambda exists
+// Closure lifetime — captured variable stays alive as long as lambda exists
 Func<int> counter = MakeCounter();
 Console.WriteLine(counter()); // 1
 Console.WriteLine(counter()); // 2
@@ -21750,13 +20510,10 @@ Func<int> MakeCounter()
     return () => ++count;        // lambda captures 'count'
 }
 
-// Memory implication â€” large objects captured in lambdas stay alive
+// Memory implication — large objects captured in lambdas stay alive
 // Store lambdas minimally; don\'t capture large datasets unnecessarily
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use lambda expressions with delegates? What are the limitations of lambda expressions?
 
@@ -21781,43 +20538,40 @@ Console.WriteLine(string.Join(", ", nums)); // 9, 6, 5, 4, 3, 2, 1, 1
 // -------- LIMITATIONS --------
 
 // 1. Cannot use ref/out/in parameters in expression lambdas (statement lambdas only)
-Func<int, int> refLambda = (int x) =>       // âœ…
+Func<int, int> refLambda = (int x) =>       // ✅
 {
-    // ref int y = ref x; // âŒ lambdas cannot yield ref returns via Func<>
+    // ref int y = ref x; // ❌ lambdas cannot yield ref returns via Func<>
     return x + 1;
 };
 
 // 2. Cannot use 'yield return' inside lambdas
-// Func<IEnumerable<int>> gen = () => { yield return 1; }; // âŒ compile error
+// Func<IEnumerable<int>> gen = () => { yield return 1; }; // ❌ compile error
 
 // 3. Cannot use 'goto', 'break', 'continue' to jump outside the lambda
 // 4. Cannot use unsafe code (pointers) inside lambdas
 
 // 5. Statement lambdas cannot be expression trees
 using System.Linq.Expressions;
-// Expression<Func<int,int>> e = x => { return x; }; // âŒ compile error
-Expression<Func<int, int>> e = x => x; // âœ… expression only
+// Expression<Func<int,int>> e = x => { return x; }; // ❌ compile error
+Expression<Func<int, int>> e = x => x; // ✅ expression only
 
-// 6. Debugging is harder â€” stack traces show generated names like <MethodName>b__0_0
+// 6. Debugging is harder — stack traces show generated names like <MethodName>b__0_0
 
-// 7. Performance â€” each lambda declaration creates a delegate allocation
+// 7. Performance — each lambda declaration creates a delegate allocation
 //    Use 'static' lambda or cache delegate to avoid repeated allocations
 static Func<int, int>? _cached;
 _cached ??= static x => x * 2; // allocated once
 
 // 8. Cannot be used as default argument values
-// void Method(Func<int, int> f = x => x) { } // âŒ (but null default is fine)
-// void Method(Func<int, int>? f = null) { }  // âœ…
+// void Method(Func<int, int> f = x => x) { } // ❌ (but null default is fine)
+// void Method(Func<int, int>? f = null) { }  // ✅
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle exceptions in lambda expressions? Can you use `async`/`await` with lambdas? How do you use lambdas in event handling?
 
 ```cs
-// Exception handling inside lambda â€” use try/catch within body
+// Exception handling inside lambda — use try/catch within body
 Func<int, int, int> safeDivide = (a, b) =>
 {
     try { return a / b; }
@@ -21825,7 +20579,7 @@ Func<int, int, int> safeDivide = (a, b) =>
 };
 Console.WriteLine(safeDivide(10, 0)); // 0
 
-// Exception in lambda passed to LINQ â€” propagates to calling code
+// Exception in lambda passed to LINQ — propagates to calling code
 int[] numbers = [1, 2, 0, 4];
 try
 {
@@ -21854,15 +20608,15 @@ Func<string, Task<int>> asyncFunc = async url =>
 };
 int length = await asyncFunc("https://example.com");
 
-// âš ï¸ Avoid async void lambda (no way to await/observe exceptions)
-// Action asyncVoid = async () => { await Task.Delay(100); }; // âŒ fire-and-forget, exception lost
+// ⚠️ Avoid async void lambda (no way to await/observe exceptions)
+// Action asyncVoid = async () => { await Task.Delay(100); }; // ❌ fire-and-forget, exception lost
 // Instead use Func<Task>:
-Func<Task> safeAsyncAction = async () => { await Task.Delay(100); }; // âœ…
+Func<Task> safeAsyncAction = async () => { await Task.Delay(100); }; // ✅
 
 // ---- EVENT HANDLING ----
 var button = new Button();
 
-// Lambda event handler â€” concise
+// Lambda event handler — concise
 button.Clicked += (sender, e) => Console.WriteLine($"Clicked: {e.Label}");
 
 // Store reference to unsubscribe later
@@ -21875,7 +20629,7 @@ handler = (sender, e) =>
 button.Clicked += handler;
 
 button.DoClick("OK");
-button.DoClick("OK"); // second click â€” handler already removed
+button.DoClick("OK"); // second click — handler already removed
 
 class Button
 {
@@ -21885,9 +20639,6 @@ class Button
 class ClickEventArgs(string label) : EventArgs { public string Label { get; } = label; }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the syntax for a lambda with multiple parameters? How do you use lambdas with generic types?
 
@@ -21952,11 +20703,8 @@ Console.WriteLine(string.Join(", ", numbers)); // 3, 6, 9, 12, 15, 18
 Console.WriteLine(string.Join(", ", names));   // Alice
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 13. Language Integrated Query
+## 13. Language Integrated Query
 
 <br/>
 
@@ -21999,13 +20747,10 @@ class Program
 - Creating dynamic code at runtime
 - Analyzing or transforming code before execution
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is LINQ in C# and why is it used?
 
-**LINQ (Language Integrated Query)** is a feature introduced in C# 3.0 that provides a uniform syntax for querying data from different sources â€” in-memory collections, databases (EF Core), XML, and more â€” directly inside C# code.
+**LINQ (Language Integrated Query)** is a feature introduced in C# 3.0 that provides a uniform syntax for querying data from different sources — in-memory collections, databases (EF Core), XML, and more — directly inside C# code.
 
 ```cs
 // Without LINQ
@@ -22014,7 +20759,7 @@ foreach (var n in new[] { 1, 2, 3, 4, 5, 6 })
     if (n % 2 == 0)
         result.Add(n * n);
 
-// With LINQ â€” expressive, readable, composable
+// With LINQ — expressive, readable, composable
 var result2 = new[] { 1, 2, 3, 4, 5, 6 }
     .Where(n => n % 2 == 0)
     .Select(n => n * n)
@@ -22022,15 +20767,12 @@ var result2 = new[] { 1, 2, 3, 4, 5, 6 }
 ```
 
 **Why use LINQ?**
-- **Readability** â€” declarative style, reads like English
-- **Type safety** â€” compile-time checking, IntelliSense
-- **Composability** â€” chain operators freely
-- **Unified API** â€” same syntax for arrays, `List<T>`, `IQueryable` (EF Core), XML
-- **Deferred execution** â€” queries are lazy; no work until enumerated
+- **Readability** — declarative style, reads like English
+- **Type safety** — compile-time checking, IntelliSense
+- **Composability** — chain operators freely
+- **Unified API** — same syntax for arrays, `List<T>`, `IQueryable` (EF Core), XML
+- **Deferred execution** — queries are lazy; no work until enumerated
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the main advantages of using LINQ in C#?
 
@@ -22039,7 +20781,7 @@ var result2 = new[] { 1, 2, 3, 4, 5, 6 }
 | **Concise syntax** | Replaces verbose loops with declarative one-liners |
 | **Type safety** | Errors caught at compile time |
 | **IntelliSense** | Full IDE support for auto-complete |
-| **Deferred execution** | Query runs only when iterated â€” avoid wasted work |
+| **Deferred execution** | Query runs only when iterated — avoid wasted work |
 | **Composable** | Chain multiple operators without intermediate collections |
 | **Cross-source** | Same API for in-memory, SQL, XML, REST |
 | **Maintainable** | Less boilerplate, intent is clear |
@@ -22054,7 +20796,7 @@ var products = new List<Product>
     new("Pen",        2, "Stationery"),
 };
 
-// Composable pipeline â€” each step is a lazy transformation
+// Composable pipeline — each step is a lazy transformation
 var summary = products
     .Where(p => p.Price > 5)                            // filter
     .GroupBy(p => p.Category)                           // group
@@ -22074,9 +20816,6 @@ foreach (var s in summary)
 record Product(string Name, decimal Price, string Category);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you write a basic LINQ query in C#?
 
@@ -22085,14 +20824,14 @@ LINQ queries can be written in two equivalent syntaxes: **query syntax** (SQL-li
 ```cs
 int[] numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
 
-// â”€â”€ Query syntax â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Query syntax ──────────────────────────────────────
 var queryResult =
     from n in numbers
     where n > 3
     orderby n descending
     select n * 2;
 
-// â”€â”€ Equivalent method syntax â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Equivalent method syntax ──────────────────────────
 var methodResult = numbers
     .Where(n => n > 3)
     .OrderByDescending(n => n)
@@ -22120,9 +20859,6 @@ string first = data.First(s => s.StartsWith('C'));          // Charlie
 int totalChars = data.Sum(s => s.Length);                   // 25
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between LINQ to Objects, LINQ to SQL, and LINQ to XML?
 
@@ -22132,21 +20868,21 @@ int totalChars = data.Sum(s => s.Length);                   // 25
 | **Interface** | `IEnumerable<T>` | `IQueryable<T>` | `IEnumerable<XElement>` |
 | **Execution** | Always in-process | Translated to SQL, runs at DB | In-process DOM |
 | **Namespace** | `System.Linq` | `System.Linq` + EF Core | `System.Xml.Linq` |
-| **Translation** | None â€” pure C# | C# â†’ SQL | C# â†’ XPath-style |
+| **Translation** | None — pure C# | C# → SQL | C# → XPath-style |
 
 ```cs
-// 1. LINQ to Objects â€” in-memory
+// 1. LINQ to Objects — in-memory
 int[] nums = [1, 2, 3, 4, 5];
 var evens = nums.Where(n => n % 2 == 0).ToArray(); // [2, 4]
 
-// 2. LINQ to SQL / EF Core â€” translated to SQL
+// 2. LINQ to SQL / EF Core — translated to SQL
 // SELECT p.* FROM Products p WHERE p.Price > 100 ORDER BY p.Name
 var products = await db.Products
     .Where(p => p.Price > 100)
     .OrderBy(p => p.Name)
-    .ToListAsync(); // IQueryable<T> â†’ SQL query at DB
+    .ToListAsync(); // IQueryable<T> → SQL query at DB
 
-// 3. LINQ to XML â€” query XML documents
+// 3. LINQ to XML — query XML documents
 var xml = XDocument.Parse("""
     <products>
       <product id="1"><name>Laptop</name><price>1200</price></product>
@@ -22163,9 +20899,6 @@ foreach (var name in names)
     Console.WriteLine(name); // Laptop
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you provide an example of a LINQ query that filters and sorts data?
 
@@ -22210,9 +20943,6 @@ var page2 = employees
 record Employee(int Id, string Name, string Department, decimal Salary);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different types of LINQ operators in C#?
 
@@ -22261,14 +20991,11 @@ var byFirstLetter = words.DistinctBy(w => w[0]); // apple, banana
 var shortest = words.MinBy(w => w.Length);         // ant
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use the `Select` and `Where` operators in LINQ?
 
-- **`Where`** â€” filters a sequence (predicate returns `bool`)
-- **`Select`** â€” projects/transforms each element into a new shape
+- **`Where`** — filters a sequence (predicate returns `bool`)
+- **`Select`** — projects/transforms each element into a new shape
 
 ```cs
 var people = new List<Person>
@@ -22279,11 +21006,11 @@ var people = new List<Person>
     new("Dave",  15, "dave@example.com"),
 };
 
-// Where â€” filter adults
+// Where — filter adults
 var adults = people.Where(p => p.Age >= 18);
 // Alice, Carol
 
-// Select â€” project to a new type
+// Select — project to a new type
 var emails = people.Select(p => p.Email);
 // ["alice@example.com", ...]
 
@@ -22297,7 +21024,7 @@ var indexed = people
     .Select((p, i) => $"{i + 1}. {p.Name}");
 // ["1. Alice", "2. Bob", ...]
 
-// SelectMany â€” flatten nested collections
+// SelectMany — flatten nested collections
 var orders = new List<Order>
 {
     new("Alice", ["Laptop", "Mouse"]),
@@ -22317,9 +21044,6 @@ record Person(string Name, int Age, string Email);
 record Order(string Customer, List<string> Items);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the `GroupBy` operator in LINQ?
 
@@ -22367,16 +21091,13 @@ var byCustomerAndCategory = orders
     .GroupBy(o => new { o.Customer, o.Category })
     .Select(g => new { g.Key.Customer, g.Key.Category, Total = g.Sum(o => o.Amount) });
 
-// ToLookup â€” eager, indexed; GroupBy is lazy
+// ToLookup — eager, indexed; GroupBy is lazy
 var lookup = orders.ToLookup(o => o.Category);
 var elecOrders = lookup["Electronics"]; // O(1) access
 
 record Order(int Id, string Customer, string Category, decimal Amount);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you perform a join operation using LINQ?
 
@@ -22396,7 +21117,7 @@ var orders = new List<Order>
     new(104, 2, "Case",      20m),
 };
 
-// 1. Inner Join â€” only matching rows (like SQL INNER JOIN)
+// 1. Inner Join — only matching rows (like SQL INNER JOIN)
 var joined = customers.Join(
     orders,
     c => c.Id,          // outer key
@@ -22405,7 +21126,7 @@ var joined = customers.Join(
 
 // Alice-Laptop, Alice-Mouse, Bob-Phone, Bob-Case
 
-// 2. Group Join â€” like SQL LEFT OUTER JOIN
+// 2. Group Join — like SQL LEFT OUTER JOIN
 var grouped = customers.GroupJoin(
     orders,
     c => c.Id,
@@ -22433,7 +21154,7 @@ var queryJoin =
     join o in orders on c.Id equals o.CustomerId
     select new { c.Name, o.Product, o.Amount };
 
-// 5. Zip â€” pair elements by position
+// 5. Zip — pair elements by position
 var letters = new[] { "A", "B", "C" };
 var nums    = new[] { 1, 2, 3 };
 var zipped  = letters.Zip(nums, (l, n) => $"{l}{n}"); // A1, B2, C3
@@ -22442,9 +21163,6 @@ record Customer(int Id, string Name);
 record Order(int Id, int CustomerId, string Product, decimal Amount);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between deferred execution and immediate execution in LINQ?
 
@@ -22452,32 +21170,32 @@ record Order(int Id, int CustomerId, string Product, decimal Amount);
 |-|--------------------|---------------------|
 | **When runs** | When iterated (`foreach`, `ToList`, etc.) | Immediately when called |
 | **Re-runs** | Every time you iterate | Result captured once |
-| **Operators** | `Where`, `Select`, `OrderBy`, `GroupBy`, `Skip`, `Take`â€¦ | `ToList`, `ToArray`, `Count`, `First`, `Sum`, `Any`, `ToDictionary`â€¦ |
+| **Operators** | `Where`, `Select`, `OrderBy`, `GroupBy`, `Skip`, `Take`… | `ToList`, `ToArray`, `Count`, `First`, `Sum`, `Any`, `ToDictionary`… |
 
 ```cs
 var data = new List<int> { 1, 2, 3, 4, 5 };
 
-// Deferred â€” query is a recipe, not a result
+// Deferred — query is a recipe, not a result
 var query = data.Where(n => n > 2); // nothing runs here
 
 data.Add(6); // modifying source AFTER query definition
 
-foreach (int n in query) // runs NOW â€” sees the added 6
+foreach (int n in query) // runs NOW — sees the added 6
     Console.Write($"{n} "); // 3 4 5 6
 
-// Immediate â€” snapshot taken now
+// Immediate — snapshot taken now
 var snapshot = data.Where(n => n > 2).ToList();
 data.Add(7);
-Console.WriteLine(snapshot.Count); // 4 â€” does NOT see 7
+Console.WriteLine(snapshot.Count); // 4 — does NOT see 7
 
 // Deferred: re-evaluated each iteration
 var counter = 0;
 var lazy = data.Select(n => { counter++; return n; });
 _ = lazy.ToList(); // counter = 7
-_ = lazy.ToList(); // counter = 14 â€” ran again!
+_ = lazy.ToList(); // counter = 14 — ran again!
 
 var eager = data.Select(n => { counter++; return n; }).ToList();
-_ = eager.Count; // counter doesn\'t increase â€” already materialised
+_ = eager.Count; // counter doesn\'t increase — already materialised
 
 // Practical implication with EF Core
 IQueryable<Product> query2 = db.Products.Where(p => p.Price > 100);
@@ -22489,9 +21207,6 @@ if (filterByCategory)
 var results = await query2.ToListAsync(); // ONE SQL query with both conditions
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use the `Aggregate` operator in LINQ?
 
@@ -22500,7 +21215,7 @@ var results = await query2.ToListAsync(); // ONE SQL query with both conditions
 ```cs
 int[] nums = [1, 2, 3, 4, 5];
 
-// 1. Basic â€” sum (equivalent to nums.Sum())
+// 1. Basic — sum (equivalent to nums.Sum())
 int sum = nums.Aggregate((acc, n) => acc + n); // 15
 // acc starts with first element: ((((1+2)+3)+4)+5)
 
@@ -22539,9 +21254,6 @@ var freq = "abracadabra".Aggregate(
 // with partition-aware overloads.
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `Let` keyword in LINQ and how is it used?
 
@@ -22550,13 +21262,13 @@ var freq = "abracadabra".Aggregate(
 ```cs
 var words = new[] { "Hello", "World", "LINQ", "Rocks", "C#" };
 
-// Without let â€” .Length evaluated twice
+// Without let — .Length evaluated twice
 var longUpper =
     from w in words
     where w.Length > 4
     select w.ToUpper();
 
-// With let â€” computed once and reused
+// With let — computed once and reused
 var withLet =
     from w in words
     let upper  = w.ToUpper()        // computed once
@@ -22583,7 +21295,7 @@ var validDomains =
     select domain;
 // example.com, test.org
 
-// Method syntax equivalent â€” use intermediate Select
+// Method syntax equivalent — use intermediate Select
 var methodEquivalent = words
     .Select(w => (word: w, upper: w.ToUpper(), length: w.Length))
     .Where(x => x.length > 4)
@@ -22591,9 +21303,6 @@ var methodEquivalent = words
     .Select(x => $"{x.upper} ({x.length})");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle null values in LINQ queries?
 
@@ -22603,7 +21312,7 @@ var names = new List<string?> { "Alice", null, "Bob", null, "Carol" };
 // 1. Filter out nulls
 var nonNull = names.Where(n => n is not null); // Alice, Bob, Carol
 
-// 2. OfType<T> â€” filters and casts (removes nulls from nullable sequences)
+// 2. OfType<T> — filters and casts (removes nulls from nullable sequences)
 var nonNullOfType = names.OfType<string>(); // Alice, Bob, Carol
 
 // 3. Null-coalescing in Select
@@ -22621,7 +21330,7 @@ var people = new List<Person> { new("Alice", 30), new("Bob", 25) };
 Person? found = people.FirstOrDefault(p => p.Name == "Unknown");
 string display = found?.Name ?? "Not found"; // Not found
 
-// 6. DefaultIfEmpty â€” avoid empty sequence exceptions
+// 6. DefaultIfEmpty — avoid empty sequence exceptions
 var numbers = new List<int>();
 int maxOrDefault = numbers.DefaultIfEmpty(0).Max(); // 0 instead of exception
 
@@ -22640,9 +21349,6 @@ record Order(int Id, string? Product);
 record Item(string Name, string? Category);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are anonymous types in LINQ and how are they used?
 
@@ -22685,7 +21391,7 @@ var multiKey = products.GroupBy(p => new { p.Category })
 // 4. Anonymous types are structurally equal (compiler generates Equals/GetHashCode)
 var a = new { Name = "Alice", Age = 30 };
 var b = new { Name = "Alice", Age = 30 };
-Console.WriteLine(a.Equals(b)); // true â€” value equality based on properties
+Console.WriteLine(a.Equals(b)); // true — value equality based on properties
 
 // 5. Limitation: cannot return anonymous types from methods
 // Use record types when you need to cross method boundaries
@@ -22696,13 +21402,10 @@ record ProductDto(int Id, string Name, decimal Price);
 record Product(int Id, string Name, decimal Price, string Category);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use LINQ with collections in C#?
 
-LINQ works with any type implementing `IEnumerable<T>` â€” arrays, `List<T>`, `Dictionary<K,V>`, `HashSet<T>`, `Stack<T>`, custom collections, etc.
+LINQ works with any type implementing `IEnumerable<T>` — arrays, `List<T>`, `Dictionary<K,V>`, `HashSet<T>`, `Stack<T>`, custom collections, etc.
 
 ```cs
 // Arrays
@@ -22713,7 +21416,7 @@ var largePrimes = primes.Where(n => n > 5).ToArray(); // [7, 11, 13]
 var names = new List<string> { "Charlie", "Alice", "Bob" };
 var sorted = names.OrderBy(n => n).ToList(); // [Alice, Bob, Charlie]
 
-// Dictionary<K,V> â€” query KeyValuePairs
+// Dictionary<K,V> — query KeyValuePairs
 var scores = new Dictionary<string, int>
 {
     ["Alice"] = 90, ["Bob"] = 75, ["Carol"] = 88
@@ -22752,41 +21455,38 @@ record Department(string Name, List<Employee> Employees);
 record Employee(string Name);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you optimize LINQ queries for performance?
 
 ```cs
-// 1. Materialise once â€” avoid re-enumerating IEnumerable
-// âŒ Query re-executes on each iteration
+// 1. Materialise once — avoid re-enumerating IEnumerable
+// ❌ Query re-executes on each iteration
 IEnumerable<int> query = data.Where(n => n > 0);
 int count = query.Count(); // first iteration
 int sum   = query.Sum();   // second iteration
 
-// âœ… Materialise once
+// ✅ Materialise once
 var list  = data.Where(n => n > 0).ToList();
 int count2 = list.Count;
 int sum2   = list.Sum();
 
 // 2. AsNoTracking with EF Core (covered in DB section)
 // 3. Use Any() not Count() > 0
-// âŒ Counts all elements
+// ❌ Counts all elements
 if (data.Count() > 0) { }
-// âœ… Stops at first match
+// ✅ Stops at first match
 if (data.Any()) { }
 
-// 4. Filter early â€” Where before Select/OrderBy
-// âŒ Sort all 1M items, then filter
+// 4. Filter early — Where before Select/OrderBy
+// ❌ Sort all 1M items, then filter
 data.OrderBy(n => n).Where(n => n > 1000);
-// âœ… Filter first, sort fewer items
+// ✅ Filter first, sort fewer items
 data.Where(n => n > 1000).OrderBy(n => n);
 
 // 5. Use concrete collection operators over LINQ when possible
-// âŒ LINQ on List when you know it\'s a List
+// ❌ LINQ on List when you know it\'s a List
 int last = list.Last();
-// âœ… Direct property
+// ✅ Direct property
 int last2 = list[^1]; // O(1) index vs O(n) LINQ Last()
 
 // 6. PLINQ for CPU-intensive data processing
@@ -22798,7 +21498,7 @@ var result = data.AsParallel()
 
 // 7. Compiled LINQ for EF Core hot paths (see AsNoTracking section)
 // 8. Avoid closures that capture large objects in query lambdas
-int threshold = 100; // captured by value â€” fine
+int threshold = 100; // captured by value — fine
 var filtered = data.Where(n => n > threshold);
 
 // 9. Use FrozenDictionary for static lookup tables (.NET 8+)
@@ -22815,9 +21515,6 @@ static int  ExpensiveTransform(int n) => n * 2;
 static void ProcessBatch(int[] batch) { }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the differences between Parallel.ForEach and PLINQ (Parallel LINQ)?
 
@@ -22833,14 +21530,14 @@ static void ProcessBatch(int[] batch) { }
 ```cs
 int[] data = Enumerable.Range(1, 1_000_000).ToArray();
 
-// 1. Parallel.ForEach â€” side effects, no return
+// 1. Parallel.ForEach — side effects, no return
 var bag = new System.Collections.Concurrent.ConcurrentBag<int>();
 Parallel.ForEach(data,
     new ParallelOptions { MaxDegreeOfParallelism = 4 },
     n => { if (n % 2 == 0) bag.Add(n * n); });
 Console.WriteLine(bag.Count); // ~500,000
 
-// 2. PLINQ â€” transforms and returns
+// 2. PLINQ — transforms and returns
 var results = data.AsParallel()
     .WithDegreeOfParallelism(4)
     .Where(n => n % 2 == 0)
@@ -22865,23 +21562,20 @@ try
 }
 catch (OperationCanceledException) { Console.WriteLine("Cancelled"); }
 
-// 5. ForEachAsync (.NET 6+) â€” async parallel (best for I/O)
+// 5. ForEachAsync (.NET 6+) — async parallel (best for I/O)
 await Parallel.ForEachAsync(data.Take(100),
     new ParallelOptions { MaxDegreeOfParallelism = 10 },
     async (n, ct) => await ProcessAsync(n, ct));
 
 // Recommendation:
-// I/O-bound parallel work  â†’ Parallel.ForEachAsync
-// CPU-bound transformation â†’ PLINQ
-// CPU-bound side effects   â†’ Parallel.ForEach
+// I/O-bound parallel work  → Parallel.ForEachAsync
+// CPU-bound transformation → PLINQ
+// CPU-bound side effects   → Parallel.ForEach
 
 static int HeavyWork(int n) => n * n;
 static async Task ProcessAsync(int n, CancellationToken ct) => await Task.Delay(1, ct);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How does LINQ\'s "Where" method work?
 
@@ -22899,7 +21593,7 @@ public static IEnumerable<T> Where<T>(this IEnumerable<T> source, Func<T, bool> 
 // 1. Basic usage
 var nums = new[] { 1, 2, 3, 4, 5, 6 };
 var evens = nums.Where(n => n % 2 == 0);
-// Nothing evaluated yet â€” evens is an IEnumerable<int>
+// Nothing evaluated yet — evens is an IEnumerable<int>
 
 foreach (int n in evens)      // evaluation starts here
     Console.Write($"{n} ");   // 2 4 6
@@ -22908,33 +21602,30 @@ foreach (int n in evens)      // evaluation starts here
 var withIndex = nums.Where((n, i) => i % 2 == 0); // elements at even indices
 // 1 (index 0), 3 (index 2), 5 (index 4)
 
-// 3. Chained Where â€” each adds a filter (all evaluated in one pass)
+// 3. Chained Where — each adds a filter (all evaluated in one pass)
 var result = nums
     .Where(n => n > 2)    // first predicate
-    .Where(n => n < 6);   // second predicate â€” single iteration total
+    .Where(n => n < 6);   // second predicate — single iteration total
 
 // 4. Where with IQueryable<T> (EF Core)
-// The lambda is NOT a delegate â€” it\'s an Expression<Func<T, bool>>
+// The lambda is NOT a delegate — it\'s an Expression<Func<T, bool>>
 // EF Core translates it to SQL: WHERE Price > 100
 var products = await db.Products
     .Where(p => p.Price > 100)
     .ToListAsync();
 
-// 5. Short-circuit â€” Where stops iterating once caller stops
+// 5. Short-circuit — Where stops iterating once caller stops
 string? firstEven = nums.Where(n => n % 2 == 0).FirstOrDefault()?.ToString();
-// Only evaluates until the first even number is found â€” does not scan the rest
+// Only evaluates until the first even number is found — does not scan the rest
 
 // 6. Side effects and lazy evaluation
 int callCount = 0;
 var tracked = nums.Where(n => { callCount++; return n > 3; });
-Console.WriteLine(callCount); // 0 â€” not yet evaluated
+Console.WriteLine(callCount); // 0 — not yet evaluated
 _ = tracked.ToList();
-Console.WriteLine(callCount); // 6 â€” evaluated all 6 elements
+Console.WriteLine(callCount); // 6 — evaluated all 6 elements
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the benefits of a Deferred Execution in LINQ?
 
@@ -22949,11 +21640,11 @@ Console.WriteLine(callCount); // 6 â€” evaluated all 6 elements
 ```cs
 var data = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-// 1. Composability â€” no intermediate List allocations
+// 1. Composability — no intermediate List allocations
 var pipeline = data
-    .Where(n => n % 2 == 0)   // IEnumerable â€” lazy
-    .Select(n => n * n)        // IEnumerable â€” lazy
-    .TakeWhile(n => n < 50);   // IEnumerable â€” lazy
+    .Where(n => n % 2 == 0)   // IEnumerable — lazy
+    .Select(n => n * n)        // IEnumerable — lazy
+    .TakeWhile(n => n < 50);   // IEnumerable — lazy
 // All three combined into ONE pass when iterated
 
 foreach (int n in pipeline) Console.Write($"{n} "); // 4 16 36
@@ -22962,9 +21653,9 @@ foreach (int n in pipeline) Console.Write($"{n} "); // 4 16 36
 var query = data.Where(n => n > 7);
 data.Add(11);                  // added AFTER query defined
 data.Add(12);
-Console.WriteLine(string.Join(",", query)); // 8 9 10 11 12 â€” sees new items
+Console.WriteLine(string.Join(",", query)); // 8 9 10 11 12 — sees new items
 
-// 3. EF Core â€” compose before executing
+// 3. EF Core — compose before executing
 IQueryable<Product> q = db.Products.AsQueryable();
 if (minPrice.HasValue) q = q.Where(p => p.Price >= minPrice.Value);
 if (category != null) q = q.Where(p => p.Category == category);
@@ -22975,9 +21666,9 @@ int checks = 0;
 bool found = data
     .Where(n => { checks++; return n > 5; })
     .Any();  // stops at first match (n=6)
-Console.WriteLine($"Checks: {checks}"); // 6 â€” not all 10 elements
+Console.WriteLine($"Checks: {checks}"); // 6 — not all 10 elements
 
-// âš ï¸ Caveat: re-enumeration re-executes the query
+// ⚠️ Caveat: re-enumeration re-executes the query
 var expensive = data.Where(n => Expensive(n)); // avoid calling twice
 var list = expensive.ToList(); // materialise once
 Console.WriteLine(list.Count);
@@ -22986,13 +21677,10 @@ Console.WriteLine(list.Sum());
 static bool Expensive(int n) => n > 0;
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you explain the difference between a query expression and a method chain in LINQ?
 
-Both forms are equivalent â€” the compiler transforms query syntax into method calls during compilation. Method syntax is more powerful (supports all operators); query syntax is more readable for complex joins and grouping.
+Both forms are equivalent — the compiler transforms query syntax into method calls during compilation. Method syntax is more powerful (supports all operators); query syntax is more readable for complex joins and grouping.
 
 ```cs
 var products = new List<Product>
@@ -23003,21 +21691,21 @@ var products = new List<Product>
     new("Pen",        2m, "Stationery"),
 };
 
-// â”€â”€ Query syntax (SQL-like) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Query syntax (SQL-like) ────────────────────────────────────────────
 var queryExpr =
     from p in products
     where p.Price > 50
     orderby p.Category, p.Price descending
     select new { p.Name, p.Price };
 
-// â”€â”€ Equivalent method chain â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Equivalent method chain ────────────────────────────────────────────
 var methodChain = products
     .Where(p => p.Price > 50)
     .OrderBy(p => p.Category)
     .ThenByDescending(p => p.Price)
     .Select(p => new { p.Name, p.Price });
 
-// â”€â”€ Join â€” query syntax is more readable â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Join — query syntax is more readable ──────────────────────────────
 var customers = new List<(int Id, string Name)> { (1, "Alice"), (2, "Bob") };
 var orders    = new List<(int CId, string Item)> { (1, "Laptop"), (1, "Mouse"), (2, "Phone") };
 
@@ -23032,14 +21720,14 @@ var joinMethod = customers.Join(
     orders, c => c.Id, o => o.CId,
     (c, o) => new { c.Name, o.Item });
 
-// â”€â”€ Operators ONLY available in method syntax â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Operators ONLY available in method syntax ─────────────────────────
 // (no query syntax equivalent)
 var count = products.Count(p => p.Price > 100);
 var first = products.FirstOrDefault(p => p.Price > 100);
 var dist  = products.DistinctBy(p => p.Category);
 var chunk = products.Chunk(2);
 
-// â”€â”€ let in query syntax = intermediate Select in method syntax â”€â”€â”€â”€â”€â”€â”€â”€
+// ── let in query syntax = intermediate Select in method syntax ────────
 var qLet =
     from p in products
     let discounted = p.Price * 0.9m
@@ -23054,9 +21742,6 @@ var mLet = products
 record Product(string Name, decimal Price, string Category);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you give an example of using LINQ to filter data in a collection?
 
@@ -23095,7 +21780,7 @@ var mktQuery =
     where e.Department == "Marketing" && e.Salary >= 65_000
     select e;
 
-// Complex filter â€” employees who joined in the last 3 years OR earn over 100k
+// Complex filter — employees who joined in the last 3 years OR earn over 100k
 var complex = employees.Where(e =>
     e.HireDate >= DateTime.UtcNow.AddYears(-3) || e.Salary > 100_000);
 
@@ -23112,9 +21797,6 @@ foreach (var e in seniorEngineers)
 record Employee(int Id, string Name, string Department, decimal Salary, DateTime HireDate);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How can LINQ be used to perform grouping and aggregation operations on data?
 
@@ -23183,16 +21865,13 @@ foreach (var row in byCategory)
 record Sale(string Salesperson, string Category, string Product, decimal Amount, DateTime Date);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How does the Single Responsibility Principle (SRP) apply to LINQ code?
 
-**SRP** states that a class/method should have only one reason to change. In LINQ: each query or method should do **one thing** â€” don\'t mix filtering, transforming, and persisting in the same expression.
+**SRP** states that a class/method should have only one reason to change. In LINQ: each query or method should do **one thing** — don\'t mix filtering, transforming, and persisting in the same expression.
 
 ```cs
-// âŒ Violates SRP â€” one method filters, transforms, logs, AND saves
+// ❌ Violates SRP — one method filters, transforms, logs, AND saves
 public async Task ProcessOrdersAsync(List<Order> orders, AppDbContext db)
 {
     var result = orders
@@ -23204,7 +21883,7 @@ public async Task ProcessOrdersAsync(List<Order> orders, AppDbContext db)
     await db.SaveChangesAsync();
 }
 
-// âœ… SRP â€” each method has one responsibility
+// ✅ SRP — each method has one responsibility
 public IEnumerable<Order> FilterEligibleOrders(IEnumerable<Order> orders) =>
     orders.Where(o => o.Status == "Pending" && o.Amount > 100);
 
@@ -23230,16 +21909,13 @@ record InvoiceDto(int OrderId, decimal Total);
 record Invoice(InvoiceDto dto);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you demonstrate the use of LINQ to implement the Open-Closed Principle (OCP)?
 
-**OCP** â€” open for extension, closed for modification. Represent query logic as injectable `Func<T, bool>` / `Expression<Func<T, bool>>` predicates so new filters can be added without modifying existing query code.
+**OCP** — open for extension, closed for modification. Represent query logic as injectable `Func<T, bool>` / `Expression<Func<T, bool>>` predicates so new filters can be added without modifying existing query code.
 
 ```cs
-// Specification pattern â€” encapsulates query logic, open to extension
+// Specification pattern — encapsulates query logic, open to extension
 public interface ISpecification<T>
 {
     Expression<Func<T, bool>> Criteria { get; }
@@ -23255,7 +21931,7 @@ public class CategorySpecification(string category) : ISpecification<Product>
     public Expression<Func<Product, bool>> Criteria => p => p.Category == category;
 }
 
-// Repository â€” does NOT change when new specs are added
+// Repository — does NOT change when new specs are added
 public class ProductRepository(AppDbContext db)
 {
     public async Task<List<Product>> FindAsync(ISpecification<Product> spec) =>
@@ -23287,7 +21963,7 @@ public class AndSpecification<T>(ISpecification<T> left, ISpecification<T> right
     }
 }
 
-// Usage â€” extend by composing, not by modifying
+// Usage — extend by composing, not by modifying
 var repo = new ProductRepository(db);
 var spec = new PriceAboveSpecification(100)
     .And(new CategorySpecification("Electronics"));
@@ -23297,21 +21973,18 @@ var results = await repo.FindAsync(spec);
 record Product(int Id, string Name, decimal Price, string Category);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How does the Liskov Substitution Principle (LSP) apply to LINQ code?
 
-**LSP** â€” a derived type must be substitutable for its base type. In LINQ: any `IEnumerable<T>` implementation (array, `List<T>`, EF Core `IQueryable<T>`) should be usable interchangeably in LINQ pipelines.
+**LSP** — a derived type must be substitutable for its base type. In LINQ: any `IEnumerable<T>` implementation (array, `List<T>`, EF Core `IQueryable<T>`) should be usable interchangeably in LINQ pipelines.
 
 ```cs
-// âœ… Methods accept IEnumerable<T> â€” substitutable with any collection type
+// ✅ Methods accept IEnumerable<T> — substitutable with any collection type
 public static IEnumerable<Product> FilterExpensive(
     IEnumerable<Product> products, decimal threshold) =>
     products.Where(p => p.Price > threshold);
 
-// All of these are substitutable â€” no code change required
+// All of these are substitutable — no code change required
 Product[] array      = [new("Laptop", 1200m), new("Pen", 2m)];
 List<Product> list   = [new("Laptop", 1200m), new("Pen", 2m)];
 IQueryable<Product> query = db.Products; // EF Core
@@ -23320,14 +21993,14 @@ var r1 = FilterExpensive(array, 100);   // array
 var r2 = FilterExpensive(list, 100);    // List<T>
 var r3 = FilterExpensive(query, 100);   // IQueryable<T> (executes as SQL via EF)
 
-// âŒ LSP violation â€” casting to concrete type breaks substitutability
+// ❌ LSP violation — casting to concrete type breaks substitutability
 public static List<Product> FilterBad(IEnumerable<Product> products, decimal t)
 {
     var list = (List<Product>)products; // throws if array or IQueryable
     return list.Where(p => p.Price > t).ToList();
 }
 
-// âœ… Custom IEnumerable<T> that behaves like a sequence
+// ✅ Custom IEnumerable<T> that behaves like a sequence
 public class ProductCatalog : IEnumerable<Product>
 {
     private readonly List<Product> _items = [];
@@ -23339,21 +22012,18 @@ public class ProductCatalog : IEnumerable<Product>
 
 var catalog = new ProductCatalog();
 catalog.Add(new("Laptop", 1200m));
-var expensive = FilterExpensive(catalog, 100); // substitutable â€” works!
+var expensive = FilterExpensive(catalog, 100); // substitutable — works!
 
 record Product(string Name, decimal Price);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you give an example of using LINQ to implement the Interface Segregation Principle (ISP)?
 
-**ISP** â€” clients should not be forced to depend on interfaces they don\'t use. Split large data-source interfaces into focused ones; LINQ queries program against only what they need.
+**ISP** — clients should not be forced to depend on interfaces they don\'t use. Split large data-source interfaces into focused ones; LINQ queries program against only what they need.
 
 ```cs
-// âŒ Fat interface â€” query code must depend on write operations it doesn\'t use
+// ❌ Fat interface — query code must depend on write operations it doesn\'t use
 public interface IProductRepository
 {
     IQueryable<Product> Query();
@@ -23363,7 +22033,7 @@ public interface IProductRepository
     Task SaveAsync();
 }
 
-// âœ… Segregated interfaces
+// ✅ Segregated interfaces
 public interface IProductReader     { IQueryable<Product> Query(); }
 public interface IProductWriter
 {
@@ -23409,16 +22079,13 @@ public class ProductRepository(AppDbContext db) : IProductReader, IProductWriter
 record Product(int Id, string Name, decimal Price, string Category);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Can you explain the Dependency Inversion Principle (DIP) and how it relates to LINQ code?
 
-**DIP** â€” high-level modules should depend on abstractions, not concrete implementations. In LINQ: depend on `IEnumerable<T>` / `IQueryable<T>` abstractions, not on `List<T>`, `DbSet<T>`, or SQL.
+**DIP** — high-level modules should depend on abstractions, not concrete implementations. In LINQ: depend on `IEnumerable<T>` / `IQueryable<T>` abstractions, not on `List<T>`, `DbSet<T>`, or SQL.
 
 ```cs
-// âŒ Violates DIP â€” high-level class depends on concrete EF Core DbSet
+// ❌ Violates DIP — high-level class depends on concrete EF Core DbSet
 public class ReportService(AppDbContext db)
 {
     public List<string> GetTopProductNames(int count) =>
@@ -23429,7 +22096,7 @@ public class ReportService(AppDbContext db)
             .ToList();
 }
 
-// âœ… DIP â€” depend on abstraction (IQueryable<T> or IProductReader)
+// ✅ DIP — depend on abstraction (IQueryable<T> or IProductReader)
 public interface IProductReader
 {
     IQueryable<Product> Query();
@@ -23445,13 +22112,13 @@ public class ReportService(IProductReader reader)  // depends on abstraction
             .ToListAsync();
 }
 
-// Production implementation â€” EF Core
+// Production implementation — EF Core
 public class EfProductReader(AppDbContext db) : IProductReader
 {
     public IQueryable<Product> Query() => db.Products;
 }
 
-// Test implementation â€” in-memory
+// Test implementation — in-memory
 public class FakeProductReader(IEnumerable<Product> products) : IProductReader
 {
     public IQueryable<Product> Query() => products.AsQueryable();
@@ -23461,7 +22128,7 @@ public class FakeProductReader(IEnumerable<Product> products) : IProductReader
 builder.Services.AddScoped<IProductReader, EfProductReader>();
 builder.Services.AddScoped<ReportService>();
 
-// Unit test â€” no database needed
+// Unit test — no database needed
 var fakeReader = new FakeProductReader(
 [
     new(1, "Laptop", 1200m),
@@ -23470,21 +22137,18 @@ var fakeReader = new FakeProductReader(
 ]);
 var service = new ReportService(fakeReader);
 var top2 = await service.GetTopProductNamesAsync(2);
-// ["Laptop", "Phone"] â€” fully testable, no DB required
+// ["Laptop", "Phone"] — fully testable, no DB required
 
 record Product(int Id, string Name, decimal Price);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the difference between Select and Where?
 
 | | `Where` | `Select` |
 |-|---------|---------|
-| **Purpose** | Filter â€” removes elements | Project â€” transforms elements |
-| **Output count** | â‰¤ input count | = input count |
+| **Purpose** | Filter — removes elements | Project — transforms elements |
+| **Output count** | ≤ input count | = input count |
 | **Element type** | Same `T` | Can change to any `TResult` |
 | **Predicate** | `Func<T, bool>` | `Func<T, TResult>` |
 
@@ -23496,13 +22160,13 @@ var products = new List<Product>
     new("Notebook",  10m, "Stationery"),
 };
 
-// Where â€” filter (keeps same type, reduces count)
+// Where — filter (keeps same type, reduces count)
 var electronics = products.Where(p => p.Category == "Electronics");
-// [Laptop, Phone]  â€” still Product objects, count: 2
+// [Laptop, Phone]  — still Product objects, count: 2
 
-// Select â€” project (transforms type, same count)
+// Select — project (transforms type, same count)
 var names = products.Select(p => p.Name);
-// ["Laptop", "Phone", "Notebook"] â€” string objects, count: 3
+// ["Laptop", "Phone", "Notebook"] — string objects, count: 3
 
 // Select into a different type
 var dtos = products.Select(p => new { p.Name, Discounted = p.Price * 0.9m });
@@ -23513,9 +22177,9 @@ var expensiveNames = products
     .Where(p => p.Price > 100)       // 2 elements remain
     .Select(p => p.Name.ToUpper());  // ["LAPTOP", "PHONE"]
 
-// Select does NOT filter â€” null projection requires Where
+// Select does NOT filter — null projection requires Where
 var allMaybeNull = products.Select(p => p.Price > 100 ? p.Name : null);
-// ["Laptop", "Phone", null] â€” 3 elements, one null
+// ["Laptop", "Phone", null] — 3 elements, one null
 
 // Filter nulls with Where
 var filtered = allMaybeNull.Where(n => n is not null);
@@ -23523,9 +22187,6 @@ var filtered = allMaybeNull.Where(n => n is not null);
 record Product(string Name, decimal Price, string Category);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `IEnumerable` and `IQueryable`?
 
@@ -23539,12 +22200,12 @@ record Product(string Name, decimal Price, string Category);
 | **Extends** | `IEnumerable` | `IEnumerable<T>` + `IQueryable` |
 
 ```cs
-// IEnumerable â€” in-memory filtering (pulls all rows first)
+// IEnumerable — in-memory filtering (pulls all rows first)
 IEnumerable<Product> memProducts = db.Products.ToList(); // ALL rows loaded
 var cheap = memProducts.Where(p => p.Price < 100);       // filtered in CLR
 // SQL: SELECT * FROM Products  (no WHERE clause)
 
-// IQueryable â€” DB-side filtering (only matching rows returned)
+// IQueryable — DB-side filtering (only matching rows returned)
 IQueryable<Product> dbProducts = db.Products;            // no SQL yet
 var cheapQ = dbProducts.Where(p => p.Price < 100);       // builds expression tree
 var result = await cheapQ.ToListAsync();                  // NOW executes SQL
@@ -23552,41 +22213,38 @@ var result = await cheapQ.ToListAsync();                  // NOW executes SQL
 
 // Practical impact on performance
 // Table with 1M rows, 10 match filter:
-// IEnumerable: loads 1M rows â†’ filters â†’ 10 objects
-// IQueryable:  DB filters â†’ loads only 10 rows
+// IEnumerable: loads 1M rows → filters → 10 objects
+// IQueryable:  DB filters → loads only 10 rows
 
 // The Where predicate is different internally
 IEnumerable<Product> e = [new("Laptop", 1200m)];
-// Takes Func<Product, bool> â€” a compiled delegate
+// Takes Func<Product, bool> — a compiled delegate
 e.Where(p => p.Price > 100);
 
 IQueryable<Product> q = e.AsQueryable();
-// Takes Expression<Func<Product, bool>> â€” an expression tree
+// Takes Expression<Func<Product, bool>> — an expression tree
 q.Where(p => p.Price > 100); // can be inspected and translated to SQL
 
-// AsEnumerable â€” switch from IQueryable to IEnumerable mid-pipeline
+// AsEnumerable — switch from IQueryable to IEnumerable mid-pipeline
 // Useful when the final transform can\'t be translated to SQL
 var data = await db.Products
     .Where(p => p.Price > 100)      // SQL WHERE
     .AsEnumerable()                 // switch to in-memory
     .Select(p => new { p.Name, Tag = FormatTag(p) }) // CLR method, no SQL translation needed
-    .ToListAsync();                 // âŒ ToListAsync only on IQueryable; use ToList() here
+    .ToListAsync();                 // ❌ ToListAsync only on IQueryable; use ToList() here
 
 var data2 = db.Products
     .Where(p => p.Price > 100)      // SQL WHERE
     .AsEnumerable()
     .Select(p => new { p.Name, Tag = FormatTag(p) })
-    .ToList(); // âœ…
+    .ToList(); // ✅
 
 static string FormatTag(Product p) => $"[{p.Name}]";
 record Product(string Name, decimal Price);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 14. MICROSERVICES
+## 14. Microservices
 
 <br/>
 
@@ -23596,11 +22254,11 @@ record Product(string Name, decimal Price);
 
 ```
 Monolith                         Microservices
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚  UI + Business + Data   â”‚      â”‚  Order    â”‚  â”‚  Catalog  â”‚  â”‚  Payment  â”‚
-â”‚  (all in one process)   â”‚  â†’   â”‚  Service  â”‚  â”‚  Service  â”‚  â”‚  Service  â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                                      â†‘               â†‘              â†‘
+┌─────────────────────────┐      ┌───────────┐  ┌───────────┐  ┌───────────┐
+│  UI + Business + Data   │      │  Order    │  │  Catalog  │  │  Payment  │
+│  (all in one process)   │  →   │  Service  │  │  Service  │  │  Service  │
+└─────────────────────────┘      └───────────┘  └───────────┘  └───────────┘
+                                      ↑               ↑              ↑
                                  Each has its own DB, deploy, scale, team
 ```
 
@@ -23616,13 +22274,10 @@ Monolith                         Microservices
 | **Faster release cycles** | Smaller, focused deployments |
 
 **When NOT to use microservices:**
-- Small teams / early-stage products â€” start with a monolith
+- Small teams / early-stage products — start with a monolith
 - When services need very frequent synchronous coordination (distributed monolith anti-pattern)
 - When operational complexity (containers, service mesh, distributed tracing) outweighs benefits
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you implement microservices in .NET Core?
 
@@ -23664,7 +22319,7 @@ app.MapPost("/orders", async (CreateOrderRequest req, OrderService svc, Cancella
     return Results.Created($"/orders/{order.Id}", order);
 });
 
-// 4. Health checks â€” required for Kubernetes probes
+// 4. Health checks — required for Kubernetes probes
 builder.Services.AddHealthChecks()
     .AddNpgSql(connStr, name: "database")
     .AddUrlGroup(new Uri("http://catalog-service/health"), name: "catalog");
@@ -23673,9 +22328,6 @@ app.MapHealthChecks("/health");
 app.MapHealthChecks("/health/ready", new() { Predicate = r => r.Tags.Contains("ready") });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the main advantages of using microservices architecture?
 
@@ -23693,15 +22345,15 @@ app.MapHealthChecks("/health/ready", new() { Predicate = r => r.Tags.Contains("r
 ```
 Example: E-Commerce Platform
 
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚  API Gateway â”‚â”€â”€â–¶â”‚ Order Serviceâ”‚â”€â”€â–¶â”‚Catalog Svc  â”‚   â”‚Payment Svc  â”‚
-â”‚ (YARP/Ocelot)â”‚   â”‚  (C# + PG)  â”‚   â”‚(C# + PG)    â”‚   â”‚(C# + Redis) â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                         â”‚                                      â”‚
-                  â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
-                  â”‚ RabbitMQ /  â”‚                    â”‚  Notification  â”‚
-                  â”‚ Azure SB    â”‚â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¶â”‚  Service       â”‚
-                  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌─────────────┐   ┌──────────────┐   ┌─────────────┐   ┌─────────────┐
+│  API Gateway │──▶│ Order Service│──▶│Catalog Svc  │   │Payment Svc  │
+│ (YARP/Ocelot)│   │  (C# + PG)  │   │(C# + PG)    │   │(C# + Redis) │
+└─────────────┘   └──────────────┘   └─────────────┘   └─────────────┘
+                         │                                      │
+                  ┌──────▼──────┐                    ┌─────────▼──────┐
+                  │ RabbitMQ /  │                    │  Notification  │
+                  │ Azure SB    │──────────────────▶│  Service       │
+                  └─────────────┘                    └────────────────┘
 
 Each service:
  - Owns its database (no shared DB)
@@ -23710,9 +22362,6 @@ Each service:
  - Scales independently in Kubernetes
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle communication between microservices in .NET Core?
 
@@ -23720,7 +22369,7 @@ Each service:
 **Asynchronous** (event-driven): message queues (RabbitMQ, Azure Service Bus, Kafka)
 
 ```cs
-// 1. HTTP REST â€” typed HttpClient via IHttpClientFactory
+// 1. HTTP REST — typed HttpClient via IHttpClientFactory
 builder.Services.AddHttpClient<ICatalogClient, CatalogClient>(client =>
     client.BaseAddress = new Uri("http://catalog-service"));
 
@@ -23730,9 +22379,9 @@ public class CatalogClient(HttpClient client)
         client.GetFromJsonAsync<Product>($"/products/{id}");
 }
 
-// 2. gRPC â€” binary protocol, strongly-typed contracts (.proto files)
+// 2. gRPC — binary protocol, strongly-typed contracts (.proto files)
 // dotnet add package Grpc.AspNetCore
-// Service: catalog.proto â†’ generated CatalogService.CatalogServiceClient
+// Service: catalog.proto → generated CatalogService.CatalogServiceClient
 
 builder.Services.AddGrpcClient<CatalogService.CatalogServiceClient>(opts =>
     opts.Address = new Uri("https://catalog-service:5001"));
@@ -23746,7 +22395,7 @@ public class OrderService(CatalogService.CatalogServiceClient grpcClient)
     }
 }
 
-// 3. Async messaging â€” MassTransit + RabbitMQ
+// 3. Async messaging — MassTransit + RabbitMQ
 // dotnet add package MassTransit.RabbitMQ
 builder.Services.AddMassTransit(x =>
 {
@@ -23781,32 +22430,29 @@ public class OrderCreatedConsumer : IConsumer<OrderCreated>
 record OrderCreated(int OrderId, List<OrderItem> Items);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the role of API Gateway in microservices architecture?
 
-The **API Gateway** is the single entry point for all clients. It handles routing, authentication, rate limiting, SSL termination, and request aggregation â€” preventing clients from knowing about individual services.
+The **API Gateway** is the single entry point for all clients. It handles routing, authentication, rate limiting, SSL termination, and request aggregation — preventing clients from knowing about individual services.
 
 ```
 Client (React App / Mobile)
-          â”‚
-          â–¼
-  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-  â”‚  API Gateway  â”‚  â† YARP / Ocelot / Azure API Management
-  â”‚               â”‚    - Route /orders â†’ OrderService
-  â”‚  Auth (JWT)   â”‚    - Route /catalog â†’ CatalogService
-  â”‚  Rate Limit   â”‚    - Aggregate /dashboard â†’ multiple services
-  â”‚  Load Balance â”‚    - Strip/add headers
-  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+          │
+          ▼
+  ┌───────────────┐
+  │  API Gateway  │  ← YARP / Ocelot / Azure API Management
+  │               │    - Route /orders → OrderService
+  │  Auth (JWT)   │    - Route /catalog → CatalogService
+  │  Rate Limit   │    - Aggregate /dashboard → multiple services
+  │  Load Balance │    - Strip/add headers
+  └───────────────┘
      /      |      \
 Order   Catalog  Payment
 Service Service  Service
 ```
 
 ```cs
-// YARP (Yet Another Reverse Proxy) â€” Microsoft\'s API Gateway (.NET 10)
+// YARP (Yet Another Reverse Proxy) — Microsoft\'s API Gateway (.NET 10)
 // dotnet add package Yarp.ReverseProxy
 
 builder.Services.AddReverseProxy()
@@ -23855,17 +22501,14 @@ builder.Services.AddRateLimiter(opts =>
 app.UseRateLimiter();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you manage data consistency in microservices?
 
-Each microservice owns its database â€” no shared DB. Consistency is maintained through **eventual consistency** patterns.
+Each microservice owns its database — no shared DB. Consistency is maintained through **eventual consistency** patterns.
 
 ```cs
-// 1. Saga Pattern (Choreography) â€” services react to events
-// OrderService publishes â†’ InventoryService and PaymentService consume
+// 1. Saga Pattern (Choreography) — services react to events
+// OrderService publishes → InventoryService and PaymentService consume
 
 // OrderService
 await publishEndpoint.Publish(new OrderPlaced(orderId, customerId, items));
@@ -23883,7 +22526,7 @@ public class OrderPlacedConsumer : IConsumer<OrderPlaced>
     }
 }
 
-// 2. Saga Pattern (Orchestration) â€” MassTransit StateMachine
+// 2. Saga Pattern (Orchestration) — MassTransit StateMachine
 public class OrderStateMachine : MassTransitStateMachine<OrderState>
 {
     public OrderStateMachine()
@@ -23909,7 +22552,7 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
     public Event<InventoryFailed>     InventoryFailedEvent     { get; private set; } = default!;
 }
 
-// 3. Outbox Pattern â€” guarantee event delivery even if service crashes
+// 3. Outbox Pattern — guarantee event delivery even if service crashes
 // Store event in DB (same transaction as business data), then publish
 await using var tx = await db.Database.BeginTransactionAsync();
 db.Orders.Add(newOrder);
@@ -23921,9 +22564,6 @@ await tx.CommitAsync();
 // Background worker reads outbox and publishes to message bus
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are some common challenges when working with microservices?
 
@@ -23940,7 +22580,7 @@ await tx.CommitAsync();
 | **Operational overhead** | Many deployments to manage | Kubernetes, Helm, GitOps |
 
 ```cs
-// Polly â€” resilience library for network failures
+// Polly — resilience library for network failures
 // dotnet add package Microsoft.Extensions.Http.Resilience (.NET 8+)
 
 builder.Services.AddHttpClient<ICatalogClient, CatalogClient>()
@@ -23954,7 +22594,7 @@ builder.Services.AddHttpClient<ICatalogClient, CatalogClient>()
         opts.TotalRequestTimeout.Timeout = TimeSpan.FromSeconds(30);
     });
 
-// OpenTelemetry â€” distributed tracing across services
+// OpenTelemetry — distributed tracing across services
 builder.Services.AddOpenTelemetry()
     .WithTracing(tracing => tracing
         .AddAspNetCoreInstrumentation()
@@ -23963,14 +22603,11 @@ builder.Services.AddOpenTelemetry()
         .AddOtlpExporter(opts => opts.Endpoint = new Uri("http://jaeger:4317")));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you deploy microservices in a containerized environment?
 
 ```dockerfile
-# Dockerfile â€” multi-stage build for OrderService
+# Dockerfile — multi-stage build for OrderService
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY ["OrderService/OrderService.csproj", "OrderService/"]
@@ -23987,7 +22624,7 @@ ENTRYPOINT ["dotnet", "OrderService.dll"]
 ```
 
 ```yaml
-# Kubernetes deployment â€” order-service.yaml
+# Kubernetes deployment — order-service.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24045,20 +22682,17 @@ kubectl set image deployment/order-service order-service=myregistry.azurecr.io/o
 kubectl scale deployment order-service --replicas=5
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of service discovery in microservices?
 
-**Service discovery** allows microservices to find each other\'s network locations dynamically â€” without hardcoded IP addresses â€” as services scale, restart, or move.
+**Service discovery** allows microservices to find each other\'s network locations dynamically — without hardcoded IP addresses — as services scale, restart, or move.
 
 ```
 Without service discovery:
-  OrderService â†’ "http://192.168.1.42:8080" (hardcoded â€” breaks on redeploy)
+  OrderService → "http://192.168.1.42:8080" (hardcoded — breaks on redeploy)
 
 With service discovery:
-  OrderService â†’ "http://catalog-service" â†’ Discovery resolves â†’ "http://10.0.0.15:8080"
+  OrderService → "http://catalog-service" → Discovery resolves → "http://10.0.0.15:8080"
 ```
 
 | Approach | Tools | .NET Integration |
@@ -24069,7 +22703,7 @@ With service discovery:
 | **Azure Service Fabric** | Service Fabric DNS | Built-in naming service |
 
 ```cs
-// Kubernetes â€” simplest; use service name as hostname
+// Kubernetes — simplest; use service name as hostname
 builder.Services.AddHttpClient<ICatalogClient, CatalogClient>(client =>
 {
     // K8s DNS resolves "catalog-service" to the ClusterIP
@@ -24094,14 +22728,11 @@ builder.Services.AddHttpClient<ICatalogClient, CatalogClient>()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you implement logging and monitoring in microservices?
 
 ```cs
-// 1. Structured logging with Serilog â€” correlate across services
+// 1. Structured logging with Serilog — correlate across services
 // dotnet add package Serilog.AspNetCore Serilog.Sinks.OpenTelemetry
 
 builder.Host.UseSerilog((ctx, cfg) => cfg
@@ -24123,7 +22754,7 @@ app.Use(async (ctx, next) =>
         await next(ctx);
 });
 
-// 2. OpenTelemetry â€” metrics + tracing + logs
+// 2. OpenTelemetry — metrics + tracing + logs
 builder.Services.AddOpenTelemetry()
     .WithTracing(t => t
         .AddAspNetCoreInstrumentation()
@@ -24153,9 +22784,6 @@ ordersCreated.Add(1, new("status", "success"));
 // X-B3-TraceId / traceparent headers forwarded automatically
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between monolithic and microservices architecture?
 
@@ -24164,7 +22792,7 @@ ordersCreated.Add(1, new("status", "success"));
 | **Codebase** | Single deployable unit | Multiple independent services |
 | **Deployment** | Deploy entire app for any change | Deploy only changed service |
 | **Scaling** | Scale the whole app | Scale individual services |
-| **Technology** | Single stack | Polyglot â€” each service chooses |
+| **Technology** | Single stack | Polyglot — each service chooses |
 | **Data** | Single shared database | Each service owns its DB |
 | **Failure** | One bug can crash everything | Failures isolated per service |
 | **Complexity** | Simple locally, hard to scale | Complex ops, easy to scale |
@@ -24175,8 +22803,8 @@ ordersCreated.Add(1, new("status", "success"));
 ```
 When to choose what:
 
-Monolith âœ…                    Microservices âœ…
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€              â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+Monolith ✅                    Microservices ✅
+─────────────────              ─────────────────────────────────
 Early-stage startup            Large org with multiple teams
 Small team (<10 devs)          High scale requirements
 Unclear domain boundaries      Well-understood bounded contexts
@@ -24184,7 +22812,7 @@ Simple operational needs       Independent release cadence needed
 Proof of concept               Different scaling needs per component
 
 Migration path:
-Monolith â†’ Strangler Fig Pattern â†’ Microservices
+Monolith → Strangler Fig Pattern → Microservices
   1. Identify bounded context (e.g., Payment)
   2. Wrap it behind an interface
   3. Extract to separate service behind API Gateway
@@ -24192,14 +22820,11 @@ Monolith â†’ Strangler Fig Pattern â†’ Microservices
   5. Remove from monolith
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle security in microservices?
 
 ```cs
-// 1. JWT authentication â€” validate in each service
+// 1. JWT authentication — validate in each service
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opts =>
     {
@@ -24238,10 +22863,10 @@ public class JwtForwardingHandler(IHttpContextAccessor accessor) : DelegatingHan
     }
 }
 
-// 3. mTLS â€” mutual TLS for service-to-service (via service mesh: Istio / Linkerd)
+// 3. mTLS — mutual TLS for service-to-service (via service mesh: Istio / Linkerd)
 // Zero-code change; sidecar proxy handles certificate verification
 
-// 4. Secrets management â€” never store secrets in code
+// 4. Secrets management — never store secrets in code
 // Kubernetes secrets
 var connStr = builder.Configuration["ConnectionStrings__Orders"]; // from K8s Secret
 // Azure Key Vault
@@ -24249,13 +22874,10 @@ builder.Configuration.AddAzureKeyVault(new Uri("https://myvault.vault.azure.net/
     new DefaultAzureCredential());
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the role of Docker in microservices?
 
-Docker packages each microservice and its dependencies into an **image** â€” a portable, reproducible unit that runs consistently everywhere.
+Docker packages each microservice and its dependencies into an **image** — a portable, reproducible unit that runs consistently everywhere.
 
 ```dockerfile
 # Each microservice has its own Dockerfile
@@ -24272,7 +22894,7 @@ ENTRYPOINT ["dotnet", "CatalogService.dll"]
 ```
 
 ```yaml
-# docker-compose.yml â€” run all services locally
+# docker-compose.yml — run all services locally
 version: "3.9"
 services:
   api-gateway:
@@ -24318,9 +22940,6 @@ docker push myregistry.azurecr.io/order-service:1.0.0
 docker run -p 8080:8080 myregistry.azurecr.io/order-service:1.0.0
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you implement resilience and fault tolerance in microservices?
 
@@ -24331,7 +22950,7 @@ docker run -p 8080:8080 myregistry.azurecr.io/order-service:1.0.0
 builder.Services.AddHttpClient<ICatalogClient, CatalogClient>()
     .AddStandardResilienceHandler(opts =>
     {
-        // Retry â€” 3 times with exponential backoff + jitter
+        // Retry — 3 times with exponential backoff + jitter
         opts.Retry.MaxRetryAttempts = 3;
         opts.Retry.Delay            = TimeSpan.FromMilliseconds(200);
         opts.Retry.BackoffType      = DelayBackoffType.Exponential;
@@ -24339,7 +22958,7 @@ builder.Services.AddHttpClient<ICatalogClient, CatalogClient>()
         opts.Retry.ShouldHandle     = args =>
             ValueTask.FromResult(args.Outcome.Exception is HttpRequestException);
 
-        // Circuit Breaker â€” open after 50% failure in 10-second window
+        // Circuit Breaker — open after 50% failure in 10-second window
         opts.CircuitBreaker.FailureRatio    = 0.5;
         opts.CircuitBreaker.SamplingDuration = TimeSpan.FromSeconds(10);
         opts.CircuitBreaker.MinimumThroughput = 10;
@@ -24363,7 +22982,7 @@ builder.Services.AddResiliencePipeline("catalog-fallback", builder =>
     });
 });
 
-// Bulkhead â€” limit concurrent requests to a service
+// Bulkhead — limit concurrent requests to a service
 builder.Services.AddResiliencePipeline("bulkhead", b =>
     b.AddConcurrencyLimiter(permitLimit: 10, queueLimit: 20));
 
@@ -24375,9 +22994,6 @@ builder.Services.AddHealthChecks()
             : HealthCheckResult.Degraded("Circuit breaker is open"));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are some best practices for designing microservices?
 
@@ -24399,75 +23015,72 @@ builder.Services.AddHealthChecks()
 ```cs
 // Checklist for a new microservice:
 
-// âœ… 1. Health endpoints
+// ✅ 1. Health endpoints
 app.MapHealthChecks("/health/live");
 app.MapHealthChecks("/health/ready");
 
-// âœ… 2. Structured logging with correlation
+// ✅ 2. Structured logging with correlation
 builder.Host.UseSerilog((ctx, cfg) => cfg
     .Enrich.FromLogContext()
     .WriteTo.Console(new JsonFormatter()));
 
-// âœ… 3. OpenTelemetry tracing
+// ✅ 3. OpenTelemetry tracing
 builder.Services.AddOpenTelemetry()
     .WithTracing(t => t.AddAspNetCoreInstrumentation().AddOtlpExporter());
 
-// âœ… 4. Resilient HTTP clients
+// ✅ 4. Resilient HTTP clients
 builder.Services.AddHttpClient<IDownstreamClient, DownstreamClient>()
     .AddStandardResilienceHandler();
 
-// âœ… 5. Versioned API
+// ✅ 5. Versioned API
 app.MapGroup("/api/v1").MapOrderEndpoints();
 
-// âœ… 6. Graceful shutdown
+// ✅ 6. Graceful shutdown
 app.Lifetime.ApplicationStopping.Register(() =>
     logger.LogInformation("Shutting down gracefully..."));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Name the key components of Microservices?
 
 ```
 Key Components of a Microservices System:
 
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚  CLIENT (Browser / Mobile / 3rd-party)                              â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                       â”‚
-              â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-              â”‚   API Gateway    â”‚  Routing, Auth, Rate Limit, SSL
-              â”‚  (YARP / Ocelot) â”‚
-              â””â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-          â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-    â”Œâ”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
-    â”‚  Order    â”‚ â”‚Catalog  â”‚ â”‚ Payment   â”‚   â† Individual Services
-    â”‚  Service  â”‚ â”‚ Service â”‚ â”‚ Service   â”‚
-    â””â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
-          â”‚            â”‚           â”‚
-    â”Œâ”€â”€â”€â”€â”€â–¼â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â–¼â”€â”€â”  â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”
-    â”‚ Orders â”‚   â”‚Productsâ”‚  â”‚Paymentsâ”‚   â† Per-service Databases
-    â”‚  DB    â”‚   â”‚   DB   â”‚  â”‚   DB   â”‚
-    â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-          â”‚            â”‚           â”‚
-          â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                  â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”
-                  â”‚ Message  â”‚   â† Async Communication (RabbitMQ / Kafka)
-                  â”‚   Bus    â”‚
-                  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                       â”‚
-         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”Œâ”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”              â”Œâ”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
-   â”‚ Notificationâ”‚             â”‚  Audit / Log â”‚   â† Event Consumers
-   â”‚  Service   â”‚             â”‚   Service    â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜              â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌─────────────────────────────────────────────────────────────────────┐
+│  CLIENT (Browser / Mobile / 3rd-party)                              │
+└──────────────────────┬──────────────────────────────────────────────┘
+                       │
+              ┌────────▼─────────┐
+              │   API Gateway    │  Routing, Auth, Rate Limit, SSL
+              │  (YARP / Ocelot) │
+              └────────┬─────────┘
+          ┌────────────┼────────────┐
+    ┌─────▼─────┐ ┌────▼────┐ ┌────▼──────┐
+    │  Order    │ │Catalog  │ │ Payment   │   ← Individual Services
+    │  Service  │ │ Service │ │ Service   │
+    └─────┬─────┘ └────┬────┘ └────┬──────┘
+          │            │           │
+    ┌─────▼──┐   ┌─────▼──┐  ┌────▼───┐
+    │ Orders │   │Products│  │Payments│   ← Per-service Databases
+    │  DB    │   │   DB   │  │   DB   │
+    └────────┘   └────────┘  └────────┘
+          │            │           │
+          └────────────┼───────────┘
+                  ┌────▼─────┐
+                  │ Message  │   ← Async Communication (RabbitMQ / Kafka)
+                  │   Bus    │
+                  └──────────┘
+                       │
+         ┌─────────────┴───────────────┐
+   ┌─────▼──────┐              ┌───────▼──────┐
+   │ Notification│             │  Audit / Log │   ← Event Consumers
+   │  Service   │             │   Service    │
+   └────────────┘              └─────────────┘
 ```
 
 | Component | Role |
 |-----------|------|
-| **API Gateway** | Single entry point â€” routing, auth, rate limiting |
+| **API Gateway** | Single entry point — routing, auth, rate limiting |
 | **Services** | Independent business capabilities |
 | **Service Registry** | Service discovery (Consul, K8s DNS) |
 | **Message Bus** | Async communication (RabbitMQ, Kafka, Azure Service Bus) |
@@ -24477,9 +23090,6 @@ Key Components of a Microservices System:
 | **Observability** | Logs (Serilog), Metrics (Prometheus), Traces (Jaeger) |
 | **CI/CD Pipeline** | Per-service build and deploy (GitHub Actions, Azure DevOps) |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the tools commonly used tools for Microservices?
 
@@ -24505,19 +23115,16 @@ Key Components of a Microservices System:
 | **Secrets** | Azure Key Vault, HashiCorp Vault | Secrets management |
 | **Health** | ASP.NET Core Health Checks | Liveness/readiness probes |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the key principles to follow when designing microservices?
 
 ```cs
-// 1. Single Responsibility â€” one service, one bounded context
+// 1. Single Responsibility — one service, one bounded context
 // OrderService handles order lifecycle only; Catalog handles product info
 
-// 2. Database per service â€” no shared DB
-// âŒ Shared DB creates coupling
-// âœ… Each service owns its schema; communicate via events/API
+// 2. Database per service — no shared DB
+// ❌ Shared DB creates coupling
+// ✅ Each service owns its schema; communicate via events/API
 
 // 3. Design for failure
 builder.Services.AddHttpClient<ICatalogClient, CatalogClient>()
@@ -24527,7 +23134,7 @@ builder.Services.AddHttpClient<ICatalogClient, CatalogClient>()
 // Prefer events over synchronous calls for non-critical paths
 await publishEndpoint.Publish(new OrderShipped(orderId, trackingNumber));
 
-// 5. API versioning â€” never break consumers
+// 5. API versioning — never break consumers
 var v1 = app.MapGroup("/api/v1");
 var v2 = app.MapGroup("/api/v2");
 v1.MapGet("/orders/{id}", GetOrderV1);
@@ -24542,14 +23149,14 @@ builder.Host.UseSerilog((ctx, cfg) => cfg
     .Enrich.FromLogContext()
     .WriteTo.Console(new JsonFormatter()));
 
-// 7. Idempotent consumers â€” safe to process same message twice
+// 7. Idempotent consumers — safe to process same message twice
 public class OrderCreatedConsumer : IConsumer<OrderCreated>
 {
     public async Task Consume(ConsumeContext<OrderCreated> ctx)
     {
         // Check if already processed (idempotency key)
         if (await db.ProcessedEvents.AnyAsync(e => e.Id == ctx.MessageId))
-            return; // duplicate â€” skip
+            return; // duplicate — skip
 
         // ... process ...
 
@@ -24563,17 +23170,14 @@ app.MapHealthChecks("/health/live",  new() { Predicate = _ => false }); // alway
 app.MapHealthChecks("/health/ready", new() { Predicate = _ => true  }); // checks deps
 
 // 9. Use semantic versioning for Docker images + chart versions
-// v1.2.3 â€” never use :latest in production
+// v1.2.3 — never use :latest in production
 
 // 10. 12-Factor App principles
 // Config from environment; logs to stdout; stateless processes
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 15. PERFORMANCE AND OPTIMIZATION
+## 15. Performance and Optimization
 
 <br/>
 
@@ -24584,27 +23188,27 @@ String concatenation with `+` inside loops creates a new heap allocation on ever
 ```cs
 using System.Text;
 
-// âŒ O(nÂ²) â€” each += allocates a new string
+// ❌ O(n²) — each += allocates a new string
 string result = "";
 for (int i = 0; i < 100_000; i++)
     result += i.ToString(); // 100,000 heap allocations
 
-// âœ… StringBuilder â€” single buffer, amortised O(1) append
+// ✅ StringBuilder — single buffer, amortised O(1) append
 var sb = new StringBuilder(capacity: 1_024_000); // pre-allocate if size is known
 for (int i = 0; i < 100_000; i++)
     sb.Append(i);
 string r1 = sb.ToString(); // single final allocation
 
-// âœ… string.Concat / Join â€” best for fixed number of strings
+// ✅ string.Concat / Join — best for fixed number of strings
 string r2 = string.Concat("Hello", " ", "World");
 string r3 = string.Join(", ", new[] { "Alice", "Bob", "Carol" });
 
-// âœ… Interpolated strings â€” compiler-optimised in .NET 6+
-// Uses DefaultInterpolatedStringHandler internally â€” no intermediate string
+// ✅ Interpolated strings — compiler-optimised in .NET 6+
+// Uses DefaultInterpolatedStringHandler internally — no intermediate string
 string name = "Alice"; int age = 30;
 string r4 = $"{name} is {age}";
 
-// âœ… string.Create â€” zero-copy, write directly into final buffer (.NET 6+)
+// ✅ string.Create — zero-copy, write directly into final buffer (.NET 6+)
 int[] numbers = [1, 2, 3, 4, 5];
 string r5 = string.Create(numbers.Length * 2 - 1, numbers, (span, nums) =>
 {
@@ -24616,7 +23220,7 @@ string r5 = string.Create(numbers.Length * 2 - 1, numbers, (span, nums) =>
 });
 Console.WriteLine(r5); // 1,2,3,4,5
 
-// âœ… ValueStringBuilder / stackalloc for hot paths (advanced)
+// ✅ ValueStringBuilder / stackalloc for hot paths (advanced)
 Span<char> buf = stackalloc char[256];
 var vsb = new System.Text.StringBuilder(); // or use MemoryExtensions for Span-based ops
 
@@ -24626,17 +23230,14 @@ var vsb = new System.Text.StringBuilder(); // or use MemoryExtensions for Span-b
 // string.Create      :      1 ms (zero intermediate allocations)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you work with parallelism and concurrency in C#?
 
-**Concurrency** â€” multiple tasks making progress (may share a single thread via async).
-**Parallelism** â€” multiple tasks executing simultaneously on multiple CPU cores.
+**Concurrency** — multiple tasks making progress (may share a single thread via async).
+**Parallelism** — multiple tasks executing simultaneously on multiple CPU cores.
 
 ```cs
-// 1. async/await â€” concurrency for I/O-bound work (no extra threads)
+// 1. async/await — concurrency for I/O-bound work (no extra threads)
 async Task<string[]> FetchAllAsync(string[] urls)
 {
     using var client = new HttpClient();
@@ -24644,7 +23245,7 @@ async Task<string[]> FetchAllAsync(string[] urls)
     return await Task.WhenAll(tasks); // all in parallel, no thread blocking
 }
 
-// 2. Parallel.For / Parallel.ForEach â€” parallelism for CPU-bound work
+// 2. Parallel.For / Parallel.ForEach — parallelism for CPU-bound work
 int[] data = Enumerable.Range(1, 1_000_000).ToArray();
 long sum = 0;
 Parallel.For(0, data.Length,
@@ -24653,7 +23254,7 @@ Parallel.For(0, data.Length,
     local => Interlocked.Add(ref sum, local));         // merge
 Console.WriteLine(sum);
 
-// 3. Parallel.ForEachAsync (.NET 6+) â€” async work with bounded parallelism
+// 3. Parallel.ForEachAsync (.NET 6+) — async work with bounded parallelism
 var urls = Enumerable.Range(1, 20).Select(i => $"https://api.example.com/item/{i}");
 await Parallel.ForEachAsync(urls,
     new ParallelOptions { MaxDegreeOfParallelism = 4 },
@@ -24664,7 +23265,7 @@ await Parallel.ForEachAsync(urls,
         Console.WriteLine($"Got {data.Length} chars");
     });
 
-// 4. PLINQ â€” parallel LINQ for data processing
+// 4. PLINQ — parallel LINQ for data processing
 var results = ParallelEnumerable.Range(1, 1_000_000)
     .AsParallel()
     .WithDegreeOfParallelism(Environment.ProcessorCount)
@@ -24672,7 +23273,7 @@ var results = ParallelEnumerable.Range(1, 1_000_000)
     .Select(n => n * n)
     .Sum();
 
-// 5. Channel<T> â€” producer/consumer pipelines (.NET Core 2.1+)
+// 5. Channel<T> — producer/consumer pipelines (.NET Core 2.1+)
 using System.Threading.Channels;
 
 var channel = Channel.CreateBounded<int>(capacity: 100);
@@ -24697,9 +23298,6 @@ var consumer = Task.Run(async () =>
 await Task.WhenAll(producer, consumer);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are some common performance issues in .NET Core applications?
 
@@ -24717,22 +23315,22 @@ await Task.WhenAll(producer, consumer);
 | Missing `AsNoTracking` | Unnecessary EF change tracking | Add `.AsNoTracking()` for read-only queries |
 
 ```cs
-// âŒ Common anti-pattern: sync-over-async
+// ❌ Common anti-pattern: sync-over-async
 public string GetData() => FetchAsync().Result; // blocks thread pool thread
 
-// âœ… Fix: async all the way
+// ✅ Fix: async all the way
 public async Task<string> GetDataAsync() => await FetchAsync();
 
-// âŒ Anti-pattern: unnecessary ToList() materialisation
+// ❌ Anti-pattern: unnecessary ToList() materialisation
 var count = dbContext.Orders.ToList().Count; // loads ALL rows into memory
 
-// âœ… Fix: query at DB level
+// ✅ Fix: query at DB level
 var count = await dbContext.Orders.CountAsync();
 
-// âŒ Anti-pattern: missing ConfigureAwait in libraries
+// ❌ Anti-pattern: missing ConfigureAwait in libraries
 await SomeLibraryMethodAsync(); // may deadlock in ASP.NET Framework context
 
-// âœ… Fix in library code
+// ✅ Fix in library code
 await SomeLibraryMethodAsync().ConfigureAwait(false);
 
 // Detect issues via dotnet-counters
@@ -24740,14 +23338,11 @@ await SomeLibraryMethodAsync().ConfigureAwait(false);
 // Watch: gc-heap-size, gen-0-gc-count, threadpool-queue-length, alloc-rate
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you measure the performance of a .NET Core application?
 
 ```cs
-// 1. Stopwatch â€” quick timing
+// 1. Stopwatch — quick timing
 using System.Diagnostics;
 
 var sw = Stopwatch.StartNew();
@@ -24755,7 +23350,7 @@ PerformWork();
 sw.Stop();
 Console.WriteLine($"Elapsed: {sw.Elapsed.TotalMilliseconds:F3} ms");
 
-// 2. BenchmarkDotNet â€” production-grade micro-benchmarks (gold standard)
+// 2. BenchmarkDotNet — production-grade micro-benchmarks (gold standard)
 // dotnet add package BenchmarkDotNet
 
 using BenchmarkDotNet.Attributes;
@@ -24787,7 +23382,7 @@ public class StringBenchmarks
 BenchmarkRunner.Run<StringBenchmarks>();
 // Reports: Mean, Allocated, Gen0/1/2 GC counts
 
-// 3. Activity / OpenTelemetry â€” distributed tracing
+// 3. Activity / OpenTelemetry — distributed tracing
 using System.Diagnostics;
 
 var source = new ActivitySource("MyApp.Performance");
@@ -24796,13 +23391,10 @@ activity?.SetTag("order.id", 42);
 // ... work ...
 activity?.Stop();
 
-// 4. EventCounters â€” production runtime metrics
+// 4. EventCounters — production runtime metrics
 // dotnet-counters monitor -p <PID> System.Runtime Microsoft.AspNetCore.Hosting
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What tools are available for profiling .NET Core applications?
 
@@ -24837,7 +23429,7 @@ dotnet-trace collect -p <PID> --duration 00:00:30 --output trace.nettrace
 
 # Heap dump
 dotnet-gcdump collect -p <PID> --output heap.gcdump
-# Open in Visual Studio: File â†’ Open â†’ heap.gcdump
+# Open in Visual Studio: File → Open → heap.gcdump
 
 # Full memory dump
 dotnet-dump collect -p <PID>
@@ -24845,9 +23437,6 @@ dotnet-dump analyze core_<PID>
 # Then: dumpheap -stat, gcroot <address>, etc.
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use the `dotnet-counters` tool to monitor performance?
 
@@ -24879,15 +23468,15 @@ dotnet-counters collect -p 1234 \
   --format csv
 
 # Key counters to watch:
-# cpu-usage                  â€” CPU %
-# gc-heap-size               â€” managed heap size (MB)
-# gen-0-gc-count             â€” Gen 0 GC frequency
-# alloc-rate                 â€” allocation rate (bytes/sec)
-# threadpool-queue-length    â€” pending thread pool work items
-# active-timer-count         â€” active timers
-# exception-count            â€” unhandled exceptions/sec
-# requests-per-second        â€” ASP.NET Core RPS
-# current-requests           â€” in-flight HTTP requests
+# cpu-usage                  — CPU %
+# gc-heap-size               — managed heap size (MB)
+# gen-0-gc-count             — Gen 0 GC frequency
+# alloc-rate                 — allocation rate (bytes/sec)
+# threadpool-queue-length    — pending thread pool work items
+# active-timer-count         — active timers
+# exception-count            — unhandled exceptions/sec
+# requests-per-second        — ASP.NET Core RPS
+# current-requests           — in-flight HTTP requests
 ```
 
 ```cs
@@ -24918,9 +23507,6 @@ MyEventSource.Log.RecordRequest(42.5);
 // dotnet-counters monitor -p <PID> MyApp
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `dotnet-trace` tool and how is it used?
 
@@ -24932,10 +23518,10 @@ dotnet tool install -g dotnet-trace
 
 # List available event profiles
 dotnet-trace list-profiles
-# cpu-sampling   â€” CPU call stacks (default)
-# gc-verbose     â€” detailed GC events
-# gc-collect     â€” GC collection only
-# none           â€” no built-in; specify providers manually
+# cpu-sampling   — CPU call stacks (default)
+# gc-verbose     — detailed GC events
+# gc-collect     — GC collection only
+# none           — no built-in; specify providers manually
 
 # Capture 30-second CPU profile
 dotnet-trace collect -p <PID> \
@@ -24957,20 +23543,17 @@ dotnet-trace collect -p <PID> \
 dotnet-trace collect -- dotnet MyApp.dll
 
 # Analyse the trace
-# Open in: Visual Studio â†’ File â†’ Open â†’ myapp.nettrace
+# Open in: Visual Studio → File → Open → myapp.nettrace
 # Or: PerfView myapp.nettrace
 # Or: speedscope.app (convert first)
 dotnet-trace convert myapp.nettrace --format Speedscope
 # Open myapp.speedscope.json at https://speedscope.app
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use the `dotnet-dump` tool to collect and analyze memory dumps?
 
-`dotnet-dump` captures a full managed memory dump and provides a REPL for analysis â€” useful for diagnosing OOM crashes, deadlocks, and high memory usage.
+`dotnet-dump` captures a full managed memory dump and provides a REPL for analysis — useful for diagnosing OOM crashes, deadlocks, and high memory usage.
 
 ```bash
 # Install
@@ -24989,7 +23572,7 @@ dotnet-dump analyze myapp.dmp
 ```
 
 ```
-# Inside the analyze REPL â€” useful commands:
+# Inside the analyze REPL — useful commands:
 
 # Show all managed threads
 clrthreads
@@ -24997,7 +23580,7 @@ clrthreads
 # Show call stacks for all threads
 clrstack -all
 
-# Heap statistics â€” top object types by count/size
+# Heap statistics — top object types by count/size
 dumpheap -stat
 
 # Find all instances of a type
@@ -25022,13 +23605,10 @@ syncblk
 exit
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `dotnet-gcdump` tool and how is it used?
 
-`dotnet-gcdump` captures a GC heap snapshot in `.gcdump` format â€” a lighter alternative to a full memory dump. It triggers a GC collection, then records all live objects and their references.
+`dotnet-gcdump` captures a GC heap snapshot in `.gcdump` format — a lighter alternative to a full memory dump. It triggers a GC collection, then records all live objects and their references.
 
 ```bash
 # Install
@@ -25041,7 +23621,7 @@ dotnet-gcdump collect -p <PID> --output myapp.gcdump
 dotnet-gcdump collect --name MyApi
 
 # Analyse in VS Code / Visual Studio
-# Visual Studio: File â†’ Open â†’ myapp.gcdump
+# Visual Studio: File → Open → myapp.gcdump
 # Shows: object counts, sizes, retention trees
 
 # Report from command line (top types by size)
@@ -25066,9 +23646,6 @@ long heapBytes = GC.GetTotalMemory(forceFullCollection: false);
 Console.WriteLine($"Heap after GC: {heapBytes / 1_048_576:F2} MB");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you optimize memory usage in .NET Core applications?
 
@@ -25077,14 +23654,14 @@ Console.WriteLine($"Heap after GC: {heapBytes / 1_048_576:F2} MB");
 byte[] buffer = new byte[4096];
 ReadOnlySpan<byte> slice = buffer.AsSpan(0, 100); // zero allocation
 
-// 2. ArrayPool<T> â€” reuse buffers instead of allocating
+// 2. ArrayPool<T> — reuse buffers instead of allocating
 using System.Buffers;
 
 byte[] rented = ArrayPool<byte>.Shared.Rent(4096);
 try   { /* use rented */ }
 finally { ArrayPool<byte>.Shared.Return(rented, clearArray: false); }
 
-// 3. ObjectPool<T> â€” reuse expensive objects
+// 3. ObjectPool<T> — reuse expensive objects
 using Microsoft.Extensions.ObjectPool;
 
 var policy = new DefaultPooledObjectPolicy<StringBuilder>();
@@ -25098,28 +23675,25 @@ finally { pool.Return(sb); } // sb.Clear() called automatically
 public readonly record struct Point(double X, double Y);
 
 // 5. Avoid unnecessary LINQ materialisation
-// âŒ Loads everything into memory
+// ❌ Loads everything into memory
 var names = db.Products.ToList().Select(p => p.Name).ToList();
-// âœ… Projection at DB level
+// ✅ Projection at DB level
 var names2 = await db.Products.Select(p => p.Name).ToListAsync();
 
 // 6. String interning for frequently repeated strings
 string s = string.Intern(someString);
 
-// 7. Weak references â€” allow GC to collect when under pressure
+// 7. Weak references — allow GC to collect when under pressure
 var weak = new WeakReference<ExpensiveObject>(new ExpensiveObject());
 if (weak.TryGetTarget(out var obj))
     obj.Use();
-// else obj was collected â€” recreate if needed
+// else obj was collected — recreate if needed
 
 // 8. Dispose IDisposable resources promptly
 await using var stream = new FileStream("file.txt", FileMode.Open);
 // stream disposed at end of using block
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are some best practices for managing memory in .NET Core?
 
@@ -25139,10 +23713,10 @@ public sealed class ResourceHolder : IAsyncDisposable
 }
 
 // 2. Avoid static collections that grow without bound (memory leaks)
-// âŒ Unbounded static cache â€” never cleaned up
+// ❌ Unbounded static cache — never cleaned up
 private static readonly Dictionary<int, byte[]> _cache = new();
 
-// âœ… Use IMemoryCache with expiry
+// ✅ Use IMemoryCache with expiry
 builder.Services.AddMemoryCache();
 // cache.Set(key, value, TimeSpan.FromMinutes(5));
 
@@ -25153,7 +23727,7 @@ record struct Coordinate(double Lat, double Lon); // stack-allocated when local
 // In runtimeconfig.json or environment variables:
 // DOTNET_GCConserveMemory=5      (0-9, higher = more aggressive GC)
 // DOTNET_GCHeapHardLimit=1073741824  (1 GB hard cap)
-// DOTNET_gcServer=1              (server GC â€” better throughput)
+// DOTNET_gcServer=1              (server GC — better throughput)
 
 // 5. Use cancellation tokens to abort long operations
 async Task<string> FetchWithTimeoutAsync(string url, CancellationToken ct)
@@ -25164,7 +23738,7 @@ async Task<string> FetchWithTimeoutAsync(string url, CancellationToken ct)
     return await client.GetStringAsync(url, cts.Token);
 }
 
-// 6. Avoid finalizers â€” use IDisposable pattern instead
+// 6. Avoid finalizers — use IDisposable pattern instead
 // Finalizers delay GC (object survives to Gen 1 before collection)
 
 // 7. Pre-size collections when count is known
@@ -25172,9 +23746,6 @@ var list = new List<int>(capacity: 10_000);   // avoids re-allocations
 var dict = new Dictionary<string, int>(capacity: 500);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you reduce the memory footprint of a .NET Core application?
 
@@ -25186,14 +23757,14 @@ dotnet publish -c Release -r linux-x64 --self-contained \
   -o ./publish
 # Reduces from ~80 MB to ~15-20 MB for a minimal API
 
-# 2. Native AOT â€” no JIT compiler or reflection metadata in memory
+# 2. Native AOT — no JIT compiler or reflection metadata in memory
 dotnet publish -c Release -r linux-x64 -p:PublishAot=true
 
 # 3. Use minimal framework components
 ```
 
 ```xml
-<!-- .csproj â€” exclude unused features -->
+<!-- .csproj — exclude unused features -->
 <PropertyGroup>
   <InvariantGlobalization>true</InvariantGlobalization>  <!-- save ~10 MB -->
   <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
@@ -25203,9 +23774,9 @@ dotnet publish -c Release -r linux-x64 -p:PublishAot=true
 
 ```cs
 // 4. Server GC with memory limit
-// DOTNET_GCHeapHardLimitPercent=75   â€” use max 75% of container memory
-// DOTNET_gcServer=1                  â€” server GC (one heap per CPU core)
-// DOTNET_GCConserveMemory=5          â€” favour smaller heap over throughput
+// DOTNET_GCHeapHardLimitPercent=75   — use max 75% of container memory
+// DOTNET_gcServer=1                  — server GC (one heap per CPU core)
+// DOTNET_GCConserveMemory=5          — favour smaller heap over throughput
 
 // 5. Reduce per-request allocations
 // Use IObjectPool, Span<T>, ArrayPool<T> (covered above)
@@ -25220,9 +23791,6 @@ var builder = WebApplication.CreateSlimBuilder(args); // .NET 8+ minimal builder
 // Target: alloc-rate < 1 MB/s for steady-state server
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you optimize CPU usage in .NET Core applications?
 
@@ -25294,24 +23862,21 @@ try { /* protected work */ }
 finally { semaphore.Release(); }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are some best practices for optimizing CPU-bound operations?
 
 ```cs
-// 1. Profile before optimising â€” measure first with BenchmarkDotNet or dotnet-trace
-// 2. Use correct data structures â€” O(1) HashSet lookup vs O(n) List.Contains
+// 1. Profile before optimising — measure first with BenchmarkDotNet or dotnet-trace
+// 2. Use correct data structures — O(1) HashSet lookup vs O(n) List.Contains
 var set = new HashSet<int>(data);
 bool found = set.Contains(target); // O(1)
 
-// 3. Avoid LINQ in the tightest loops â€” use plain for loops
-// âŒ LINQ in hot loop â€” delegate invocation overhead
+// 3. Avoid LINQ in the tightest loops — use plain for loops
+// ❌ LINQ in hot loop — delegate invocation overhead
 for (int i = 0; i < 1_000_000; i++)
     total += data.Where(x => x > 0).Sum(); // re-evaluates every iteration
 
-// âœ… Pre-filter, use for loop in hot path
+// ✅ Pre-filter, use for loop in hot path
 var positive = data.Where(x => x > 0).ToArray();
 for (int i = 0; i < positive.Length; i++) total += positive[i];
 
@@ -25342,17 +23907,14 @@ public ValueTask<int> GetCachedValueAsync(int key)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use asynchronous programming to improve performance in .NET Core?
 
 ```cs
-// 1. async/await â€” releases thread during I/O wait
+// 1. async/await — releases thread during I/O wait
 app.MapGet("/data", async (HttpClient client) =>
 {
-    // Thread returned to pool while waiting â€” handles more concurrent requests
+    // Thread returned to pool while waiting — handles more concurrent requests
     string data = await client.GetStringAsync("https://api.example.com/data");
     return data;
 });
@@ -25392,7 +23954,7 @@ public async Task<string> LibraryMethodAsync()
     return Process(data);
 }
 
-// 6. CancellationToken â€” abort abandoned requests
+// 6. CancellationToken — abort abandoned requests
 app.MapGet("/slow", async (CancellationToken ct) =>
 {
     await Task.Delay(5000, ct); // if client disconnects, ct is cancelled
@@ -25400,9 +23962,6 @@ app.MapGet("/slow", async (CancellationToken ct) =>
 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `async` and `await` keywords and how are they used?
 
@@ -25431,7 +23990,7 @@ var t1 = FetchDataAsync("https://api1.example.com");
 var t2 = FetchDataAsync("https://api2.example.com");
 string[] results = await Task.WhenAll(t1, t2);   // parallel
 
-// WhenAny â€” first to complete wins
+// WhenAny — first to complete wins
 var fastest = await Task.WhenAny(t1, t2);
 Console.WriteLine(await fastest);
 
@@ -25450,38 +24009,35 @@ await foreach (int n in GenerateAsync())
     Console.Write($"{n} ");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use the `Task` class to perform asynchronous operations?
 
 ```cs
-// 1. Task.Run â€” offload CPU-bound work to thread pool
+// 1. Task.Run — offload CPU-bound work to thread pool
 var result = await Task.Run(() =>
 {
     return Enumerable.Range(1, 1_000_000).Sum(x => (long)x);
 });
 Console.WriteLine(result); // 500000500000
 
-// 2. Task.Delay â€” non-blocking pause (replaces Thread.Sleep)
+// 2. Task.Delay — non-blocking pause (replaces Thread.Sleep)
 await Task.Delay(TimeSpan.FromSeconds(1));
 
-// 3. Task.WhenAll â€” wait for all tasks (parallel)
+// 3. Task.WhenAll — wait for all tasks (parallel)
 var tasks = urls.Select(url => httpClient.GetStringAsync(url));
 string[] responses = await Task.WhenAll(tasks);
 
-// 4. Task.WhenAny â€” first task to complete
+// 4. Task.WhenAny — first task to complete
 var timeout = Task.Delay(5000);
 var work    = DoWorkAsync();
 if (await Task.WhenAny(work, timeout) == timeout)
     throw new TimeoutException();
 
-// 5. Task<T> â€” task with return value
+// 5. Task<T> — task with return value
 Task<int> countTask = CountItemsAsync();
 int count = await countTask;
 
-// 6. TaskCompletionSource â€” wrap callback-based APIs
+// 6. TaskCompletionSource — wrap callback-based APIs
 Task<string> WrapCallback()
 {
     var tcs = new TaskCompletionSource<string>();
@@ -25491,7 +24047,7 @@ Task<string> WrapCallback()
     return tcs.Task;
 }
 
-// 7. Task.FromResult / Task.CompletedTask â€” completed tasks (no allocation for common values)
+// 7. Task.FromResult / Task.CompletedTask — completed tasks (no allocation for common values)
 Task<int> zero = Task.FromResult(0);
 Task done      = Task.CompletedTask;
 
@@ -25512,21 +24068,18 @@ catch (OperationCanceledException)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you optimize I/O operations in .NET Core applications?
 
 ```cs
-// 1. Always use async I/O â€” never block on file/network/DB
-// âŒ Blocks a thread pool thread
+// 1. Always use async I/O — never block on file/network/DB
+// ❌ Blocks a thread pool thread
 string text = File.ReadAllText("file.txt");
 
-// âœ… Async â€” thread returns to pool during I/O wait
+// ✅ Async — thread returns to pool during I/O wait
 string text2 = await File.ReadAllTextAsync("file.txt");
 
-// 2. Buffer reads/writes â€” reduce syscall count
+// 2. Buffer reads/writes — reduce syscall count
 await using var reader = new StreamReader(
     new FileStream("large.csv", FileMode.Open, FileAccess.Read,
         FileShare.Read, bufferSize: 65536, useAsync: true));
@@ -25534,7 +24087,7 @@ string? line;
 while ((line = await reader.ReadLineAsync()) is not null)
     Process(line);
 
-// 3. Pipelines API â€” zero-copy parsing (System.IO.Pipelines)
+// 3. Pipelines API — zero-copy parsing (System.IO.Pipelines)
 using System.IO.Pipelines;
 
 async Task ProcessPipeAsync(PipeReader reader, CancellationToken ct)
@@ -25549,7 +24102,7 @@ async Task ProcessPipeAsync(PipeReader reader, CancellationToken ct)
     }
 }
 
-// 4. HttpClient â€” reuse, configure timeouts, use IHttpClientFactory
+// 4. HttpClient — reuse, configure timeouts, use IHttpClientFactory
 builder.Services.AddHttpClient("api", client =>
 {
     client.BaseAddress = new Uri("https://api.example.com");
@@ -25567,7 +24120,7 @@ var tasks = urls.Select(async url =>
 });
 string[] results = await Task.WhenAll(tasks);
 
-// 6. SocketsHttpHandler â€” fine-grained connection pool tuning
+// 6. SocketsHttpHandler — fine-grained connection pool tuning
 var handler = new SocketsHttpHandler
 {
     PooledConnectionLifetime     = TimeSpan.FromMinutes(2),
@@ -25577,9 +24130,6 @@ var handler = new SocketsHttpHandler
 };
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are some best practices for optimizing disk and network I/O?
 
@@ -25590,14 +24140,14 @@ var handler = new SocketsHttpHandler
 await File.WriteAllTextAsync("output.txt", content);
 await File.AppendAllTextAsync("log.txt", $"{DateTime.UtcNow}: event\n");
 
-// 2. File.OpenHandle + RandomAccess (.NET 6+) â€” best performance, no Stream overhead
+// 2. File.OpenHandle + RandomAccess (.NET 6+) — best performance, no Stream overhead
 using var handle = File.OpenHandle("data.bin",
     FileMode.Open, FileAccess.Read, FileShare.Read,
     FileOptions.Asynchronous | FileOptions.SequentialScan);
 var buffer = new byte[4096];
 int read = await RandomAccess.ReadAsync(handle, buffer, fileOffset: 0);
 
-// 3. MemoryMappedFile â€” for very large files or shared memory
+// 3. MemoryMappedFile — for very large files or shared memory
 using var mmf = MemoryMappedFile.CreateFromFile("huge.dat");
 using var accessor = mmf.CreateViewAccessor(offset: 0, size: 4096);
 byte value = accessor.ReadByte(0);
@@ -25620,7 +24170,7 @@ builder.WebHost.ConfigureKestrel(opts =>
         o.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core
             .HttpProtocols.Http1AndHttp2AndHttp3));
 
-// 6. Response compression â€” reduce bytes over the wire
+// 6. Response compression — reduce bytes over the wire
 builder.Services.AddResponseCompression(opts =>
 {
     opts.EnableForHttps = true;
@@ -25629,20 +24179,17 @@ builder.Services.AddResponseCompression(opts =>
 });
 app.UseResponseCompression();
 
-// 7. Output caching â€” serve cached responses without hitting the app
+// 7. Output caching — serve cached responses without hitting the app
 builder.Services.AddOutputCache();
 app.UseOutputCache();
 app.MapGet("/products", GetProducts).CacheOutput(p => p.Expire(TimeSpan.FromMinutes(5)));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use caching to improve performance in .NET Core applications?
 
 ```cs
-// 1. IMemoryCache â€” in-process, fast
+// 1. IMemoryCache — in-process, fast
 builder.Services.AddMemoryCache();
 
 public class ProductService(IMemoryCache cache, IProductRepository repo)
@@ -25659,7 +24206,7 @@ public class ProductService(IMemoryCache cache, IProductRepository repo)
     }
 }
 
-// 2. Output caching (.NET 7+) â€” cache full HTTP responses
+// 2. Output caching (.NET 7+) — cache full HTTP responses
 builder.Services.AddOutputCache(options =>
 {
     options.AddPolicy("ProductsCache", b => b
@@ -25682,9 +24229,6 @@ app.MapPost("/products", async (Product p, IOutputCacheStore store, Cancellation
 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `IMemoryCache` interface and how is it used?
 
@@ -25742,13 +24286,10 @@ public class WeatherService(IMemoryCache cache)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use distributed caching in .NET Core?
 
-Distributed caching stores data outside the process â€” shared across multiple app instances. ASP.NET Core provides `IDistributedCache` backed by Redis, SQL Server, or NCache.
+Distributed caching stores data outside the process — shared across multiple app instances. ASP.NET Core provides `IDistributedCache` backed by Redis, SQL Server, or NCache.
 
 ```cs
 // 1. Redis distributed cache (recommended for production)
@@ -25796,9 +24337,6 @@ public class SessionService(IDistributedCache cache)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `IDistributedCache` interface and how is it used?
 
@@ -25806,10 +24344,10 @@ public class SessionService(IDistributedCache cache)
 
 ```cs
 // Core methods:
-// Get / GetAsync           â€” retrieve bytes (null if not found)
-// Set / SetAsync           â€” store bytes with options
-// Refresh / RefreshAsync   â€” reset sliding expiration
-// Remove / RemoveAsync     â€” delete entry
+// Get / GetAsync           — retrieve bytes (null if not found)
+// Set / SetAsync           — store bytes with options
+// Refresh / RefreshAsync   — reset sliding expiration
+// Remove / RemoveAsync     — delete entry
 
 public class ProductCacheService(IDistributedCache cache)
 {
@@ -25847,7 +24385,7 @@ public class ProductCacheService(IDistributedCache cache)
     }
 }
 
-// Extension method (HybridCache â€” .NET 9+, recommended)
+// Extension method (HybridCache — .NET 9+, recommended)
 // dotnet add package Microsoft.Extensions.Caching.Hybrid
 builder.Services.AddHybridCache();
 
@@ -25862,16 +24400,13 @@ public class CachedService(HybridCache hybridCache)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use the `ResponseCaching` middleware to cache responses?
 
-**Response caching** stores complete HTTP responses and serves them for subsequent identical requests â€” reduces server-side processing.
+**Response caching** stores complete HTTP responses and serves them for subsequent identical requests — reduces server-side processing.
 
 ```cs
-// ResponseCaching â€” HTTP cache headers based (RFC 7234)
+// ResponseCaching — HTTP cache headers based (RFC 7234)
 builder.Services.AddResponseCaching(options =>
 {
     options.MaximumBodySize = 64 * 1024; // max cached body = 64 KB
@@ -25880,7 +24415,7 @@ builder.Services.AddResponseCaching(options =>
 
 app.UseResponseCaching();
 
-// Controller â€” add cache headers
+// Controller — add cache headers
 [ResponseCache(Duration = 60, VaryByQueryKeys = ["category"])]
 [HttpGet]
 public IActionResult GetProducts(string? category) => Ok();
@@ -25895,12 +24430,12 @@ app.MapGet("/products", async (AppDbContext db) =>
       VaryByHeader = "Accept-Language",
   });
 
-// âš ï¸ ResponseCaching has limitations:
+// ⚠️ ResponseCaching has limitations:
 // - Only caches GET/HEAD responses with 200 status
 // - Does NOT work with authenticated requests by default
 // - Cannot be invalidated programmatically
 
-// âœ… Output Caching (.NET 7+) â€” recommended replacement
+// ✅ Output Caching (.NET 7+) — recommended replacement
 builder.Services.AddOutputCache(opts =>
 {
     opts.AddBasePolicy(b => b.Expire(TimeSpan.FromMinutes(5)));
@@ -25920,44 +24455,41 @@ app.MapPost("/products", async (Product p, IOutputCacheStore store, Cancellation
 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you optimize database access in .NET Core applications?
 
 ```cs
-// 1. AsNoTracking â€” skip change tracking for read-only queries
+// 1. AsNoTracking — skip change tracking for read-only queries
 var products = await db.Products
     .AsNoTracking()
     .Where(p => p.Category == "Electronics")
     .ToListAsync();
 
-// 2. Projection â€” fetch only needed columns
+// 2. Projection — fetch only needed columns
 var dtos = await db.Products
     .AsNoTracking()
     .Select(p => new ProductDto(p.Id, p.Name, p.Price))
     .ToListAsync();
 
-// 3. Compiled queries â€” avoid repeated query compilation (.NET 7+)
+// 3. Compiled queries — avoid repeated query compilation (.NET 7+)
 private static readonly Func<AppDbContext, int, Task<Product?>> _getById =
     EF.CompileAsyncQuery((AppDbContext db, int id) =>
         db.Products.AsNoTracking().FirstOrDefault(p => p.Id == id));
 
 var product = await _getById(db, 42);
 
-// 4. Batch operations â€” EF Core 7+ ExecuteUpdate / ExecuteDelete
-// âŒ Load-modify-save (N round trips)
+// 4. Batch operations — EF Core 7+ ExecuteUpdate / ExecuteDelete
+// ❌ Load-modify-save (N round trips)
 var prods = await db.Products.Where(p => p.Price < 10).ToListAsync();
 foreach (var p in prods) p.Price *= 1.1m;
 await db.SaveChangesAsync();
 
-// âœ… Single SQL UPDATE
+// ✅ Single SQL UPDATE
 await db.Products
     .Where(p => p.Price < 10)
     .ExecuteUpdateAsync(s => s.SetProperty(p => p.Price, p => p.Price * 1.1m));
 
-// âœ… Single SQL DELETE
+// ✅ Single SQL DELETE
 await db.Products.Where(p => p.Stock == 0).ExecuteDeleteAsync();
 
 // 5. Eager loading to avoid N+1
@@ -25967,7 +24499,7 @@ var orders = await db.Orders
     .AsNoTracking()
     .ToListAsync();
 
-// 6. Pagination â€” never load all rows
+// 6. Pagination — never load all rows
 var page = await db.Products
     .OrderBy(p => p.Name)
     .Skip((pageNumber - 1) * pageSize)
@@ -25981,32 +24513,29 @@ var results = await db.Database
     .ToListAsync();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use connection pooling to improve database performance?
 
-Connection pooling reuses existing database connections rather than creating a new one per request. **ADO.NET and EF Core use pooling by default** â€” the key is configuring it correctly.
+Connection pooling reuses existing database connections rather than creating a new one per request. **ADO.NET and EF Core use pooling by default** — the key is configuring it correctly.
 
 ```cs
-// 1. ADO.NET â€” pooling is automatic when using connection strings
+// 1. ADO.NET — pooling is automatic when using connection strings
 // The connection string controls pool size:
 var connStr = "Server=myserver;Database=mydb;User=sa;Password=pass;" +
               "Min Pool Size=5;Max Pool Size=100;Connection Timeout=30;";
 
-// Open/Close does NOT destroy the connection â€” it returns it to the pool
+// Open/Close does NOT destroy the connection — it returns it to the pool
 await using var conn = new SqlConnection(connStr);
 await conn.OpenAsync();
 // ... query ...
-// conn.Close() / dispose â†’ returned to pool
+// conn.Close() / dispose → returned to pool
 
-// 2. EF Core â€” uses ADO.NET pooling automatically
+// 2. EF Core — uses ADO.NET pooling automatically
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(connStr,
         sql => sql.CommandTimeout(30)));
 
-// 3. DbContext pooling â€” EF Core level (reuse DbContext instances, .NET 6+)
+// 3. DbContext pooling — EF Core level (reuse DbContext instances, .NET 6+)
 // Use AddDbContextPool instead of AddDbContext
 builder.Services.AddDbContextPool<AppDbContext>(opt =>
     opt.UseSqlServer(connStr), poolSize: 128);
@@ -26038,25 +24567,22 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
             errorNumbersToAdd: null)));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use the `AsNoTracking` method to optimize query performance?
 
-`AsNoTracking()` tells EF Core to **skip change tracking** for returned entities â€” the context does not monitor them for modifications. This saves memory and CPU for read-only queries.
+`AsNoTracking()` tells EF Core to **skip change tracking** for returned entities — the context does not monitor them for modifications. This saves memory and CPU for read-only queries.
 
 ```cs
-// âŒ Default â€” EF Core tracks all returned entities (needed for updates)
+// ❌ Default — EF Core tracks all returned entities (needed for updates)
 var tracked = await db.Products.ToListAsync();
 // EF holds a snapshot of each entity for change detection
 
-// âœ… AsNoTracking â€” no snapshot stored, faster and less memory
+// ✅ AsNoTracking — no snapshot stored, faster and less memory
 var readOnly = await db.Products
     .AsNoTracking()
     .ToListAsync();
 
-// âœ… AsNoTrackingWithIdentityResolution â€” avoids duplicates in navigation props
+// ✅ AsNoTrackingWithIdentityResolution — avoids duplicates in navigation props
 // Useful when Include() returns the same entity multiple times
 var orders = await db.Orders
     .AsNoTrackingWithIdentityResolution()
@@ -26064,7 +24590,7 @@ var orders = await db.Orders
     .ThenInclude(l => l.Product)
     .ToListAsync();
 
-// âœ… Global setting â€” all queries in this context are non-tracked
+// ✅ Global setting — all queries in this context are non-tracked
 db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 
 // Benchmark context (queries per second):
@@ -26073,8 +24599,8 @@ db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 // Projection only  : ~35,000 QPS  (+133%)
 
 // When NOT to use AsNoTracking:
-// âŒ When you need to modify and save the entity
-var product = await db.Products.FindAsync(id); // tracked â€” needed for update
+// ❌ When you need to modify and save the entity
+var product = await db.Products.FindAsync(id); // tracked — needed for update
 product!.Price = newPrice;
 await db.SaveChangesAsync(); // EF detects change via tracking
 
@@ -26082,24 +24608,21 @@ await db.SaveChangesAsync(); // EF detects change via tracking
 await db.Products
     .Where(p => p.Id == id)
     .ExecuteUpdateAsync(s => s.SetProperty(p => p.Price, newPrice));
-// No loading needed â€” single UPDATE statement
+// No loading needed — single UPDATE statement
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the secure coding practices (XSS, CSRF, SQL Injection) available in .NET?
 
 ```cs
-// â”€â”€ 1. XSS (Cross-Site Scripting) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── 1. XSS (Cross-Site Scripting) ────────────────────────────────────
 // ASP.NET Core Razor auto-encodes output by default
-@Model.UserInput  // HTML-encoded automatically â€” safe
+@Model.UserInput  // HTML-encoded automatically — safe
 
 // HtmlEncoder for manual encoding
 using System.Text.Encodings.Web;
 string safe = HtmlEncoder.Default.Encode("<script>alert(1)</script>");
-// â†’ &lt;script&gt;alert(1)&lt;/script&gt;
+// → &lt;script&gt;alert(1)&lt;/script&gt;
 
 // Content Security Policy header
 app.Use(async (ctx, next) =>
@@ -26109,8 +24632,8 @@ app.Use(async (ctx, next) =>
     await next(ctx);
 });
 
-// â”€â”€ 2. CSRF (Cross-Site Request Forgery) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// MVC â€” Antiforgery token (automatic with [ValidateAntiForgeryToken])
+// ── 2. CSRF (Cross-Site Request Forgery) ─────────────────────────────
+// MVC — Antiforgery token (automatic with [ValidateAntiForgeryToken])
 builder.Services.AddAntiforgery(opt =>
 {
     opt.HeaderName = "X-XSRF-TOKEN";  // for SPA clients
@@ -26122,33 +24645,33 @@ builder.Services.AddAntiforgery(opt =>
 [HttpPost, ValidateAntiForgeryToken]
 public IActionResult Create(ProductForm form) { /* safe */ return Ok(); }
 
-// Minimal API â€” SameSite cookie + antiforgery
+// Minimal API — SameSite cookie + antiforgery
 app.MapPost("/products", (IAntiforgery af, HttpContext ctx) =>
 {
     af.ValidateRequestAsync(ctx);
     // ...
 }).RequireAuthorization();
 
-// â”€â”€ 3. SQL Injection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// âŒ Vulnerable â€” string interpolation into SQL
+// ── 3. SQL Injection ──────────────────────────────────────────────────
+// ❌ Vulnerable — string interpolation into SQL
 var name = userInput;
 var sql = $"SELECT * FROM Products WHERE Name = '{name}'";  // NEVER DO THIS
 
-// âœ… EF Core â€” parameterised automatically
+// ✅ EF Core — parameterised automatically
 var products = await db.Products
     .Where(p => p.Name == name)
     .ToListAsync();
 
-// âœ… Raw SQL with parameters (EF Core 7+)
+// ✅ Raw SQL with parameters (EF Core 7+)
 var results = await db.Products
-    .FromSql($"SELECT * FROM Products WHERE Name = {name}")  // interpolated â†’ parameterised
+    .FromSql($"SELECT * FROM Products WHERE Name = {name}")  // interpolated → parameterised
     .ToListAsync();
 
-// âœ… ADO.NET â€” explicit parameters
+// ✅ ADO.NET — explicit parameters
 await using var cmd = new SqlCommand("SELECT * FROM Products WHERE Name = @name", conn);
 cmd.Parameters.AddWithValue("@name", name);
 
-// â”€â”€ 4. Additional practices â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── 4. Additional practices ───────────────────────────────────────────
 // Enforce HTTPS
 app.UseHttpsRedirection();
 app.UseHsts(); // HTTP Strict Transport Security
@@ -26178,11 +24701,8 @@ app.MapPost("/products", ([FromBody] CreateProductRequest req) =>
 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 16. DEPLOYMENT
+## 16. Deployment
 
 <br/>
 
@@ -26191,10 +24711,10 @@ app.MapPost("/products", ([FromBody] CreateProductRequest req) =>
 `dotnet publish` compiles the application and copies the output (binaries, dependencies, assets) to a folder ready for deployment.
 
 ```bash
-# Framework-dependent (requires runtime on target machine â€” smaller output)
+# Framework-dependent (requires runtime on target machine — smaller output)
 dotnet publish -c Release -o ./publish
 
-# Self-contained (includes the runtime â€” no .NET needed on target)
+# Self-contained (includes the runtime — no .NET needed on target)
 dotnet publish -c Release -r linux-x64 --self-contained -o ./publish
 
 # Single-file executable (everything packed into one .exe/.bin)
@@ -26204,14 +24724,14 @@ dotnet publish -c Release -r win-x64 \
   -p:IncludeNativeLibrariesForSelfExtract=true \
   -o ./publish
 
-# Native AOT (.NET 7+ â€” no JIT, fast startup, small binary)
+# Native AOT (.NET 7+ — no JIT, fast startup, small binary)
 dotnet publish -c Release -r linux-x64 -p:PublishAot=true -o ./publish
 
 # Trim unused code (reduces binary size)
 dotnet publish -c Release -r linux-x64 --self-contained \
   -p:PublishTrimmed=true -o ./publish
 
-# ReadyToRun â€” pre-JIT code for faster startup (not as small as AOT)
+# ReadyToRun — pre-JIT code for faster startup (not as small as AOT)
 dotnet publish -c Release -r win-x64 --self-contained \
   -p:PublishReadyToRun=true -o ./publish
 ```
@@ -26227,22 +24747,19 @@ dotnet publish -c Release -r win-x64 --self-contained \
 </PropertyGroup>
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `WebHostBuilder` class and how is it used?
 
-`WebHostBuilder` is the legacy (.NET Core 1.xâ€“2.x) host builder. In .NET 6+, it was superseded by `WebApplication.CreateBuilder()` (minimal hosting model). The older `Host.CreateDefaultBuilder()` + `ConfigureWebHostDefaults()` pattern from .NET 3.1â€“5 is also still supported.
+`WebHostBuilder` is the legacy (.NET Core 1.x–2.x) host builder. In .NET 6+, it was superseded by `WebApplication.CreateBuilder()` (minimal hosting model). The older `Host.CreateDefaultBuilder()` + `ConfigureWebHostDefaults()` pattern from .NET 3.1–5 is also still supported.
 
 ```cs
-// âŒ Legacy â€” .NET Core 2.x WebHostBuilder (avoid in new code)
+// ❌ Legacy — .NET Core 2.x WebHostBuilder (avoid in new code)
 public static IWebHost BuildWebHost(string[] args) =>
     WebHost.CreateDefaultBuilder(args)
         .UseStartup<Startup>()
         .Build();
 
-// âš ï¸  .NET 3.1 / 5 â€” Generic Host + ConfigureWebHostDefaults
+// ⚠️  .NET 3.1 / 5 — Generic Host + ConfigureWebHostDefaults
 Host.CreateDefaultBuilder(args)
     .ConfigureWebHostDefaults(webBuilder =>
     {
@@ -26251,7 +24768,7 @@ Host.CreateDefaultBuilder(args)
     })
     .Build().Run();
 
-// âœ… .NET 10 â€” WebApplication.CreateBuilder (current best practice)
+// ✅ .NET 10 — WebApplication.CreateBuilder (current best practice)
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(opts =>
@@ -26265,14 +24782,11 @@ app.MapControllers();
 app.Run();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you deploy a .NET Core application to Azure?
 
 ```bash
-# 1. Azure App Service â€” simplest option
+# 1. Azure App Service — simplest option
 # Publish directly from CLI
 dotnet publish -c Release -o ./publish
 az login
@@ -26285,7 +24799,7 @@ az webapp deployment source config-zip \
 ```
 
 ```yaml
-# 2. GitHub Actions â€” deploy to Azure App Service
+# 2. GitHub Actions — deploy to Azure App Service
 name: Deploy to Azure
 on:
   push:
@@ -26314,7 +24828,7 @@ jobs:
 ```
 
 ```bash
-# 3. Azure Container Apps â€” deploy as Docker container
+# 3. Azure Container Apps — deploy as Docker container
 docker build -t myapp:latest .
 az acr login --name myRegistry
 docker tag myapp:latest myregistry.azurecr.io/myapp:latest
@@ -26330,9 +24844,6 @@ kubectl apply -f deployment.yaml
 kubectl set image deployment/myapp myapp=myregistry.azurecr.io/myapp:v2
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `Azure App Service` and how is it used?
 
@@ -26387,14 +24898,11 @@ string? dbConn = builder.Configuration.GetConnectionString("Default");
 string? env    = builder.Configuration["ASPNETCORE_ENVIRONMENT"];
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use Docker to containerize a .NET Core application?
 
 ```dockerfile
-# Dockerfile â€” multi-stage build for minimal final image (.NET 10)
+# Dockerfile — multi-stage build for minimal final image (.NET 10)
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
@@ -26406,7 +24914,7 @@ RUN dotnet restore
 COPY . ./
 RUN dotnet publish -c Release -o /app/publish --no-restore
 
-# Runtime image â€” smaller than sdk image
+# Runtime image — smaller than sdk image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
@@ -26439,7 +24947,7 @@ docker push myregistry.azurecr.io/myapp:1.0
 ```
 
 ```yaml
-# docker-compose.yml â€” local dev with database
+# docker-compose.yml — local dev with database
 version: '3.8'
 services:
   api:
@@ -26458,35 +24966,32 @@ services:
     ports: ["1433:1433"]
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a Dockerfile for a .NET Core application?
 
 ```dockerfile
-# Dockerfile â€” production-grade .NET 10 Web API
+# Dockerfile — production-grade .NET 10 Web API
 
-# â”€â”€ Stage 1: Restore â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Stage 1: Restore ──────────────────────────────────────────
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS restore
 WORKDIR /src
 COPY ["MyApi/MyApi.csproj", "MyApi/"]
 COPY ["MyApi.Core/MyApi.Core.csproj", "MyApi.Core/"]
 RUN dotnet restore "MyApi/MyApi.csproj"
 
-# â”€â”€ Stage 2: Build â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Stage 2: Build ────────────────────────────────────────────
 FROM restore AS build
 COPY . .
 RUN dotnet build "MyApi/MyApi.csproj" -c Release --no-restore
 
-# â”€â”€ Stage 3: Publish â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Stage 3: Publish ──────────────────────────────────────────
 FROM build AS publish
 RUN dotnet publish "MyApi/MyApi.csproj" \
     -c Release \
     --no-build \
     -o /app/publish
 
-# â”€â”€ Stage 4: Runtime (final, smallest image) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Stage 4: Runtime (final, smallest image) ──────────────────
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 
 # Security: non-root user
@@ -26507,7 +25012,7 @@ ENTRYPOINT ["dotnet", "MyApi.dll"]
 ```
 
 ```bash
-# .dockerignore â€” exclude unnecessary files
+# .dockerignore — exclude unnecessary files
 ```
 
 ```text
@@ -26523,9 +25028,6 @@ ENTRYPOINT ["dotnet", "MyApi.dll"]
 README.md
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you deploy a .NET Core application using Docker?
 
@@ -26585,16 +25087,13 @@ spec:
 EOF
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is Kubernetes and how is it used with .NET Core applications?
 
 **Kubernetes (K8s)** is an open-source container orchestration platform that automates deployment, scaling, and management of containerised applications. For .NET apps it handles rolling updates, health monitoring, auto-scaling, service discovery, and secrets management.
 
 ```yaml
-# deployment.yaml â€” full .NET 10 Web API Kubernetes manifest
+# deployment.yaml — full .NET 10 Web API Kubernetes manifest
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26666,14 +25165,11 @@ app.MapHealthChecks("/health/live",  new() { Predicate = _ => false });   // liv
 app.MapHealthChecks("/health/ready", new() { Predicate = r => r.Tags.Contains("ready") }); // readiness
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use CI/CD pipelines to deploy .NET Core applications?
 
 ```yaml
-# GitHub Actions â€” CI/CD pipeline for .NET 10 API â†’ Azure App Service
+# GitHub Actions — CI/CD pipeline for .NET 10 API → Azure App Service
 name: CI/CD Pipeline
 
 on:
@@ -26687,7 +25183,7 @@ env:
   AZURE_WEBAPP_NAME: 'my-dotnet-api'
 
 jobs:
-  # â”€â”€ CI: Build & Test â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  # ── CI: Build & Test ──────────────────────────────────────
   build-and-test:
     runs-on: ubuntu-latest
     steps:
@@ -26724,7 +25220,7 @@ jobs:
         name: app
         path: ./publish
 
-  # â”€â”€ CD: Deploy (main branch only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  # ── CD: Deploy (main branch only) ────────────────────────
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -26746,16 +25242,13 @@ jobs:
         package: ./publish
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `Azure DevOps` service and how is it used for deployment?
 
 **Azure DevOps** is a Microsoft platform providing: **Boards** (work tracking), **Repos** (Git), **Pipelines** (CI/CD), **Test Plans**, and **Artifacts** (NuGet/npm feeds).
 
 ```yaml
-# azure-pipelines.yml â€” CI/CD for .NET 10 API
+# azure-pipelines.yml — CI/CD for .NET 10 API
 trigger:
   branches:
     include: [main]
@@ -26768,7 +25261,7 @@ variables:
   dotnetVersion: '10.0.x'
 
 stages:
-# â”€â”€ Stage 1: Build & Test â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Stage 1: Build & Test ──────────────────────────────────
 - stage: Build
   jobs:
   - job: BuildAndTest
@@ -26802,7 +25295,7 @@ stages:
         PathtoPublish: $(Build.ArtifactStagingDirectory)/publish
         ArtifactName: drop
 
-# â”€â”€ Stage 2: Deploy to Staging â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Stage 2: Deploy to Staging ────────────────────────────
 - stage: DeployStaging
   dependsOn: Build
   jobs:
@@ -26818,7 +25311,7 @@ stages:
               appName: 'my-api-staging'
               package: $(Pipeline.Workspace)/drop
 
-# â”€â”€ Stage 3: Deploy to Production (with approval) â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Stage 3: Deploy to Production (with approval) ─────────
 - stage: DeployProd
   dependsOn: DeployStaging
   jobs:
@@ -26835,16 +25328,13 @@ stages:
               package: $(Pipeline.Workspace)/drop
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you configure a build pipeline in Azure DevOps?
 
 A **build pipeline** compiles code, runs tests, and produces deployable artifacts. It is defined in `azure-pipelines.yml` at the repo root.
 
 ```yaml
-# azure-pipelines.yml â€” Build pipeline for .NET 10
+# azure-pipelines.yml — Build pipeline for .NET 10
 trigger:
   branches:
     include: [main, develop]
@@ -26906,9 +25396,6 @@ steps:
     ArtifactName: 'myapi-$(Build.BuildNumber)'
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you configure a release pipeline in Azure DevOps?
 
@@ -26961,7 +25448,7 @@ stages:
     webAppName: 'myapi-prod'
   jobs:
   - deployment: Deploy
-    environment: production   # configure approval in Environments â†’ Approvals & Checks
+    environment: production   # configure approval in Environments → Approvals & Checks
     strategy:
       runOnce:
         deploy:
@@ -26977,7 +25464,7 @@ stages:
               package: $(Pipeline.Workspace)/drop
 
           - task: AzureAppServiceManage@0
-            displayName: 'Swap staging â†’ production'
+            displayName: 'Swap staging → production'
             inputs:
               azureSubscription: 'MyServiceConnection'
               Action: 'Swap Slots'
@@ -26986,14 +25473,11 @@ stages:
               SourceSlot: staging
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use GitHub Actions for deploying .NET Core applications?
 
 ```yaml
-# .github/workflows/deploy.yml â€” Full CI/CD with GitHub Actions
+# .github/workflows/deploy.yml — Full CI/CD with GitHub Actions
 name: Build, Test & Deploy
 
 on:
@@ -27045,7 +25529,7 @@ jobs:
     - uses: actions/download-artifact@v4
       with: { name: app, path: ./publish }
 
-    # Option A â€” Azure App Service
+    # Option A — Azure App Service
     - uses: azure/webapps-deploy@v3
       with:
         app-name: 'my-dotnet-api'
@@ -27060,7 +25544,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Option B â€” Build & push Docker image to GHCR
+    # Option B — Build & push Docker image to GHCR
     - uses: docker/login-action@v3
       with:
         registry: ghcr.io
@@ -27076,16 +25560,13 @@ jobs:
         cache-to: type=gha,mode=max
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `Octopus Deploy` tool and how is it used?
 
 **Octopus Deploy** is a release management and deployment automation tool that complements CI systems (Azure DevOps, GitHub Actions, Jenkins). It models environments, targets, deployment processes, and variable sets separately from build pipelines.
 
 ```yaml
-# GitHub Actions â†’ Octopus Deploy integration
+# GitHub Actions → Octopus Deploy integration
 - name: Push package to Octopus
   uses: OctopusDeploy/push-package-action@v3
   with:
@@ -27121,9 +25602,6 @@ jobs:
 | **Runbook** | Operational scripts (db backup, restart service) |
 | **Variable Sets** | Shared variables across projects |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the best practices for deploying .NET Core applications?
 
@@ -27145,7 +25623,7 @@ app.MapHealthChecks("/health/ready", new() { Predicate = r => r.Tags.Contains("r
 ```
 
 ```bash
-# 3. Secrets management â€” never commit secrets; use environment vars / Key Vault
+# 3. Secrets management — never commit secrets; use environment vars / Key Vault
 az keyvault secret set --vault-name myVault --name db-password --value "s3cret"
 # In app: builder.Configuration.AddAzureKeyVault(...)
 
@@ -27154,7 +25632,7 @@ az keyvault secret set --vault-name myVault --name db-password --value "s3cret"
 # 6. Multi-stage Docker builds (keep images small)
 # 7. Pin runtime versions in Dockerfile FROM mcr.microsoft.com/dotnet/aspnet:10.0
 # 8. Blue-green or canary deployments via deployment slots (App Service) or K8s
-# 9. Database migrations â€” apply via startup or migration job, never in production manually
+# 9. Database migrations — apply via startup or migration job, never in production manually
 # 10. Enable AOT/ReadyToRun for faster cold starts
 dotnet publish -c Release -r linux-x64 -p:PublishAot=true
 ```
@@ -27172,9 +25650,6 @@ if (app.Environment.IsProduction())
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the different types of hosting models available in .NET Core?
 
@@ -27184,14 +25659,14 @@ if (app.Environment.IsProduction())
 | **Out-of-process (IIS)** | IIS proxies to Kestrel running as separate process | Isolation, Linux-compatible workflow |
 | **Kestrel (edge)** | Kestrel directly exposed to internet | Linux, Docker, Cloud |
 | **Kestrel + reverse proxy** | Nginx/IIS/YARP in front of Kestrel | Production recommended |
-| **Self-contained** | App includes .NET runtime â€” no SDK needed on host | Offline, locked environments |
+| **Self-contained** | App includes .NET runtime — no SDK needed on host | Offline, locked environments |
 | **Framework-dependent** | Uses installed .NET runtime | Shared hosting, smaller package |
 | **Docker container** | App + runtime in container image | K8s, Azure Container Apps |
 | **Native AOT** | Compiled to native binary, no JIT/runtime | Ultra-fast startup, serverless, CLI tools |
 | **Background Service / Worker** | `IHostedService` without HTTP | Message queues, scheduled jobs |
 
 ```cs
-// In-process IIS hosting â€” .csproj
+// In-process IIS hosting — .csproj
 // <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
 
 // Out-of-process IIS hosting
@@ -27213,11 +25688,8 @@ builder.WebHost.ConfigureKestrel(opts =>
     opts.ListenUnixSocket("/tmp/myapp.sock"));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 17. .NET Core
+## 17. .NET Core
 
 <br/>
 
@@ -27226,12 +25698,12 @@ builder.WebHost.ConfigureKestrel(opts =>
 **.NET Core** (now simply called **.NET**) is Microsoft\'s open-source, cross-platform successor to .NET Framework. Starting with .NET 5, the "Core" name was dropped and it became the single unified runtime. The current version is **.NET 10** (2026).
 
 **Key characteristics:**
-- **Cross-platform** â€” Windows, Linux, macOS, ARM64
-- **Open source** â€” hosted on GitHub (dotnet/runtime, dotnet/aspnetcore)
-- **High performance** â€” consistently top-ranked in TechEmpower benchmarks
-- **Modular** â€” NuGet-based; only include what you need
-- **Cloud-native** â€” Docker, Kubernetes, Azure-first design
-- **Unified** â€” one SDK for web, desktop, mobile, cloud, IoT, AI
+- **Cross-platform** — Windows, Linux, macOS, ARM64
+- **Open source** — hosted on GitHub (dotnet/runtime, dotnet/aspnetcore)
+- **High performance** — consistently top-ranked in TechEmpower benchmarks
+- **Modular** — NuGet-based; only include what you need
+- **Cloud-native** — Docker, Kubernetes, Azure-first design
+- **Unified** — one SDK for web, desktop, mobile, cloud, IoT, AI
 
 ```bash
 # Check installed runtimes
@@ -27265,9 +25737,6 @@ class MyWorker : BackgroundService
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are the main differences between .NET Framework and .NET Core?
 
@@ -27279,16 +25748,16 @@ class MyWorker : BackgroundService
 | Performance | Good | Significantly faster |
 | Current status | Maintenance mode (4.8.x) | Active development (.NET 10) |
 | ASP.NET | System.Web (heavy) | ASP.NET Core (lightweight, Kestrel) |
-| WPF / WinForms | âœ… | âœ… (Windows only) |
-| Xamarin / MAUI | âŒ | âœ… |
-| AOT compilation | âŒ | âœ… (.NET 7+) |
+| WPF / WinForms | ✅ | ✅ (Windows only) |
+| Xamarin / MAUI | ❌ | ✅ |
+| AOT compilation | ❌ | ✅ (.NET 7+) |
 | Containers | Limited | First-class Docker support |
 
 ```bash
-# .NET Framework â€” Windows only, targeting net48
+# .NET Framework — Windows only, targeting net48
 <TargetFramework>net48</TargetFramework>
 
-# .NET 10 â€” cross-platform
+# .NET 10 — cross-platform
 <TargetFramework>net10.0</TargetFramework>
 
 # Multi-targeting both
@@ -27296,16 +25765,13 @@ class MyWorker : BackgroundService
 ```
 
 ```cs
-// .NET 10 â€” self-contained publish (no runtime needed on target machine)
+// .NET 10 — self-contained publish (no runtime needed on target machine)
 // dotnet publish -r linux-x64 --self-contained -p:PublishSingleFile=true
 
-// .NET 10 â€” Native AOT (no JIT, instant startup)
+// .NET 10 — Native AOT (no JIT, instant startup)
 // dotnet publish -r linux-x64 -p:PublishAot=true
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the .NET Standard?
 
@@ -27316,18 +25782,18 @@ class MyWorker : BackgroundService
 | .NET Standard | .NET Framework | .NET Core / .NET |
 |--------------|---------------|-----------------|
 | 2.0 | 4.6.1+ | 2.0+ |
-| 2.1 | âŒ (never) | 3.0+ |
-| *(no 3.0)* | â€” | Use net10.0 TFM |
+| 2.1 | ❌ (never) | 3.0+ |
+| *(no 3.0)* | — | Use net10.0 TFM |
 
 ```xml
-<!-- Library targeting .NET Standard 2.0 â€” works on .NET Framework 4.6.1+ and .NET 10 -->
+<!-- Library targeting .NET Standard 2.0 — works on .NET Framework 4.6.1+ and .NET 10 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 </Project>
 
-<!-- Modern library â€” no legacy support needed -->
+<!-- Modern library — no legacy support needed -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -27338,13 +25804,10 @@ class MyWorker : BackgroundService
 <TargetFrameworks>netstandard2.0;net10.0</TargetFrameworks>
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle configuration in a .NET Core application?
 
-.NET uses a layered configuration system via `Microsoft.Extensions.Configuration`. Sources are stacked â€” later sources override earlier ones.
+.NET uses a layered configuration system via `Microsoft.Extensions.Configuration`. Sources are stacked — later sources override earlier ones.
 
 ```cs
 // appsettings.json
@@ -27360,10 +25823,10 @@ class MyWorker : BackgroundService
 ```
 
 ```cs
-// Program.cs (.NET 10 â€” WebApplication.CreateBuilder sets up config automatically)
+// Program.cs (.NET 10 — WebApplication.CreateBuilder sets up config automatically)
 var builder = WebApplication.CreateBuilder(args);
 
-// Config sources (in priority order, lowest â†’ highest):
+// Config sources (in priority order, lowest → highest):
 // 1. appsettings.json
 // 2. appsettings.{Environment}.json
 // 3. Environment variables
@@ -27397,12 +25860,9 @@ builder.Configuration.AddJsonFile("custom.json", optional: true, reloadOnChange:
 
 // Add environment variable with prefix
 builder.Configuration.AddEnvironmentVariables(prefix: "MYAPP_");
-// MYAPP_App__Name=Override  â†’  Config["App:Name"] = "Override"
+// MYAPP_App__Name=Override  →  Config["App:Name"] = "Override"
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the .NET Core CLI and how is it used?
 
@@ -27450,9 +25910,6 @@ dotnet --list-runtimes
 dotnet nuget list source
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a new .NET Core project?
 
@@ -27487,7 +25944,7 @@ dotnet test
 **Minimal Web API (generated by `dotnet new webapi --use-minimal-apis`):**
 
 ```cs
-// Program.cs â€” .NET 10 minimal API
+// Program.cs — .NET 10 minimal API
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
@@ -27510,9 +25967,6 @@ app.Run();
 record WeatherForecast(DateOnly Date, int TemperatureC, string Summary);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of the Program.cs and Startup.cs files in a .NET Core application?
 
@@ -27521,7 +25975,7 @@ In modern .NET (6+), **`Startup.cs` was eliminated** and its responsibilities me
 **Before .NET 6 (two files):**
 
 ```cs
-// Program.cs â€” entry point, created the host
+// Program.cs — entry point, created the host
 public class Program
 {
     public static void Main(string[] args) =>
@@ -27530,7 +25984,7 @@ public class Program
             .Build().Run();
 }
 
-// Startup.cs â€” service registration + middleware pipeline
+// Startup.cs — service registration + middleware pipeline
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
@@ -27548,7 +26002,7 @@ public class Startup
 **.NET 10 (single Program.cs):**
 
 ```cs
-// Program.cs â€” everything in one place
+// Program.cs — everything in one place
 var builder = WebApplication.CreateBuilder(args);
 
 // === ConfigureServices equivalent ===
@@ -27576,42 +26030,39 @@ app.Run();
 - Builds and configures the middleware pipeline
 - Starts the server
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you identify duplicated code in C#, and what techniques can be used to remove it?
 
 **Identifying duplicates:**
-- Visual Studio / Rider â€” built-in "Find Code Clones" / duplicate detection
-- **SonarQube/SonarCloud** â€” detects duplicated blocks with metrics
-- **ReSharper** â€” highlights duplicate code fragments
-- **Roslyn Analyzers** â€” custom rules targeting repetitive patterns
+- Visual Studio / Rider — built-in "Find Code Clones" / duplicate detection
+- **SonarQube/SonarCloud** — detects duplicated blocks with metrics
+- **ReSharper** — highlights duplicate code fragments
+- **Roslyn Analyzers** — custom rules targeting repetitive patterns
 
 **Techniques to remove duplication:**
 
 ```cs
-// âŒ Duplicated logic
+// ❌ Duplicated logic
 public decimal CalculateUkTax(decimal amount) => amount * 0.20m;
 public decimal CalculateUsTax(decimal amount) => amount * 0.10m;
 // Same structure repeated for each region
 
-// âœ… 1. Extract Method / Helper
+// ✅ 1. Extract Method / Helper
 public decimal CalculateTax(decimal amount, decimal rate) => amount * rate;
 // Usage:
 decimal uk = CalculateTax(100m, 0.20m);
 decimal us = CalculateTax(100m, 0.10m);
 
-// âœ… 2. Generic method
+// ✅ 2. Generic method
 public static T Clamp<T>(T value, T min, T max) where T : IComparable<T>
     => value.CompareTo(min) < 0 ? min : value.CompareTo(max) > 0 ? max : value;
 
-// âœ… 3. Strategy pattern for varying behavior
+// ✅ 3. Strategy pattern for varying behavior
 public interface ITaxStrategy { decimal Calculate(decimal amount); }
 public class UkTax : ITaxStrategy { public decimal Calculate(decimal a) => a * 0.20m; }
 public class UsTax : ITaxStrategy { public decimal Calculate(decimal a) => a * 0.10m; }
 
-// âœ… 4. Extension methods for repeated operations on types
+// ✅ 4. Extension methods for repeated operations on types
 public static class StringExtensions
 {
     public static bool IsNullOrEmpty(this string? s) => string.IsNullOrEmpty(s);
@@ -27619,7 +26070,7 @@ public static class StringExtensions
         System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s.ToLower());
 }
 
-// âœ… 5. Base class / template method for duplicated class structures
+// ✅ 5. Base class / template method for duplicated class structures
 public abstract class ReportBase
 {
     public string Generate()   // template method
@@ -27632,7 +26083,7 @@ public abstract class ReportBase
     protected abstract string FormatBody(IEnumerable<object> data);
 }
 
-// âœ… 6. Generic repository to remove per-entity CRUD duplication
+// ✅ 6. Generic repository to remove per-entity CRUD duplication
 public class Repository<T>(AppDbContext db) where T : class
 {
     public Task<T?> GetByIdAsync(int id) => db.Set<T>().FindAsync(id).AsTask();
@@ -27641,9 +26092,6 @@ public class Repository<T>(AppDbContext db) where T : class
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is Kestrel?
 
@@ -27656,7 +26104,7 @@ public class Repository<T>(AppDbContext db) where T : class
 - Used as edge server or behind a reverse proxy (Nginx, IIS, Azure Front Door)
 
 ```cs
-// Program.cs â€” Kestrel is used by default
+// Program.cs — Kestrel is used by default
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Kestrel explicitly
@@ -27701,13 +26149,10 @@ app.Run();
 |---------|---------|-----|
 | Platform | Cross-platform | Windows only |
 | Performance | Very high | Good |
-| Edge server | âœ… | âœ… |
+| Edge server | ✅ | ✅ |
 | Process management | Manual / systemd | Built-in |
 | Reverse proxy | Recommended pairing | Built-in |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is Dependency Injection in .NET Core?
 
@@ -27768,9 +26213,6 @@ public class OrdersController(IOrderService orderService) : ControllerBase
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you add services to the dependency injection container?
 
@@ -27826,37 +26268,34 @@ services.Scan(scan => scan
     .WithScopedLifetime());
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `IServiceCollection` and `IServiceProvider`?
 
 | | `IServiceCollection` | `IServiceProvider` |
 |-|---------------------|-------------------|
-| **Role** | Registration â€” add/configure services | Resolution â€” retrieve service instances |
-| **When used** | Startup / `Program.cs` (before `Build()`) | Runtime â€” after `Build()` |
+| **Role** | Registration — add/configure services | Resolution — retrieve service instances |
+| **When used** | Startup / `Program.cs` (before `Build()`) | Runtime — after `Build()` |
 | **Key methods** | `AddScoped`, `AddSingleton`, `AddTransient`, `Configure` | `GetService<T>`, `GetRequiredService<T>`, `CreateScope` |
-| **Mutability** | Mutable â€” add services | Read-only â€” resolve services |
+| **Mutability** | Mutable — add services | Read-only — resolve services |
 
 ```cs
 var builder = WebApplication.CreateBuilder(args);
 
-// IServiceCollection â€” registration phase
+// IServiceCollection — registration phase
 IServiceCollection services = builder.Services;
 services.AddScoped<IOrderService, OrderService>();
 services.AddSingleton<IClock, SystemClock>();
 
 var app = builder.Build();
 
-// IServiceProvider â€” resolution phase (after Build)
+// IServiceProvider — resolution phase (after Build)
 IServiceProvider provider = app.Services;
 
-// Resolve a singleton directly (rare â€” prefer injection)
+// Resolve a singleton directly (rare — prefer injection)
 var clock = provider.GetRequiredService<IClock>();
 Console.WriteLine(clock.UtcNow);
 
-// Resolve scoped service correctly â€” create a scope
+// Resolve scoped service correctly — create a scope
 using var scope = provider.CreateScope();
 var orderService = scope.ServiceProvider.GetRequiredService<IOrderService>();
 await orderService.ProcessAsync();
@@ -27865,13 +26304,10 @@ await orderService.ProcessAsync();
 var optional = provider.GetService<IOptionalService>(); // null if not registered
 var required = provider.GetRequiredService<IOrderService>(); // throws if not registered
 
-// Anti-pattern: Service Locator â€” avoid in application code
-// âœ… Prefer constructor injection over IServiceProvider in services
+// Anti-pattern: Service Locator — avoid in application code
+// ✅ Prefer constructor injection over IServiceProvider in services
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you configure logging in .NET Core?
 
@@ -27922,13 +26358,10 @@ public class OrderService(ILogger<OrderService> logger)
     }
 }
 
-// Log levels (lowest â†’ highest severity):
+// Log levels (lowest → highest severity):
 // Trace, Debug, Information, Warning, Error, Critical, None
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you perform database migrations in EF Core?
 
@@ -27995,9 +26428,6 @@ using (var scope = app.Services.CreateScope())
 app.Run();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `AddTransient`, `AddScoped`, and `AddSingleton`?
 
@@ -28031,7 +26461,7 @@ public class DemoController(
         {
             Counter1 = counter1.Next(),
             Counter2 = counter2.Next(),
-            // Transient: counter1 â‰  counter2 (different instances)
+            // Transient: counter1 ≠ counter2 (different instances)
             // Scoped: counter1 == counter2 (same instance within request)
             // Singleton: counter1 == counter2, and increments across requests
         });
@@ -28039,9 +26469,9 @@ public class DemoController(
 }
 
 // Scoped services must NOT be injected into Singletons (captive dependency)
-// âŒ Singleton capturing Scoped â†’ Scoped outlives its intended scope
-builder.Services.AddSingleton<IBadSingleton, BadSingleton>(); // has IScoped inside â€” BAD
-// âœ… Use IServiceScopeFactory inside a singleton to create scopes manually
+// ❌ Singleton capturing Scoped → Scoped outlives its intended scope
+builder.Services.AddSingleton<IBadSingleton, BadSingleton>(); // has IScoped inside — BAD
+// ✅ Use IServiceScopeFactory inside a singleton to create scopes manually
 public class SafeSingleton(IServiceScopeFactory scopeFactory)
 {
     public async Task DoWorkAsync()
@@ -28053,14 +26483,11 @@ public class SafeSingleton(IServiceScopeFactory scopeFactory)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a RESTful API in ASP.NET Core?
 
 ```cs
-// Program.cs â€” .NET 10 minimal API (recommended for new APIs)
+// Program.cs — .NET 10 minimal API (recommended for new APIs)
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
@@ -28070,7 +26497,7 @@ builder.Services.AddOpenApi();
 var app = builder.Build();
 app.MapOpenApi();
 
-// Route group â€” /api/products
+// Route group — /api/products
 var products = app.MapGroup("/api/products").WithTags("Products");
 
 products.MapGet("/", async (AppDbContext db) =>
@@ -28117,9 +26544,6 @@ public class Product
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you read configuration values from `appsettings.json`?
 
@@ -28159,9 +26583,9 @@ builder.Services.Configure<AppOptions>(builder.Configuration.GetSection("App"));
 // Inject and use
 public class MyService(IOptionsSnapshot<AppOptions> opts)
 {
-    // IOptions<T> â€” singleton, does not update on file change
-    // IOptionsSnapshot<T> â€” scoped, updates per request if reloadOnChange: true
-    // IOptionsMonitor<T> â€” singleton, updates in real-time via OnChange callback
+    // IOptions<T> — singleton, does not update on file change
+    // IOptionsSnapshot<T> — scoped, updates per request if reloadOnChange: true
+    // IOptionsMonitor<T> — singleton, updates in real-time via OnChange callback
     public string AppName => opts.Value.Name;
     public bool NewUI     => opts.Value.FeatureFlags.EnableNewUI;
 }
@@ -28178,14 +26602,11 @@ builder.Services
     .ValidateDataAnnotations()   // use [Required], [Range] on the class
     .ValidateOnStart();          // fail fast if config is invalid
 
-// 5. Environment variable overrides (: â†’ __ in env vars)
-// App__Name=Override  â†’  Config["App:Name"] = "Override"
+// 5. Environment variable overrides (: → __ in env vars)
+// App__Name=Override  →  Config["App:Name"] = "Override"
 // ASPNETCORE_ENVIRONMENT=Production
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use middleware in ASP.NET Core?
 
@@ -28210,13 +26631,13 @@ app.Use(async (context, next) =>
     await next(context);  // call next middleware
     watch.Stop();
     var path = context.Request.Path;
-    Console.WriteLine($"{context.Response.StatusCode} {path} â€” {watch.ElapsedMilliseconds}ms");
+    Console.WriteLine($"{context.Response.StatusCode} {path} — {watch.ElapsedMilliseconds}ms");
 });
 
-// Short-circuit middleware with app.Run (terminal â€” no next)
+// Short-circuit middleware with app.Run (terminal — no next)
 app.MapGet("/health", () => Results.Ok(new { Status = "Healthy" }));
 
-// app.UseWhen â€” conditional branch
+// app.UseWhen — conditional branch
 app.UseWhen(ctx => ctx.Request.Path.StartsWithSegments("/api"),
     branch => branch.Use(async (ctx, next) =>
     {
@@ -28225,14 +26646,11 @@ app.UseWhen(ctx => ctx.Request.Path.StartsWithSegments("/api"),
     }));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a custom middleware?
 
 ```cs
-// 1. Class-based middleware (recommended â€” testable, DI-friendly)
+// 1. Class-based middleware (recommended — testable, DI-friendly)
 public class RequestTimingMiddleware(RequestDelegate next,
     ILogger<RequestTimingMiddleware> logger)
 {
@@ -28243,7 +26661,7 @@ public class RequestTimingMiddleware(RequestDelegate next,
         await next(context);  // call rest of pipeline
 
         sw.Stop();
-        logger.LogInformation("{Method} {Path} â†’ {Status} in {Ms}ms",
+        logger.LogInformation("{Method} {Path} → {Status} in {Ms}ms",
             context.Request.Method,
             context.Request.Path,
             context.Response.StatusCode,
@@ -28262,7 +26680,7 @@ public static class MiddlewareExtensions
 // Register in Program.cs
 app.UseRequestTiming();
 
-// 2. Middleware with scoped dependencies â€” use IMiddleware + factory pattern
+// 2. Middleware with scoped dependencies — use IMiddleware + factory pattern
 public class AuditMiddleware(ILogger<AuditMiddleware> logger) : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -28300,9 +26718,6 @@ public class GlobalExceptionMiddleware(RequestDelegate next, ILogger<GlobalExcep
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use dependency injection in controllers?
 
@@ -28337,7 +26752,7 @@ public class OrdersController(
     }
 }
 
-// Inject from DI in action parameter â€” [FromServices]
+// Inject from DI in action parameter — [FromServices]
 [HttpGet("summary")]
 public IActionResult GetSummary([FromServices] IReportService reportService)
     => Ok(reportService.GetSummary());
@@ -28357,18 +26772,15 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IOrderService, OrderService>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you return JSON from a controller action?
 
 ```cs
-// 1. Minimal API â€” returns JSON automatically for objects
+// 1. Minimal API — returns JSON automatically for objects
 app.MapGet("/products", async (AppDbContext db) =>
     await db.Products.ToListAsync()); // serialized to JSON automatically
 
-// 2. Controller â€” Ok() wraps object in 200 JSON response
+// 2. Controller — Ok() wraps object in 200 JSON response
 [ApiController, Route("api/[controller]")]
 public class ProductsController : ControllerBase
 {
@@ -28413,19 +26825,16 @@ app.MapGet("/custom", () => Results.Json(
 record ProductDto(int Id, string Name, decimal Price);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is attribute routing?
 
 **Attribute routing** places route templates directly on controllers and actions using `[Route]`, `[HttpGet]`, `[HttpPost]`, etc. It gives fine-grained control over URL patterns and is the standard approach in ASP.NET Core Web APIs.
 
 ```cs
-// Conventional routing (MVC) â€” defined globally in Program.cs
+// Conventional routing (MVC) — defined globally in Program.cs
 app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-// Attribute routing â€” defined on the controller/action (preferred for APIs)
+// Attribute routing — defined on the controller/action (preferred for APIs)
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")] // token replacement
 public class ProductsController : ControllerBase
@@ -28463,23 +26872,20 @@ public class ProductsController : ControllerBase
 }
 
 // Route constraints
-// {id:int}           â€” integer only
-// {name:alpha}       â€” letters only
-// {code:length(5)}   â€” exactly 5 chars
-// {date:datetime}    â€” valid datetime
-// {price:decimal}    â€” decimal number
-// {id:min(1)}        â€” minimum value
-// {id:guid}          â€” GUID format
+// {id:int}           — integer only
+// {name:alpha}       — letters only
+// {code:length(5)}   — exactly 5 chars
+// {date:datetime}    — valid datetime
+// {price:decimal}    — decimal number
+// {id:min(1)}        — minimum value
+// {id:guid}          — GUID format
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a custom route?
 
 ```cs
-// 1. Custom route constraint â€” restrict route parameter values
+// 1. Custom route constraint — restrict route parameter values
 public class EvenNumberConstraint : IRouteConstraint
 {
     public bool Match(HttpContext? context, IRouter? route, string routeKey,
@@ -28498,8 +26904,8 @@ builder.Services.Configure<RouteOptions>(opt =>
 
 // Use in route template
 app.MapGet("/items/{id:even}", (int id) => $"Even item {id}");
-// /items/2  â†’ matches
-// /items/3  â†’ 404
+// /items/2  → matches
+// /items/3  → 404
 
 // 2. Custom route in controller
 [HttpGet("reports/{year:int:min(2000)}/{month:int:range(1,12)}")]
@@ -28532,14 +26938,11 @@ builder.Services.Configure<RouteOptions>(opt =>
     opt.ConstraintMap["slugify"] = typeof(SlugifyParameterTransformer));
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you handle form submissions in ASP.NET Core?
 
 ```cs
-// 1. Minimal API â€” [FromForm] with IFormCollection
+// 1. Minimal API — [FromForm] with IFormCollection
 app.MapPost("/contact", async (IFormCollection form) =>
 {
     var name    = form["name"].ToString();
@@ -28594,9 +26997,6 @@ public async Task<IActionResult> Create([FromForm] ProductFormModel model)
 // </form>
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is model binding?
 
@@ -28604,17 +27004,17 @@ public async Task<IActionResult> Create([FromForm] ProductFormModel model)
 
 ```cs
 // Sources (in binding order by default):
-// 1. [FromRoute]   â€” /products/42  â†’ id = 42
-// 2. [FromQuery]   â€” ?page=2       â†’ page = 2
-// 3. [FromBody]    â€” JSON body     â†’ complex object
-// 4. [FromForm]    â€” form data
-// 5. [FromHeader]  â€” request header
-// 6. [FromServices]â€” DI container
+// 1. [FromRoute]   — /products/42  → id = 42
+// 2. [FromQuery]   — ?page=2       → page = 2
+// 3. [FromBody]    — JSON body     → complex object
+// 4. [FromForm]    — form data
+// 5. [FromHeader]  — request header
+// 6. [FromServices]— DI container
 
 [ApiController, Route("api/[controller]")]
 public class ProductsController : ControllerBase
 {
-    // Route + query binding â€” automatic
+    // Route + query binding — automatic
     [HttpGet("{id:int}")]
     public IActionResult Get(
         int id,                           // [FromRoute] implied
@@ -28624,7 +27024,7 @@ public class ProductsController : ControllerBase
         return Ok(new { id, currency, tenant });
     }
 
-    // Body binding â€” JSON deserialized automatically ([ApiController] implies [FromBody])
+    // Body binding — JSON deserialized automatically ([ApiController] implies [FromBody])
     [HttpPost]
     public IActionResult Create(CreateProductRequest request) => Ok(request);
 
@@ -28636,7 +27036,7 @@ public class ProductsController : ControllerBase
         [FromQuery] bool notify = false) => NoContent();
 }
 
-// Custom model binder â€” e.g., CSV to List<int>
+// Custom model binder — e.g., CSV to List<int>
 public class CsvIntListBinder : IModelBinder
 {
     public Task BindModelAsync(ModelBindingContext context)
@@ -28665,9 +27065,6 @@ record CreateProductRequest(string Name, decimal Price);
 record UpdateProductRequest(string Name, decimal Price);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you validate models in ASP.NET Core?
 
@@ -28714,7 +27111,7 @@ public class FutureDateAttribute : ValidationAttribute
     }
 }
 
-// 4. IValidatableObject â€” cross-property validation
+// 4. IValidatableObject — cross-property validation
 public class OrderRequest : IValidatableObject
 {
     public DateOnly StartDate { get; set; }
@@ -28744,9 +27141,6 @@ public class ProductValidator : AbstractValidator<CreateProductRequest>
 builder.Services.AddValidatorsFromAssemblyContaining<ProductValidator>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `ModelState` property?
 
@@ -28785,7 +27179,7 @@ public IActionResult CustomValidation(CreateProductRequest request)
     return Ok();
 }
 
-// ValidationProblem â€” returns standardised ProblemDetails (RFC 7807)
+// ValidationProblem — returns standardised ProblemDetails (RFC 7807)
 // {
 //   "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
 //   "title": "One or more validation errors occurred.",
@@ -28794,12 +27188,9 @@ public IActionResult CustomValidation(CreateProductRequest request)
 // }
 
 // [ApiController] automatically calls ValidationProblem when ModelState is invalid
-// â€” you don\'t need to check it manually for [ApiController] controllers
+// — you don\'t need to check it manually for [ApiController] controllers
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use data annotations for validation?
 
@@ -28809,7 +27200,7 @@ using System.ComponentModel.DataAnnotations;
 public class UserRegistration
 {
     [Required(ErrorMessage = "Username is required")]
-    [StringLength(50, MinimumLength = 3, ErrorMessage = "Username must be 3â€“50 characters")]
+    [StringLength(50, MinimumLength = 3, ErrorMessage = "Username must be 3–50 characters")]
     public string Username { get; set; } = "";
 
     [Required]
@@ -28853,23 +27244,20 @@ if (!isValid)
         Console.WriteLine($"{string.Join(", ", r.MemberNames)}: {r.ErrorMessage}");
 
 // All common annotations:
-// [Required]           â€” not null/empty
-// [StringLength(n)]    â€” max (and optional min) length
-// [MinLength(n)]       â€” min collection/string length
-// [MaxLength(n)]       â€” max collection/string length
-// [Range(min, max)]    â€” numeric/date range
-// [RegularExpression]  â€” regex pattern
-// [EmailAddress]       â€” email format
-// [Url]                â€” URL format
-// [Phone]              â€” phone format
-// [Compare("Prop")]    â€” must equal another property
-// [CreditCard]         â€” credit card format
-// [EnumDataType]       â€” valid enum value
+// [Required]           — not null/empty
+// [StringLength(n)]    — max (and optional min) length
+// [MinLength(n)]       — min collection/string length
+// [MaxLength(n)]       — max collection/string length
+// [Range(min, max)]    — numeric/date range
+// [RegularExpression]  — regex pattern
+// [EmailAddress]       — email format
+// [Url]                — URL format
+// [Phone]              — phone format
+// [Compare("Prop")]    — must equal another property
+// [CreditCard]         — credit card format
+// [EnumDataType]       — valid enum value
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the `ViewResult` class?
 
@@ -28879,7 +27267,7 @@ if (!isValid)
 // Controller returning a view
 public class ProductsController : Controller  // Controller, not ControllerBase
 {
-    // View() returns ViewResult â€” renders Views/Products/Index.cshtml
+    // View() returns ViewResult — renders Views/Products/Index.cshtml
     public IActionResult Index()
     {
         var products = new List<ProductViewModel>
@@ -28922,7 +27310,7 @@ public class ProductsController : Controller  // Controller, not ControllerBase
 <ul>
     @foreach (var p in Model)
     {
-        <li>@p.Name â€” @p.Price.ToString("C")</li>
+        <li>@p.Name — @p.Price.ToString("C")</li>
     }
 </ul>
 
@@ -28939,16 +27327,13 @@ record ProductViewModel(int Id, string Name, decimal Price);
 | `Redirect()` | HTTP 302 redirect |
 | `File()` | Return file download |
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you return a view from a controller action?
 
 ```cs
 public class HomeController : Controller
 {
-    // 1. Default â€” renders Views/Home/Index.cshtml
+    // 1. Default — renders Views/Home/Index.cshtml
     public IActionResult Index() => View();
 
     // 2. With model
@@ -28984,7 +27369,7 @@ public class HomeController : Controller
 }
 ```
 
-```cshtml
+```razor
 @* Views/Home/Products.cshtml *@
 @model List<string>
 @{
@@ -29001,15 +27386,12 @@ public class HomeController : Controller
 </ul>
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is Razor syntax?
 
 **Razor** is ASP.NET Core\'s server-side templating syntax that mixes C# and HTML using the `@` symbol as the transition character. Razor files have the `.cshtml` extension.
 
-```cshtml
+```razor
 @* This is a Razor comment *@
 
 @* Declare model type *@
@@ -29022,7 +27404,7 @@ public class HomeController : Controller
     string cssClass = count > 10 ? "many" : "few";
 }
 
-@* Inline expression â€” renders value *@
+@* Inline expression — renders value *@
 <h1>Products (@count)</h1>
 <p class="@cssClass">Showing @Model.Count items</p>
 
@@ -29033,7 +27415,7 @@ public class HomeController : Controller
         @foreach (var product in Model)
         {
             <li>
-                <strong>@product.Name</strong> â€” @product.Price.ToString("C")
+                <strong>@product.Name</strong> — @product.Price.ToString("C")
                 @if (product.Price > 500)
                 {
                     <span class="badge">Premium</span>
@@ -29047,7 +27429,7 @@ else
     <p>No products found.</p>
 }
 
-@* Explicit expression (multi-token) â€” use parentheses *@
+@* Explicit expression (multi-token) — use parentheses *@
 <p>Tax: @(Model.Sum(p => p.Price) * 0.20m)</p>
 
 @* Render raw HTML (avoid unless trusted content) *@
@@ -29061,14 +27443,14 @@ else
 @* Partial view *@
 @await Html.PartialAsync("_ProductCard", product)
 
-@* Section â€” inject content into layout *@
+@* Section — inject content into layout *@
 @section Scripts {
     <script src="~/js/products.js"></script>
 }
 ```
 
-```cshtml
-@* Views/Shared/_Layout.cshtml â€” master layout *@
+```razor
+@* Views/Shared/_Layout.cshtml — master layout *@
 <!DOCTYPE html>
 <html>
 <head><title>@ViewData["Title"]</title></head>
@@ -29080,20 +27462,17 @@ else
 </html>
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a Razor view?
 
 ```bash
 # 1. Create via dotnet CLI
 dotnet new page -n Index -na MyApp.Pages      # Razor Page
-# For MVC views â€” create .cshtml manually (no template)
+# For MVC views — create .cshtml manually (no template)
 ```
 
-```cshtml
-@* Views/Products/Create.cshtml â€” MVC Razor view *@
+```razor
+@* Views/Products/Create.cshtml — MVC Razor view *@
 @model CreateProductRequest
 @{
     ViewData["Title"] = "Create Product";
@@ -29142,16 +27521,13 @@ public async Task<IActionResult> Create(CreateProductRequest model)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you use partial views in ASP.NET Core?
 
 **Partial views** are reusable `.cshtml` fragments rendered inside other views. They do not have a layout and are ideal for repeating UI components.
 
-```cshtml
-@* Views/Shared/_ProductCard.cshtml â€” partial view *@
+```razor
+@* Views/Shared/_ProductCard.cshtml — partial view *@
 @model Product
 
 <div class="card">
@@ -29164,8 +27540,8 @@ public async Task<IActionResult> Create(CreateProductRequest model)
 </div>
 ```
 
-```cshtml
-@* Parent view â€” render partial *@
+```razor
+@* Parent view — render partial *@
 @model List<Product>
 
 @* 1. Tag helper (preferred, .NET Core) *@
@@ -29198,9 +27574,6 @@ public async Task<IActionResult> GetCard(int id)
 // fetch('/products/card/42').then(r => r.text()).then(html => div.innerHTML = html)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a view component?
 
@@ -29228,18 +27601,18 @@ public interface ICartService
 public record CartViewModel(int ItemCount, decimal Total);
 ```
 
-```cshtml
+```razor
 @* Views/Shared/Components/CartSummary/Default.cshtml *@
 @model CartViewModel
 
 <div class="cart-badge">
-    <span class="icon">ðŸ›’</span>
+    <span class="icon">🛒</span>
     <span class="count">@Model.ItemCount</span>
     <span class="total">@Model.Total.ToString("C")</span>
 </div>
 ```
 
-```cshtml
+```razor
 @* Use in any view *@
 @* Tag helper syntax (recommended) *@
 <vc:cart-summary></vc:cart-summary>
@@ -29265,19 +27638,16 @@ public class RecentProductsViewComponent(IProductRepository repo) : ViewComponen
 // Register services
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-// View components are discovered automatically â€” no explicit registration needed
+// View components are discovered automatically — no explicit registration needed
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you create a custom tag helper?
 
 **Tag helpers** are C# classes that target HTML elements and transform them server-side. They are the Razor replacement for HTML helpers.
 
 ```cs
-// 1. Simple custom tag helper â€” <alert type="success">message</alert>
+// 1. Simple custom tag helper — <alert type="success">message</alert>
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 [HtmlTargetElement("alert")]
@@ -29305,7 +27675,7 @@ public class AlertTagHelper : TagHelper
 //            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 //          </div>
 
-// 2. Tag helper targeting existing element â€” format bytes
+// 2. Tag helper targeting existing element — format bytes
 [HtmlTargetElement("span", Attributes = "file-size")]
 public class FileSizeTagHelper : TagHelper
 {
@@ -29326,18 +27696,15 @@ public class FileSizeTagHelper : TagHelper
     }
 }
 
-// Usage: <span file-size="1536000"></span>  â†’  <span>1.5 MB</span>
+// Usage: <span file-size="1536000"></span>  →  <span>1.5 MB</span>
 
 // 3. Register tag helpers in _ViewImports.cshtml
-// @addTagHelper *, MyApp        â€” all tag helpers in MyApp assembly
-// @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers  â€” built-in
+// @addTagHelper *, MyApp        — all tag helpers in MyApp assembly
+// @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers  — built-in
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
-## # 18. MISCELLANEOUS
+## 18. Miscellaneous
 
 <br/>
 
@@ -29373,7 +27740,7 @@ dotnet package search Serilog
 **In .csproj (central package management, .NET 10):**
 
 ```xml
-<!-- Directory.Packages.props â€” define versions once for the entire repo -->
+<!-- Directory.Packages.props — define versions once for the entire repo -->
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
@@ -29386,15 +27753,12 @@ dotnet package search Serilog
 ```
 
 ```xml
-<!-- Individual .csproj â€” just reference, no version needed -->
+<!-- Individual .csproj — just reference, no version needed -->
 <ItemGroup>
   <PackageReference Include="Serilog" />
 </ItemGroup>
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between ToString() and Convert.ToString()?
 
@@ -29403,31 +27767,31 @@ dotnet package search Serilog
 | Null handling | Throws `NullReferenceException` | Returns `""` (empty string) |
 | Defined on | `object` | `System.Convert` static class |
 | Works on | Any object | Any base type + nullable |
-| Overridable | âœ… Yes | âŒ No (calls ToString internally) |
+| Overridable | ✅ Yes | ❌ No (calls ToString internally) |
 
 ```cs
 string? s = null;
 
-// ToString() â€” throws NullReferenceException on null
+// ToString() — throws NullReferenceException on null
 try
 {
-    string result = s!.ToString(); // âŒ NullReferenceException
+    string result = s!.ToString(); // ❌ NullReferenceException
 }
 catch (NullReferenceException ex)
 {
     Console.WriteLine($"Exception: {ex.Message}");
 }
 
-// Convert.ToString() â€” safe on null
+// Convert.ToString() — safe on null
 string safe = Convert.ToString(s)!; // returns ""
 Console.WriteLine($"Result: '{safe}'"); // Result: ''
 
-// With value types â€” same result
+// With value types — same result
 int number = 42;
 Console.WriteLine(number.ToString());          // "42"
 Console.WriteLine(Convert.ToString(number));   // "42"
 
-// Custom formatting â€” prefer ToString(format)
+// Custom formatting — prefer ToString(format)
 double pi = Math.PI;
 Console.WriteLine(pi.ToString("F2"));          // "3.14"
 Console.WriteLine(Convert.ToString(pi));       // "3.141592653589793"
@@ -29435,9 +27799,6 @@ Console.WriteLine(Convert.ToString(pi));       // "3.141592653589793"
 
 **Best practice:** Use `ToString()` for non-nullable types. Use `Convert.ToString()` or null-conditional `?.ToString() ?? ""` when the object may be null.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between int.Parse() and Convert.ToInt32()?
 
@@ -29450,27 +27811,27 @@ Console.WriteLine(Convert.ToString(pi));       // "3.141592653589793"
 | Performance | Slightly faster (no boxing) | Slightly slower |
 
 ```cs
-// int.Parse â€” string only
+// int.Parse — string only
 Console.WriteLine(int.Parse("42"));     // 42
 Console.WriteLine(int.Parse("-10"));    // -10
 
-try { int.Parse(null!); }               // âŒ ArgumentNullException
+try { int.Parse(null!); }               // ❌ ArgumentNullException
 catch (ArgumentNullException) { Console.WriteLine("null throws!"); }
 
-// Convert.ToInt32 â€” handles null
+// Convert.ToInt32 — handles null
 Console.WriteLine(Convert.ToInt32(null)); // 0 (no exception)
 Console.WriteLine(Convert.ToInt32(3.9));  // 4 (rounds!)
 Console.WriteLine(Convert.ToInt32(true)); // 1
 Console.WriteLine(Convert.ToInt32(false));// 0
 
-// Best practice â€” TryParse for user input (no exceptions)
+// Best practice — TryParse for user input (no exceptions)
 string input = "abc";
 if (int.TryParse(input, out int value))
     Console.WriteLine($"Parsed: {value}");
 else
     Console.WriteLine("Invalid input");
 
-// .NET 7+ â€” TryParse with generic NumberStyles
+// .NET 7+ — TryParse with generic NumberStyles
 if (int.TryParse("FF", System.Globalization.NumberStyles.HexNumber,
     null, out int hex))
     Console.WriteLine(hex); // 255
@@ -29478,9 +27839,6 @@ if (int.TryParse("FF", System.Globalization.NumberStyles.HexNumber,
 
 **Rule:** Use `int.TryParse()` for user input. Use `int.Parse()` only when you are certain the string is a valid integer. Use `Convert.ToInt32()` when the source may be non-string types.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the use of Code Snippets?
 
@@ -29539,21 +27897,18 @@ foreach (var item in collection)
 </CodeSnippets>
 ```
 
-Import via **Tools â†’ Code Snippets Manager â†’ Import**.
+Import via **Tools → Code Snippets Manager → Import**.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Write a program to get the range of Byte Datatype?
 
 ```cs
-// Byte (byte) â€” unsigned 8-bit integer
+// Byte (byte) — unsigned 8-bit integer
 Console.WriteLine($"byte Min: {byte.MinValue}");   // 0
 Console.WriteLine($"byte Max: {byte.MaxValue}");   // 255
 Console.WriteLine($"byte Size: {sizeof(byte)} byte(s)");
 
-// Signed byte (sbyte) â€” signed 8-bit integer
+// Signed byte (sbyte) — signed 8-bit integer
 Console.WriteLine($"sbyte Min: {sbyte.MinValue}"); // -128
 Console.WriteLine($"sbyte Max: {sbyte.MaxValue}"); // 127
 
@@ -29576,10 +27931,10 @@ foreach (var (name, min, max) in types)
 
 // Overflow behavior
 byte b = byte.MaxValue; // 255
-b++;                    // overflow â€” wraps to 0
+b++;                    // overflow — wraps to 0
 Console.WriteLine(b);   // 0
 
-// Checked context â€” throws OverflowException
+// Checked context — throws OverflowException
 try
 {
     byte c = checked((byte)(byte.MaxValue + 1));
@@ -29590,9 +27945,6 @@ catch (OverflowException)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are attributes in C# and how can they be used?
 
@@ -29657,20 +28009,17 @@ public static void DebugLog(string msg) =>
 DebugLog("Processing started");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Why can\'t you specify the accessibility modifier for methods inside the interface?
 
-In C#, **all interface members are implicitly `public`** by default, because an interface defines a contract â€” a promise that any implementing type exposes those members publicly. Restricting access would make the contract meaningless.
+In C#, **all interface members are implicitly `public`** by default, because an interface defines a contract — a promise that any implementing type exposes those members publicly. Restricting access would make the contract meaningless.
 
 ```cs
 public interface IAnimal
 {
     void Speak();     // implicitly public
-    // private void Speak(); // âŒ Compile error â€” cannot be private
-    // protected void Speak(); // âŒ Compile error
+    // private void Speak(); // ❌ Compile error — cannot be private
+    // protected void Speak(); // ❌ Compile error
 }
 
 public class Dog : IAnimal
@@ -29679,7 +28028,7 @@ public class Dog : IAnimal
 }
 ```
 
-**Exception â€” C# 8+ Default Interface Methods (DIM):**
+**Exception — C# 8+ Default Interface Methods (DIM):**
 
 Since C# 8, interfaces *can* have `private` members, but only as helpers for default implementations:
 
@@ -29688,7 +28037,7 @@ public interface ILogger
 {
     void Log(string message);
 
-    // private helper â€” only usable inside the interface body
+    // private helper — only usable inside the interface body
     private static string Format(string msg) => $"[{DateTime.UtcNow:u}] {msg}";
 
     // default implementation uses the private helper
@@ -29706,11 +28055,8 @@ logger.LogInfo("Application started");
 // [2026-04-19 12:00:00Z] Application started
 ```
 
-**Summary:** Interface members are public by design (the contract must be accessible). Only `private` and `static` members added in C# 8+ for default implementation support are allowed to restrict visibility â€” and they are internal to the interface body only.
+**Summary:** Interface members are public by design (the contract must be accessible). Only `private` and `static` members added in C# 8+ for default implementation support are allowed to restrict visibility — and they are internal to the interface body only.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How do you implement a custom IComparer<T> for sorting in C#?
 
@@ -29741,15 +28087,15 @@ var products = new List<Product>
 products.Sort(new ProductByPriceDescending());
 foreach (var p in products)
     Console.WriteLine($"{p.Name}: {p.Price:C}");
-// Laptop: Â£999.00, Monitor: Â£450.00, Mouse: Â£25.00
+// Laptop: £999.00, Monitor: £450.00, Mouse: £25.00
 
-// 2. Comparer<T>.Create â€” inline lambda (preferred for simple cases)
+// 2. Comparer<T>.Create — inline lambda (preferred for simple cases)
 var byStockAsc = Comparer<Product>.Create((a, b) => a.Stock.CompareTo(b.Stock));
 products.Sort(byStockAsc);
 foreach (var p in products)
     Console.WriteLine($"{p.Name}: {p.Stock} units");
 
-// 3. Multi-key sort â€” name length then alphabetical
+// 3. Multi-key sort — name length then alphabetical
 var multiKey = Comparer<Product>.Create((a, b) =>
 {
     int byLen = a.Name.Length.CompareTo(b.Name.Length);
@@ -29772,9 +28118,6 @@ var orderedByName = products
     .ToList();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the use of conditional preprocessor directive in C#?
 
@@ -29815,12 +28158,12 @@ public class AppConfig
 #endif
 }
 
-// #warning and #error â€” compiler diagnostics
+// #warning and #error — compiler diagnostics
 #if !NET10_0_OR_GREATER
 #warning This code targets .NET 10+. Older runtimes may not work correctly.
 #endif
 
-// Preferred modern alternative â€” [Conditional] attribute
+// Preferred modern alternative — [Conditional] attribute
 [System.Diagnostics.Conditional("DEBUG")]
 static void Trace(string msg) => Console.WriteLine($"[TRACE] {msg}");
 
@@ -29834,9 +28177,6 @@ Trace("Starting..."); // compiled out in Release builds
 #endif
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What are pointer types in C#?
 
@@ -29852,7 +28192,7 @@ unsafe
     int x = 42;
     int* p = &x;           // p holds address of x
 
-    Console.WriteLine(*p); // dereference â€” prints 42
+    Console.WriteLine(*p); // dereference — prints 42
     *p = 100;              // modify via pointer
     Console.WriteLine(x);  // 100
 
@@ -29871,11 +28211,11 @@ unsafe
     Console.WriteLine($"X={pp->X}, Y={pp->Y}"); // X=3, Y=4 (-> dereference)
 }
 
-// Span<T> and Memory<T> â€” safe zero-copy alternatives (preferred in .NET 10)
+// Span<T> and Memory<T> — safe zero-copy alternatives (preferred in .NET 10)
 int[] data = [1, 2, 3, 4, 5];
-Span<int> slice = data.AsSpan(1, 3); // [2, 3, 4] â€” no pointer needed
+Span<int> slice = data.AsSpan(1, 3); // [2, 3, 4] — no pointer needed
 slice[0] = 99;
-Console.WriteLine(data[1]); // 99 â€” modified original
+Console.WriteLine(data[1]); // 99 — modified original
 
 // P/Invoke with pointers for unmanaged interop
 using System.Runtime.InteropServices;
@@ -29894,9 +28234,6 @@ unsafe
 
 **When to use:** P/Invoke interop, embedded/systems programming, performance-critical buffer manipulation. For most scenarios, prefer `Span<T>`, `Memory<T>`, or `Marshal` class.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is marshalling and why do we need it?
 
@@ -29907,7 +28244,7 @@ unsafe
 ```cs
 using System.Runtime.InteropServices;
 
-// 1. Simple P/Invoke â€” primitives marshalled automatically
+// 1. Simple P/Invoke — primitives marshalled automatically
 [DllImport("kernel32.dll", SetLastError = true)]
 static extern uint GetCurrentThreadId();
 
@@ -29924,7 +28261,7 @@ uint size = 256u;
 GetComputerName(sb, ref size);
 Console.WriteLine($"Computer: {sb}");
 
-// 3. Struct marshalling â€” layout must match native struct
+// 3. Struct marshalling — layout must match native struct
 [StructLayout(LayoutKind.Sequential)]
 public struct SystemTime
 {
@@ -29938,7 +28275,7 @@ static extern void GetSystemTime(out SystemTime st);
 GetSystemTime(out SystemTime time);
 Console.WriteLine($"{time.Year}-{time.Month:D2}-{time.Day:D2} {time.Hour:D2}:{time.Minute:D2}");
 
-// 4. Marshal class â€” manual marshalling
+// 4. Marshal class — manual marshalling
 IntPtr ptr = Marshal.AllocHGlobal(100);     // allocate unmanaged memory
 try
 {
@@ -29951,7 +28288,7 @@ finally
     Marshal.FreeHGlobal(ptr);               // always free unmanaged memory
 }
 
-// 5. Modern alternative â€” LibraryImport (.NET 7+, source-generated, AOT-compatible)
+// 5. Modern alternative — LibraryImport (.NET 7+, source-generated, AOT-compatible)
 public partial class NativeMethods
 {
     [LibraryImport("kernel32.dll")]
@@ -29960,16 +28297,13 @@ public partial class NativeMethods
 Console.WriteLine($"Process ID: {NativeMethods.GetCurrentProcessId()}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How to calculate the code execution time in C#?
 
 ```cs
 using System.Diagnostics;
 
-// 1. Stopwatch â€” most precise, recommended
+// 1. Stopwatch — most precise, recommended
 var sw = Stopwatch.StartNew();
 
 // Code to measure
@@ -29978,7 +28312,7 @@ for (int i = 0; i < 10_000_000; i++) sum += i;
 
 sw.Stop();
 Console.WriteLine($"Elapsed: {sw.ElapsedMilliseconds} ms");
-Console.WriteLine($"Elapsed: {sw.Elapsed.TotalMicroseconds:F0} Âµs");
+Console.WriteLine($"Elapsed: {sw.Elapsed.TotalMicroseconds:F0} µs");
 Console.WriteLine($"Sum: {sum}");
 
 // 2. Measure a specific block with a helper
@@ -30001,7 +28335,7 @@ long end = Stopwatch.GetTimestamp();
 double nanoseconds = (end - start) * 1_000_000_000.0 / Stopwatch.Frequency;
 Console.WriteLine($"Elapsed: {nanoseconds:F0} ns");
 
-// 4. BenchmarkDotNet â€” production-grade micro-benchmarking
+// 4. BenchmarkDotNet — production-grade micro-benchmarking
 // Install: dotnet add package BenchmarkDotNet
 /*
 [MemoryDiagnoser]
@@ -30021,7 +28355,7 @@ public class MyBenchmarks
 BenchmarkRunner.Run<MyBenchmarks>();
 */
 
-// 5. ActivitySource â€” distributed tracing (.NET 5+)
+// 5. ActivitySource — distributed tracing (.NET 5+)
 using var activity = new System.Diagnostics.ActivitySource("MyApp")
     .StartActivity("ComputeSum");
 activity?.SetTag("iterations", 1_000_000);
@@ -30029,9 +28363,6 @@ activity?.SetTag("iterations", 1_000_000);
 activity?.Stop();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the distinction between DirectCast and CType?
 
@@ -30040,27 +28371,27 @@ activity?.Stop();
 | VB.NET | C# Equivalent | Behavior |
 |--------|--------------|---------|
 | `DirectCast(obj, T)` | `(T)obj` | Requires exact or inheritance relationship; throws `InvalidCastException` on failure |
-| `CType(obj, T)` | `Convert.ToT(obj)` or operator | Performs data conversion (e.g., `double` â†’ `int`); wider compatibility |
+| `CType(obj, T)` | `Convert.ToT(obj)` or operator | Performs data conversion (e.g., `double` → `int`); wider compatibility |
 | `TryCast(obj, T)` | `obj as T` | Returns `null` on failure; reference types only |
 
 ```cs
-// C# explicit cast (â‰ˆ DirectCast) â€” requires compatible types
+// C# explicit cast (≈ DirectCast) — requires compatible types
 object obj = "Hello";
-string s = (string)obj;  // âœ… succeeds
-// int n = (int)obj;     // âŒ InvalidCastException at runtime
+string s = (string)obj;  // ✅ succeeds
+// int n = (int)obj;     // ❌ InvalidCastException at runtime
 
-// C# Convert (â‰ˆ CType) â€” performs data conversion
+// C# Convert (≈ CType) — performs data conversion
 double d = 3.9;
-int i = (int)d;               // truncates â†’ 3
-int j = Convert.ToInt32(d);   // rounds    â†’ 4
-string str = Convert.ToString(123); // int â†’ string
+int i = (int)d;               // truncates → 3
+int j = Convert.ToInt32(d);   // rounds    → 4
+string str = Convert.ToString(123); // int → string
 
-// C# 'as' (â‰ˆ TryCast) â€” null on failure, reference types
+// C# 'as' (≈ TryCast) — null on failure, reference types
 object value = 42;
 string? result = value as string; // null (not a string)
 Console.WriteLine(result is null); // True
 
-// C# 'is' pattern matching â€” recommended modern approach
+// C# 'is' pattern matching — recommended modern approach
 object item = "World";
 if (item is string text && text.Length > 3)
     Console.WriteLine(text.ToUpper()); // WORLD
@@ -30077,9 +28408,6 @@ string description = data switch
 Console.WriteLine(description); // Double: 3.14
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain how to implement a custom serializer and deserializer for a complex object in C#?
 
@@ -30102,7 +28430,7 @@ public class Order
     public DateOnly Date { get; init; }
 }
 
-// Custom converter for Money â€” serialize as "99.99 GBP"
+// Custom converter for Money — serialize as "99.99 GBP"
 public class MoneyConverter : JsonConverter<Money>
 {
     public override Money Read(ref Utf8JsonReader reader, Type typeToConvert,
@@ -30153,7 +28481,7 @@ Console.WriteLine(json);
 var restored = JsonSerializer.Deserialize<Order>(json, options);
 Console.WriteLine(restored?.Total); // 249.99 GBP
 
-// Source-generated serializer (.NET 6+ â€” AOT & trimming friendly)
+// Source-generated serializer (.NET 6+ — AOT & trimming friendly)
 [JsonSourceGenerationOptions(WriteIndented = true,
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(Order))]
@@ -30162,9 +28490,6 @@ public partial class AppJsonContext : JsonSerializerContext { }
 string json2 = JsonSerializer.Serialize(order, AppJsonContext.Default.Order);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Explain the differences between Memory<T> and Span<T> in C#. When would you use one over the other?
 
@@ -30173,34 +28498,34 @@ Both provide **zero-copy, allocation-free views** over contiguous memory (arrays
 | Feature | `Span<T>` | `Memory<T>` |
 |---------|-----------|------------|
 | Allocation | Stack only (ref struct) | Stack or heap |
-| Use in `async` methods | âŒ Cannot cross `await` | âœ… Safe across `await` |
-| Use as class field | âŒ | âœ… |
-| Use in lambdas/closures | âŒ | âœ… |
+| Use in `async` methods | ❌ Cannot cross `await` | ✅ Safe across `await` |
+| Use as class field | ❌ | ✅ |
+| Use in lambdas/closures | ❌ | ✅ |
 | Convert to Span | N/A | `.Span` property |
 | Performance | Slightly faster | Slight overhead |
 | Best for | Synchronous, local processing | Async pipelines, fields |
 
 ```cs
-// Span<T> â€” synchronous, stack-only
+// Span<T> — synchronous, stack-only
 void ProcessSync(Span<byte> buffer)
 {
     for (int i = 0; i < buffer.Length; i++)
-        buffer[i] ^= 0xFF; // in-place XOR â€” no allocation
+        buffer[i] ^= 0xFF; // in-place XOR — no allocation
 
     Console.WriteLine($"Processed {buffer.Length} bytes");
 }
 
 byte[] data = [0x01, 0x02, 0x03];
-ProcessSync(data.AsSpan());         // array â†’ Span
-ProcessSync(stackalloc byte[4]);    // stack memory â†’ Span
+ProcessSync(data.AsSpan());         // array → Span
+ProcessSync(stackalloc byte[4]);    // stack memory → Span
 Console.WriteLine(string.Join(",", data)); // 254,253,252
 
-// ReadOnlySpan<T> â€” zero-copy string slicing
+// ReadOnlySpan<T> — zero-copy string slicing
 ReadOnlySpan<char> greeting = "Hello, World!".AsSpan();
-ReadOnlySpan<char> hello    = greeting[..5];  // "Hello" â€” no allocation
+ReadOnlySpan<char> hello    = greeting[..5];  // "Hello" — no allocation
 Console.WriteLine(hello.ToString());
 
-// Memory<T> â€” safe across await
+// Memory<T> — safe across await
 async Task ProcessAsync(Memory<byte> buffer)
 {
     // Can hold Memory<T> across await (Span<T> cannot)
@@ -30212,10 +28537,10 @@ byte[] asyncData = new byte[10];
 await ProcessAsync(asyncData.AsMemory());
 Console.WriteLine(asyncData[0]); // 42
 
-// Memory<T> as a class field â€” Span<T> cannot be a field
+// Memory<T> as a class field — Span<T> cannot be a field
 public class DataProcessor
 {
-    private readonly Memory<byte> _buffer; // âœ… Memory<T> as field
+    private readonly Memory<byte> _buffer; // ✅ Memory<T> as field
 
     public DataProcessor(byte[] data) => _buffer = data.AsMemory();
 
@@ -30226,24 +28551,21 @@ public class DataProcessor
     }
 }
 
-// MemoryPool<T> â€” reusable memory without GC pressure
+// MemoryPool<T> — reusable memory without GC pressure
 using System.Buffers;
 using IMemoryOwner<byte> owner = MemoryPool<byte>.Shared.Rent(1024);
 Memory<byte> rented = owner.Memory;
 rented.Span.Fill(0);
 Console.WriteLine($"Rented: {rented.Length} bytes");
-// owner disposed â†’ memory returned to pool
+// owner disposed → memory returned to pool
 ```
 
 **Decision:** Use `Span<T>` for synchronous, in-method processing. Use `Memory<T>` when you need to store the view across async boundaries or as a field.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is a DTO?
 
-A **DTO (Data Transfer Object)** is a simple object used to transfer data between layers or across process/network boundaries. DTOs contain only data (properties) â€” no business logic, no methods, no validation.
+A **DTO (Data Transfer Object)** is a simple object used to transfer data between layers or across process/network boundaries. DTOs contain only data (properties) — no business logic, no methods, no validation.
 
 **Purpose:**
 - Decouple API contracts from domain models
@@ -30251,7 +28573,7 @@ A **DTO (Data Transfer Object)** is a simple object used to transfer data betwee
 - Shape data for specific consumers (e.g., a mobile app response)
 
 ```cs
-// Domain model â€” rich, with business logic
+// Domain model — rich, with business logic
 public class Order
 {
     public int Id { get; private set; }
@@ -30263,7 +28585,7 @@ public class Order
     public void ApplyDiscount(decimal pct) { /* validation logic */ }
 }
 
-// DTO â€” thin, serialization-friendly
+// DTO — thin, serialization-friendly
 public record OrderSummaryDto(
     int Id,
     string CustomerId,
@@ -30271,7 +28593,7 @@ public record OrderSummaryDto(
     int ItemCount,
     DateTimeOffset CreatedAt);
 
-// Mapping â€” manually or via AutoMapper / Mapperly
+// Mapping — manually or via AutoMapper / Mapperly
 public static class OrderMapper
 {
     public static OrderSummaryDto ToDto(Order order) => new(
@@ -30282,7 +28604,7 @@ public static class OrderMapper
         DateTimeOffset.UtcNow);
 }
 
-// ASP.NET Core minimal API â€” return DTO, not domain model
+// ASP.NET Core minimal API — return DTO, not domain model
 app.MapGet("/orders/{id}", (int id, IOrderRepository repo) =>
 {
     var order = repo.GetById(id);
@@ -30291,7 +28613,7 @@ app.MapGet("/orders/{id}", (int id, IOrderRepository repo) =>
         : Results.Ok(OrderMapper.ToDto(order));
 });
 
-// Request DTO â€” controls what clients can send (anti-over-posting)
+// Request DTO — controls what clients can send (anti-over-posting)
 public record CreateOrderRequest(
     string CustomerId,
     IReadOnlyList<OrderLineRequest> Lines);
@@ -30299,9 +28621,6 @@ public record CreateOrderRequest(
 public record OrderLineRequest(string ProductId, int Quantity);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What does POCO mean?
 
@@ -30311,7 +28630,7 @@ public record OrderLineRequest(string ProductId, int Quantity);
 - Is not tied to a specific persistence or serialization framework
 
 ```cs
-// âœ… POCO â€” no framework dependency
+// ✅ POCO — no framework dependency
 public class Customer
 {
     public int Id { get; set; }
@@ -30320,10 +28639,10 @@ public class Customer
     public DateTime CreatedAt { get; set; }
 }
 
-// âœ… POCO record (C# 9+) â€” immutable POCO
+// ✅ POCO record (C# 9+) — immutable POCO
 public record ProductPoco(int Id, string Name, decimal Price);
 
-// âŒ Not a POCO â€” inherits from framework class
+// ❌ Not a POCO — inherits from framework class
 public class LegacyController : System.Web.Mvc.Controller { }
 
 // POCOs work with EF Core without inheriting DbContext entities
@@ -30352,9 +28671,6 @@ Console.WriteLine(restored?.Name); // Alice
 
 **POCO vs DTO:** A POCO is a design principle (framework-free class). A DTO is a pattern (data carrier between layers). A DTO is usually a POCO, but not all POCOs are DTOs.
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Define Parsing? Explain how to Parse a DateTime String?
 
@@ -30363,23 +28679,23 @@ Console.WriteLine(restored?.Name); // Alice
 ```cs
 using System.Globalization;
 
-// 1. DateTime.Parse â€” lenient, throws on failure
+// 1. DateTime.Parse — lenient, throws on failure
 DateTime dt1 = DateTime.Parse("2026-04-19");
 DateTime dt2 = DateTime.Parse("April 19, 2026");
 Console.WriteLine(dt1); // 4/19/2026 12:00:00 AM
 
-// 2. DateTime.TryParse â€” safe, no exception
+// 2. DateTime.TryParse — safe, no exception
 if (DateTime.TryParse("2026-04-19 14:30:00", out DateTime result))
     Console.WriteLine(result); // 4/19/2026 2:30:00 PM
 
-// 3. DateTime.ParseExact â€” strict format, throws on mismatch
+// 3. DateTime.ParseExact — strict format, throws on mismatch
 DateTime exact = DateTime.ParseExact(
     "19/04/2026 14:30",
     "dd/MM/yyyy HH:mm",
     CultureInfo.InvariantCulture);
 Console.WriteLine(exact);
 
-// 4. DateTime.TryParseExact â€” strict + safe
+// 4. DateTime.TryParseExact — strict + safe
 bool ok = DateTime.TryParseExact(
     "19-04-2026",
     "dd-MM-yyyy",
@@ -30394,7 +28710,7 @@ if (DateTime.TryParseExact("2026.04.19", formats,
     CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime multi))
     Console.WriteLine(multi);
 
-// 6. DateOnly / TimeOnly (.NET 6+) â€” preferred for date/time-only values
+// 6. DateOnly / TimeOnly (.NET 6+) — preferred for date/time-only values
 DateOnly date = DateOnly.Parse("2026-04-19");
 TimeOnly time = TimeOnly.Parse("14:30:00");
 Console.WriteLine($"{date}, {time}");
@@ -30403,7 +28719,7 @@ DateOnly.TryParseExact("19/04/2026", "dd/MM/yyyy",
     CultureInfo.InvariantCulture, DateTimeStyles.None, out DateOnly d);
 Console.WriteLine(d); // 4/19/2026
 
-// 7. DateTimeOffset â€” timezone-aware (preferred for APIs)
+// 7. DateTimeOffset — timezone-aware (preferred for APIs)
 DateTimeOffset dto = DateTimeOffset.Parse("2026-04-19T14:30:00+05:30");
 Console.WriteLine(dto.ToUniversalTime()); // converted to UTC
 
@@ -30413,23 +28729,20 @@ DateTime restored = DateTime.Parse(iso, null, DateTimeStyles.RoundtripKind);
 Console.WriteLine(restored.Kind); // Utc
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is IL (Intermediate Language) Code?
 
-**IL (Intermediate Language)**, also called **CIL (Common Intermediate Language)** or historically **MSIL (Microsoft Intermediate Language)**, is the CPU-independent bytecode that .NET compilers (C#, F#, VB.NET) produce. It is not machine code â€” the JIT compiler converts IL to native machine code at runtime.
+**IL (Intermediate Language)**, also called **CIL (Common Intermediate Language)** or historically **MSIL (Microsoft Intermediate Language)**, is the CPU-independent bytecode that .NET compilers (C#, F#, VB.NET) produce. It is not machine code — the JIT compiler converts IL to native machine code at runtime.
 
 ```
 Source Code (C#/F#/VB)
-       â†“ compile
-  IL (.dll / .exe)          â† platform-independent
-       â†“ JIT / AOT
-Native Machine Code         â† platform-specific (x64, ARM64, etc.)
+       ↓ compile
+  IL (.dll / .exe)          ← platform-independent
+       ↓ JIT / AOT
+Native Machine Code         ← platform-specific (x64, ARM64, etc.)
 ```
 
-**Example â€” C# and its IL:**
+**Example — C# and its IL:**
 
 ```cs
 // C# source
@@ -30466,24 +28779,21 @@ dotnet-ildasm MyApp.dll
 **Characteristics of IL:**
 - Stack-based virtual machine instructions
 - Strongly typed (includes type information)
-- Verifiable â€” the runtime checks type safety before execution
+- Verifiable — the runtime checks type safety before execution
 - Enables cross-language interoperability (all .NET languages target IL)
-- Inspectable â€” you can decompile `.dll` back to C# using ILSpy or dotPeek
+- Inspectable — you can decompile `.dll` back to C# using ILSpy or dotPeek
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the use of JIT (Just-in-Time compiler)?
 
-The **JIT (Just-in-Time) compiler** is part of the .NET CLR. It converts IL (Intermediate Language) bytecode into native machine code **on demand** â€” the first time each method is called â€” and caches the result for subsequent calls.
+The **JIT (Just-in-Time) compiler** is part of the .NET CLR. It converts IL (Intermediate Language) bytecode into native machine code **on demand** — the first time each method is called — and caches the result for subsequent calls.
 
 **JIT compilation pipeline:**
 
 ```
-IL bytecode â†’ [JIT Compiler] â†’ Native x64/ARM64 code â†’ CPU execution
-                  â†‘
-         (first call only â€” cached after)
+IL bytecode → [JIT Compiler] → Native x64/ARM64 code → CPU execution
+                  ↑
+         (first call only — cached after)
 ```
 
 ```cs
@@ -30523,29 +28833,26 @@ static void AlwaysCallStack() { } // prevents inlining (useful for profiling)
 | Tier 0 | First call | Minimal (fast compilation) |
 | Tier 1 | After ~30 calls | Full optimizations (inlining, unrolling, vectorization) |
 
-**AOT (Ahead-of-Time) â€” .NET 7+ alternative to JIT:**
+**AOT (Ahead-of-Time) — .NET 7+ alternative to JIT:**
 
 ```bash
-# Publish as native AOT â€” compiles IL to machine code at build time
+# Publish as native AOT — compiles IL to machine code at build time
 dotnet publish -r win-x64 -p:PublishAot=true
 # Result: single native .exe, no JIT at runtime, faster startup
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. Is it possible to view IL code?
 
 **Yes.** Multiple tools can inspect IL from any .NET assembly (`.dll`/`.exe`).
 
 ```bash
-# 1. ILSpy CLI â€” cross-platform, decompiles back to C# or raw IL
+# 1. ILSpy CLI — cross-platform, decompiles back to C# or raw IL
 dotnet tool install -g ilspycmd
 ilspycmd MyApp.dll --il               # raw IL output
 ilspycmd MyApp.dll -l CSharp          # decompile to C#
 
-# 2. dotnet-ildasm â€” .NET global tool
+# 2. dotnet-ildasm — .NET global tool
 dotnet tool install -g dotnet-ildasm
 dotnet-ildasm MyApp.dll
 
@@ -30553,7 +28860,7 @@ dotnet-ildasm MyApp.dll
 # Run from Developer Command Prompt:
 ildasm MyApp.dll
 
-# 4. dotnet-dump / SOS â€” inspect IL at runtime
+# 4. dotnet-dump / SOS — inspect IL at runtime
 dotnet tool install -g dotnet-dump
 dotnet-dump collect -p <PID>
 dotnet-dump analyze <dump-file>
@@ -30561,10 +28868,10 @@ dotnet-dump analyze <dump-file>
 ```
 
 **In Visual Studio:**
-- **ILSpy extension** â€” right-click method â†’ "Open in ILSpy"
-- **Disassembly window** (Debug â†’ Windows â†’ Disassembly) â€” shows JIT-compiled native code
+- **ILSpy extension** — right-click method → "Open in ILSpy"
+- **Disassembly window** (Debug → Windows → Disassembly) — shows JIT-compiled native code
 
-**SharpLab.io** â€” paste C# and instantly view IL, JIT ASM, or decompiled output online.
+**SharpLab.io** — paste C# and instantly view IL, JIT ASM, or decompiled output online.
 
 ```cs
 // C# source
@@ -30580,9 +28887,6 @@ public static int Square(int x) => x * x;
 // }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the benefit of compiling into IL code?
 
@@ -30590,11 +28894,11 @@ Compiling to IL provides several advantages over compiling directly to native ma
 
 | Benefit | Explanation |
 |---------|------------|
-| **Platform independence** | Same IL runs on Windows, Linux, macOS, ARM â€” JIT produces native code per platform |
-| **Language interoperability** | C#, F#, VB.NET all compile to the same IL â€” can call each other\'s types seamlessly |
+| **Platform independence** | Same IL runs on Windows, Linux, macOS, ARM — JIT produces native code per platform |
+| **Language interoperability** | C#, F#, VB.NET all compile to the same IL — can call each other\'s types seamlessly |
 | **Runtime optimizations** | JIT knows the exact CPU (AVX-512, etc.) and optimizes better than a cross-compiled binary |
 | **Security / verification** | CLR verifies IL for type safety before execution |
-| **Reflection** | IL preserves metadata â€” types, methods, attributes queryable at runtime |
+| **Reflection** | IL preserves metadata — types, methods, attributes queryable at runtime |
 | **Dynamic code** | `System.Reflection.Emit` generates IL at runtime for dynamic proxies, expression trees |
 | **AOT-ready** | Same IL can be JIT-compiled, interpreted (Mono), or AOT-compiled (NativeAOT) |
 
@@ -30628,9 +28932,6 @@ int sum = 0;
 foreach (var n in arr) sum += n; // JIT may emit VPADDD (SIMD) instruction
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is the importance of CTS (Common Type System)?
 
@@ -30639,10 +28940,10 @@ The **CTS (Common Type System)** is the specification that defines how types are
 **Key responsibilities:**
 - Defines all type categories (value types, reference types, interfaces, delegates, enums)
 - Establishes rules for type inheritance and method overriding
-- Enables cross-language type sharing â€” a C# `int` and a VB.NET `Integer` are both `System.Int32`
+- Enables cross-language type sharing — a C# `int` and a VB.NET `Integer` are both `System.Int32`
 
 ```cs
-// CTS type mapping â€” all languages share the same underlying CLR types
+// CTS type mapping — all languages share the same underlying CLR types
 // C#      VB.NET     F#        CTS (CLR) Type
 // int   = Integer  = int    = System.Int32
 // long  = Long     = int64  = System.Int64
@@ -30656,12 +28957,12 @@ Console.WriteLine(x.GetType() == y.GetType()); // True
 Console.WriteLine(x.GetType().FullName);        // System.Int32
 
 // CTS value types vs reference types
-int    vt = 10;          // value type â€” CTS ValueType
-string rt = "hello";     // reference type â€” CTS object
+int    vt = 10;          // value type — CTS ValueType
+string rt = "hello";     // reference type — CTS object
 Console.WriteLine(vt.GetType().IsValueType); // True
 Console.WriteLine(rt.GetType().IsValueType); // False
 
-// CTS type hierarchy â€” everything derives from System.Object
+// CTS type hierarchy — everything derives from System.Object
 Console.WriteLine(typeof(int).BaseType?.Name);    // ValueType
 Console.WriteLine(typeof(string).BaseType?.Name); // Object
 Console.WriteLine(typeof(bool).IsSubclassOf(typeof(object))); // True (via ValueType)
@@ -30670,15 +28971,12 @@ Console.WriteLine(typeof(bool).IsSubclassOf(typeof(object))); // True (via Value
 // A C# class can be used by F# or VB.NET code without any adapter
 public class Calculator
 {
-    public int Add(int a, int b) => a + b;    // System.Int32 â€” universal in .NET
+    public int Add(int a, int b) => a + b;    // System.Int32 — universal in .NET
 }
 ```
 
 **CTS vs CLS:** CTS defines all possible types. The **CLS (Common Language Specification)** is a subset that all languages must support for cross-language compatibility (e.g., avoid unsigned types in public APIs since VB.NET doesn\'t have `uint`).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. How are initializers executed?
 
@@ -30724,17 +29022,17 @@ public class Derived : Base
 
 var d = new Derived();
 // Output:
-// Derived field init    â† instance field initializer runs FIRST (before base ctor)
-// Base field init       â† base field initializers run when base() is called
+// Derived field init    ← instance field initializer runs FIRST (before base ctor)
+// Base field init       ← base field initializers run when base() is called
 // Base prop init
-// Base constructor      â† base constructor body
-// Derived constructor   â† derived constructor body
+// Base constructor      ← base constructor body
+// Derived constructor   ← derived constructor body
 
-// Object / collection initializers â€” syntactic sugar, run after constructor
+// Object / collection initializers — syntactic sugar, run after constructor
 var list = new List<int> { 1, 2, 3 }; // equivalent to: Add(1); Add(2); Add(3);
 
 record Point(int X, int Y);
-var p = new Point(1, 2) { X = 10 }; // with expression â€” creates new Point(10, 2)
+var p = new Point(1, 2) { X = 10 }; // with expression — creates new Point(10, 2)
 
 // Required init (C# 11+)
 public class Config
@@ -30747,13 +29045,10 @@ var cfg = new Config { ConnectionString = "Server=localhost" };
 Console.WriteLine(cfg.Timeout); // 30
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>
 
 ## Q. What is Shadowing?
 
-**Shadowing** (method hiding) is the practice of declaring a member in a derived class with the **same name** as a member in a base class using the `new` keyword. Unlike `override`, shadowing does not participate in polymorphism â€” the choice of method depends on the **compile-time type** of the variable.
+**Shadowing** (method hiding) is the practice of declaring a member in a derived class with the **same name** as a member in a base class using the `new` keyword. Unlike `override`, shadowing does not participate in polymorphism — the choice of method depends on the **compile-time type** of the variable.
 
 ```cs
 public class Animal
@@ -30764,22 +29059,22 @@ public class Animal
 
 public class Dog : Animal
 {
-    // Shadowing â€” hides Animal.Speak (compiler warning without 'new')
+    // Shadowing — hides Animal.Speak (compiler warning without 'new')
     public new void Speak() => Console.WriteLine("Dog barks");
 
-    // Overriding â€” participates in polymorphism
+    // Overriding — participates in polymorphism
     public override void Move() => Console.WriteLine("Dog runs");
 }
 
 var dog = new Dog();
-dog.Speak();  // Dog barks       â† Dog.Speak (compile-time type = Dog)
-dog.Move();   // Dog runs        â† Dog.Move (override â€” polymorphic)
+dog.Speak();  // Dog barks       ← Dog.Speak (compile-time type = Dog)
+dog.Move();   // Dog runs        ← Dog.Move (override — polymorphic)
 
 Animal animal = new Dog();
-animal.Speak(); // Animal speaks â† Animal.Speak (compile-time type = Animal â€” shadowing!)
-animal.Move();  // Dog runs      â† Dog.Move (override â€” polymorphic)
+animal.Speak(); // Animal speaks ← Animal.Speak (compile-time type = Animal — shadowing!)
+animal.Move();  // Dog runs      ← Dog.Move (override — polymorphic)
 
-// Shadowing in practice â€” useful when extending sealed/framework types
+// Shadowing in practice — useful when extending sealed/framework types
 public class MyList<T> : List<T>
 {
     // Shadow List<T>.Add to add logging without override
@@ -30794,7 +29089,7 @@ var myList = new MyList<int>();
 myList.Add(42);      // Adding: 42 (shadowed version called)
 
 List<int> asList = myList;
-asList.Add(99);      // original List<T>.Add called (no log â€” shadowing, not override)
+asList.Add(99);      // original List<T>.Add called (no log — shadowing, not override)
 
 // Shadowing vs Overriding
 Console.WriteLine("--- Key Difference ---");
@@ -30804,6 +29099,3 @@ Console.WriteLine("--- Key Difference ---");
 
 **Best practice:** Prefer `override` over shadowing. Use `new` (shadowing) only when you cannot or should not override (e.g., method is not `virtual`, or you intentionally want different behavior per reference type).
 
-<div align="right">
-    <b><a href="#table-of-contents">â†¥ back to top</a></b>
-</div>

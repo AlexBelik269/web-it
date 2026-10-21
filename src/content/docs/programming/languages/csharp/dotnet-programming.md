@@ -3,10 +3,6 @@ title: ".NET Programming Practice"
 description: "Practical .NET coding exercises — boxing/unboxing, value vs reference types, closures, output prediction questions, and tricky C# programs."
 ---
 
-> *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
-
-<br/>
-
 ## Q. What is the output of the following code? Explain why.
 
 ```csharp
@@ -46,9 +42,6 @@ Console.WriteLine(a.Equals(b)); // True  — value comparison
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following code?
 
@@ -115,9 +108,6 @@ for (int i = 0; i < 5; i++)
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following async/await code?
 
@@ -170,9 +160,6 @@ class Program
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Rewrite the following callback-style code using `async`/`await`.
 
@@ -235,9 +222,6 @@ catch (Exception ex)
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following LINQ code?
 
@@ -288,9 +272,6 @@ var count = numbers.Where(n => n % 2 == 0).Count();
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following code? Explain `ref` vs `out` vs `in`.
 
@@ -337,9 +318,6 @@ After: x=11, y=100, z=50
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Fix the following code that causes a deadlock in ASP.NET Core.
 
@@ -397,9 +375,6 @@ private async Task<string> GetDataAsync()
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following code involving `struct` vs `class`?
 
@@ -456,9 +431,6 @@ Console.WriteLine(s.Value); // 99
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a thread-safe Singleton using `Lazy<T>` and explain the alternatives.
 
@@ -539,9 +511,6 @@ builder.Services.AddSingleton<AppConfiguration>();
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following pattern matching code?
 
@@ -610,9 +579,6 @@ if (obj is null or "") { }
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Write a generic method to find the second largest element in an array.
 
@@ -666,9 +632,6 @@ Console.WriteLine(SecondLargest(words));     // cherry
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following `IEnumerable` deferred execution code?
 
@@ -741,9 +704,6 @@ finally
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a `Retry` method that retries an async operation with exponential backoff.
 
@@ -827,9 +787,6 @@ public static async Task<T> RetryWithJitterAsync<T>(
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following `record` and `with` expression code?
 
@@ -891,9 +848,6 @@ public record Product(string Sku, string Name)
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a `Producer-Consumer` pattern using `Channel<T>` in .NET Core.
 
@@ -963,9 +917,6 @@ public record WorkItem(int Id, string Payload);
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following code? Explain `string` interning and equality.
 
@@ -1019,9 +970,6 @@ string result = sb.ToString();
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement `Flatten` — flatten a nested list structure using recursion and LINQ.
 
@@ -1087,9 +1035,6 @@ Console.WriteLine(string.Join(", ", flat));
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What does the following code print? Explain `IDisposable` and `using`.
 
@@ -1171,9 +1116,6 @@ await using var ar = new AsyncResource();
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Write a LINQ query to group, filter, and project a collection of orders.
 
@@ -1241,9 +1183,6 @@ var pivot = orders
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a generic `Result<T>` type for functional error handling without exceptions.
 
@@ -1320,9 +1259,6 @@ Console.WriteLine(pipeline); // 84
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following code involving `Span<T>` and `Memory<T>`?
 
@@ -1375,9 +1311,6 @@ Console.WriteLine(year); // 2024
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a simple in-memory cache with expiration using `ConcurrentDictionary`.
 
@@ -1457,9 +1390,6 @@ var userData = cache.GetOrAdd("user:2", key =>
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement `FizzBuzz` using various C# approaches.
 
@@ -1529,9 +1459,6 @@ foreach (var s in FizzBuzzLinq(20))
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following code? Explain covariance and contravariance.
 
@@ -1598,9 +1525,6 @@ interface ITransformer<T>   { T Transform(T item); } // invariant (both)
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a rate limiter that allows N requests per time window.
 
@@ -1730,9 +1654,6 @@ var limiter = new SlidingWindowRateLimiter(new SlidingWindowRateLimiterOptions
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement the Observer Pattern using C# events and `IObservable<T>`.
 
@@ -1839,9 +1760,6 @@ sensor.Complete();
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of the following exception handling code?
 
@@ -1928,9 +1846,6 @@ catch (Exception ex) // await unwraps first exception from AggregateException
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a strongly-typed pipeline builder using generics and delegates.
 
@@ -2016,9 +1931,6 @@ Console.WriteLine(output); // HELLO
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Write a program to find all prime numbers up to N using the Sieve of Eratosthenes.
 
@@ -2096,9 +2008,6 @@ Console.WriteLine($"Primes up to 1,000,000: {SieveOfEratosthenes(1_000_000).Coun
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a simple dependency injection container from scratch.
 
@@ -2209,9 +2118,6 @@ userService.Register("alice@example.com");
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Write a program to serialize and deserialize a complex object to/from JSON using `System.Text.Json`.
 
@@ -2298,9 +2204,6 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement an anagram checker and grouper.
 
@@ -2358,9 +2261,6 @@ Console.WriteLine(string.Join(", ", anagrams)); // care, acre
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a simple Expression Evaluator for arithmetic expressions.
 
@@ -2455,9 +2355,6 @@ Console.WriteLine(eval.Evaluate("((2+3)*4)/2"));      // 10
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a concurrent task processor with a bounded degree of parallelism.
 
@@ -2546,6 +2443,3 @@ await Parallel.ForEachAsync(urls, new ParallelOptions { MaxDegreeOfParallelism =
 
 </details>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>

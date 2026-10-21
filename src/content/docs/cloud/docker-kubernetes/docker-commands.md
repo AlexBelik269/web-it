@@ -33,9 +33,6 @@ docker logout [SERVER]
 docker logout localhost:8080 // Logout from a registry on your localhost
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Docker Container Commands
 
@@ -175,9 +172,6 @@ docker system df
 docker system prune --all
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Docker Image Commands
 
@@ -240,9 +234,6 @@ docker load <TAR_FILE/STDIN_FILE>
 docker save <IMAGE_NAME> > <TAR_FILE>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Docker Commands for Container and Image Information
 
@@ -315,9 +306,6 @@ docke image ls
 docker history [IMAGE]
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Networks
 
@@ -374,9 +362,6 @@ docker network create [OPTIONS] NETWORK
 docker network create –-driver bridge some_network
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Dockerfile
 
@@ -660,6 +645,3 @@ volumes:
   logvolume01: {}
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>

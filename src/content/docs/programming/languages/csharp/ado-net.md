@@ -3,28 +3,24 @@ title: "ADO.NET"
 description: "ADO.NET data access in C# — connections, commands, DataReader, DataSet, DataAdapter, parameterized queries, and SQL injection prevention."
 ---
 
-> *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
-
-<br/>
-
 ## Table of Contents
 
-* [ADO.NET Fundamentals](#-1-adonet-fundamentals)
-* [Core ADO.NET Objects](#-2-core-adonet-objects)
-* [Connection Handling & Lifecycle](#-3-connection-handling--lifecycle)
-* [SqlCommand & Command Execution](#-4-sqlcommand--command-execution)
-* [SqlDataReader — Connected Model](#-5-sqldatareader--connected-model)
-* [DataSet & DataAdapter — Disconnected Model](#-6-dataset--dataadapter--disconnected-model)
-* [Parameters & SQL Injection Prevention](#-7-parameters--sql-injection-prevention)
-* [Stored Procedures in ADO.NET](#-8-stored-procedures-in-adonet)
-* [Transactions in ADO.NET](#-9-transactions-in-adonet)
-* [Exceptions & Error Handling](#-10-exceptions--error-handling)
-* [Performance & Best Practices](#-11-performance--best-practices)
-* [ADO.NET vs EF vs Dapper](#-12-adonet-vs-ef-vs-dapper)
+* [ADO.NET Fundamentals](#1-adonet-fundamentals)
+* [Core ADO.NET Objects](#2-core-adonet-objects)
+* [Connection Handling & Lifecycle](#3-connection-handling--lifecycle)
+* [SqlCommand & Command Execution](#4-sqlcommand--command-execution)
+* [SqlDataReader — Connected Model](#5-sqldatareader--connected-model)
+* [DataSet & DataAdapter — Disconnected Model](#6-dataset--dataadapter--disconnected-model)
+* [Parameters & SQL Injection Prevention](#7-parameters--sql-injection-prevention)
+* [Stored Procedures in ADO.NET](#8-stored-procedures-in-adonet)
+* [Transactions in ADO.NET](#9-transactions-in-adonet)
+* [Exceptions & Error Handling](#10-exceptions--error-handling)
+* [Performance & Best Practices](#11-performance--best-practices)
+* [ADO.NET vs EF vs Dapper](#12-adonet-vs-ef-vs-dapper)
 
 <br/>
 
-## # 1. ADO.NET FUNDAMENTALS
+## 1. ADO.NET Fundamentals
 
 <br/>
 
@@ -57,9 +53,6 @@ Database (SQL Server, Oracle, MySQL, etc.)
 
 > **Note:** `Microsoft.Data.SqlClient` (NuGet package) is the current recommended SQL Server provider. It supports Always Encrypted, Active Directory authentication, and modern TLS. `System.Data.SqlClient` is legacy.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between Connected and Disconnected architecture in ADO.NET?
 
@@ -91,9 +84,6 @@ adapter.Fill(dataSet, "Products");  // connection opened/closed internally
 // Work with dataSet.Tables["Products"] without any DB connection
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the Provider Model in ADO.NET?
 
@@ -130,11 +120,8 @@ int count           = (int)cmd.ExecuteScalar();
 | `Oracle.ManagedDataAccess`  | `Oracle.ManagedDataAccess.Core`  | Oracle DB          |
 | `Microsoft.Data.Sqlite`     | `Microsoft.Data.Sqlite`          | SQLite             |
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 2. CORE ADO.NET OBJECTS
+## 2. Core ADO.NET Objects
 
 <br/>
 
@@ -154,9 +141,6 @@ int count           = (int)cmd.ExecuteScalar();
 | `DataColumn`       | System.Data                 | Defines a column\'s schema in a `DataTable`                 |
 | `DataRelation`     | System.Data                 | Parent-child relationship between `DataTable`s             |
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Which ADO.NET object keeps the connection open? Which works without a connection?
 
@@ -197,11 +181,8 @@ adapter.Update(ds, "Customers");
 
 **Rule:** `SqlDataReader` holds connection open. `DataSet`/`DataTable` are fully **disconnected** in-memory structures.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 3. CONNECTION HANDLING & LIFECYCLE
+## 3. Connection Handling & Lifecycle
 
 <br/>
 
@@ -250,9 +231,6 @@ using var connection4 = new SqlConnection(connStr);
 await connection4.OpenAsync();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Connection Pooling in ADO.NET? How does it work?
 
@@ -299,9 +277,6 @@ connection.StateChange += (sender, e) =>
 - Use the same connection string format to benefit from pool reuse
 - Never hold connections longer than needed
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What happens if you do not close a SqlConnection?
 
@@ -345,11 +320,8 @@ public async Task<List<Product>> GetProductsAsync(CancellationToken ct = default
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 4. SQLCOMMAND & COMMAND EXECUTION
+## 4. SqlCommand & Command Execution
 
 <br/>
 
@@ -411,9 +383,6 @@ int rowsAffected  = await cmd4.ExecuteNonQueryAsync();
 Console.WriteLine($"Rows inserted: {rowsAffected}"); // 1
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What does `ExecuteScalar()` return? When do you use it?
 
@@ -450,11 +419,8 @@ object result = (await nullCmd.ExecuteScalarAsync())!;
 int? maxScore = result == DBNull.Value ? null : (int?)result;
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 5. SQLDATAREADER — CONNECTED MODEL
+## 5. SqlDataReader — Connected Model
 
 <br/>
 
@@ -504,9 +470,6 @@ do
 } while (await multiReader.NextResultAsync()); // advance to next result set
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the key properties and methods of SqlDataReader?
 
@@ -544,11 +507,8 @@ while (await reader.ReadAsync())
 // To update, use SqlCommand.ExecuteNonQuery() or SqlDataAdapter.Update()
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 6. DATASET & DATAADAPTER — DISCONNECTED MODEL
+## 6. Dataset & DataAdapter — Disconnected Model
 
 <br/>
 
@@ -587,9 +547,6 @@ foreach (DataRow customer in ds.Tables["Customers"]!.Rows)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you use DataAdapter to Fill and Update a DataSet?
 
@@ -639,9 +596,6 @@ int rowsAffected = adapter.Update(ds, "Products");
 Console.WriteLine($"Rows affected: {rowsAffected}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you work with DataTable directly?
 
@@ -690,11 +644,8 @@ DataTable clone = table.Clone();  // schema only, no rows
 DataTable copy  = table.Copy();   // schema + rows
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 7. PARAMETERS & SQL INJECTION PREVENTION
+## 7. Parameters & SQL Injection Prevention
 
 <br/>
 
@@ -752,9 +703,6 @@ public async Task<User?> GetUserSafe(string username)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `AddWithValue` and `Add` for parameters?
 
@@ -783,11 +731,8 @@ cmd.Parameters.Add("@Notes", SqlDbType.NVarChar, 500).Value = (object?)notes ?? 
 
 **Rule:** Use `Add` with explicit `SqlDbType` for production code. Reserve `AddWithValue` for quick scripts.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 8. STORED PROCEDURES IN ADO.NET
+## 8. Stored Procedures in ADO.NET
 
 <br/>
 
@@ -840,9 +785,6 @@ public async Task<List<Order>> GetOrdersByCustomerAsync(int customerId, string s
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you use OUTPUT parameters and return values with stored procedures?
 
@@ -907,9 +849,6 @@ var (orderId, orderNumber, code) = await CreateOrderAsync(customerId: 7, totalAm
 Console.WriteLine($"Created order #{orderId} ({orderNumber}) — return code: {code}");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you pass a table-valued parameter to a stored procedure?
 
@@ -964,11 +903,8 @@ public async Task BulkInsertOrderItemsAsync(int orderId, List<OrderItem> items)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 9. TRANSACTIONS IN ADO.NET
+## 9. Transactions in ADO.NET
 
 <br/>
 
@@ -1033,9 +969,6 @@ public async Task TransferFundsAsync(int fromAccountId, int toAccountId, decimal
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are Transaction Isolation Levels in ADO.NET?
 
@@ -1090,11 +1023,8 @@ catch
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 10. EXCEPTIONS & ERROR HANDLING
+## 10. Exceptions & Error Handling
 
 <br/>
 
@@ -1165,9 +1095,6 @@ catch (SqlException ex)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Where should you close a connection when an exception occurs?
 
@@ -1218,11 +1145,8 @@ async Task ExplicitPattern()
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 11. PERFORMANCE & BEST PRACTICES
+## 11. Performance & Best Practices
 
 <br/>
 
@@ -1327,9 +1251,6 @@ var cmd = new SqlCommand("SELECT * FROM Products", conn);
 var cmd = new SqlCommand("SELECT Id, Name, Price FROM Products WHERE IsActive = 1", conn);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is `CommandBehavior` and when do you use it?
 
@@ -1367,11 +1288,8 @@ while (await reader.ReadAsync())
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 12. ADO.NET vs EF vs DAPPER
+## 12. ADO.NET vs EF vs Dapper
 
 <br/>
 
@@ -1427,9 +1345,6 @@ public async Task<Customer?> GetByIdEF(int id)
         .FirstOrDefaultAsync(c => c.Id == id);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. When should you choose ADO.NET over EF Core or Dapper?
 
@@ -1497,9 +1412,6 @@ public class ProductRepository
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the complete CRUD example using ADO.NET?
 
@@ -1632,6 +1544,3 @@ public class Product
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>

@@ -65,9 +65,6 @@ Output
 35
 36
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of following program?
 ```java
@@ -135,9 +132,6 @@ Exception in thread "main" java.lang.Error: Unresolved compilation problem:
 
 	at Test.main(Test.java:9)
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of following program?
 ```java
@@ -184,9 +178,6 @@ Exception in thread "main" java.lang.Error: Unresolved compilation problem:
 
 	at Test.main(Test.java:12)
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the output of following program?
 ```java
@@ -237,9 +228,6 @@ D. The code does not compile
 ```
 **Explanation**: The local variable chair may not have been initialized
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Which is correct about an instance variable of type String?
 A. It defaults to an empty string.  
@@ -301,9 +289,6 @@ D. p4
 D. P4
 ```
 **Explanation**: Type mismatch: cannot convert from double to float
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How many instance initializers are in this code?
 ```java
@@ -362,9 +347,6 @@ D. The code compiles but throws an exception at runtime
 ```
 C. The code does not compile.
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Which two primitives have wrapper classes that are not merely the name of the primitive with an uppercase letter?
 A. byte and char  
@@ -415,9 +397,6 @@ D. None of the above; they all compile
 B. double num = 2._718;
 ```
 **Explanation**: Underscores are allowed between any two digits in a numeric literal. Underscores are not allowed adjacent to a decimal point
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Which of the following is the output of this code, assuming it runs to completion?
 ```java
@@ -475,6 +454,3 @@ D. false false
 ```
 C. false true
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>

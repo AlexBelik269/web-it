@@ -7,9 +7,6 @@ description: "Java Collections Framework interview questions — List, Set, Map,
 
 ## Q. What is Java Collections Framework? List out some benefits of Collections framework?
 
-<p align="center">
-  <img src="assets/collection.png" alt="Java Collections" width="800px" />
-</p>
 
 The Collection in Java is a framework that provides an architecture to store and manipulate the group of objects. Java Collections can achieve all the operations that we perform on a data such as searching, sorting, insertion, manipulation, and deletion.
 
@@ -92,11 +89,8 @@ Some common known classes implementing this interface are **ArrayDeque, Concurre
 
 **Collections Framework Implementation Classes Summary**  
 
-![Collection Class](https://github.com/learning-zone/java-interview-questions/blob/master/assets/collection-class.png)
+![Collection Class](https://raw.githubusercontent.com/learning-zone/java-interview-questions/master/assets/collection-class.png)
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What will be the problem if you do not override hashcode() method?
 
@@ -147,9 +141,6 @@ alex1 hashcode = 1852704110
 alex2 hashcode = 2032578917
 Checking equality between alex1 and alex2 = false
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the benefit of Generics in Collections Framework?
 
@@ -203,9 +194,6 @@ Output
 INACTIVE   [project id : 200, project name : Employee Management System, 
            project desc : Employee Management System ]
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is difference between Array and ArrayList?
 
@@ -262,9 +250,6 @@ Output
 10
 30
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is difference between ArrayList and LinkedList?
 
@@ -316,9 +301,6 @@ public class ArrayListLinkedListExample
 	} 
 } 
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to remove duplicates from ArrayList?
 
@@ -418,9 +400,6 @@ Karan
 Rahul
 Vijay 
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is LinkedHashMap in Java?
 
@@ -477,7 +456,7 @@ Key is: 100 & Value is: Jim
 
 **Hierarchy of Map Interface**  
 
-![Map Interface](https://github.com/learning-zone/java-interview-questions/blob/master/assets/map-interface.png)
+![Map Interface](https://raw.githubusercontent.com/learning-zone/java-interview-questions/master/assets/map-interface.png)
 
 
 In the inheritance tree of the Map interface, there are several implementations but only 3 major, common, and general purpose implementations - they are HashMap and LinkedHashMap and TreeMap. 
@@ -561,9 +540,6 @@ Output
 <tr><td>Object getValue()</td><td>It is used to obtain value.</td></tr>
 </tbody></table>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is difference between HashMap and Hashtable?
 
@@ -630,9 +606,6 @@ Hash map:
 102 Rahul
 104 Amit
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is EnumSet?
 
@@ -709,9 +682,6 @@ Requested Colors to draw lines : [RED, BLUE]
 drawing line in color : RED 
 drawing line in color : BLUE
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between fail-fast and fail-safe iterator?
 
@@ -791,9 +761,6 @@ FOUR : 4
 ONE : 1
 THREE : 3
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What are concurrent collection classes?
 
@@ -882,9 +849,6 @@ Producer 4
 Consumed 0
 ```
 Here, The Producer start producing objects and pushing it to the Queue. Once the queue is full, the producer will wait until consumer consumes it and it will start producing again. Similar behavior is displayed by consumer. where the consumer waits until there is a single element in queue. It will resume consumer once the queue has element.
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is difference between Enumeration and Iterator interface?
 
@@ -943,9 +907,6 @@ public class PerformanceTest {
     }
 }
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is difference between Iterator and ListIterator?
 
@@ -1013,9 +974,6 @@ Backward Traversal :
 <tr><td>3</td><td>public void remove()</td><td>It removes the last elements returned by the iterator. It is rarely used.</td></tr>
 </tbody></table>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How can we create a synchronized collection from given collection?
 
@@ -1073,9 +1031,6 @@ Output
 Collection : [10, 20, 30, 40, 50]
 Synchronized view is : [10, 20, 30, 40, 50]
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is a default capacity of ArrayList, Vector, HashMap, Hashtable and Hashset?
 
@@ -1195,9 +1150,6 @@ Ram
 Rick
 Singh
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between Set and Map?
 
@@ -1251,9 +1203,6 @@ Java **HashMap** and **TreeMap** both are the classes of the Java Collections fr
 |Order of elements	HashMap does not maintain any order.|The elements are sorted in natural order (ascending).|
 |The HashMap should be used when we do not require key-value pair in sorted order.|	The TreeMap should be used when we require key-value pair in sorted (ascending) order.|
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the Dictionary class?
 
@@ -1320,9 +1269,6 @@ Check the value of removed key : null
 
 Size of Dictionary : 1
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What are all the Classes and Interfaces that are available in the collections?
 
@@ -1419,9 +1365,6 @@ c
 D
 [A, B, c, D]
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to make an ArrayList read only in Java?
 
@@ -1477,9 +1420,6 @@ ReadOnly ArrayList: [X, Y, Z]
 Trying to modify the ReadOnly ArrayList.
 Exception thrown : java.lang.UnsupportedOperationException
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Why Collection doesn’t extend Cloneable and Serializable interfaces?
 
@@ -1578,9 +1518,6 @@ HBase
 Both **poll()** and **remove()** method is used to remove head object of the Queue.
 
 The main difference lies when the Queue is empty(). If Queue is empty then poll() method will return **null**. While in similar case, remove() method will throw **NoSuchElementException**. peek() method retrieves but does not remove the head of the Queue. If queue is empty then peek() method also returns null.
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How HashMap works in Java?
 
@@ -1589,7 +1526,6 @@ HashMap in Java works on **hashing** principle. It is a data structure which all
 Since the internal array of HashMap is of fixed size, and if you keep storing objects, at some point of time hash function will return same bucket location for two different keys, this is called **collision** in HashMap. In this case, a linked list is formed at that bucket location and a new entry is stored as next node.
 
 If we try to retrieve an object from this linked list, we need an extra check to search correct value, this is done by **equals()** method. Since each node contains an entry, HashMap keeps comparing entry's key object with the passed key using equals() and when it return true, Map returns the corresponding value.
-
 
 
 ```java
@@ -1698,9 +1634,6 @@ public class MapToListExamples {
     } 
 }
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is difference between arrayList and linkedList?
 
@@ -1749,9 +1682,6 @@ class HashSetExample {
 ```
 
 When we create a HashSet, it internally creates a HashMap and if we insert an element into this HashSet using add() method, it actually call put() method on internally created HashMap object with element you have specified as it’s key and constant Object called **PRESENT** as it’s value. So we can say that a Set achieves uniqueness internally through HashMap. 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is Comparable and Comparator Interface in java?
 
@@ -1906,9 +1836,6 @@ Sorting by Age
 106 Olivea Gold 27
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Difference between containsKey(), keySet() and values() in HashMap. 
 
@@ -1965,9 +1892,6 @@ public class HashMapExample {
     } 
 } 
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between Array and ArrayList data-structure?
  
@@ -2014,9 +1938,6 @@ class ArrayExample {
     } 
 } 
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Array or ArrayList which one is faster?
   
@@ -2087,9 +2008,6 @@ Hash Map Values
 101 Five
 104 Four
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What happens when a duplicate key is put into a HashMap?
 
@@ -2161,9 +2079,6 @@ Four
 Five
 Six
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. If you store Employee object as key say: Employee emp = new Employee(“name1”,20); store it in a HashMap as key, now if we add a new parameter emp.setMarriedStatus(true) and try to override it what will happen?
  
@@ -2171,11 +2086,5 @@ new instance of Employee will be inserted to HashMap
 
 ### Q. Why Map interface does not extend Collection interface?
 ### Q. What is CompareAndSwap approach?
-
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
 
 

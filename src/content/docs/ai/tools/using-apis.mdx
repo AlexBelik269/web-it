@@ -8,6 +8,10 @@ import { Aside, Card, CardGrid, Steps, Badge } from '@astrojs/starlight/componen
 
 Both OpenAI and Anthropic provide simple REST APIs and official SDKs for Python, JavaScript/TypeScript, and other languages. This page walks through the core patterns you need to integrate LLMs into your own applications.
 
+<Aside type="caution" title="Model names change often">
+The model IDs and prices below are examples. Providers retire old models regularly, so look up the current IDs in the [OpenAI](https://platform.openai.com/docs/models) and [Anthropic](https://docs.anthropic.com/en/docs/about-claude/models) docs before running the code.
+</Aside>
+
 ---
 
 ## Getting Started
@@ -92,7 +96,7 @@ import anthropic
 
 client  = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env
 message = client.messages.create(
-    model="claude-3-5-sonnet-20241022",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     system="You are a helpful assistant.",
     messages=[{"role": "user", "content": "Explain what an API is in one paragraph."}]
@@ -120,7 +124,7 @@ import Anthropic from "@anthropic-ai/sdk";
 
 const anthropic = new Anthropic();  // reads ANTHROPIC_API_KEY from env
 const message   = await anthropic.messages.create({
-  model: "claude-3-5-sonnet-20241022",
+  model: "claude-sonnet-5-5",
   max_tokens: 1024,
   system: "You are a helpful assistant.",
   messages: [{ role: "user", content: "Explain what an API is in one paragraph." }]
@@ -168,7 +172,7 @@ import com.anthropic.models.*;
 var anthropic = Anthropic.fromEnv();
 var message   = anthropic.messages().create(
     MessageCreateParams.builder()
-        .model("claude-3-5-sonnet-20241022")
+        .model("claude-sonnet-5-5")
         .maxTokens(1024)
         .system("You are a helpful assistant.")
         .addUserMessage("Explain what an API is in one paragraph.")
@@ -309,7 +313,7 @@ import anthropic
 
 client = anthropic.Anthropic()
 with client.messages.stream(
-    model="claude-3-5-sonnet-20241022",
+    model="claude-sonnet-5-5",
     max_tokens=256,
     messages=[{"role": "user", "content": "Write a haiku about Python."}]
 ) as stream:
@@ -338,7 +342,7 @@ import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic();
 const stream = client.messages.stream({
-  model: "claude-3-5-sonnet-20241022",
+  model: "claude-sonnet-5-5",
   max_tokens: 256,
   messages: [{ role: "user", content: "Write a haiku about Python." }]
 });

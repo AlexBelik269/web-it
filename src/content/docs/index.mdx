@@ -1,8 +1,46 @@
 ---
-title: Welcome to Starlight IT Knowledge Base!
-description: Get started building your docs site with Starlight.
+title: IT Knowledge Base
+description: Structured study notes and reference pages on security, networking, development, cloud, databases, operating systems, AI, and math.
+template: splash
 hero:
-  tagline: Congrats on finding this Starlight IT Knowledge Base project!
-  image:
-    file: ../../assets/houston.webp
+  tagline: Study notes and reference pages for software engineering, security, and infrastructure — from fundamentals to hands-on practice.
+  actions:
+    - text: Start exploring
+      link: /it/overview/
+      icon: right-arrow
+    - text: Security
+      link: /it/security/
+      variant: minimal
+    - text: GitHub
+      link: https://github.com/AlexBelik269/web-it
+      icon: github
+      variant: minimal
 ---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+## Topics
+
+<CardGrid>
+	<LinkCard title="Security" href="/security/" description="OWASP Top 10, XSS, SQL injection, cryptography, malware, compliance, incident response — plus the INTROL and ISF course notes." />
+	<LinkCard title="Networking" href="/network/" description="OSI model, IP addressing, DNS, DHCP, TCP/UDP, routing, VLANs, Wi-Fi, VPNs — plus the NETW1 course notes." />
+	<LinkCard title="Authentication & Authorization" href="/auth/" description="MFA, passwords, passkeys, JWT, OAuth 2.0, OIDC, SAML, PKI, RBAC/ABAC, and zero trust." />
+	<LinkCard title="Programming" href="/programming/" description="Fundamentals, data structures, algorithms, OOP, design patterns, testing, and language guides for C#, Java, Python, and JS/TS." />
+	<LinkCard title="Web Development" href="/web/" description="How the web works, HTTP/TLS, frontend rendering, backend, APIs, architecture, and deployment." />
+	<LinkCard title="Cloud & Containers" href="/cloud/" description="Docker, Compose, Kubernetes, Helm, OpenShift, Terraform, Ansible, and cloud security." />
+	<LinkCard title="Databases" href="/databases/" description="Relational and NoSQL databases, SQL, transactions, indexing, replication, backup, and tuning." />
+	<LinkCard title="Operating Systems" href="/os/" description="Linux and Windows, processes, memory, file systems, permissions, Bash, and PowerShell." />
+	<LinkCard title="AI & LLMs" href="/ai/" description="Machine learning basics, neural networks, how LLMs work, prompting, and using AI APIs." />
+	<LinkCard title="Mathematics" href="/math/" description="Number sets, logic, proofs, combinatorics, graph theory, algorithm analysis — plus math prep notes (DE)." />
+</CardGrid>
+
+## Course notes (German)
+
+Some sections are lecture summaries written in German:
+
+<CardGrid>
+	<LinkCard title="NETW1 – Netzwerke" href="/network/netw1/01_networking_today/" description="Cisco ITN: Grundkonfiguration, Protokolle, Ethernet, IPv4/IPv6, Subnetting, Transportschicht." />
+	<LinkCard title="INTROL – Informations- und Cyber-Sicherheit" href="/security/introl/01_einfuehrung/" description="Passwort-Cracking, Wireshark, Man-in-the-Middle, physische Sicherheit, Firewalls, IPv6." />
+	<LinkCard title="ISF – Informationssicherheit" href="/security/isf/01_einfuehrung/" description="Awareness, Kryptologie, Protokolle, ISMS & Standards, Risiko-Management, Zugangskontrolle." />
+	<LinkCard title="Mathematik – Vorbereitung" href="/math/prep/00_start/" description="Grundlagen, Mengenlehre, Gleichungen und Funktionen." />
+</CardGrid>
