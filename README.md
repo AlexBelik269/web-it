@@ -11,6 +11,25 @@ Built with [Astro](https://astro.build) + [Starlight](https://starlight.astro.bu
 | `npm run dev`     | Start the dev server at `localhost:4321/it/`  |
 | `npm run build`   | Build the site into `./dist/`                 |
 | `npm run preview` | Preview the built site                        |
+| `npm run deploy`  | Build and upload the site to the web server   |
+
+## Publishing (Forpsi FTP)
+
+One-time setup:
+1. Copy `.env.example` to `.env` and put your FTP password after `FTP_PASSWORD=`.
+   If the password contains `#`, spaces or quotes, wrap it in double quotes: `FTP_PASSWORD="my#pass"`.
+   `.env` is git-ignored, so the password never ends up on GitHub.
+2. Optional: `npm run deploy:dry` shows what would be uploaded without changing anything.
+
+Then publish with:
+
+```
+npm run deploy
+```
+
+This builds the site and uploads only the files that changed since the last upload. Pages you deleted are removed
+from the server too. The server keeps a `.ftp-deploy-sync-state.json` file in `/www/it/` to track this — don't delete it
+(if you do, the next upload just re-sends everything). `npm run deploy:upload` uploads without rebuilding.
 
 ## Project layout
 
