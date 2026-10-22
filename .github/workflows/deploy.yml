@@ -1,0 +1,101 @@
+# Builds the site and uploads it to the web server on every push to master.
+#
+# Setup (GitHub → repo → Settings → Secrets and variables → Actions):
+#   Variables:  DEPLOY_METHOD = ssh | ftp
+#               DEPLOY_PATH   = folder on the server that holds the /it site, e.g. /var/www/alex-belik.cz/it/
+#   Secrets:    DEPLOY_HOST, DEPLOY_USER
+#               SSH:  SSH_PRIVATE_KEY (and optionally DEPLOY_PORT, default 22)
+#               FTP:  FTP_PASSWORD
+name: Deploy site
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: # adds a "Run workflow" button on the Actions tab
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist/
+          retention-days: 7
+
+  deploy-ssh:
+    needs: build
+    if: vars.DEPLOY_METHOD == 'ssh'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: dist
+      - name: Check target folder
+        env:
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+        run: |
+          # rsync --delete empties the target folder of anything not in the build,
+          # so refuse obviously wrong targets.
+          case "$DEPLOY_PATH" in
+            ""|"/"|"~"|"~/"|"."|"./") echo "DEPLOY_PATH is not set or unsafe: '$DEPLOY_PATH'"; exit 1 ;;
+          esac
+      - name: Set up SSH key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$DEPLOY_PORT" "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+      - name: Upload with rsync
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+        run: |
+          rsync -rlvz --delete --checksum \
+            -e "ssh -i ~/.ssh/deploy_key -p $DEPLOY_PORT" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:${DEPLOY_PATH%/}/"
+
+  deploy-ftp:
+    needs: build
+    if: vars.DEPLOY_METHOD == 'ftp'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: dist
+      - name: Check target folder
+        env:
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+        run: |
+          case "$DEPLOY_PATH" in
+            ""|"/"|"."|"./") echo "DEPLOY_PATH is not set or unsafe: '$DEPLOY_PATH'"; exit 1 ;;
+          esac
+          case "$DEPLOY_PATH" in */) ;; *) echo "DEPLOY_PATH must end with /"; exit 1 ;; esac
+      - name: Upload changed files via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps # change to "ftp" only if your host does not support FTPS
+          local-dir: ./dist/
+          server-dir: ${{ vars.DEPLOY_PATH }}
