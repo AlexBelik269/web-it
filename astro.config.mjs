@@ -1,4 +1,4 @@
-﻿// @ts-check
+// @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
@@ -9,13 +9,16 @@ import sitemap from '@astrojs/sitemap';
 import expressiveCode from 'astro-expressive-code';
 
 import react from '@astrojs/react';
+import rehypeSiteLinks from './src/plugins/rehype-site-links.mjs';
+
+const BASE = '/it';
 
 export default defineConfig({
     markdown: {
         remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex],
+        rehypePlugins: [rehypeKatex, [rehypeSiteLinks, { base: BASE }]],
     },
-    base: '/it',
+    base: BASE,
     site: 'https://alex-belik.cz',
     integrations: [mermaid({ theme: 'neutral', autoTheme: true }), [expressiveCode()], [mdx()], starlight({
         title: 'IT Knowledge Base',
@@ -53,7 +56,7 @@ export default defineConfig({
                 items: [
                     { label: 'Overview', slug: 'security' },
                     {
-                    label: 'Principals',
+                    label: 'Principles',
                         collapsed: true,
                         items: [
                             { label: 'Cyber Warfare', slug: 'security/principals/cyber-warfare' },
@@ -172,10 +175,10 @@ export default defineConfig({
                             { label: '1. Grundlagen', slug: 'security/isf/01_einfuehrung' },
                             { label: '2. Awareness', slug: 'security/isf/02_awareness' },
                             { label: '3. Grundlagen Kryptologie', slug: 'security/isf/03_grundlagen_kryptologie' },
-                            { label: '4. Kryptologishe Verfahren', slug: 'security/isf/04_kryptologische_verfahren' },
-                            { label: '5. Protokolle Anwendung', slug: 'security/isf/05_protokolle_anwendungen' },
+                            { label: '4. Kryptologische Verfahren', slug: 'security/isf/04_kryptologische_verfahren' },
+                            { label: '5. Protokolle & Anwendungen', slug: 'security/isf/05_protokolle_anwendungen' },
                             { label: '6. ISMS & Standards', slug: 'security/isf/06_isms_standards' },
-                            { label: '7. Risiko Management', slug: 'security/isf/07_risiko_management' },
+                            { label: '7. Risiko-Management', slug: 'security/isf/07_risiko_management' },
                             { label: '8. Zugangskontrolle', slug: 'security/isf/08_zugangskontrolle' },
                             { label: '9. Vulnerabilities', slug: 'security/isf/09_vulnerabilities' },
                         ],
@@ -652,7 +655,6 @@ export default defineConfig({
                                     { label: 'ASP.NET Core', slug: 'programming/languages/csharp/asp-net-core' },
                                     { label: 'Design Patterns', slug: 'programming/languages/csharp/dotnet-dp' },
                                     { label: 'Data Structures', slug: 'programming/languages/csharp/dotnet-ds' },
-                                    { label: 'FAQ', slug: 'programming/languages/csharp/dotnet-faq' },
                                     { label: 'Multiple Choice Q&A', slug: 'programming/languages/csharp/dotnet-mcq' },
                                     { label: '.NET Programming', slug: 'programming/languages/csharp/dotnet-programming' },
                                     { label: 'Unit Testing', slug: 'programming/languages/csharp/dotnet-unit-test' },
@@ -698,9 +700,9 @@ export default defineConfig({
                         label: 'Architecture',
                         collapsed: true,
                         items: [
-                            { label: 'Microservices', slug: 'web/architecture/microservices' },
-                            { label: 'Monoliths', slug: 'web/architecture/monoliths' },
                             { label: 'Overview', slug: 'web/architecture/overview' },
+                            { label: 'Monoliths', slug: 'web/architecture/monoliths' },
+                            { label: 'Microservices', slug: 'web/architecture/microservices' },
                             { label: 'Service Mesh', slug: 'web/architecture/service-mesh' },
                         ],
                     },
@@ -708,19 +710,19 @@ export default defineConfig({
                         label: 'Backend',
                         collapsed: true,
                         items: [
-                            { label: 'Database Connection', slug: 'web/backend/database-connection' },
                             { label: 'Overview', slug: 'web/backend/overview' },
-                            { label: 'Server Side', slug: 'web/backend/server-side' },
+                            { label: 'Server-Side Concepts', slug: 'web/backend/server-side' },
+                            { label: 'Database Connections', slug: 'web/backend/database-connection' },
                         ],
                     },
                     {
                         label: 'Frontend',
                         collapsed: true,
                         items: [
-                            { label: 'Browser Rendering', slug: 'web/frontend/browser-rendering' },
-                            { label: 'CSS Layout', slug: 'web/frontend/css-layout' },
-                            { label: 'JavaScript Runtime', slug: 'web/frontend/javascript-runtime' },
                             { label: 'Overview', slug: 'web/frontend/overview' },
+                            { label: 'Browser Rendering', slug: 'web/frontend/browser-rendering' },
+                            { label: 'CSS & Layout', slug: 'web/frontend/css-layout' },
+                            { label: 'JavaScript Runtime', slug: 'web/frontend/javascript-runtime' },
                             { label: 'Performance', slug: 'web/frontend/performance' },
                         ],
                     },
@@ -737,19 +739,19 @@ export default defineConfig({
                         label: 'Hosting',
                         collapsed: true,
                         items: [
-                            { label: 'CI CD', slug: 'web/hosting/ci-cd' },
-                            { label: 'Cloud Hosting', slug: 'web/hosting/cloud-hosting' },
                             { label: 'Deployment Overview', slug: 'web/hosting/deployment-overview' },
                             { label: 'Web Servers', slug: 'web/hosting/web-servers' },
+                            { label: 'CI/CD Pipelines', slug: 'web/hosting/ci-cd' },
+                            { label: 'Cloud Hosting', slug: 'web/hosting/cloud-hosting' },
                         ],
                     },
                     {
                         label: 'HTTP',
                         collapsed: true,
                         items: [
-                            { label: 'How Web Works', slug: 'web/http/how-web-works' },
+                            { label: 'How the Web Works', slug: 'web/http/how-web-works' },
                             { label: 'HTTP Fundamentals', slug: 'web/http/http-fundamentals' },
-                            { label: 'HTTPS TLS', slug: 'web/http/https-tls' },
+                            { label: 'HTTPS & TLS', slug: 'web/http/https-tls' },
                         ],
                     },
                 ]
@@ -758,14 +760,10 @@ export default defineConfig({
                 label: 'Tools',
                 collapsed: true,
                 items: [
-                    { label: 'Tool Commands', slug: 'tools/tool-comands' },
-                    { label: 'Tools', slug: 'tools/tools' },
+                    { label: 'CLI Tools & Resources', slug: 'tools/tools' },
+                    { label: 'Shell One-liners', slug: 'tools/tool-comands' },
                 ],
             },
-            {
-                label: 'Tools', slug: 'overview' 
-                
-            }
         ],
         }), sitemap(), react()],
 });

@@ -3,133 +3,77 @@ title: "Data Structures and Algorithms in .NET"
 description: "Data structures and algorithms in .NET Core — Big O notation, arrays, stacks, queues, linked lists, trees, and sorting algorithms with C# examples."
 ---
 
-> *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
-
-<br/>
-
 ## Table of Contents
 
-* [Introduction](#-introduction)
-* [Big O Notation](#-big-o-notation)
-* [Arrays](#-arrays)
-* [Stacks](#-stacks)
-    * Operations on Stacks
-        * [PUSH Operation](#-push-operation)
-        * [POP Operation](#-pop-operation)
-        * [Display Operation](#-display-operation)
-        * [isEmpty Operation](#-isempty-operation)
-    * Application of Stacks
-        * [Recursion](#-recursion)
-        * [Reversal of String](#-reversal-of-string)
-        * [Checking the Parenthesis Matching](#-checking-the-parenthesis-matching)
-        * [Polish Notation of Arithmetic Expressions](#-polish-notation-of-arithmetic-expressions)
-        * [Conversion of the Expressions](#-conversion-of-the-expressions)
-        * [Evaluation of POSTFIX Expression](#-evaluation-of-postfix-expression)
-* [Queues](#-queues)
-    * Operations on a Queue
-        * [Insertion](#-insertion)
-        * [Deletion](#-deletion)
-        * [Qempty Operation](#-qempty-operation)
-        * [Qfull Operation](#-qfull-operation)
-        * [Display Operation](#-display-operation)
-    * Types of Queues
-        * [Simple Queue](#-simple-queue)
-        * [Circular Queue](#-circular-queue)
-        * [Priority Queue](#-priority-queue)
-        * [Double Ended Queue](#-double-ended-queue)
-* [Linked Lists](#-linked-lists)
-    * Operations on Linked Lists
-        * [Creating a Linked Lists](#-creating-a-lined-lists)
-        * [Traversing a Linked Lists](#-creating-a-lined-lists)
-        * [Displaying a Linked Lists](#-creating-a-lined-lists)
-        * [Length Operation](#-creating-a-lined-lists)
-        * [Searching a Linked Lists](#-creating-a-lined-lists)
-        * [Insertion into a Linked Lists](#-creating-a-lined-lists)
-        * [Deletion Operations on a singly Linked Lists](#-creating-a-lined-lists)
-        * [Sorting a Linked Lists](#-creating-a-lined-lists)
-        * [Reversing a Linked Lists](#-creating-a-lined-lists)
-        * [Merging of two Sorted Lists](#-creating-a-lined-lists)
-    * Types of Linked Lists
-        * [Singly Linked Lists](#-singly-linked-lists)
-        * [Circular Linked Lists](#-circular-singly-linked-lists)
-            * [Creation of a CLL](#-creation-of-a-circular-linked-list)
-            * [Display operation on a CLL](#-creation-of-a-circular-linked-list)
-            * [Insertion into a CLL](#-creation-of-a-circular-linked-list)
-            * [Deletion of a node from CLL](#-creation-of-a-circular-linked-list)
-            * [Implementation of Stacks using CLL](#-creation-of-a-circular-linked-list)
-            * [Implementation of Queue using CLL](#-creation-of-a-circular-linked-list)
-        * [Doubly Linked Lists](#-doubly-linked-lists)
-            * [Creating a DLL](#-creating-a-dll)
-            * [Displaying a DLL](#-displaying-a-dll)
-            * [Inserting a node into DLL](#-Inserting-a-node-into-dll)
-            * [Deleting a node from DLL](#-deleting-a-node-from-dll)
-        * [Header Linked Lists](#-header-linked-lists)
-            * [Grounded Header Linked List](#-grounded-header-linked-list)
-                * [Creation](#-creation)
-                * [Insertion Operation](#-insertion-operation)
-                * [Delete Operation](#-delete-operation)
-            * [Circular Header Linked List](#-circular-header-linked-list)
-                * [Creating a Linked List](#-creating-a-linked-list)
-                * [Insertion](#-insertion)
-            * Application of Linked Lists
-                * [Addition of two Polynomials](#-addition-of-two-polynomials)
-                * [Addition of two long positive Integers](#-addition-of-two-long-positive-integers)
-    * [Linked List Implementation of Stacks](#-linked-list-implementation-of-stacks)
-    * [Linked List Implementation of Queue](#-linked-list-implementation-of-queue)
-    * [Linked List Implementation of Priority Queue](#-linked-list-implementation-of-priority-queue)
-* [Trees](#-trees)
-    * [Binary Trees](#-binary-tree)
-        * [Strictly Binary Tree](#-strictly-binary-tree)
-        * [Complete Binary Tree](#-complete-binary-tree)
-        * [Almost Full Binary Tree](#-almost-full-binary-tree)
-    * [Binary Search Trees](#-binary-search-tree)
-        * Operations on a Binary Search Tree
-            * [Constructing Binary Search Tree Insertion](#-constructing-binary-search-tree)
-            * [Searching Operation on a BST](#-searching-operation-on-a-bst)
-            * [Deletion operatin on BST](#-deletion-operatin-on-bst)
-            * [Traversals](#-traversals)
-            * [Finding Maximum value in BST](#-finding-maximum-value-in-bst)
-            * [Finding Minimum value in BST](#-finding-minimum-value-in-bst)
-    * [Threaded Binary Tree](#threaded-binary-tree)
-        * [Right in Threaded Binary Trees](#-right-in-threaded-binary-trees)
-        * [Left in Threaded Binary Trees](#-Left-in-threaded-binary-trees)
-    * [Creation of BST from preorder and inorder traversals](#-creation-of-bst-from-preorder-and-inorder-traversals)
-    * [Creation of BST from postorder and inorder traversals](#-creation-of-bst-from-postorder-and-inorder-traversals)
-    * [AVL Trees](#-avl-tree)
-    * [B- Trees](#-b-tree)
-    * [B+ Trees](#-b-tree)
-    * [Red-Black Trees](#-red-black-tree)
-* [Graph](#-graph)
-    * [Breadth First Search Algorithm](#-breadth-first-search-algorithm)
-    * [Depth First Search Algorithm](#-depth-first-search-algorithm)
-    * [Kruskal\'s Algorithm](#-Kruskals-algorithm)
-    * [Dijkstra Algorithm](#-dijkstra-algorithm)
-    * [Prim\'s Algorithm](#-prims-algorithm)
-    * [Travelling Salesman Problem](#-travelling-salesman-problem)
-    * [Floyd-Warshall Algorithm](#-floyd-warshall-algorithm)
-* [Sorting](#-sorting-algorithms)
-    * [Address Calculation Sort](#-address-calculation-sort)
-    * [Binary Tree Sort](#-binary-tree-sort)
-    * [Bubble Sort](#-bubble-sort)
-    * [Bucket Sort](#-bucket-sort)
-    * [Heap Sort](#-heap-sort)
-    * [Insertion Sort](#-insertion-sort)
-    * [Merge Sort](#-merge-sort)
-    * [Quick Sort](#-quick-sort)
-    * [Radix Sort](#-radix-sort)
-    * [Selection Sort](#-selection-sort)
-    * [Shell Sort](#-shell-sort)
-* [Searching](#-searching-algorithms)
-    * [Linear Search](#-linear-search)
-    * [Binary Search](#-binary-search)
-    * [Indexed Sequential Search](#-indexed-sequential-search)
-* [Hash Table](#-hash-table)
-* [Heap](#-heap)
-* [Miscellaneous](#-miscellaneous)
+* [1. Introduction](#1-introduction)
+    * [What built-in data structures does .NET Core provide?](#q-what-built-in-data-structures-does-net-core-provide)
+* [2. Big O Notation](#2-big-o-notation)
+    * [What is Big O Notation? What are the common complexities?](#q-what-is-big-o-notation-what-are-the-common-complexities)
+    * [What is the difference between time complexity and space complexity?](#q-what-is-the-difference-between-time-complexity-and-space-complexity)
+* [3. Arrays](#3-arrays)
+    * [What is an array? What are the common array operations in .NET Core?](#q-what-is-an-array-what-are-the-common-array-operations-in-net-core)
+    * [How do you find the two numbers in an array that sum to a target? (Two Sum problem)](#q-how-do-you-find-the-two-numbers-in-an-array-that-sum-to-a-target-two-sum-problem)
+    * [How do you find the maximum subarray sum? (Kadane's Algorithm)](#q-how-do-you-find-the-maximum-subarray-sum-kadanes-algorithm)
+    * [How do you rotate an array by k positions?](#q-how-do-you-rotate-an-array-by-k-positions)
+* [4. Stacks](#4-stacks)
+    * [What is a Stack? How does it work in .NET Core?](#q-what-is-a-stack-how-does-it-work-in-net-core)
+    * [Implement a custom generic Stack from scratch.](#q-implement-a-custom-generic-stack-from-scratch)
+    * [How do you check balanced parentheses using a Stack?](#q-how-do-you-check-balanced-parentheses-using-a-stack)
+    * [Evaluate a postfix (RPN) expression using a Stack.](#q-evaluate-a-postfix-rpn-expression-using-a-stack)
+    * [Reverse a string using a Stack.](#q-reverse-a-string-using-a-stack)
+* [5. Queues](#5-queues)
+    * [What is a Queue? How does it work in .NET Core?](#q-what-is-a-queue-how-does-it-work-in-net-core)
+    * [What is a Priority Queue and how do you use it in .NET 6+?](#q-what-is-a-priority-queue-and-how-do-you-use-it-in-net-6)
+    * [Implement a Circular Queue.](#q-implement-a-circular-queue)
+    * [Implement a Double-Ended Queue (Deque) using LinkedList.](#q-implement-a-double-ended-queue-deque-using-linkedlist)
+* [6. Linked Lists](#6-linked-lists)
+    * [What is a Linked List? Compare types.](#q-what-is-a-linked-list-compare-types)
+    * [Implement a Singly Linked List with core operations.](#q-implement-a-singly-linked-list-with-core-operations)
+    * [How do you use .NET's built-in `LinkedList<T>`?](#q-how-do-you-use-nets-built-in-linkedlistt)
+    * [Find the middle node of a Linked List in one pass.](#q-find-the-middle-node-of-a-linked-list-in-one-pass)
+    * [Merge two sorted linked lists.](#q-merge-two-sorted-linked-lists)
+* [7. Trees](#7-trees)
+    * [What is a Binary Search Tree (BST)? Implement core operations.](#q-what-is-a-binary-search-tree-bst-implement-core-operations)
+    * [Implement Level-Order (BFS) traversal of a Binary Tree.](#q-implement-level-order-bfs-traversal-of-a-binary-tree)
+    * [What is an AVL Tree? How does it self-balance?](#q-what-is-an-avl-tree-how-does-it-self-balance)
+* [8. Graph](#8-graph)
+    * [What is a Graph? How do you represent it in .NET Core?](#q-what-is-a-graph-how-do-you-represent-it-in-net-core)
+    * [Implement Breadth-First Search (BFS) on a Graph.](#q-implement-breadth-first-search-bfs-on-a-graph)
+    * [Implement Depth-First Search (DFS) on a Graph.](#q-implement-depth-first-search-dfs-on-a-graph)
+    * [Implement Dijkstra's Shortest Path Algorithm.](#q-implement-dijkstras-shortest-path-algorithm)
+    * [Implement Kruskal's Minimum Spanning Tree algorithm.](#q-implement-kruskals-minimum-spanning-tree-algorithm)
+* [9. Sorting Algorithms](#9-sorting-algorithms)
+    * [Compare common sorting algorithms and their complexities.](#q-compare-common-sorting-algorithms-and-their-complexities)
+    * [Implement Bubble Sort.](#q-implement-bubble-sort)
+    * [Implement Merge Sort.](#q-implement-merge-sort)
+    * [Implement Quick Sort.](#q-implement-quick-sort)
+    * [Implement Heap Sort.](#q-implement-heap-sort)
+    * [Implement Insertion Sort.](#q-implement-insertion-sort)
+    * [Implement Radix Sort.](#q-implement-radix-sort)
+* [10. Searching Algorithms](#10-searching-algorithms)
+    * [Implement Linear Search.](#q-implement-linear-search)
+    * [Implement Binary Search (iterative and recursive).](#q-implement-binary-search-iterative-and-recursive)
+    * [Implement Binary Search variants — find first/last occurrence.](#q-implement-binary-search-variants--find-firstlast-occurrence)
+* [11. Hash Table](#11-hash-table)
+    * [What is a Hash Table? How does `Dictionary<TKey, TValue>` work in .NET?](#q-what-is-a-hash-table-how-does-dictionarytkey-tvalue-work-in-net)
+    * [Find the first non-repeating character using a Hash Table.](#q-find-the-first-non-repeating-character-using-a-hash-table)
+    * [Group anagrams together using a Hash Table.](#q-group-anagrams-together-using-a-hash-table)
+    * [Implement a HashSet and its common use cases.](#q-implement-a-hashset-and-its-common-use-cases)
+* [12. Heap](#12-heap)
+    * [What is a Heap? How do you use it in .NET Core?](#q-what-is-a-heap-how-do-you-use-it-in-net-core)
+    * [Find the K largest elements in an array using a Min-Heap.](#q-find-the-k-largest-elements-in-an-array-using-a-min-heap)
+    * [Find the Kth largest element in an array.](#q-find-the-kth-largest-element-in-an-array)
+    * [Implement a custom Min-Heap from scratch.](#q-implement-a-custom-min-heap-from-scratch)
+* [13. Miscellaneous](#13-miscellaneous)
+    * [What is a Trie (Prefix Tree)? Implement insert and search.](#q-what-is-a-trie-prefix-tree-implement-insert-and-search)
+    * [What is Dynamic Programming? Solve Fibonacci and 0/1 Knapsack.](#q-what-is-dynamic-programming-solve-fibonacci-and-01-knapsack)
+    * [Solve the Longest Common Subsequence (LCS) problem.](#q-solve-the-longest-common-subsequence-lcs-problem)
+    * [How do you implement a sliding window algorithm?](#q-how-do-you-implement-a-sliding-window-algorithm)
+    * [What are common concurrency-safe data structures in .NET Core?](#q-what-are-common-concurrency-safe-data-structures-in-net-core)
 
 <br/>
 
-## # 1. INTRODUCTION
+## 1. Introduction
 
 <br/>
 
@@ -153,11 +97,7 @@ description: "Data structures and algorithms in .NET Core — Big O notation, ar
 | Thread-safe queue      | `ConcurrentQueue<T>`                 | System.Collections.Concurrent    |
 
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
-
-## # 2. BIG O NOTATION
+## 2. Big O Notation
 
 <br/>
 
@@ -210,9 +150,6 @@ int BinarySearch(int[] arr, int target)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between time complexity and space complexity?
 
@@ -242,11 +179,8 @@ long[] PrefixSums(int[] arr)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 3. ARRAYS
+## 3. Arrays
 
 <br/>
 
@@ -280,9 +214,6 @@ int sum   = primes.Sum();
 int max   = primes.Max();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you find the two numbers in an array that sum to a target? (Two Sum problem)
 
@@ -316,9 +247,6 @@ public static int[] TwoSumOptimal(int[] nums, int target)
 int[] result = TwoSumOptimal(new[] { 2, 7, 11, 15 }, 9); // [0, 1]
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you find the maximum subarray sum? (Kadane\'s Algorithm)
 
@@ -341,9 +269,6 @@ public static int MaxSubarraySum(int[] nums)
 int result = MaxSubarraySum(new[] { -2, 1, -3, 4, -1, 2, 1, -5, 4 }); // 6 (subarray [4,-1,2,1])
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you rotate an array by k positions?
 
@@ -368,11 +293,8 @@ int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
 RotateArray(arr, 3); // [5, 6, 7, 1, 2, 3, 4]
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 4. STACKS
+## 4. Stacks
 
 <br/>
 
@@ -408,9 +330,6 @@ foreach (var item in stack)
     Console.WriteLine(item);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a custom generic Stack from scratch.
 
@@ -451,9 +370,6 @@ public class MyStack<T>
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you check balanced parentheses using a Stack?
 
@@ -490,9 +406,6 @@ Console.WriteLine(IsBalanced("({[)]}"));  // False
 Console.WriteLine(IsBalanced("{[}"));     // False
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Evaluate a postfix (RPN) expression using a Stack.
 
@@ -531,9 +444,6 @@ Console.WriteLine(EvaluatePostfix("3 4 + 2 *")); // 14
 Console.WriteLine(EvaluatePostfix("5 1 2 + 4 * + 3 -")); // 14
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Reverse a string using a Stack.
 
@@ -556,11 +466,8 @@ public static string ReverseStringManual(string input)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 5. QUEUES
+## 5. Queues
 
 <br/>
 
@@ -592,9 +499,6 @@ if (queue.TryDequeue(out string item))
     Console.WriteLine(item); // Charlie
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a Priority Queue and how do you use it in .NET 6+?
 
@@ -619,9 +523,6 @@ while (pq.TryDequeue(out string task, out int priority))
 // [10] Low priority task
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a Circular Queue.
 
@@ -664,9 +565,6 @@ public class CircularQueue<T>
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a Double-Ended Queue (Deque) using LinkedList.
 
@@ -702,11 +600,8 @@ public class Deque<T>
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 6. LINKED LISTS
+## 6. Linked Lists
 
 <br/>
 
@@ -720,9 +615,6 @@ A **Linked List** is a sequence of nodes where each node holds a value and a poi
 | Doubly Linked List  | Next + Previous    | Yes  | Yes  | `LinkedList<T>` |
 | Circular Linked List| Next (wraps back)  | Yes  | —    | (custom)        |
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a Singly Linked List with core operations.
 
@@ -826,9 +718,6 @@ public class SinglyLinkedList<T>
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you use .NET\'s built-in `LinkedList<T>`?
 
@@ -857,9 +746,6 @@ Console.WriteLine(list.First?.Value); // head
 Console.WriteLine(list.Last?.Value);  // tail
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Find the middle node of a Linked List in one pass.
 
@@ -879,9 +765,6 @@ public static SinglyNode<T>? FindMiddle<T>(SinglyNode<T>? head)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Merge two sorted linked lists.
 
@@ -912,11 +795,8 @@ public static SinglyNode<int>? MergeSorted(SinglyNode<int>? l1, SinglyNode<int>?
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 7. TREES
+## 7. Trees
 
 <br/>
 
@@ -1027,9 +907,6 @@ public class BinarySearchTree
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Level-Order (BFS) traversal of a Binary Tree.
 
@@ -1061,9 +938,6 @@ public static IEnumerable<IEnumerable<int>> LevelOrder(BstNode? root)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is an AVL Tree? How does it self-balance?
 
@@ -1151,11 +1025,8 @@ public class AvlTree
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 8. GRAPH
+## 8. Graph
 
 <br/>
 
@@ -1192,9 +1063,6 @@ public class Graph
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Breadth-First Search (BFS) on a Graph.
 
@@ -1227,9 +1095,6 @@ public List<int> BFS(int start)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Depth-First Search (DFS) on a Graph.
 
@@ -1277,9 +1142,6 @@ public List<int> DFSIterative(int start)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Dijkstra\'s Shortest Path Algorithm.
 
@@ -1331,9 +1193,6 @@ int[] distances = Dijkstra(adjacencyMatrix, 0);
 // distances[i] = shortest distance from vertex 0 to vertex i
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Kruskal\'s Minimum Spanning Tree algorithm.
 
@@ -1373,11 +1232,8 @@ public static List<(int, int, int)> Kruskal(int vertices, List<(int u, int v, in
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 9. SORTING ALGORITHMS
+## 9. Sorting Algorithms
 
 <br/>
 
@@ -1394,9 +1250,6 @@ public static List<(int, int, int)> Kruskal(int vertices, List<(int u, int v, in
 | Radix Sort     | O(nk)      | O(nk)      | O(nk)      | O(n+k) | Yes    |
 | Bucket Sort    | O(n+k)     | O(n+k)     | O(n²)      | O(n+k) | Yes    |
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Bubble Sort.
 
@@ -1421,9 +1274,6 @@ public static void BubbleSort(int[] arr)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Merge Sort.
 
@@ -1463,9 +1313,6 @@ int[] arr = { 64, 34, 25, 12, 22, 11, 90 };
 MergeSort(arr, 0, arr.Length - 1);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Quick Sort.
 
@@ -1505,9 +1352,6 @@ private static int Partition(int[] arr, int low, int high)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Heap Sort.
 
@@ -1546,9 +1390,6 @@ private static void Heapify(int[] arr, int n, int i)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Insertion Sort.
 
@@ -1570,9 +1411,6 @@ public static void InsertionSort(int[] arr)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Radix Sort.
 
@@ -1608,11 +1446,8 @@ private static void CountingSortByDigit(int[] arr, int exp)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 10. SEARCHING ALGORITHMS
+## 10. Searching Algorithms
 
 <br/>
 
@@ -1631,9 +1466,6 @@ public static int LinearSearch<T>(T[] arr, T target) where T : IEquatable<T>
 int idx = LinearSearch(new[] { 5, 3, 8, 1, 9 }, 8); // returns 2
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Binary Search (iterative and recursive).
 
@@ -1675,9 +1507,6 @@ int index = Array.BinarySearch(sorted, 7); // returns 3
 // Use case: phone books, dictionary lookups, finding insertion points
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement Binary Search variants — find first/last occurrence.
 
@@ -1729,11 +1558,8 @@ public static int CountOccurrences(int[] arr, int target)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 11. HASH TABLE
+## 11. Hash Table
 
 <br/>
 
@@ -1772,9 +1598,6 @@ foreach (var (key, value) in dict)
 bool hasApple = dict.ContainsKey("apple");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Find the first non-repeating character using a Hash Table.
 
@@ -1798,9 +1621,6 @@ Console.WriteLine(FirstNonRepeating("leetcode")); // 'l'
 Console.WriteLine(FirstNonRepeating("aabb"));     // '\0'
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Group anagrams together using a Hash Table.
 
@@ -1832,9 +1652,6 @@ var groups = GroupAnagramsManual(new[] { "eat", "tea", "tan", "ate", "nat", "bat
 // [["eat","tea","ate"], ["tan","nat"], ["bat"]]
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a HashSet and its common use cases.
 
@@ -1865,11 +1682,8 @@ public static bool ContainsDuplicate(int[] nums)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 12. HEAP
+## 12. Heap
 
 <br/>
 
@@ -1902,9 +1716,6 @@ while (maxHeap.Count > 0)
     Console.Write($"{maxHeap.Dequeue()} "); // 10 5 3
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Find the K largest elements in an array using a Min-Heap.
 
@@ -1931,9 +1742,6 @@ public static int[] KLargestElements(int[] nums, int k)
 int[] result = KLargestElements(new[] { 3, 2, 1, 5, 6, 4 }, k: 2); // [6, 5]
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Find the Kth largest element in an array.
 
@@ -1978,9 +1786,6 @@ private static int Partition(int[] nums, int low, int high)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Implement a custom Min-Heap from scratch.
 
@@ -2044,11 +1849,8 @@ public class MinHeap
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 13. MISCELLANEOUS
+## 13. Miscellaneous
 
 <br/>
 
@@ -2140,9 +1942,6 @@ var suggestions = trie.GetWordsWithPrefix("app");
 // ["app", "apple", "application"]
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Dynamic Programming? Solve Fibonacci and 0/1 Knapsack.
 
@@ -2192,9 +1991,6 @@ int[] values   = { 1, 4, 5, 7 };
 int maxValue   = Knapsack(weights, values, capacity: 7); // 9
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Solve the Longest Common Subsequence (LCS) problem.
 
@@ -2247,9 +2043,6 @@ Console.WriteLine(LCS("ABCBDAB", "BDCABA")); // 4
 Console.WriteLine(GetLCS("ABCBDAB", "BDCABA")); // "BCBA" or "BDAB"
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement a sliding window algorithm?
 
@@ -2295,9 +2088,6 @@ Console.WriteLine(MaxSumSubarray(new[] { 1, 4, 2, 9, 7, 3, 8 }, 3)); // 19 (9+7+
 Console.WriteLine(LengthOfLongestSubstring("abcabcbb")); // 3 ("abc")
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are common concurrency-safe data structures in .NET Core?
 
@@ -2341,6 +2131,3 @@ static void Process(WorkItem item) { }
 public record WorkItem;
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>

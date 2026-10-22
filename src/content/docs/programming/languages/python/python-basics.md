@@ -3,47 +3,38 @@ title: "Python Basics"
 description: "Core Python concepts and interview questions — data types, dictionaries, operators, control flow, data structures, functions, closures, OOP, and concurrency."
 ---
 
-> *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
-
-<br>
-
 ## Table of Contents
 
-* [Introduction](#-1-introduction):  (Python compilation, bytecode, and VMs)
-* [Data Types](#-2-data-types): Data Types & Built-in Scalar Types
-* [Dictionary](#-3-dictionary): Hash maps, hash collisions, and Python 3.6+ ordering
-* [Operators](#-4-operators): Operators & Bitwise Operations
-* [Control Flow Statements](#-5-control-flow-statements): Control Flow Statements & Optimization
-* [Core Data Structures](#-6-core-data-structures): Lists, Tuples, Sets, Deques
-* [Functions](#-7-functions): Scope, LEGB rule, args/kwargs, closures
-* [Lambda Functions](#-8-lambda-functions): Lambda Functions & Functional Programming Patterns
-* [Modules and Packages](#-9-modules-and-packages): Import system, sys.modules, namespace packages
-* [Object-Oriented Programming](#-10-object-oriented-programming): MRO, C3 Linearization, Descriptors, Metaclasses
-* [Exception Handling](#-11-exception-handling): EAFP vs LBYL, custom exceptions, traceback overhead
-* [File Handling](#-12-file-handling): Streams, text vs binary
-* [Memory Management](#-13-memory-management): Object allocation, PyMalloc, small object caching
-* [Garbage Collector](#-14-garbage-collector): Reference counting, generational collection, cyclic references
-* [Mutable vs Immutable](#-15-mutable-vs-immutable): Hashability, identity vs equality, side-effects
-* [Iterators and Generators](#-16-iterators-and-generators): Iteration protocol, lazy evaluation, memory efficiency
-* [Decorators](#-17-decorators): Function decorators, class decorators, functools.wraps, stateful decorators
-* [Context Managers](#-18-context-managers): Context management protocol, contextlib, resource management
-* [Concurrency and Parallelism](#-19-concurrency-and-parallelism): Threading, Multiprocessing, Asyncio, Event loop, GIL
-* [Testing and Debugging](#-20-testing-and-debugging): Unittest, Pytest fixtures, Mocking, profiling with cProfile
-* [Miscellaneous](#-21-miscellaneous): Dunder methods, Typing/Type hinting, slots optimization
+* [Introduction](#1-introduction):  (Python compilation, bytecode, and VMs)
+* [Data Types](#2-data-types): Data Types & Built-in Scalar Types
+* [Dictionary](#3-dictionary): Hash maps, hash collisions, and Python 3.6+ ordering
+* [Operators](#4-operators): Operators & Bitwise Operations
+* [Control Flow Statements](#5-control-flow-statements): Control Flow Statements & Optimization
+* [Core Data Structures](#6-core-data-structures): Lists, Tuples, Sets, Deques
+* [Functions](#7-functions): Scope, LEGB rule, args/kwargs, closures
+* [Lambda Functions](#8-lambda-functions): Lambda Functions & Functional Programming Patterns
+* [Modules and Packages](#9-modules-and-packages): Import system, sys.modules, namespace packages
+* [Object-Oriented Programming](#10-object-oriented-programming): MRO, C3 Linearization, Descriptors, Metaclasses
+* [Exception Handling](#11-exception-handling): EAFP vs LBYL, custom exceptions, traceback overhead
+* [File Handling](#12-file-handling): Streams, text vs binary
+* [Memory Management](#13-memory-management): Object allocation, PyMalloc, small object caching
+* [Garbage Collector](#14-garbage-collector): Reference counting, generational collection, cyclic references
+* [Mutable vs Immutable](#15-mutable-vs-immutable): Hashability, identity vs equality, side-effects
+* [Iterators and Generators](#16-iterators-and-generators): Iteration protocol, lazy evaluation, memory efficiency
+* [Decorators](#17-decorators): Function decorators, class decorators, functools.wraps, stateful decorators
+* [Context Managers](#18-context-managers): Context management protocol, contextlib, resource management
+* [Concurrency and Parallelism](#19-concurrency-and-parallelism): Threading, Multiprocessing, Asyncio, Event loop, GIL
+* [Testing and Debugging](#20-testing-and-debugging): Unittest, Pytest fixtures, Mocking, profiling with cProfile
+* [Miscellaneous](#21-miscellaneous): Dunder methods, Typing/Type hinting, slots optimization
 
 **Python for AI & Data Science**
 
-* [Numerical Computing](#-22-numerical-computing): NumPy arrays, vectorisation
-* [Data Manipulation](#-23-data-manipulation): Pandas DataFrames, Series
-* [Data Visualisation](#-24-data-visualisation): Matplotlib, Seaborn
-* [Machine Learning Libraries](#-25-machine-learning-libraries): Scikit-Learn
-* [Deep Learning Frameworks](#-26-deep-learning-frameworks): PyTorch, TensorFlow
-* [Model Evaluation Metrics](#-27-model-evaluation-metrics): Precision, Recall, F1
+* [Numerical Computing](#22-numerical-computing): NumPy arrays, vectorisation
 
 <br>
 
 
-## # 1. Introduction
+## 1. Introduction
 
 <br>
 
@@ -84,9 +75,6 @@ Although likes and dislikes are highly personal, a developer who is "worth his o
 - A dynamically-typed and strongly-typed language, offering the rare combination of code flexibility while at the same time avoiding pesky implicit-type-conversion bugs.
 - It\'s free and open source! Need we say more?
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are some drawbacks of the Python language?
 
@@ -95,9 +83,6 @@ The two most common valid answers to this question are:
 - The Global Interpreter Lock (GIL). CPython (the most common Python implementation) is not fully thread safe. In order to support multi-threaded Python programs, CPython provides a global lock that must be held by the current thread before it can safely access Python objects. As a result, no matter how many threads or processors are present, only one thread is ever being executed at any given time. In comparison, it is worth noting that the PyPy implementation discussed earlier in this article provides a stackless mode that supports micro-threads for massive concurrency.
 - Execution speed. Python can be slower than compiled languages since it is interpreted. (Well, sort of. See our earlier discussion on this topic.)
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. We know Python is all the rage these days. But to be truly accepting of a great technology, you must know its pitfalls as well?
 
@@ -113,9 +98,6 @@ And even after these pitfalls, of course. Being easy makes it addictive. Once a 
 
 So while it has problems, it is also a wonderful tool for a lot of things.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the key differences between Python 2 and 3?
 
@@ -138,9 +120,6 @@ API changes:
 - Sorting a heterogeneous list no longer makes sense.
 - All the elements must be comparable to each other
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are some key differences to bear in mind when coding in Python vs. Java?
 
@@ -175,9 +154,6 @@ Disclaimer #2. The intent here is not to launch into a religious battle over the
 
     - An expert knowledge of Python extends well beyond the technical minutia of the language. A Python expert will have an in-depth understanding and appreciation of Python\'s benefits as well as its limitations. Accordingly, here are some sample questions that can help assess this dimension of a candidate\'s expertise:
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the key features of Python?  
 
@@ -223,9 +199,6 @@ In other words, all versions labeled 2.0aN precede the versions labeled 2.0bN, w
 
 You may also find version numbers with a "+" suffix, e.g. "2.2+". These are unreleased versions, built directly from the subversion trunk. In practice, after a final minor release is made, the subversion trunk is incremented to the next minor version, which becomes the "a0" version, e.g. "2.4a0".
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What Are The Implementation In Python Program?
 
@@ -309,9 +282,6 @@ D:/mindmajix Python>python Demo.py
 `-1000`     
 `2000.000`
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What Are Applications of Python?
 
@@ -329,9 +299,6 @@ Applications of Python
 - Gaming 	 
 - Animation 	
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Mention five benefits of using Python?
 
@@ -341,9 +308,6 @@ Applications of Python
 - Easy-to-learn for beginners
 - Having the built-in data types saves programming time and effort from declaring variables
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Is Python interpreted or compiled?
 
@@ -351,9 +315,6 @@ As noted in Why Are There So Many Pythons?, this is, frankly, a bit of a trick q
 
 Further complicating the answer to this question is the fact that, in the case of CPython (the most common Python implementation), the answer really is "sort of both". Specifically, with CPython, code is first compiled and then interpreted. More precisely, it is not precompiled to native machine code, but rather to bytecode. While machine code is certainly faster, bytecode is more portable and secure. The bytecode is then interpreted in the case of CPython (or both interpreted and compiled to optimized machine code at runtime in the case of PyPy).
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are some alternative implementations to CPython? When and why might you use them?
 
@@ -371,9 +332,6 @@ Another noteworthy alternative implementation is PyPy whose key features include
 - Sandboxing. PyPy provides the ability to run untrusted code in a fully secure way.
 - Stackless mode. PyPy comes by default with support for stackless mode, providing micro-threads for massive concurrency.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Is Python a compiled language?
 
@@ -405,9 +363,6 @@ dis.dis(add)
 
 **Use Case:** A fintech platform migrated a CPU-bound risk calculation engine from CPython to PyPy, reducing processing time from 45s to 9s with zero code changes, leveraging PyPy\'s JIT compilation.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Why Python instead of Scala on Spark when Scala has better performance?
 
@@ -447,9 +402,6 @@ result.show(5)
 
 **Use Case:** A data science team at an e-commerce company chose PySpark over Scala Spark to reuse their existing `scikit-learn` feature engineering pipelines and `pandas` data validation logic, cutting migration effort by ~70% while keeping 95% of Scala\'s throughput for DataFrame operations.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Python?
 
@@ -501,9 +453,6 @@ print(t)  # Temperature(37°C / 98.6°F)
 
 **Use Case:** Python serves as the lingua franca of data science and ML engineering — TensorFlow, PyTorch, scikit-learn, pandas, and Apache Spark all offer Python-first APIs, making Python the single language teams use across data exploration, model training, API serving, and infrastructure automation.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Describe some features of Python.
 
@@ -538,9 +487,6 @@ x = [1, 2, 3]            # valid again
 
 **Use Case:** Python\'s multi-paradigm nature lets a data engineering team write functional pipeline transformations (`map`/`filter`/`reduce`), OOP domain models, and procedural scripts all within the same codebase without language switching.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How does Python execute code?
 
@@ -598,9 +544,6 @@ py_compile.compile("myscript.py")  # writes __pycache__/myscript.cpython-3x.pyc
 
 **Use Case:** A Django application with hundreds of modules benefits from `.pyc` caching — on cold start, only changed modules are re-compiled, reducing startup time from ~2s to ~0.3s in production containers.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between Python 2.7+ and Python 3?
 
@@ -650,9 +593,6 @@ class Child(Base):
 
 **Use Case:** Migrating a legacy Python 2 data pipeline to Python 3 fixes silent data corruption where `b"bytes" / str` string mixing caused undetected encoding bugs — Python 3\'s strict bytes/str separation forces explicit encoding at system boundaries.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Is Python compiled? If yes, how? If not, how?
 
@@ -710,9 +650,6 @@ print(sys.version)
 
 **Use Case:** A deployment pipeline precompiles all `.py` files to `.pyc` during the Docker image build step using `python -m compileall -q src/`. This speeds up container cold starts by ~30% by skipping re-parsing on every deployment.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What does dynamically / duck typed mean?
 
@@ -774,9 +711,6 @@ render(Square())   # drawing square
 
 **Use Case:** A data pipeline\'s `transform(obj)` function works on DataFrame rows, Pydantic models, and plain dicts equally — as long as each has the expected field access pattern. This eliminates wrapper adapters and lets the pipeline consume multiple data sources without modification.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. When would I not use Python?
 
@@ -825,9 +759,6 @@ print(f"Threads: {threaded_time:.2f}s  Multiprocessing: {mp_time:.2f}s")
 
 **Use Case:** A fintech company uses Python for data analytics and ML model training but writes the order matching engine in C++ with microsecond latency, exposing Python bindings via `ctypes` for integration and testing.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is DRY, and how can I apply it through OOP or FP?
 
@@ -908,9 +839,6 @@ def calculate_discount(price: float, pct: float) -> float:
 
 **Use Case:** A microservices platform DRYs up HTTP retry logic with a single `@retry(max_attempts=3, backoff=2.0)` decorator applied to all outbound API calls — changing the retry strategy requires editing one decorator, not every service client.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. When would I use Python?
 
@@ -960,9 +888,6 @@ print("All assertions passed")
 
 **Use Case:** A startup uses Python end-to-end: Airflow for ETL orchestration, FastAPI for the REST backend, pandas for analytics, pytest for CI testing, and boto3 for AWS infrastructure — a single language team covers the full stack.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Give examples of Python frameworks.
 
@@ -1023,9 +948,6 @@ def test_add(a: int, b: int, expected: int) -> None:
 
 **Use Case:** A company\'s production stack uses Django for the customer-facing portal (ORM, admin, auth), FastAPI for internal microservices (high-throughput async endpoints), Airflow for nightly ETL jobs, and Celery for async email/notification tasks — all Python, all interoperating.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How is Python interpreted?
 
@@ -1085,9 +1007,6 @@ exec(code)
 
 **Use Case:** A platform engineering team sets `PYTHONDONTWRITEBYTECODE=0` in their Docker builds and precompiles all `.py` files with `python -m compileall` during image build, shaving 400ms off cold-start time for serverless Lambda functions.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Dynamic Typing?
 
@@ -1135,9 +1054,6 @@ def typed_add(a: int, b: int) -> int:
 
 **Use Case:** A data science notebook exploits dynamic typing to reuse the same variable name across exploration phases (`data = load_csv()` → `data = clean(data)` → `data = aggregate(data)`) without ceremony — then `mypy` is added to the production export path for safety.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Justify this statement: Everything is an object in Python.
 
@@ -1192,9 +1108,6 @@ print(isinstance(int, object))      # True — class itself is an object
 
 **Use Case:** A plugin framework stores user-provided callables (functions, class instances with `__call__`, lambdas) in a `dict[str, Callable]` registry — possible only because Python treats all of them as first-class objects with a uniform interface.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between Python and Java?
 
@@ -1251,11 +1164,8 @@ public class Person {
 
 **Use Case:** A fintech firm writes its ML risk models in Python (pandas, scikit-learn) but the core transaction processing engine in Java (Spring Boot) for JIT performance and strict type safety — connecting them via a REST/gRPC boundary.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 2. Data Types
+## 2. Data Types
 
 <br>
 
@@ -1263,9 +1173,6 @@ public class Person {
 
 To convert, e.g., the number 144 to the string '144', use the built-in function str(). If you want a hexadecimal or octal representation, use the built-in functions hex() or oct(). For fancy formatting, use the % operator on strings, e.g. "%04d" % 144 yields '0144' and "%.3f" % (1/3.0) yields '0.333'. See the library reference manual for details.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Does Python support strongly for regular expressions?
 
@@ -1275,17 +1182,11 @@ Regular expressions (called REs, or regexes, or regex patterns) are essentially 
 
 Regular expression patterns are compiled into a series of bytecodes which are then executed by a matching engine written in C. For advanced use, it may be necessary to pay careful attention to how the engine will execute a given RE, and write the RE in a certain way in order to produce bytecode that runs faster. Optimization isn\'t covered in this document, because it requires that you have a good understanding of the matching engine\'s internals.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you perform pattern matching in Python? Explain.
 
 Regular Expressions/REs/ regexes enable us to specify expressions that can match specific "parts" of a given string. For instance, we can define a regular expression to match a single character or a digit, a telephone number, or an email address, etc. The Python\'s "re" module provides regular expression patterns and was introduce from later versions of Python 2.5. "re" module is providing methods for search text strings, or replacing text strings along with methods for splitting text strings based on the pattern defined.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Write a regular expression that will accept an email id. Use the `re` module.
 
@@ -1301,9 +1202,6 @@ e.group()
 
 To brush up on regular expressions, check Regular Expressions in Python.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ### _Garbage Collector & Memory Manager_
 
@@ -1374,9 +1272,6 @@ def isPalindrome(string):
 print(isPalindrome('aza'))
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain join() and split() in Python?
 
@@ -1428,9 +1323,6 @@ Python has the following keywords:
 `class	except	global	None	raise	yield`  
 `continue	exec	if	nonlocal	return`	
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you remove the leading whitespace in a string?
 
@@ -1510,9 +1402,6 @@ Also, istitle() will tell us if a string is in title case.
 
 True
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What data types does Python support?
 
@@ -1603,9 +1492,6 @@ Unlike languages like C++, Python does not have multiline comments. All it has i
 
 In fact, you can place a comment anywhere in your code. You can use it to explain your code.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How would you convert a string into an int in Python?
 
@@ -1625,9 +1511,6 @@ Let\'s check the types:
 
  <class 'int'>
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you take input in Python?
 
@@ -1667,9 +1550,6 @@ Now when we multiply it by 2, we get this:
 
 `14`
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a frozen set in Python?
 
@@ -1700,9 +1580,6 @@ However, a set is mutable. A frozen set is immutable. This means we cannot chang
      type(myset)
   <class 'frozenset'>
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How will you capitalize the first letter of a string?
 
@@ -1722,9 +1599,6 @@ However, it will let other characters be.
 
 '$HRIR@M'
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How will you check if all characters in a string are alphanumeric?
 
@@ -1768,9 +1642,6 @@ True
 
 False
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the concatenation?
 
@@ -1794,9 +1665,6 @@ Here, 4 is considered an int. Let\'s do this again.
      (2,3)+(4,)  # (obj,) is way to declare single empty
     (2, 3, 4)
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How will you find, in a string, the first word that rhymes with 'cake'?
 
@@ -1816,9 +1684,6 @@ This is simple. We call the function len() on the string we want to calculate th
 
      len('Adi Shakara')
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What does the following code output?
 
@@ -1840,9 +1705,6 @@ Well, this is because the list argument does not initialize to its default value
 
 Let\'s revise the Basis of Python Programming
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are The Data Types Supports in Python Language?   
 
@@ -1872,9 +1734,6 @@ They are:
 Fundamental Types
 Collection Types
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ### _Control Flow_
 
@@ -1882,9 +1741,6 @@ Collection Types
 
 A mechanism to select a range of items from sequence types like list, tuple, strings etc. is known as slicing.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How you can convert a number to a string?
 
@@ -1925,9 +1781,6 @@ print(isinstance(True, int))   # True
 
 **Use Case:** Understanding that `bool` is a subclass of `int` prevents subtle bugs — a function accepting `int` will silently accept `True`/`False`. Teams enforcing strict APIs use `isinstance(val, int) and not isinstance(val, bool)` for explicit integer validation.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are bindings — what does it mean for a value to be bound to a variable?
 
@@ -1968,9 +1821,6 @@ print(a)               # still [1, 2, 3, 4] — object lives on via 'a'
 
 **Use Case:** Understanding bindings vs copies prevents data corruption in distributed processing — when passing a `dict` config to multiple worker functions, each worker receives a binding to the same object. Modifying it in one worker unexpectedly affects others; a `copy.deepcopy()` creates an independent object instead.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a Unicode string?
 
@@ -2013,9 +1863,6 @@ print(unicodedata.normalize("NFC", e_decomposed) == e_composed)  # True
 
 **Use Case:** A global SaaS application normalizes all user-submitted strings to NFC Unicode before storing them, preventing duplicate user records where `café` (composed form) and `cafe\u0301` (decomposed form) would compare as unequal strings despite looking identical.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain indexing and slicing.
 
@@ -2063,11 +1910,8 @@ print(row[DATA])     # [4, 5, 6]
 
 **Use Case:** A data ingestion service parses fixed-width records using named `slice` objects (`ACCOUNT_NO = slice(0, 8)`, `AMOUNT = slice(8, 16)`) — replacing magic index numbers with readable identifiers and making format changes a one-line update.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 3. Dictionary
+## 3. Dictionary
 
 <br>
 
@@ -2089,9 +1933,6 @@ Remove all:
 
 A hash value of the key is computed using a hash function, The hash value addresses a location in an array of "buckets" or "collision lists" which contains the (key , value) pair.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a dictionary in Python?
 
@@ -2141,9 +1982,6 @@ print(dict_keys)
 
 (['a', 'b', 'c', 'e'])
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the Dictionary?
 
@@ -2165,9 +2003,6 @@ print(dict_keys)
 
 - Heterogeneous keys and heterogeneous values are allowed.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you create a dictionary?
 
@@ -2208,9 +2043,6 @@ nested["user_1"]["clicks"] += 1
 
 **Use Case:** A caching layer in a web service uses a `dict` as an in-memory LRU cache (backed by `collections.OrderedDict` or `functools.lru_cache`) for O(1) average-case lookups of pre-computed API responses, reducing database round-trips by 80%.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain `dict`.
 
@@ -2270,9 +2102,6 @@ print(f"list: {t_list:.4f}s  set: {t_set:.6f}s  dict: {t_dict:.6f}s")
 
 **Use Case:** An API gateway caches authentication tokens in a `dict` keyed by `user_id`, providing O(1) token validation for every request without hitting the database — reducing auth latency from 50ms to <1ms.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you create a dictionary that preserves the order of pairs?
 
@@ -2336,9 +2165,6 @@ print(list(cache._cache.keys()))   # ['c', 'a', 'd']
 
 **Use Case:** A configuration loader builds an `OrderedDict` from a YAML file to preserve the human-authored key order — when the config is serialised back to YAML for diff review, keys appear in the same order as the original, making change reviews readable.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Can you use a mutable data structure as a key in a dictionary?
 
@@ -2348,11 +2174,8 @@ print(list(cache._cache.keys()))   # ['c', 'a', 'd']
 
 **Use Case:** A graph algorithm caches computed shortest paths using `frozenset({source, destination})` as a dict key — symmetric pairs `(A→B)` and `(B→A)` map to the same cache entry, halving cache misses.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 4. Operators
+## 4. Operators
 
 <br>
 
@@ -2406,9 +2229,6 @@ Addition (+) This adds two values.
 7//8 # 0
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain relational operators in Python?
 
@@ -2458,9 +2278,6 @@ True
 
 True
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are assignment operators in Python?
 
@@ -2504,9 +2321,6 @@ We can combine all arithmetic operators with the assignment symbol.
 
 0.0
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain logical operators in Python.
 
@@ -2590,9 +2404,6 @@ Here, 001 was shifted to the left by two places to get 100, which is binary for 
 
 For more insight on operators, refer to Operators in Python.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How would you work with numbers other than those in the decimal number system?
 
@@ -2630,11 +2441,8 @@ To convert a number into its binary form, we use bin().
 
 It is a Floor Divisionoperator , which is used for dividing two operands with the result as quotient showing only digits before the decimal point. For instance, 10//5 = 2 and 10.0//5.0 = 2.0.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 5. Control Flow Statements
+## 5. Control Flow Statements
 
 <br>
 
@@ -2671,9 +2479,6 @@ Output:
     8
     9
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the statement that can be used in Python if a statement is required syntactically but the program requires no action?
 
@@ -2695,9 +2500,6 @@ else:
     pass
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain the ternary operator in Python?
 
@@ -2726,9 +2528,6 @@ print("Hi") if a<b else print("Bye")
 
 Ans: Hi
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the pass statement in Python?
 
@@ -2765,9 +2564,6 @@ for i in range(7):
 5   
 6
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. If you are ever stuck in an infinite loop, how will you break out of it?
 
@@ -2792,9 +2588,6 @@ File "<pyshell#331>", line 2, in counterfunc
 while(n==7):print(n)    
 KeyboardInterrupt
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How many arguments can the range() function take?
 
@@ -2844,9 +2637,6 @@ Here, the first argument is the start value, the second is the stop value, and t
 
 [9, 8, 7, 6, 5, 4, 3]
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain Control flow statements.
 
@@ -2893,9 +2683,6 @@ for myChar hi myString:
     print(myChar)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Given the string "I LoveQPython" use afor loop and illustrate printing each character tip to, but not including the Q.
 
@@ -2907,9 +2694,6 @@ for myCizar in myString:
 print(myChar)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Given the string "I Love Python" print out each character except for the spaces, using a for loop.
 
@@ -2921,9 +2705,6 @@ continue
 print myChar
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ### _Data Types_
 
@@ -2942,15 +2723,12 @@ For loop takes the given object, convert that object in the form of iterable obj
 
 While getting the one by value element from the iterable object if stop iteration exception is raised then for loop internally handle that exception
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is pass in Python?
 
 Pass means, no-operation Python statement, or in other words it is a place holder in compound statement, where there should be a blank left and nothing has to be written there.
 
-## # 6. Core Data Structures
+## 6. Core Data Structures
 
 <br>
 
@@ -2972,9 +2750,6 @@ cat = ['fat', 'orange', 'loud']
 size, color, disposition = cat
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Write a sorting algorithm for a numerical dataset in Python?
 
@@ -3023,17 +2798,11 @@ mylist[-6:-1]
 
 [3, 4, 5, 6, 7]
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How many kinds of sequences are supported by Python? What are they?
 
 Python supports 7 sequence types. They are str, list, tuple, unicode, byte array, xrange, and buffer. where xrange is deprecated in python 3.5.X.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Suppose list1 is [2, 33, 222, 14, 25], What is list1[-1] ?  
   
@@ -3136,17 +2905,11 @@ print(q)
 Output:
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is List Comprehensions feature of Python used for?
 
 List comprehensions help to create and manage lists in a simpler and clearer way than using `map()`, `filter()` and `lambda`. Each list comprehension consists of an expression followed by a for clause, then zero or more for or if clauses.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are lambda expressions, list comprehensions and generator expressions?
 
@@ -3203,9 +2966,6 @@ y
 ...
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What will be printed out by the second append() statement below?
 
@@ -3272,9 +3032,6 @@ x,y
 ('Y', 'X')
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What will be printed out by the last statement below?
 
@@ -3300,9 +3057,6 @@ for i in range(3):
 [0, 1, 2]
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you reverse a list?
 
@@ -3338,9 +3092,6 @@ for item in reversed([1, 2, 3, 4, 5]):
 
 **Use Case:** In a data pipeline processing time-series records, `reversed()` is used to iterate over rows newest-first without copying the entire dataset into memory — critical when processing millions of records.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How would you merge two sorted lists?
 
@@ -3378,9 +3129,6 @@ print(merge_sorted([1, 3, 5], [2, 4, 6]))  # [1, 2, 3, 4, 5, 6]
 
 **Use Case:** In a distributed search engine, each shard returns a sorted list of ranked results. `heapq.merge()` lazily merges all shard results to produce a globally sorted feed without loading all results into memory.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Tell me some data structures in Python?
 
@@ -3429,9 +3177,6 @@ print(heapq.heappop(tasks))   # (1, 'high priority')
 
 **Use Case:** A real-time leaderboard service uses `heapq` to maintain the top-K scores efficiently (O(log K) per insert), `Counter` for aggregating player event frequencies, and `deque` as a circular buffer for a sliding-window activity feed.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is List Comprehension? Show with example.
 
@@ -3475,9 +3220,6 @@ print(first_letters)  # {'a', 'b'}
 
 **Use Case:** A data ingestion pipeline uses list comprehensions to transform and filter 100K raw JSON records into clean domain objects in a single readable expression, replacing a 15-line `for` loop and reducing code review friction.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you create a list?
 
@@ -3516,9 +3258,6 @@ lst.pop(0)                    # O(n) — remove from front (use deque instead)
 
 **Use Case:** A recommendation engine collects candidate items into a `list`, sorts them by score with a custom `key` function (`list.sort(key=lambda x: x.score, reverse=True)`), and slices the top-K results — leveraging Python\'s Timsort which is O(n log n) worst-case but O(n) for nearly-sorted data.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a list comprehension? Why would you use one?
 
@@ -3565,9 +3304,6 @@ print(cleaned)
 
 **Use Case:** An ETL pipeline processes 500K JSON records from S3 with a single list comprehension to extract, validate, and normalize fields, making the transformation self-documenting and testable as a pure function.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is list/dict comprehension?
 
@@ -3614,9 +3350,6 @@ total = sum(x ** 2 for x in range(1_000_000))   # O(1) memory
 
 **Use Case:** A Kafka consumer normalizes incoming JSON messages with a dict comprehension: `{k.lower().replace("-", "_"): str(v).strip() for k, v in raw.items()}` — transforming keys and values in one readable expression before schema validation.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to make an array in Python?
 
@@ -3669,9 +3402,6 @@ c = a + b   # vectorized — ~100× faster than list + for loop
 
 **Use Case:** A signal processing service stores 10M ADC samples in `numpy.ndarray(dtype=np.int16)` — 20 MB instead of ~280 MB for a Python list — and applies FFT with `np.fft.fft()` in milliseconds using BLAS/LAPACK internally.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. When to use `list` / `tuple` / `set` / `dict`?
 
@@ -3722,9 +3452,6 @@ print(user.get("role", "viewer"))   # safe get with default
 
 **Use Case:** A URL deduplication stage uses a `set` to track seen URLs (O(1) lookup), stores extracted data as named `dict` records, passes immutable `(source_id, record_id)` tuples as task identifiers to Celery (hashable, safe to use as cache keys), and collects ordered results in a `list`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. When to use list comprehensions and when to avoid them?
 
@@ -3794,9 +3521,6 @@ print(f"loop: {t_loop:.3f}s  comp: {t_comp:.3f}s")
 
 **Use Case:** A data pipeline uses list comprehensions for field extraction (`[r["id"] for r in rows]`) but switches to explicit `for` loops for multi-step transformations that require logging, error handling, and conditional branching per record.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between a `tuple` and a `list`? Where will you use each?
 
@@ -3863,11 +3587,8 @@ print(a, b)    # 2 1
 
 **Use Case:** A geospatial service stores cached reverse-geocoding results in `dict[tuple[float, float], str]` — using `(lat, lon)` tuples as hashable keys — and returns coordinate results as `tuple[float, float]` to signal immutability to callers.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 7. Functions
+## 7. Functions
 
 <br>
 
@@ -3903,9 +3624,6 @@ c.7
 
 The words `args` and `kwargs` are a convention, and we can use anything in their place.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How can I pass optional or keyword parameters from one function to another?
 
@@ -3925,9 +3643,6 @@ def f(x, *tup, **kwargs):
     apply(g, (x,)+tup, kwargs)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are higher ordered functions?
 
@@ -3986,9 +3701,6 @@ inc, dec, reset = count.up, count.down, count.set
 
 Here inc(), dec() and reset() act like functions which share the same counting variable.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain help() and dir() functions in Python?
 
@@ -4010,9 +3722,6 @@ dir(copy.copy)
 ['__annotations__', '__call__', '__class__', '__closure__', '__code__', '__defaults__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__get__', '__getattribute__', '__globals__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__kwdefaults__', '__le__', '__lt__', '__module__', '__name__', '__ne__', '__new__', '__qualname__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__']
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ### _**Dictionary**_
 
@@ -4073,9 +3782,6 @@ greater(3,3.5)
 
 You can create your own function or use one of Python\'s many built-in functions.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is recursion?
 
@@ -4114,9 +3820,6 @@ Here, it pairs items from the two lists, and creates tuples with those. But it d
 
 [('a', 1), ('b', 2), ('c', 3)]
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a Counter in Python?
 
@@ -4174,9 +3877,6 @@ inner()
 
      outer()
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the global keyword?
 
@@ -4200,9 +3900,6 @@ The solution:
         print(a)
      func()
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Mention what are the rules for local and global variables in Python?
 
@@ -4214,9 +3911,6 @@ Global variables: Those variables that are only referenced inside a function are
 
 To share global variables across modules within a single program, create a special module. Import the config module in all modules of your application. The module will be available as a global variable across modules.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How can you return multiple values from a function?
 
@@ -4303,9 +3997,6 @@ print(type(result))  # Output: <class 'NoneType'>
 
 **Use Case:** This behaviour is relied upon in API validation helpers — a function that validates input and raises exceptions on failure is called for its side effects, not its return value. The caller checks `if validate(data) is None` to confirm successful validation.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to pass optional or keyword arguments.
 
@@ -4361,9 +4052,6 @@ print(add(**kwargs))   # 60  — unpack dict as keyword args
 
 **Use Case:** A REST client wrapper accepts `**query_params` so callers can pass any API-supported filter without updating the function signature for every new parameter — future-proofing the interface while keeping calls readable.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the use of `enumerate()` in Python?
 
@@ -4413,9 +4101,6 @@ for line_no, line in enumerate(open("README.md"), start=1):
 
 **Use Case:** A CSV validator uses `enumerate(rows, start=2)` (header is row 1) to report validation errors with their exact spreadsheet line number: `"Row 47: missing required field 'email'"` — without any manual counter.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Namespace vs scope?
 
@@ -4490,9 +4175,6 @@ class Config:
 
 **Use Case:** A plugin system uses `globals()` to dynamically register handler functions by name at import time, and `locals()` to safely evaluate template expressions in a restricted namespace — separating the framework\'s global namespace from per-render local context.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you create a Python function?
 
@@ -4569,9 +4251,6 @@ def fibonacci():
 
 **Use Case:** A data transformation library exposes its API entirely as plain functions with type annotations, enabling `mypy` static analysis, easy unit testing (`assert transform(input) == expected`), and simple composition via `functools.partial` and `compose`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How does a function return values?
 
@@ -4636,9 +4315,6 @@ print(list(even_range(10)))   # [0, 2, 4, 6, 8]
 
 **Use Case:** An API handler returns a `dataclass` `Result(ok, data, error)` from every service call — callers pattern-match on `result.ok` rather than catching exceptions, making error handling explicit and the happy path obvious.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What happens when a function does not have a `return` statement?
 
@@ -4691,11 +4367,8 @@ if idx is None:
 
 **Use Case:** A data validation function returns `None` on success and a `ValidationError` (or error string) on failure — callers check `if error := validate(data): handle(error)`, making the "no return = success" contract explicit.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 8. Lambda Functions
+## 8. Lambda Functions
 
 <br>
 
@@ -4754,17 +4427,11 @@ add(2,3)
 output:
 `5`
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is map function in Python?
 
 Map function executes the function given as the first argument on all the elements of the iterable given as the second argument. If the function given takes in more than 1 arguments, then many iterables are given. #Follow the link to know more similar functions
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Name few methods that are used to implement Functionally Oriented Programming in Python?
 
@@ -4802,9 +4469,6 @@ list(map(lambda x:x**2,range(8)))
 
  Ans: -13
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain the difference between `map()`, `reduce()`, and `filter()`?
 
@@ -4854,9 +4518,6 @@ print(result2)   # 220
 
 **Use Case:** A data transformation service uses `map()` to normalize 1M user records (lowercase, strip), `filter()` to remove invalid entries, and `reduce()` to compute aggregate statistics — all in a single memory-efficient pipeline without materializing intermediate collections.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How can you implement functional programming and why would you?
 
@@ -4913,9 +4574,6 @@ print(f"Total: £{total_revenue:.2f}")   # £100.00
 
 **Use Case:** A billing engine implements its pricing logic as pure functions composed into a pipeline: `apply_discount → add_tax → round_to_pence`. Each step is independently unit-testable, and the whole pipeline can be parallelized with `concurrent.futures.ProcessPoolExecutor` safely because there is no shared mutable state.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain `map()`, `filter()`, `reduce()`, and `lambda`.
 
@@ -4970,9 +4628,6 @@ print([d["name"] for d in data])    # ['Alice', 'Bob']
 
 **Use Case:** A recommendation engine scores items with `map()` (compute scores), filters with `filter()` (remove below threshold), and reduces with `reduce()` (aggregate final ranking score) — three composable, testable steps replacing a monolithic scoring loop.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are `map()`, `filter()`, and `reduce()` functions?
 
@@ -5019,11 +4674,8 @@ print(result2)  # 220
 
 **Use Case:** A pricing engine uses `map()` to apply a discount function to all products, `filter()` to remove items below minimum margin, and `reduce()` to compute the cart total — three composable, independently testable steps.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 9. Modules and Packages
+## 9. Modules and Packages
 
 <br>
 
@@ -5047,9 +4699,6 @@ m = __import__(s)
 	for i in s.split(".")[1:]: m = getattr(m, i) 
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do I access a module written in Python from C?
 
@@ -5059,9 +4708,6 @@ You can get a pointer to the module object as follows:
 
 If the module hasn\'t been imported yet (i.e. it is not yet present in sys.modules), this initializes the module; otherwise it simply returns the value of ``sys.modules[""]``. Note that it doesn\'t enter the module into any namespace -- it only ensures it has been initialized and is stored in sys.modules. You can then access the module\'s attributes (i.e. any name defined in the module) as follows: attr = PyObject_GetAttrString(module, ""); Calling PyObject_SetAttrString() to assign to variables in the module also works.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you create your own package in Python?
 
@@ -5080,9 +4726,6 @@ To create a package of our own, we create a directory and create a file `__init_
     
 - PYTHONPATH − It has a role similar to PATH. This variable tells the Python interpreter where to locate the module files imported into a program. It should include the Python source library directory and the directories containing Python source code. PYTHONPATH is sometimes preset by the Python installer.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a Python module?
 
@@ -5096,9 +4739,6 @@ Here,
 `os` and `os.path` – modules include functions for accessing the filesystem   
 `shutil` – module enables you to copy and delete the files.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the PYTHONPATH variable?
 
@@ -5113,9 +4753,6 @@ If you can\'t find a source file for a module, it may be a built-in or dynamical
 - Modules written in C and linked with the interpreter; to get a list of these, type;
 Import sys print sys.builtin_module_names;
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to Search Path of Modules?
 
@@ -5128,9 +4765,6 @@ By default python interpreter search for the imported modules in the following l
 - Built-in attributes of a module:
 - By default for each and every python module some properties are added internally and we call thoseproperties as a built-in-attribute of a module
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the Packages?
 
@@ -5157,9 +4791,6 @@ print("3",os.getcwd())
 ```
 Output:
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is module and package in Python?
 
@@ -5167,9 +4798,6 @@ In Python, module is the way to structure program. Each Python program file is a
 
 The folder of Python program is a package of modules. A package can have modules or subfolders.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Should I import an entire module?
 
@@ -5226,9 +4854,6 @@ arr = np.array([1, 2, 3])
 
 **Use Case:** A microservice with optional ML inference defers `import torch` inside the prediction function — the service starts in <200ms for health checks, and only pays the 4-second PyTorch load cost when an inference request actually arrives.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How are modules used in a Python program?
 
@@ -5297,11 +4922,8 @@ print(math.__doc__[:50])   # module docstring
 
 **Use Case:** A microservice organises code into `src/api/`, `src/services/`, and `src/repositories/` packages — each layer imports only what it needs via explicit relative imports, enforcing architectural boundaries and making unit testing straightforward.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 10. Object-Oriented Programming
+## 10. Object-Oriented Programming
 
 <br>
 
@@ -5318,9 +4940,6 @@ class Derived(Base):
 If you\'re using classic classes: For a class definition such as 
 `class Derived(Base):` ... you can call method meth() defined in Base (or one of Base\'s base classes) as Base.meth(self,arguments). Here, Base.meth is an unbound method, so you need to provide the self argument.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How can I organize my code to make it easier to change the base class?
 
@@ -5328,9 +4947,6 @@ You could define an alias for the base class, assign the real base class to it b
 
 Example: BaseAlias = class Derived(BaseAlias): def meth(self): BaseAlias.meth(self).
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain Inheritance in Python with an example?
 
@@ -5363,9 +4979,6 @@ Inheritance allows One class to gain all the members(say attributes and methods)
  
     - Hybrid Inheritance- Hybrid inheritance is a combination of two or more types of inheritance.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Hierarchical Inheritance?
 
@@ -5408,9 +5021,6 @@ In m3 of Z
 2099735
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Suppose class C inherits from classes A and B as class C(A,B).Classes A and B both have their own versions of method func(). If we call func() from an object of class C, which version gets invoked?
 
@@ -5478,9 +5088,6 @@ Accessors and mutators are often called getters and setters in languages like "J
 
 Ans. What we call getters and setters in languages like Java, we term accessors and mutators in Python. In Java, if we have a user-defined class with a property 'x', we have methods like getX() and setX(). In Python, we have @property, which is syntactic sugar for property(). This lets us get and set variables without compromising on the conventions. For a detailed explanation on property, refer to Python property.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What do you mean by overriding methods?
 
@@ -5504,9 +5111,6 @@ b.sayhello()
 ```
 Hello, I'm B
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the Difference Between Methods & Constructors?
 
@@ -5520,9 +5124,6 @@ Constructor
 - With respect to one object one constructor can be executed only once
 - Constructors are used to define & initialize the non static variable
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the Encapsulation?
 
@@ -5581,9 +5182,6 @@ class GoodExample:
 
 **Use Case:** A request-counting middleware uses a class variable `RequestCounter.total` as an atomic counter shared across all instances, while each instance tracks its own `self.request_id` — demonstrating the correct split between shared state and per-request state.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Method Resolution Order (MRO)?
 
@@ -5642,9 +5240,6 @@ print(Child().greet())
 
 **Use Case:** Django\'s class-based views (e.g., `CreateView(LoginRequiredMixin, CreateView)`) rely on C3 MRO to ensure mixins are applied in the correct order — `LoginRequiredMixin.dispatch()` runs before `CreateView.dispatch()`, enforcing authentication.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is multiple inheritance and when should you use it?
 
@@ -5699,9 +5294,6 @@ print([cls.__name__ for cls in Order.__mro__])
 
 **Use Case:** Django\'s class-based views compose `LoginRequiredMixin`, `PermissionRequiredMixin`, and `generic.ListView` via multiple inheritance — each mixin adds one cross-cutting concern (auth, permissions, rendering) without modifying the base class.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a metaclass?
 
@@ -5758,9 +5350,6 @@ print(PluginMeta.registry)
 
 **Use Case:** SQLAlchemy\'s `DeclarativeMeta` metaclass scans class attributes at definition time to build the ORM mapping, table schema, and column metadata — enabling `class User(Base): id = Column(Integer)` syntax without any explicit registration call.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are properties and what is the point?
 
@@ -5820,9 +5409,6 @@ except ValueError as e:
 
 **Use Case:** A REST API model class uses `@property` for `full_name = f"{first} {last}"` and a `password` setter that automatically hashes input with `bcrypt` — the API surface remains clean attribute access while security logic is enforced transparently.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is polymorphism, and when would I use it?
 
@@ -5892,9 +5478,6 @@ send_notification(EmailRenderer(), "Hello")  # no common base class needed
 
 **Use Case:** A report generation service stores a list of `ReportSection` objects (charts, tables, text blocks). Calling `section.render(canvas)` on each produces correct output without the caller knowing the concrete type — adding a new `MapSection` requires zero changes to the rendering loop.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a class and what is `self`?
 
@@ -5958,9 +5541,6 @@ print(repr(alice))   # BankAccount(owner='Alice', balance=1500.00)
 
 **Use Case:** An e-commerce order system models `Order` as a class — each instance holds its own `items`, `status`, and `customer_id`, while shared business rules (tax rate, currency) live as class variables or static methods.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain `isinstance()`
 
@@ -6014,9 +5594,6 @@ print(process([1, 2, 3])) # 1, 2, 3
 
 **Use Case:** A serialization library uses `isinstance(value, Mapping)` rather than `isinstance(value, dict)` so it correctly handles `OrderedDict`, `defaultdict`, and custom `Mapping` subclasses — making the serializer work with any dict-like object.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are static methods, class methods, and instance methods?
 
@@ -6076,9 +5653,6 @@ print(u1.validate_email("test@x.io")) # True
 
 **Use Case:** An ORM `Model` class uses `@classmethod` `from_row(cls, row)` as a factory to construct model instances from database cursor rows — enabling `User.from_row(row)` without exposing the internal column mapping to callers.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Difference between new-style and old-style classes.
 
@@ -6129,9 +5703,6 @@ print(dir(d))   # __init__, __str__, __repr__, __eq__, __hash__, etc.
 
 **Use Case:** A Django migration from Python 2 to 3 required removing redundant `(object)` from hundreds of model class definitions — a safe, automated change since Python 3 makes them equivalent.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are Metaclasses?
 
@@ -6186,9 +5757,6 @@ print(PluginBase._registry)
 
 **Use Case:** SQLAlchemy\'s `DeclarativeMeta` scans each model class body at definition time to register column descriptors, build table metadata, and wire up the ORM mapper — all happening before any instance is ever created.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a descriptor?
 
@@ -6272,9 +5840,6 @@ print(c.area)   # no print — cached in instance __dict__
 
 **Use Case:** Django\'s ORM `Field` objects (e.g., `CharField`, `IntegerField`) are descriptors — `model.field_name` triggers `__get__` which queries the deferred value, and assignment triggers `__set__` which validates and stores the value before `save()`.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is MRO (Method Resolution Order)?
 
@@ -6344,9 +5909,6 @@ User().save()
 
 **Use Case:** Django\'s class-based views depend on MRO so that `LoginRequiredMixin` (placed first) has its `dispatch()` called before the view\'s `dispatch()`, intercepting unauthenticated requests without modifying `DetailView` at all.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How is a Python class created?
 
@@ -6412,9 +5974,6 @@ print(p2)                    # Point(x=3, y=4, label='origin')
 
 **Use Case:** A domain model layer defines `@dataclass` classes (`Order`, `LineItem`, `Customer`) with type annotations — getting `__repr__`, `__eq__`, and `__init__` for free while keeping the model readable and `mypy`-checked.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How is a Python class instantiated?
 
@@ -6476,11 +6035,8 @@ print(type(d1) is type(d2) is type(d3))  # True — all date instances
 
 **Use Case:** An ORM `Session` factory uses `__new__` to return an existing session from the pool instead of creating a new object, making `Session()` syntax act as a transparent pool checkout without callers knowing about pooling.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 11. Exception Handling
+## 11. Exception Handling
 
 <br>
 
@@ -6499,9 +6055,6 @@ Code Example:
     finally:
         …# code that will be executed regardless of exception handling goes here.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the Runtime Errors?
 
@@ -6519,9 +6072,6 @@ Creating runtime error representation class object is technically known as a ris
 While executing the program if any exception is raised, then internally python interpreter verify any code is implemented to handle raised exception or not
 If code is not implemented to handle raised exception then program will be terminated abnormally
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Abnormal Termination?
 
@@ -6539,9 +6089,6 @@ try{
 The statements which causes to run time errors and other statements which depends on the execution of run time errors statements are recommended to represent in try block
 While executing try block statement if any exception is raised then immediately try block identifies that exception, receive that exception and forward that exception to except block without executing remaining statements to try block.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What happens if you have an error in an `__init__` statement?
 
@@ -6588,9 +6135,6 @@ print(DatabaseConnection._instances)  # []
 
 **Use Case:** A connection pool factory wraps `__init__` errors to ensure that failed connection attempts are logged and retried without leaving zombie objects registered in the pool registry.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What happens in Python if you try to divide by zero?
 
@@ -6634,9 +6178,6 @@ with np.errstate(divide="ignore", invalid="ignore"):
 
 **Use Case:** A financial analytics system wraps all division operations in `safe_divide()` to handle missing or zero-denominator data gracefully, returning `None` instead of crashing — critical for ratio metrics like conversion rate where denominators can be zero.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to handle exceptions?
 
@@ -6715,9 +6256,6 @@ except ValueError:
 
 **Use Case:** A payment service wraps all third-party API calls with specific `except` clauses: `RequestTimeout` triggers a retry, `AuthError` raises a `PaymentDeclinedError` for the caller, and `finally` always releases the connection back to the pool.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the different types of exceptions in Python?
 
@@ -6794,9 +6332,6 @@ except LookupError as e:        # catches both KeyError and IndexError
 
 **Use Case:** A data ingestion service catches `LookupError` for missing fields, `ValueError` for bad formats, and `OSError` for file access problems — each mapped to a specific retry or dead-letter strategy in the error handler.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to write your own custom exception handling?
 
@@ -6864,9 +6399,6 @@ except DatabaseError as e:
 
 **Use Case:** A REST API defines `ValidationError`, `AuthorizationError`, and `NotFoundError` — each mapped in an exception handler middleware to HTTP 400, 403, and 404 responses with structured JSON error bodies, keeping business logic clean of HTTP concerns.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Why does exception handling have a `finally` block?
 
@@ -6939,9 +6471,6 @@ def read_file(path: str) -> str:
 
 **Use Case:** A database transaction wrapper uses `finally` to always call `connection.close()` — even if the application raises an unhandled exception mid-transaction, the connection is returned to the pool and no resources leak.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What happens if an error occurs that is not handled in the `except` block?
 
@@ -7008,11 +6537,8 @@ threading.excepthook = thread_exception_handler
 
 **Use Case:** A web framework installs a global `sys.excepthook` that serializes the full traceback to a structured JSON log and sends it to Sentry — ensuring every unhandled exception is captured even when the server crashes.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 12. File Handling
+## 12. File Handling
 
 <br>
 
@@ -7046,9 +6572,6 @@ File "<pyshell#97>", line 1, in <module> mytuple[1]=2
 
 TypeError: \'tuple' object does not support item assignment
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Write a one-liner that will count the number of capital letters in a file. Your code should work even if the file is too big to fit in memory?
 
@@ -7072,9 +6595,6 @@ for character in text:
         print(line)
    ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Write a Python program to read a random line from a file.
 
@@ -7129,9 +6649,6 @@ When we go and check our Desktop, the file is gone. Let\'s go make it again so w
 
 Both functions are the same, but unlink is the traditional Unix name for it.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is File Handling?
 
@@ -7142,17 +6659,11 @@ We can open the files by calling open function of built-in-modules
 At the time of opening the file, we have to specify the mode of the file
 Mode of the file indicates for what purpose the file is going to be opened(r,w,a,b)
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain how to delete a file in Python?
 
 By using a command os.remove (filename) or os.unlink(filename)
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How would you count the lines in a file?
 
@@ -7179,9 +6690,6 @@ print(f"Lines: {line_count}")
 
 **Use Case:** A log monitoring service counts lines in rotating log files every minute using the generator approach to check ingestion rate (lines/sec) without loading multi-GB log files into memory.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to access a file on a Linux server using Python?
 
@@ -7248,9 +6756,6 @@ with open("/mnt/remote/data.csv", "r", encoding="utf-8") as f:
 
 **Use Case:** A DevOps automation script uses `paramiko` to pull the last 1000 lines of application logs from 50 production servers in parallel using `concurrent.futures.ThreadPoolExecutor`, aggregating them for a centralized error dashboard.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain all the file processing modes supported by Python.
 
@@ -7314,11 +6819,8 @@ p.write_bytes(b"\x89PNG\r\n")                        # 'wb'
 
 **Use Case:** A log rotation service opens log files in `'a'` mode so concurrent writers can safely append without overwriting each other, and `'x'` mode to atomically create a new rotation lock file — failing fast if another process already claimed it.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 13. Memory Management
+## 13. Memory Management
 
 <br>
 
@@ -7328,9 +6830,6 @@ Python memory is managed by Python private heap space. All Python objects and da
 
 Python has a private heap space to hold all objects and data structures. Being programmers, we cannot access it; it is the interpreter that manages it. But with the core API, we can access some tools. The Python memory manager controls the allocation. 
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How will you check memory leak on Linux?
 
@@ -7348,9 +6847,6 @@ There are several tools and techniques that can be used to check for memory leak
 
 In general, detecting and diagnosing memory leaks can be a complex and time-consuming process. It often requires a combination of tools and techniques, as well as a deep understanding of the code and the system\'s memory usage patterns.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the importance of reference counting?
 
@@ -7397,9 +6893,6 @@ print(type(big))  # <class 'int'>
 
 **Use Case:** Cryptographic libraries (e.g., RSA key generation) rely on Python\'s arbitrary-precision integers to perform modular exponentiation with 2048-bit or 4096-bit numbers natively, without any overflow concerns.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How does Python manage memory?
 
@@ -7443,9 +6936,6 @@ print(gc.get_threshold())   # (700, 10, 10)
 
 **Use Case:** A long-running data processing service tuned `gc.set_threshold(1000, 15, 15)` to reduce GC pauses on throughput-sensitive workloads, and used `__slots__` on hot objects to reduce per-instance memory from ~264 bytes to ~56 bytes.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How will you measure memory on a Linux server?
 
@@ -7543,11 +7033,8 @@ commands = {
 
 **Use Case:** A production ML inference service runs `psutil.Process().memory_info().rss` as a Prometheus gauge — alerting when RSS exceeds 80% of the container memory limit, triggering a graceful restart before the OOM killer terminates the pod.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 14. Garbage Collector
+## 14. Garbage Collector
 
 <br>
 
@@ -7561,9 +7048,6 @@ Any object reference count becomes zero then we call that object as a unused or 
 
 While executing the python program if any object reference count becomes zero, then internally python interpreter calls the garbage collector and garbage collector will remove that object from memory location.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Why isn\'t all memory freed when Python exits?
 
@@ -7576,11 +7060,8 @@ Plus, it is impossible to de-allocate portions of memory reserved by the C libra
 
 Whenever Python exits, especially those Python modules which are having circular references to other objects or the objects that are referenced from the global namespaces are not always de-allocated or freed.It is impossible to de-allocate those portions of memory that are reserved by the C library.On exit, because of having its own efficient clean up mechanism, Python would try to de-allocate/destroy every other object.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 15. Mutable vs Immutable
+## 15. Mutable vs Immutable
 
 <br>
 
@@ -7663,9 +7144,6 @@ print(id(y))
     Mutable objects performance is low when compared to immutable objects   
     Applying Iterations mutable objects takes huge time
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Python is Call by Value or Call by Reference? How are arguments passed by value or by reference?
 
@@ -7716,11 +7194,8 @@ print(timeit.timeit("[1,2,3,4,5]", number=10_000_000))   # ~0.45s
 
 **Use Case:** Database record rows returned by `psycopg2` are tuples — immutability guarantees that row data is not accidentally mutated between the fetch and the business logic layer, and their hashability allows rows to be used as dictionary keys for deduplication.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 16. Iterators and Generators
+## 16. Iterators and Generators
 
 <br>
 
@@ -7750,9 +7225,6 @@ Python generator produces a sequence of values to iterate on. This way, it is ki
 36  
 49
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. So, what is an iterator, then?
 
@@ -7779,9 +7251,6 @@ And now, when we call it again, it raises a StopIteration exception. This is bec
     File "<pyshell#295>", line 1, in <module> next(odds)
     StopIteration
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain generators and iterators in python?
 
@@ -7796,9 +7265,6 @@ And now, when we call it again, it raises a StopIteration exception. This is bec
 - Generators are fast, compact, and simpler.
 - Iterators are more memory-efficient.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a generator? What can it be used for?
 
@@ -7850,9 +7316,6 @@ def parse_log_entry(lines: Iterator[str]) -> Generator[dict, None, None]:
 
 **Use Case:** A log aggregation service uses a generator pipeline to process 10 GB log files line-by-line through filter → parse → enrich stages, keeping memory usage constant at ~50 MB regardless of file size — impossible with a list-based approach.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are Generators?
 
@@ -7899,9 +7362,6 @@ print(sys.getsizeof(gen_1m))    # 120
 
 **Use Case:** A streaming data processor uses generators to read records from S3 in chunks, parse them, and yield validated domain objects — the entire pipeline runs in constant memory regardless of dataset size.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are Iterators?
 
@@ -7951,9 +7411,6 @@ print(hasattr(it,  "__next__"))   # True
 
 **Use Case:** A paginated API client implements an iterator that fetches the next page lazily on each `next()` call, enabling `for record in api_client:` syntax while deferring HTTP requests until needed.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Can a generator be used to create iterators? Give an example.
 
@@ -8005,9 +7462,6 @@ for n in EvenNumbers(10):
 
 **Use Case:** A data pipeline replaces verbose iterator classes with generator functions to stream database query results row-by-row, reducing boilerplate from ~20 lines of iterator class code to 3 lines of generator code with identical memory behaviour.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Can iterators be used to create generators?
 
@@ -8047,9 +7501,6 @@ print(hasattr(gen, "gi_frame"))        # True
 
 **Key distinction:** Generators have additional methods (`send()`, `throw()`, `close()`) that iterators don\'t — enabling coroutine-style communication and cooperative cancellation.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are iterators and generators?
 
@@ -8089,9 +7540,6 @@ print(list(islice(FibIter(), 8)))    # [0, 1, 1, 2, 3, 5, 8, 13]
 
 **Use Case:** An ETL system uses generator pipelines for memory-efficient processing and class-based iterators for external pagination APIs where explicit state reset (`iter(obj)`) is needed.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What does the `yield` statement do?
 
@@ -8138,9 +7586,6 @@ print(list(chain([1, 2], [3, 4], [5])))   # [1, 2, 3, 4, 5]
 
 **Use Case:** An async web framework (like `asyncio`) builds coroutines on top of `yield`/`yield from` — each `await` suspension point is ultimately a `yield` that hands control back to the event loop, enabling thousands of concurrent I/O operations on a single thread.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a generator? Why would I use one?
 
@@ -8196,9 +7641,6 @@ print(sys.getsizeof(gen_million))    # 120 bytes
 
 **Use Case:** A Kafka consumer service uses a generator to yield deserialized messages from a partition indefinitely, feeding them into a processing pipeline without ever accumulating a backlog in memory — critical for high-throughput event streaming.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is `yield`?
 
@@ -8253,11 +7695,8 @@ print(avg.send(30))     # 20.0
 
 **Use Case:** A streaming CSV writer uses `yield` to produce one formatted row at a time, allowing an HTTP response to stream to the client incrementally rather than buffering all rows in memory before sending.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 17. Decorators
+## 17. Decorators
 
 <br>
 
@@ -8285,9 +7724,6 @@ $$$$$$$$$$$$$$$$$
 
 Decorators are an example of metaprogramming, where one part of the code tries to change another. For more on decorators, read Python Decorators.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Why use function decorators? Give an example.
 
@@ -8301,11 +7737,8 @@ Flask, for example, uses decorators as the mechanism for adding new endpoints to
 
 Below are some Basic Python Programming Interview Questions and answers for freshers.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 18. Context Managers
+## 18. Context Managers
 
 <br>
 
@@ -8385,11 +7818,8 @@ with lock:
 
 **Use Case:** A database connection pool uses a `with` context manager to check out a connection, run the query, and return the connection to the pool in `__exit__` — ensuring no connections leak even if a query raises an unhandled exception.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 19. Concurrency and Parallelism
+## 19. Concurrency and Parallelism
 
 <br>
 
@@ -8444,9 +7874,6 @@ for i in range(n): print name, i
 for i in range(10)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Threads Life Cycle?
 
@@ -8464,9 +7891,6 @@ Whenever waiting time is over or specified thread execution is over - then immed
 - If running state threads execution is over then immediately those threads execution will be terminated
  -The threads which execution is terminated are known as dead state threads.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is scheduling?
 
@@ -8476,9 +7900,6 @@ Among multiple threads:
   is over,      
 - which thread as to continue the execution next this comes under scheduling. Scheduling is highly dynamic
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Does Python provide thread-safe multi-threading?
 
@@ -8547,9 +7968,6 @@ with Pool(4) as pool:
 
 **Use Case:** A web scraper uses `threading.Thread` with `queue.Queue` to fetch 1000 URLs concurrently (I/O-bound — GIL released during network wait), cutting total time from 500s to ~3s, while `Lock` protects the shared results dictionary.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What do you mean by non-blocking I/O?
 
@@ -8633,11 +8051,8 @@ asyncio.run(async_pipeline())
 
 **Use Case:** A FastAPI microservice handles 10,000 concurrent WebSocket connections on a single thread using `asyncio` — each `await` on a database query or HTTP call yields to the event loop, which services other connections during the wait.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
-## # 20. Testing and Debugging
+## 20. Testing and Debugging
 
 <br>
 
@@ -8657,9 +8072,6 @@ Some pdb commands include-
     <l> — List source code
     <p> — Print an expression
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What command do we use to debug a Python program?
 
@@ -8687,9 +8099,6 @@ C:\Users\lifei\Desktop>python -m pdb try.py
 
 Then, we can start debugging.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are the tools that help to find bugs or perform static analysis?
 
@@ -8711,9 +8120,6 @@ The value and power of mock are well explained in An Introduction to Mocking in 
 
 [Note: This question is for Python developers who are also experienced in Java.]
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How would you perform unit-testing on your Python code?
 
@@ -8743,9 +8149,6 @@ Ans.  For this purpose, we have the module unittest in Python. It has the follow
 
 Below are some Advanced Python Programming Interview Questions For Experienced. I recommend freshers to also refer these interview questions for advanced knowledge.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do I test a Python program or component?
 
@@ -8776,13 +8179,10 @@ if __name__ == "__main__":
 
 Even programs that interact with complex external interfaces may be tested when the external interfaces are unavailable by using "fake" interfaces implemented in Python.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ### FLASK
 
-## # 21. Miscellaneous
+## 21. Miscellaneous
 
 <br>
 
@@ -8796,9 +8196,6 @@ print(list[10:])
 - TypeError: \'type' object is not subscriptable
 if proper name given,it will print [].
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a method?
 
@@ -8845,9 +8242,6 @@ if __name__ == "__main__":
      print(instance.__slots__)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Monkey patching ? Give example ?
 
@@ -8866,9 +8260,6 @@ class A:
 
 Hi, monkey
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain serialization and deserialization / Pickling and unpicking?
 
@@ -8893,9 +8284,6 @@ Reference:
 [1]   https://www.sanfoundry.com/python-questions-answers-pickle-module/
 [2]   https://docs.python-guide.org/scenarios/serialization/
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to open a file c:\scores.txt for writing?
 
@@ -8927,9 +8315,6 @@ data = c1.fetch(s)
 db.close()
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How would you generate a random number in Python?
 
@@ -8977,9 +8362,6 @@ We can also use the function randint(). It takes two arguments to indicate a ran
 
 2
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. With Python, how do you find out which directory you are currently in?
 
@@ -9001,9 +8383,6 @@ We can also change the current working directory with chdir().
 
 'C:\\Users\\lifei\\Desktop'
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Tkinter?
 
@@ -9020,9 +8399,6 @@ This creates a window with the title 'My Game'. You can position your widgets on
 
 Follow this link to know more about Python Libraries
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How would you make a Python script executable on Unix?
 
@@ -9031,9 +8407,6 @@ Ans. For this to happen, two conditions must be met:
 The script file\'s mode must be executable
 The first line must begin with a hash(#). An  example of this will be: #!/usr/local/bin/python
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Differentiate between the append() and extend() methods of a list.
 
@@ -9057,9 +8430,6 @@ And this is how extend() works:
 
 [1, 2, 3, 4, 5, 6, 7, 8]
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is JSON? Describe in brief how you\'d convert JSON data into Python data?
 
@@ -9070,9 +8440,6 @@ Ans. JSON stands for JavaScript Object Notation. It is a highly popular data for
 
 Python supports JSON parsers. In fact, JSON-based data is internally represented as a dictionary in Python. To convert JSON data into Python data, we use the load() function from the JSON module.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you execute a Python Script?
 
@@ -9080,9 +8447,6 @@ From the command line, type python .py or pythonx.y
 .py where the x.y is the version of the Python interpreter desired.
 Learn how to use Python, from beginner basics to advanced techniques, with online video tutorials taught by industry experts. Enroll for Free Python Training Demo!
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a namespace in Python?
 
@@ -9092,9 +8456,6 @@ A namespace is a collection of names. It maps names to corresponding objects. Wh
 
 On starting the interpreter, it creates a namespace for as long as we don\'t exit. We have local namespaces, global namespaces, and a built-in namespace.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain the differences between local and global namespaces.
 
@@ -9108,18 +8469,12 @@ Global, Local, Module and Class namespaces.
 
 Triple quotes ''"" or '" are string delimiters that can span multiple lines in Python. Triple quotes are usually used when spanning multiple lines, or enclosing a string that has a mix of single and double quotes contained therein.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to use GUI that comes with Python to test your code?
 
 That is just an editor and a graphical version of the interactive shell. You write or load code and run it, or type it into the shell.
 There is no automated testing.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do I make a Python script executable on UNIX?
 
@@ -9146,9 +8501,6 @@ exec python $0 ${1+"$@"}
 The minor disadvantage is that this defines the script\'s `__doc__`string. However, you can fix that by adding:  
 `__doc__ = """…Whatever…"""`
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do I find undefined g++ symbols __builtin_new or __pure_virtual?
 
@@ -9157,9 +8509,6 @@ Recompile Python
 Re-link it using g++ (change LINKCC in the python Modules Makefile)
 Link your extension module using g++ (e.g., "g++ -shared -o mymodule.so mymodule.o").
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do I send mail from a Python script?
 
@@ -9199,9 +8548,6 @@ if sts != 0:
     print ("Sendmail exit status", sts)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How can I mimic CGI form submission (METHOD=POST)? I would like to retrieve web pages that are the result of posting a form.
 
@@ -9243,9 +8589,6 @@ print(x)
 'name=Guy%20Steele,%20Jr.'
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Executing DML Commands Through Python Programs?
 
@@ -9264,9 +8607,6 @@ Create the emp1 table in the database by using following command
 Whenever we run the DML commands through the python program, then the no.of records which are modified because of that command will be stored into the rowcount attribute of cursor object.     
 After executing the DML Command through the python program we have to call commit method of cursor object.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ### _Multithreading_
 
@@ -9298,17 +8638,11 @@ You can access a module written in Python from C by following method,
 
 Module = =PyImport_ImportModule("<modulename>");
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Mention the use of the split function in Python?
 
 The use of the split function in Python is that it breaks a string into shorter strings using the defined separator. It gives a list of all words present in the string.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Mention what is the difference between Django, Pyramid, and Flask?
 
@@ -9322,9 +8656,6 @@ Like Pyramid, Django can also used for larger applications. It includes an ORM.
 
 The data in the failed server won\'t get removed, but there is a provision for auto-failure, which you can configure for multiple nodes. Fail-over can be triggered during any kind of socket or Memcached server level errors and not during normal client errors like adding an existing key, etc.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain how you can minimize the Memcached server outages in your Python Development?
 
@@ -9333,18 +8664,12 @@ The data in the failed server won\'t get removed, but there is a provision for a
 - Code is another option to minimize server outages as it gives you the liberty to change the Memcached server list with minimal work
 -  Setting timeout value is another option that some Memcached clients implement for Memcached server outage. When your Memcached server goes down, the client will keep trying to send a request till the time-out limit is reached
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain what is Dogpile effect? How can you prevent this effect?
 
 Dogpile effect is referred to the event when cache expires, and websites are hit by the multiple requests made by the client at the same time.  
 This effect can be prevented by using semaphore lock. In this system when value expires, first process acquires the lock and starts generating new value.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain how Memcached should not be used in your Python project?
 
@@ -9352,9 +8677,6 @@ Memcached common misuse is to use it as a data store, and not as a cache. Never 
 
 Memcached does not offer any form of security either in encryption or authentication
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Flask & its benefits?
 
@@ -9364,9 +8686,6 @@ Flask is a web micro framework for Python based on "Werkzeug, Jinja 2 and good i
 
 Flask is part of the micro-framework. Which means it will have little to no dependencies on external libraries. It makes the framework light while there is little dependency to update and less security bugs.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Mention what is Flask-WTF and what are their features?
 
@@ -9379,9 +8698,6 @@ Flask-WTF offers simple integration with WTForms. Features include for Flask WTF
     Recaptcha supporting
     File upload that works with Flask Uploads
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain what is the common way for the Flask script to work?
 
@@ -9394,9 +8710,6 @@ The common way for the flask script to work is
 
 A session basically allows you to remember information from one request to another. In a flask, it uses a signed cookie so the user can look at the session contents and modify. The user can modify the session if only it has the secret key Flask.secret_key.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Is Flask an MVC model and if yes give an example showing MVC pattern for your application?
 
@@ -9426,9 +8739,6 @@ While your model or main part will be
 
     app.run(debug = True)
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain database connection in Python Flask?
 
@@ -9438,9 +8748,6 @@ Best database for flask is MySQL. Flask supports database powered application (R
    - `after_request()`: They are called after a request and pass the response that will be sent to the client.   
    - `teardown_request()`: They are called in situation when exception is raised, and response are not guaranteed. They are called after the response been constructed. They are not allowed to modify the request, and their values are ignored.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## How will you sort result of student whose marks are unknown to you based on their roll numbers? 
 
@@ -9482,9 +8789,6 @@ def fibonacci(n: int) -> int:
 
 **Use Case:** A data engineering team uses `collections.defaultdict` + `itertools.groupby` to aggregate streaming event logs by user session without third-party dependencies, keeping the Lambda function package under 10 MB.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are serialization formats in Python?
 
@@ -9530,9 +8834,6 @@ print(output.getvalue())
 
 **Use Case:** A machine learning platform serializes trained `scikit-learn` models with `pickle` for internal storage, but exposes model metadata via JSON for the REST API, keeping concerns separated by format suitability.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What version of Azure Data Factory are you using?
 
@@ -9580,9 +8881,6 @@ while True:
 
 **Use Case:** A data platform team uses ADF V2 with Self-Hosted IR to move data from on-premises SQL Server to Azure Data Lake Gen2, triggered by Azure Event Grid file-arrival events, with Python SDK used in CI/CD pipelines to deploy and monitor ADF runs automatically.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to execute Java code from Python?
 
@@ -9638,9 +8936,6 @@ print(f"Return code: {code}")        # 0
 
 **Use Case:** A polyglot CI/CD pipeline uses Python as the orchestration layer to compile, test, and execute Java microservices during integration testing, capturing their stdout/stderr for structured test reporting.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to find PID of a process and how much resources it is taking on Linux?
 
@@ -9709,9 +9004,6 @@ print(top_processes_by_memory())
 
 **Use Case:** A production monitoring agent runs as a sidecar container, using `psutil` to emit process-level CPU and RSS memory metrics to Prometheus every 15 seconds, alerting when any single process exceeds 80% of available memory.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are tools for data ingestion?
 
@@ -9749,9 +9041,6 @@ producer.close()
 
 **Use Case:** A ride-sharing platform ingests 2M GPS location updates per minute using Apache Kafka as the ingestion backbone, with Kafka Streams for real-time ETA computation and a Spark Structured Streaming job writing aggregated trip data to Delta Lake every 30 seconds.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is inheritance?
 
@@ -9810,9 +9099,6 @@ print(isinstance(g, Animal))    # True
 
 **Use Case:** A payment processing system uses an abstract `PaymentProcessor` base class enforcing a `process(amount)` interface. Concrete subclasses `StripeProcessor`, `PayPalProcessor`, and `BankTransferProcessor` implement it differently — new providers are added without modifying existing code (Open/Closed Principle).
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Differentiate between `append()` and `extend()` methods of a list.
 
@@ -9856,9 +9142,6 @@ print(f"append loop: {t1:.3f}s  extend: {t2:.3f}s")  # extend ~3x faster
 
 **Use Case:** A web scraper collects page results in batches; `extend()` merges each batch into the master results list efficiently, while `append()` would wrap each batch in a nested list, requiring flattening later.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Explain `ctypes` and why you would use them?
 
@@ -9913,9 +9196,6 @@ print(buf.raw)   # b'Hello\x00\x00\x00\x00\x00'
 
 **Use Case:** A real-time image processing service calls a highly optimized C++ computer vision library via `ctypes` to apply SIMD-accelerated filters on video frames, achieving 200 FPS — impossible with pure Python.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you go about packaging Python code?
 
@@ -9989,9 +9269,6 @@ pip install -e ".[dev]"
 
 **Use Case:** A data science team packages shared feature engineering utilities as an internal PyPI package, enabling all microservices to `pip install internal-features==2.3.1` with pinned versions — eliminating copy-paste drift between 12 separate repos.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What does `__some_variable__` (dunder / magic attribute) mean?
 
@@ -10053,9 +9330,6 @@ print(v1.__class__.__name__) # 'Vector'
 
 **Use Case:** A DataFrame-like class overrides `__getitem__`, `__setitem__`, `__len__`, and `__iter__` to give users a familiar `df["column"]` and `for row in df:` interface, with custom memory-mapped storage underneath.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between `str()` and `repr()`?
 
@@ -10103,9 +9377,6 @@ print(repr(s))   # 'hello\\nworld'  (escape shown — unambiguous)
 
 **Use Case:** A logging framework uses `repr()` to record all variable values in exception tracebacks — `Money(1234.5, 'GBP')` in the log is immediately copy-pasteable to a Python REPL for debugging, whereas `GBP 1,234.50` is ambiguous and unrepresentable.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are Middlewares?
 
@@ -10171,9 +9442,6 @@ async def log_requests(request: Request, call_next) -> Response:
 
 **Use Case:** A microservice uses three middleware layers: `AuthMiddleware` (validates JWT), `RateLimitMiddleware` (100 req/min per user), and `TracingMiddleware` (injects OpenTelemetry spans) — all added to the pipeline in `main.py` without touching any route handler.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to generate random numbers?
 
@@ -10232,9 +9500,6 @@ print(rng.standard_normal(size=(3, 3)))  # 3×3 matrix of N(0,1)
 
 **Use Case:** An A/B testing service uses `random.seed(user_id)` to deterministically assign users to experiment groups (same user always gets same variant), while `secrets.token_urlsafe(32)` generates the secure session tokens for those same users.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is `virtualenv`?
 
@@ -10296,9 +9561,6 @@ print(sys.prefix == sys.base_prefix)  # False — we're in a venv
 
 **Use Case:** A CI/CD pipeline creates a fresh `.venv` on every build run, installs pinned `requirements.txt`, and runs tests — guaranteeing reproducible, conflict-free builds regardless of what else is installed on the build agent.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is a context processor?
 
@@ -10354,9 +9616,6 @@ TEMPLATES = [{
 
 **Use Case:** An enterprise Django portal uses a context processor to inject the current user\'s `active_tenant`, `feature_flags`, and `branding_config` into every template render — eliminating repetitive `context.update(...)` calls across 200+ views.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are `exec()` and `eval()`?
 
@@ -10407,9 +9666,6 @@ print(safe_data)   # [1, 2, 3, {'key': 'value'}]
 
 **Use Case:** A rule engine uses `exec()` to dynamically compile and cache user-defined business rule scripts at startup (compile-once), then `eval()` with a restricted namespace to evaluate them against transaction records — achieving configurable logic without code deployment.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How to pass command-line arguments?
 
@@ -10505,9 +9761,6 @@ if __name__ == "__main__":
 
 **Use Case:** A data engineering CLI tool uses `argparse` with `--env`, `--dry-run`, and `--config` flags, enabling both interactive use and automated invocation in Airflow BashOperator tasks with deterministic, documentable options.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are `ord()` and `chr()`?
 
@@ -10556,9 +9809,6 @@ def is_ascii_printable(ch: str) -> bool:
 
 **Use Case:** A data masking service encodes sensitive identifiers by shifting each character\'s code point with a key-based offset (`ord(ch) + key % 26`) — a simple, reversible transformation that obscures values in test datasets without external crypto dependencies.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Difference between `input()` and `raw_input()`?
 
@@ -10606,9 +9856,6 @@ print(safe_value, type(safe_value))
 
 **Use Case:** Migrating a Python 2 CLI tool to Python 3 requires replacing all `raw_input()` calls with `input()` and auditing all `input()` calls (which evaluated code in Py2) to add explicit type conversion — preventing a security regression.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. Why do we write `if __name__ == "__main__"` in a Python script?
 
@@ -10659,9 +9906,6 @@ $ python utils.py
 
 **Use Case:** A data pipeline module defines reusable ETL functions at the top level and uses the `__main__` guard for a self-test run that seeds a local database — CI runs `python etl.py` for smoke tests, while Airflow imports the same module\'s functions into DAG tasks without triggering the seed.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is PEP 8?
 
@@ -10734,9 +9978,6 @@ lst[1:3]                # no spaces in slice
 
 **Use Case:** A team of 20 engineers enforces PEP 8 via `ruff` in pre-commit hooks and CI — every PR is automatically formatted before review, eliminating style discussions and reducing code review time by focusing on logic rather than whitespace.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What parameters should you check when a server is down?
 
@@ -10818,13 +10059,10 @@ def server_health_report(host: str, port: int) -> dict:
 
 **Use Case:** A Python-based monitoring agent runs `server_health_report()` every 60 seconds and publishes metrics to Prometheus — alerting on-call engineers via PagerDuty when `port_open` is `False` or load average exceeds 8.
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 **Python for AI & Data Science**
 
-## # 22. Numerical Computing
+## 22. Numerical Computing
 
 <br>
 
@@ -10838,9 +10076,6 @@ arr = np.array([1, 3, 2, 4, 5])
 print(arr.argsort()[-3:][::-1])
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the difference between NumPy and SciPy?
 
@@ -10869,9 +10104,6 @@ Yes, a NumPy array is better than a Python list. This is in the following ways:
 
 Read our latest tutorial on Python NumPy
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How would you create an empty NumPy array?
 
@@ -10890,6 +10122,3 @@ b. Option 2
 
 array([], shape=(0, 0), dtype=float64)
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>

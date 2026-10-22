@@ -189,6 +189,3 @@ It checks whether the String is matching with the specified regular expression r
 
 It is similar to the charAt method however it returns the Unicode code point value of specified index rather than the character itself.
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>

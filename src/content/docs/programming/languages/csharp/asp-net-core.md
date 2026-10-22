@@ -3,10 +3,6 @@ title: "ASP.NET Core"
 description: "ASP.NET Core interview questions and concepts — middleware pipeline, dependency injection, routing, Kestrel, MVC pattern, and differences from classic ASP.NET."
 ---
 
-> *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
-
-<br/>
-
 ## Q. What is ASP.NET Core and how is it different from ASP.NET? What are its main features?
 
 **ASP.NET Core** is a cross-platform, high-performance, open-source web framework for building modern cloud-based, internet-connected applications. It runs on .NET (formerly .NET Core) and replaces the Windows-only ASP.NET 4.x.
@@ -31,9 +27,6 @@ description: "ASP.NET Core interview questions and concepts — middleware pipel
 - Native Docker / container support
 - Razor Pages, Blazor, SignalR, gRPC support
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you create a new ASP.NET Core project?
 
@@ -79,9 +72,6 @@ app.MapControllers();
 app.Run();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the purpose of `Startup.cs` / `Program.cs`? What is `ConfigureServices` and `IApplicationBuilder`?
 
@@ -118,9 +108,6 @@ app.Run();
 // app.UseMiddleware<T>() — add typed middleware
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is middleware in ASP.NET Core and how do you configure and create custom middleware?
 
@@ -189,9 +176,6 @@ app.Map("/health", branch =>
 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is dependency injection (DI) in ASP.NET Core? What is the difference between `IServiceCollection` and `IServiceProvider`?
 
@@ -242,9 +226,6 @@ var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 await db.Database.MigrateAsync();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you handle configuration in ASP.NET Core? What is `appsettings.json`, `IConfiguration`, and the Options pattern?
 
@@ -316,9 +297,6 @@ builder.Configuration.AddCommandLine(args);
 builder.Configuration.AddUserSecrets<Program>();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement routing in ASP.NET Core? What is the difference between conventional and attribute routing?
 
@@ -375,9 +353,6 @@ app.MapPost("/products", async (CreateProductDto dto, IProductService svc) =>
 public IActionResult GetProduct(int id) => Ok();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you create a RESTful Web API? What is `IActionResult` and how do you return different responses?
 
@@ -451,9 +426,6 @@ public class ProductsController(IProductService service, ILogger<ProductsControl
 // Content(str, mediaType)  — raw content
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is `[ApiController]`, `[FromBody]`, `[FromQuery]`, and model binding?
 
@@ -514,9 +486,6 @@ public class DateRangeDto : IValidatableObject
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you handle exceptions globally in ASP.NET Core?
 
@@ -599,9 +568,6 @@ public class ValidationException(string message) : Exception(message);
 public class UnauthorizedException(string message) : Exception(message);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement authentication and authorization? What are JWT tokens and how are they used?
 
@@ -681,9 +647,6 @@ string userId = User.FindFirstValue(ClaimTypes.Name)!;
 bool isAdmin  = User.IsInRole("Admin");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is ASP.NET Core Identity and how do you configure it?
 
@@ -744,9 +707,6 @@ var token = await userManager.GenerateTwoFactorTokenAsync(user, "Email");
 await userManager.SetTwoFactorEnabledAsync(user, true);
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement caching in ASP.NET Core? `IMemoryCache`, distributed cache, and `ResponseCache`?
 
@@ -807,9 +767,6 @@ app.UseOutputCache();
 public IActionResult GetWithOutputCache() => Ok("output cached");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement logging in ASP.NET Core? What is `ILogger`?
 
@@ -872,9 +829,6 @@ public static partial class Log
 Log.OrderPlaced(logger, 42, "Alice");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are health checks and how do you create custom health checks?
 
@@ -920,9 +874,6 @@ app.MapHealthChecks("/health/detail", new HealthCheckOptions
 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is `IHostedService`, `BackgroundService`, and how do you create background services?
 
@@ -974,9 +925,6 @@ builder.Services.AddHostedService<OrderProcessingWorker>();
 // dotnet new worker -n MyWorkerService
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is SignalR and how do you implement real-time communication?
 
@@ -1026,9 +974,6 @@ public class NotificationService(IHubContext<ChatHub> hub)
 // await conn.invoke("SendMessage", "Alice", "Hello!");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement gRPC in ASP.NET Core? What is gRPC?
 
@@ -1076,9 +1021,6 @@ app.MapGrpcService<GreeterService>();
 // var reply   = await client.SayHelloAsync(new HelloRequest { Name = "World" });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Kestrel? How do you deploy to IIS, Docker, and Azure?
 
@@ -1126,9 +1068,6 @@ dotnet publish -c Release -o ./publish
 dotnet ./publish/MyApi.dll
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the `Environment` class? How do you handle environment-specific settings?
 
@@ -1170,9 +1109,6 @@ bool isStaging = app.Environment.IsEnvironment("Staging");
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is CORS, HTTPS/HSTS, CSRF, XSS, and how do you secure an ASP.NET Core app?
 
@@ -1257,9 +1193,6 @@ app.UseRateLimiter();
 public IActionResult Login() => Ok();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Data Protection in ASP.NET Core?
 
@@ -1304,9 +1237,6 @@ public class TokenService(IDataProtectionProvider provider)
 // Stored in %APPDATA%\Microsoft\UserSecrets\ — NEVER in source control
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What are Action Filters, Resource Filters, Result Filters, Exception Filters, and Authorization Filters?
 
@@ -1386,9 +1316,6 @@ public class OrdersController : ControllerBase { }
 public IActionResult Secure() => Ok();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you handle file uploads and downloads in ASP.NET Core?
 
@@ -1448,9 +1375,6 @@ public async Task StreamLargeFile(int id)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is Swagger/OpenAPI and how do you add API versioning?
 
@@ -1506,9 +1430,6 @@ public class ProductsV2Controller : ControllerBase
 // Version via header:       GET /api/products + Header: api-version: 2.0
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you use Razor Pages? What is the difference between Razor Pages and MVC?
 
@@ -1553,9 +1474,6 @@ builder.Services.AddRazorPages();
 app.MapRazorPages();
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement pagination, sorting, filtering, and use AutoMapper?
 
@@ -1620,9 +1538,6 @@ public class ProductService(IMapper mapper, AppDbContext db)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement the Repository and Unit of Work patterns in ASP.NET Core?
 
@@ -1684,9 +1599,6 @@ public class OrderService(IUnitOfWork uow)
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is `TempData`, `ViewData`, `ViewBag`? How do you pass data from controller to view?
 
@@ -1729,9 +1641,6 @@ public IActionResult Create(CreateProductDto dto)
 // TempData is cleared after being read (use TempData.Keep() to preserve)
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement response compression, localization, sessions, and cookies?
 
@@ -1791,9 +1700,6 @@ string? theme = Request.Cookies["theme"];
 Response.Cookies.Delete("theme");
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you use `HttpClient` to consume a Web API?
 
@@ -1841,9 +1747,6 @@ public class AuthHeaderHandler(ITokenService tokens) : DelegatingHandler
 }
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. What is the `.NET Standard`, `.NET Core`, `.NET Framework`, and Xamarin?
 
@@ -1867,9 +1770,6 @@ public class AuthHeaderHandler(ITokenService tokens) : DelegatingHandler
 <TargetFramework>netstandard2.0</TargetFramework>
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>
 
 ## Q. How do you implement WebSockets and Server-Sent Events (SSE) in ASP.NET Core?
 
@@ -1915,6 +1815,3 @@ app.MapGet("/sse", async (HttpContext context, CancellationToken ct) =>
 });
 ```
 
-<div align="right">
-    <b><a href="#table-of-contents">↥ back to top</a></b>
-</div>

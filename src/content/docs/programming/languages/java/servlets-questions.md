@@ -63,9 +63,6 @@ public void destroy() {
    // Finalization code...
 }
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is ServletContext Interface?
 ServletContext is a configuration Object which is created when web application is started. It contains different initialization parameter that can be configured in web.xml.
@@ -137,9 +134,6 @@ Most of the classes and interfaces required to create servlets are contained in 
 * `public void service(ServletRequest request, ServletResponse response) throws ServletException, java.io.IOException` called to process each request;
 * `public void destroy()` performed before unloading the servlet from memory.
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What are the advantages of servlet technology over CGI (Common Gateway Interface)?
 * Servlets provide better query processing performance and more efficient use of memory by taking advantage of multithreading (a new thread is created for each request, which is faster than allocating memory for a new object for each request, as happens in CGI).
@@ -175,9 +169,6 @@ Thus, the servlet is created the first time it is accessed and lives throughout 
 * `public void service(ServletRequest request, ServletResponse response)` - called for each request. The method cannot be called before the init()method is executed .
 * `public void destroy()` - called to destroy the servlet (once during the life of the servlet).
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What actions do you need to do when creating servlets?
 To create a servlet `ExampleServlet`, you must describe it in the deployment descriptor:
@@ -212,9 +203,6 @@ To call a servlet from the same application, you must use the inter-servlet comm
 
 If you need to call a servlet belonging to another application, then you `RequestDispatcher` will not be able to use it, because it is defined only for the current application. For such purposes, you must use the method `ServletResponse- sendRedirect()` which is provided with the full URL of another servlet. You can use to transfer data between servlets cookies.
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is Request Dispatcher?
 The `RequestDispatcher` interface is used to transfer the request to another resource, while it is possible to add data received from this resource to the servlet’s own response. This interface is also used for internal communication between servlets in the same context.
@@ -278,9 +266,6 @@ An abstract class GenericServletis an implementation of the interface independen
 * `doOptions()`- for processing HTTP requests OPTIONS;
 * `doTrace()`- for processing HTTP requests TRACE.
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Which HTTP method is not immutable?
 An HTTP method is called immutable if it always returns the same result on the same request. HTTP methods `GET`, `PUT`, `DELETE`, `HEAD` and `OPTIONS` are immutable, so it is necessary to implement an application so that these methods return the same results consistently. Variable methods include a method `POST` that is used to implement something that changes with each request.
@@ -298,9 +283,6 @@ There are several ways to provide a unique session identifier:
     * Most often, just tracking a session is not enough, you also need to save any additional data about it that may be required when processing subsequent requests. Implementing this behavior requires a lot of extra effort.
     * All of the above methods are not universal: for each of them you can choose a specific scenario in which they will not work.
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What are cookies? What methods for working with cookies are provided in servlets?
 Cookies (“cookies”) - a small piece of data sent by a web server and stored on the user's device. Each time you try to open a site page, the web client sends cookies corresponding to this site to the web server as part of the HTTP request. It is used to save data on the user side and in practice it is usually used to:
@@ -340,9 +322,6 @@ To provide transport layer security, you must configure SSL support for the cont
 * **Dynamically add web components**: Now you can programmatically add filters and listeners using the ServletContextobject. For this purpose methods are used addServlet(), addFilter(), addListener(). Using this innovation, it became possible to build a dynamic system in which the necessary object will be created and called only when necessary.
 * **Asynchronous execution**: Support for asynchronous processing allows you to transfer the execution of a request to another thread without keeping the entire server busy.
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What authentication methods are available to the servlet?
 The servlet specification defines four types of authentication:
@@ -402,9 +381,6 @@ This configuration file specifies the deployment settings for a module or applic
 ```
 For web applications, the deployment descriptor must be named `web.xml` and located in the directory `WEB-INF` at the root of the web application. This file is the standard deployment descriptor defined in the specification. There are also other types of descriptors, such as a deployment descriptor file `sun-web.xml` that contains Sun GlassFish Enterprise Server- specific deployment information for that particular application server or a file `application.xml` in the J2EE`META-INF` application directory.
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. Why do servlets use different listeners?
 The Listener (listener) acts as a trigger, performing certain actions when an event occurs in the servlet's life cycle.
@@ -454,9 +430,6 @@ If the integer value of this parameter is negative, then the servlet will be loa
     <load-on-startup> 1 </load-on-startup>
 </servlet>
 ```
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. How to handle exceptions thrown by another servlet in an application?
 When the application throws an exception, the servlet container processes it and creates an HTML response. This is similar to what happens with error codes like 404, 403, etc.
@@ -492,9 +465,6 @@ A servlet filter can be configured to work with a single servlet or a group of s
 * `void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException;`
 * `void destroy();`
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Q. What is difference between sendRedirect() and forward() in Servlet?
 
@@ -603,9 +573,6 @@ public class SimpleServlet extends HttpServlet {
 }
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 #### Q. What is a Server Side Include (SSI)?
 #### Q. What are the differences between ServletContext vs ServletConfig?
@@ -631,6 +598,3 @@ public class SimpleServlet extends HttpServlet {
 #### Q. What is Servlet Chaining?
 #### Q. How do you find out what client machine is making a request to your servlet?
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>

@@ -1,6 +1,6 @@
-﻿---
+---
 title: "JSP Interview Questions"
-description: "JavaServer Pages (JSP) interview questions â€” implicit objects, directives, scriptlets, expression language, JSTL, and the JSP lifecycle."
+description: "JavaServer Pages (JSP) interview questions — implicit objects, directives, scriptlets, expression language, JSTL, and the JSP lifecycle."
 ---
 
 ## Q. What is JSP Implicit Object?

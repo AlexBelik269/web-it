@@ -5,7 +5,9 @@ description: "The ten most critical web application security risks — attack me
 
 The OWASP Top 10 is the industry-standard list of the most critical web application security risks, compiled from data across hundreds of thousands of real applications. Updated periodically by the Open Worldwide Application Security Project.
 
-**Current edition: OWASP Top 10:2021**
+**Current edition: OWASP Top 10:2025.** The 2021 edition is shown for comparison, and the detailed sections further down still follow the 2021 numbering.
+
+The chart shows the 2021 data: the share of tested applications with at least one finding in each category.
 
 ```mermaid
 pie title Percentage of Applications with Each Finding
@@ -44,9 +46,9 @@ pie title Percentage of Applications with Each Finding
 | A04 | Cryptographic Failures                         | ~3–4% of applications show weak or incorrect crypto usage                                         | Critical  |
 | A05 | Injection                                      | One of the most commonly detected vulnerability classes in real-world testing                     | Critical  |
 | A06 | Insecure Design                                | Moderate prevalence (~3–5%), often architectural rather than implementation-level                 | High      |
-| A07 | Identification & Authentication Failures       | Moderate occurrence; frequently exploited in credential attacks                                   | High      |
-| A08 | Software & Data Integrity Failures             | Low–moderate detection rate, high exploitation impact                                              | High      |
-| A09 | Security Logging & Monitoring Failures         | Often under-detected; weak visibility and alerting across systems                                  | Medium    |
+| A07 | Authentication Failures                        | Moderate occurrence; frequently exploited in credential attacks                                   | High      |
+| A08 | Software or Data Integrity Failures            | Low–moderate detection rate, high exploitation impact                                              | High      |
+| A09 | Security Logging & Alerting Failures           | Often under-detected; weak visibility and alerting across systems                                  | Medium    |
 | A10 | Mishandling of Exceptional Conditions          | Emerging category; limited historical incidence data, increasing relevance in modern systems       | High      |
 
 ### The Changes
@@ -55,7 +57,10 @@ pie title Percentage of Applications with Each Finding
 
 ---
 
-2021 Standard
+## Detailed categories (2021 numbering)
+
+The 2025 list keeps most of these categories. The main changes: *Vulnerable & Outdated Components* grew into **Software Supply Chain Failures** (A03:2025), *SSRF* was merged into **Broken Access Control**, and **Mishandling of Exceptional Conditions** (A10:2025) is new.
+
 ## A01 — Broken Access Control
 
 **CWEs:** CWE-200, CWE-284, CWE-285, CWE-639 (IDOR), CWE-862 (Missing Authorization)
@@ -355,7 +360,7 @@ curl "https://example.com/hello?name={{7*7}}"
 - Escape template input; never render raw user input as a template
 - Least-privilege database accounts — the app user should not have `DROP TABLE` or `CREATE USER` permissions
 
-See [Input Validation](/security/api/input-validation) and [SQL Injection](/security/web/sql-injection) for full coverage.
+See [Input Validation](/web/api/input-validation) and [SQL Injection](/security/web/sql-injection) for full coverage.
 
 ---
 

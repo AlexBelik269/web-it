@@ -43,9 +43,6 @@ List all the namespace
 kubectl get all --all-namespaces
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Daemonsets
 
@@ -87,9 +84,6 @@ Display the detailed state of daemonsets within a namespace
 kubectl describe ds <daemonset_name> -n <namespace_name>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Deployments
 
@@ -131,9 +125,6 @@ See the rollout status of a deployment
 kubectl rollout status deployment <deployment_name>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Events
 
@@ -169,9 +160,6 @@ Filter out normal events from a list of events
 kubectl get events --field-selector type!=Normal
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Logs
 
@@ -237,9 +225,6 @@ Include the most recent 5 minutes of logs
 kubetail <pod_prefix> -s 5m
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Manifest Files
 
@@ -275,9 +260,6 @@ Delete an object
 kubectl delete -f manifest_file.yaml
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Namespaces
 
@@ -319,9 +301,6 @@ Display Resource (CPU/Memory/Storage) usage for a namespace
 kubectl top namespace <namespace_name>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Nodes
 
@@ -393,9 +372,6 @@ Add or update the labels of one or more nodes
 kubectl label node
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Pods
 
@@ -455,9 +431,6 @@ Add or update the label of a pod
 kubectl label pod <pod_name>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Replication Controllers
 
@@ -475,9 +448,6 @@ List the replication controllers by namespace
 kubectl get rc --namespace=”<namespace_name>”
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## ReplicaSets
 
@@ -501,9 +471,6 @@ Scale a ReplicaSet
 kubectl scale --replicas=[x] 
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Secrets
 
@@ -531,9 +498,6 @@ Delete a secret
 kubectl delete secret <secret_name>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Services
 
@@ -563,9 +527,6 @@ Edit and update the definition of one or more services
 kubectl edit services
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Service Accounts
 
@@ -595,9 +556,6 @@ Delete a service account
 kubectl delete serviceaccount <service_account_name>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## StatefulSet
 
@@ -615,9 +573,6 @@ Delete StatefulSet only (not pods)
 kubectl delete statefulset/[stateful_set_name] --cascade=false
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Common Options
 
@@ -645,9 +600,6 @@ kubectl get pods -n=[namespace_name]
 kubectl create -f ./newpod.json
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## Kubectl Short Names
 
@@ -676,6 +628,3 @@ kubectl create -f ./newpod.json
 |sa	             |serviceaccounts|
 |svc	         |services|
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>

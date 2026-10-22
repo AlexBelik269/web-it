@@ -2686,7 +2686,7 @@ perl -p -i -e 's/\t/  /g' filename
 perl -lne '$i++; $in += length($_); END { print "$i lines, $in characters"; }' filename
 ```
 
-#### Shell Tricks &nbsp;[<sup>[TOC]</sup>](#anger-table-of-contents)
+#### Shell Tricks &nbsp;[<sup>[TOC]</sup>](#table-of-contents)
 
 When you get a shell, it is generally not very clean, but after following these steps, you will have a fairly clean and comfortable shell to work with.
 
@@ -2697,7 +2697,7 @@ When you get a shell, it is generally not very clean, but after following these 
 5) `xterm` (when asked for terminal type)
 6) `export TERM=xterm; export SHELL=bash`
 
-#### Shell functions &nbsp;[<sup>[TOC]</sup>](#anger-table-of-contents)
+#### Shell functions &nbsp;[<sup>[TOC]</sup>](#table-of-contents)
 
 ##### Table of Contents
 

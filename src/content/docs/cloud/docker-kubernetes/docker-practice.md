@@ -13,7 +13,6 @@ description: "Hands-on workshop covering Docker fundamentals — images, contain
 1. [Creating an Image from a Dockerfile](#8-creating-an-image-from-a-dockerfile)
 1. [COPY and ADD commands](#9-copy-and-add-commands)
 1. [Dockerizing a Nodejs project and deploy in Docker-Hub](#10-dockerizing-a-nodejs-project-and-deploy-in-docker-hub)
-1. [React and SQL-Server connectivity](#11-react-and-sql-server-connectivity)
 1. [Docker Compose](#12-docker-compose)
 
 <br/>
@@ -31,9 +30,6 @@ docker info
 docker run hello-world  // check image in local and download from docker hub 
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 2. Images and Containers
 
@@ -45,9 +41,6 @@ docker image ls             // Display list of images
 docker images               // Display list of images 
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 3. Create and Start Containers
 
@@ -64,9 +57,6 @@ docker conatiner ls -a
 docker system prune --all                // Remove all dangling and unused images 
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 4. Logs, Stop, and Kill Containers
 
@@ -84,9 +74,6 @@ docker container stop <container-id>     // Does the cleanup before stopping the
 docker container kill <container-id>     // Stop the container immediately 
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 5. Inspect and Remove Containers
 
@@ -99,9 +86,6 @@ docker container rm -f <container-id>     // Force removal container
 docker system prune --all
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 6. Run a Command in a Running Container with exec
 
@@ -121,9 +105,6 @@ docker container run -it busybox sh       // Open sh terminal in busybox
 # exit
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 7. Creating Custom Image
 
@@ -137,9 +118,6 @@ docker container run scm-image redis-server                           // Star cu
 docker container exec -it <container-id> redis-cli                      // Validate redis server using redis-cli 
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 8. Creating an Image from a Dockerfile
 
@@ -160,9 +138,6 @@ docker build -t sofyspace/scm-redis:latest .  // Build image from current direct
 docker run sofyspace/scm-redis
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 9. COPY and ADD Commands
 
@@ -195,9 +170,6 @@ docker run -it <image-id> sh  // Rnu the build container in interactive mode
 # cd ..                         // Parent directory 
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 10. Dockerizing a Nodejs project and deploy in Docker-Hub
 
@@ -260,9 +232,6 @@ docker login
 docker push sofyspace/scm-website                     // Deploy in Docker Hub
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 11. Run SQL Server on Docker
 
@@ -349,9 +318,6 @@ GO
 
 * *[https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-powershell](https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-powershell)*
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
 
 ## 12. Docker Compose
 
@@ -404,6 +370,3 @@ docker-compose down  // Remove Container
 
 * *[https://github.com/bradtraversy/docker-node-mongo](https://github.com/bradtraversy/docker-node-mongo)*
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>

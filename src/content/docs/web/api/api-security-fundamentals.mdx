@@ -257,7 +257,7 @@ public User create(@RequestBody CreateUserRequest dto) {
 
 Validate all incoming data at the API boundary. Never trust client input.
 
-See [Input Validation](/security/api/input-validation) for full coverage. Key principles:
+See [Input Validation](/web/api/input-validation) for full coverage. Key principles:
 
 - Validate type, format, length, and range for all fields
 - Use a schema validation library (Zod, Joi, Yup, Pydantic)
@@ -288,7 +288,7 @@ app.post('/api/users', (req, res) => {
 
 Rate limiting prevents brute force, credential stuffing, scraping, and denial of service.
 
-See [Rate Limiting](/security/api/rate-limiting) for full coverage. Apply different limits by endpoint sensitivity:
+See [Rate Limiting](/web/api/rate-limiting) for full coverage. Apply different limits by endpoint sensitivity:
 
 <Tabs>
 <TabItem label="JavaScript">
